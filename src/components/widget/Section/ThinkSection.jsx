@@ -5,6 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { CiHeart } from "react-icons/ci";
 import { BiMessageSquareDots } from "react-icons/bi";
 import { VscLink } from "react-icons/vsc";
+import ChangePage from "../../ui/Pagination";
 
 function ThinkSection({ title, thinks = false }) {
   return (
@@ -93,6 +94,14 @@ function ThinkSection({ title, thinks = false }) {
           </div>
         </Col>
       </Row>
+
+      {title === "Sizin üçün" ? (
+        <div className="flex justify-end text-[#404040] mt-2 text-sm">
+          <button>Daha Çox</button>
+        </div>
+      ) : (
+        <ChangePage />
+      )}
     </article>
   );
 }

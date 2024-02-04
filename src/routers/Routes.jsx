@@ -8,7 +8,7 @@ export const routes = [
 ];
 
 routes.map((route) => {
-  if (route === "AppLayout") {
+  if (route.layout === "AppLayout") {
     route.element = <AppLayout>{route.element}</AppLayout>;
   }
   return route;
