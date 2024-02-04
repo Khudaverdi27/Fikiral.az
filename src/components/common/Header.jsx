@@ -6,12 +6,12 @@ import Logo from "./Logo";
 
 function Header() {
   return (
-    <header className=" flex justify-between items-center">
+    <header className=" flex space-x-[10px] items-center w-full">
       <div className="gap-2 flex items-center">
         <Logo />
         <FormSearch />
       </div>
-      <div className="flex space-x-[25px] cursor-pointer items-center">
+      <div className="flex space-x-[25px] cursor-pointer items-center w-[491px]">
         <DropdownMenu dropName={"Kateqoriya"} />
         <MenuActions />
         <DropdownMenu

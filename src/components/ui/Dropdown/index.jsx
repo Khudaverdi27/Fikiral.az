@@ -1,5 +1,4 @@
 import React from "react";
-import { SlArrowDown } from "react-icons/sl";
 import { Dropdown, Space } from "antd";
 
 const DropdownMenu = ({
@@ -40,10 +39,7 @@ const DropdownMenu = ({
         }}
       >
         <a onClick={(e) => e.preventDefault()}>
-          <Space>
-            {dropName}
-            <SlArrowDown className="size-[15px]" />
-          </Space>
+          <Space className="whitespace-nowrap">{dropName}</Space>
         </a>
       </Dropdown>
     </div>
