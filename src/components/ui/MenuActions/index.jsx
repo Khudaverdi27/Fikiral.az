@@ -7,10 +7,10 @@ function MenuActions() {
   return (
     <div className="flex space-x-[30px]">
       <Badge size={"small"} count={1}>
-        <HiOutlineBell className="size-[24px] " />
+        <HiOutlineBell className="size-[24px] text-[#292D32]" />
       </Badge>
-      <IoBookmarksOutline className="size-[24px] " />
-      <GoPlus className="size-[24px] " />
+      <IoBookmarksOutline className="size-[24px] text-[#292D32]" />
+      <GoPlus className="size-[24px] text-[#292D32]" />
     </div>
   );
 }

@@ -30,16 +30,17 @@ const DropdownMenu = ({
     <div className="flex items-center pl-5">
       {profilImg && (
         <figure className="size-7 mr-2">
-          <img className="img-cover rounded-full" src={`${profilImg}`} alt="" />
+          <img className="img-cover" src={`${profilImg}`} alt="" />
         </figure>
       )}
       <Dropdown
+        placement="bottom"
         menu={{
           items,
         }}
       >
         <a onClick={(e) => e.preventDefault()}>
-          <Space className="whitespace-nowrap">{dropName}</Space>
+          <Space className="whitespace-nowrap font-[500]">{dropName}</Space>
         </a>
       </Dropdown>
     </div>

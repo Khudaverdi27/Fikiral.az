@@ -1,7 +1,10 @@
 body{
-    @apply font-sans font-[Inter] 
+    @apply font-Manrope
 }
 
 .img-cover{
-    @apply size-full object-cover overflow-hidden
+    @apply size-full object-cover overflow-hidden rounded-full
+}
+.gutter-row{
+    @apply bg-secondary p-4 rounded-[6px] size-full flex flex-col justify-between
 }

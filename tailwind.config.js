@@ -9,6 +9,10 @@ export default {
       colors:{
         primary: '#F3F3F3',
         secondary:'#E9E9E9',
+      },
+      fontFamily: {
+        'Manrope': ['ui-serif', 'Manrope'],
+        'Biryani': ['ui-serif', 'Biryani'],
       }
     },
   },
