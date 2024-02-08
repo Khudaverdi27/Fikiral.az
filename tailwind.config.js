@@ -24,6 +24,9 @@ export default {
       backdropBrightness: {
         40: '.43',
        
+      },
+      rotate: {
+        '35': '35deg',
       }
     },
   },

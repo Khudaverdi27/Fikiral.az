@@ -15,25 +15,28 @@ const DropdownMenu = ({
       setOpen(nextOpen);
     }
   };
+
+  window.addEventListener("scroll", () => {
+    setOpen(false);
+  });
+
   const items = dropDownItems.map((item, index) => ({
     key: index,
     label: (
       <span key={index}>
-        {dropDownItems.length > 2 && index === 0 && (
+        {!item.id && index === 0 && (
           <div className="flex items-center justify-between pt-2 pb-5  text-[15px] font-[500] ">
             <h1 className="cursor-auto">{item.name}</h1>
             <button onClick={() => setOpen(false)}>
-              <GrClose />
+              <GrClose className="!text-black" />
             </button>
           </div>
         )}
         <a
           rel="noopener noreferrer"
           href="#"
-          className={`flex items-center space-x-4 text-[#858585] px-3 py-2 ${
-            dropDownItems.length > 2
-              ? "justify-between hover:bg-[#D9D9D9] rounded-[6px]"
-              : ""
+          className={`flex items-center space-x-4 text-[#858585] px-2 py-1 ${
+            !item.id ? "justify-between hover:bg-[#D9D9D9] rounded-[6px]" : ""
           }`}
         >
           {item.title}
@@ -51,7 +54,7 @@ const DropdownMenu = ({
       )}
       <Dropdown
         trigger={["click"]}
-        overlayClassName={`${classes} bg-white rounded-md fixed !top-[120px]`}
+        overlayClassName={`${classes} bg-white rounded-md fixed !top-[85px]`}
         placement="bottom"
         menu={{
           items,

@@ -5,7 +5,7 @@ import { Badge } from "antd";
 import { IconContext } from "react-icons";
 import { useState } from "react";
 import DropdownMenu from "../Dropdown";
-import { categories } from "../Dropdown/DropDownCategories";
+import { notifcations } from "../Dropdown/DropDownCategories";
 
 function MenuActions() {
   const [isHovered, setIsHovered] = useState(false);
@@ -14,12 +14,12 @@ function MenuActions() {
       <IconContext.Provider
         value={{ color: "white", className: "hover:fill-[#ffff]" }}
       >
-        <Badge size={"small"} count={1}>
+        <Badge size={"small"} count={notifcations.length}>
           <button className="">
             <DropdownMenu
               dropName={<HiOutlineBell className="size-[28px] " />}
-              dropDownItems={categories}
-              classes={"w-[314px] max-h-[424px] overflow-x-hidden "}
+              dropDownItems={notifcations}
+              classes={"w-[359px] max-h-[424px] overflow-x-hidden"}
             />
           </button>
         </Badge>

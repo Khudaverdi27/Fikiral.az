@@ -29,11 +29,13 @@
     @apply w-full  bg-white  !mr-14 !px-[8px] !py-[10px] 
   }
   
- 
   .ant-dropdown-menu-item{
     @apply   hover:!bg-transparent 
   }
- a:hover  .checkmark:after{
+  .ant-dropdown-menu-item{
+    @apply   !p-2
+  }
+ a:hover .checkmark:after{
     display: block;
   }
 
