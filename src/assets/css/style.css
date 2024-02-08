@@ -1,5 +1,5 @@
 body{
-    @apply font-Manrope
+    @apply font-Manrope bg-heroBackground
 }
 
 .img-cover{
@@ -7,4 +7,89 @@ body{
 }
 .gutter-row{
     @apply bg-secondary p-4 rounded-[6px] size-full flex flex-col justify-between
+}
+.addPlusBtn::before {
+
+@apply content-['Əlavə_et'] absolute bottom-[-20px] right-[-7px] whitespace-nowrap text-xs hidden;
+  }
+
+
+.addPlusBtn:hover::before {
+  @apply block;
+}
+.container {
+  @apply w-0 relative mb-[32px]  pl-[25px] cursor-pointer text-[22px] leading-none select-none
+ }
+ 
+ /* Hide the browser's default checkbox */
+ .container input {
+   position: absolute;
+   z-index: 1;
+   opacity: 0;
+   cursor: pointer;
+   height: 29px;
+   width: 29px;
+   right: -6px;
+   top: 3px;
+ }
+ 
+ /* Create a custom checkbox */
+ .checkmark {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 33px;
+   width: 33px;
+    border-radius: 6px;
+ }
+
+ .container input ~ .checkmark {
+   background-color: 
+   #D9D9D9;
+ }
+ 
+
+ 
+ /* Create the checkmark/indicator (hidden when not checked) */
+ .checkmark:after {
+   content: "";
+   position: absolute;
+   display: none;
+ }
+ 
+ /* Show the checkmark when checked */
+ .container input:checked ~ .checkmark:after {
+   display: block;
+ }
+ 
+ /* Style the checkmark/indicator */
+ .container .checkmark:after {
+   left: 9px;
+   top: -1px;
+   width: 14px;
+   height: 25px;
+   border: solid black;
+   border-width: 0 3px 3px 0;
+   -webkit-transform: rotate(35deg);
+   -ms-transform: rotate(35deg);
+   transform: rotate(35deg);
+ }
+
+ /* Yatay scroll çubuğu */
+::-webkit-scrollbar {
+ width: 12px; /* Scroll çubuğu genişliği */
+margin-right: 50px;
+padding: 5px;
+}
+
+::-webkit-scrollbar-track {
+ background: #D9D9D9; /* Scroll çubuğu arka plan rengi */
+ border-radius: 6px;
+
+}
+
+::-webkit-scrollbar-thumb {
+ background: #FAFAFA; /* Scroll çubuğu rengi */
+ border-radius: 6px;
+
 }

@@ -2,11 +2,8 @@ import { Link } from "react-router-dom";
 
 function Logo() {
   return (
-    <Link
-      to={"/"}
-      className="w-[130px] pt-[10px] text-[28px] cursor-pointer font-Biryani"
-    >
-      Fikiral
+    <Link className="w-[91px] h-[53px] ml-5" to={"/"}>
+      <img src="./public/logo.png" alt="logo" className="img-cover" />
     </Link>
   );
 }

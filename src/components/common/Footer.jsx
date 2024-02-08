@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
   return (
     <footer className="bg-[#414141] px-[150px] py-6 text-white">
@@ -15,7 +17,9 @@ function Footer() {
           </div>
           <div className="space-y-2">
             <h6 className="text-sm font-semibold">Araşdır</h6>
-            <p className="text-xs">Ana səhifə</p>
+            <Link to={"/"} className="text-xs">
+              Ana səhifə
+            </Link>
             <p className="text-xs">Profil</p>
             <p className="text-xs">Arxiv</p>
           </div>

@@ -22,6 +22,27 @@
 .ant-pagination li:nth-child(4) {
     @apply mr-auto;
   }
-  .anticon{
+.anticon{
     @apply hidden
   }
+  .ant-dropdown-menu{
+    @apply w-full  bg-white  !mr-14 !px-[8px] !py-[10px] 
+  }
+  
+ 
+  .ant-dropdown-menu-item{
+    @apply   hover:!bg-transparent 
+  }
+ a:hover  .checkmark:after{
+    display: block;
+  }
+
+
+  .ant-dropdown-menu-item a{
+    @apply hover:!text-black
+  }
+
+
+
+  
+  

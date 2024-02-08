@@ -13,6 +13,17 @@ export default {
       fontFamily: {
         'Manrope': ['ui-serif', 'Manrope'],
         'Biryani': ['ui-serif', 'Biryani'],
+      },
+      letterSpacing: {
+        widest: '0.30em',
+      },
+      backgroundImage: {
+        'heroBackground': "url('/public/background.png')",
+        
+      },
+      backdropBrightness: {
+        40: '.43',
+       
       }
     },
   },
