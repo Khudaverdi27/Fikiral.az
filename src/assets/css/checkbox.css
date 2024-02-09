@@ -1,0 +1,47 @@
+.container {
+    @apply w-0 relative mb-[32px]  pl-[25px] cursor-pointer text-[22px] leading-none select-none
+   }
+   
+   /* Hide the browser's default checkbox */
+   .container input {
+    @apply absolute z-10 opacity-0 cursor-pointer size-7 right-[-6px] top-1
+   
+   }
+   
+   /* Create a custom checkbox */
+   .checkmark {
+    @apply absolute top-0 left-0 size-[33px] rounded-md
+   }
+  
+   .container input ~ .checkmark {
+    @apply bg-[#D9D9D9]
+   }
+   
+  
+   /* Create the checkmark/indicator (hidden when not checked) */
+   .checkmark:after {
+    @apply absolute hidden content-['']
+   
+   }
+   
+   /* Show the checkmark when checked */
+   .container input:checked ~ .checkmark:after {
+    @apply block
+   }
+   
+   /* Style the checkmark/indicator */
+   .container .checkmark:after {
+    @apply left-[9px] w-[14px] h-[25px] border-t-[0px] border-l-[0px] border-r-[3px] border-b-[3px] border-solid border-black rotate-35;
+   
+   }
+    .checkboxGroup{
+    @apply flex items-center   mb-3 text-[#858585] px-2 py-1 justify-between hover:bg-[#D9D9D9] rounded-[6px]  w-full 
+   }
+
+    .checkboxGroup:hover .checkmark:after,
+    .categoryTitle:hover .checkmark:after{
+   @apply block
+   }
+
+    .categoryTitle{
+    @apply flex items-center  text-[#858585] px-2 py-1 justify-between hover:bg-[#D9D9D9] rounded-[6px]  w-full}

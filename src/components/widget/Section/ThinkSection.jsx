@@ -71,14 +71,14 @@ function ThinkSection({ title, thinks = false }) {
                 Yaxın ərazidə siqaret çəkmək üçün rahat məkan ( mobil tətbiq)
               </p>
             </div>
-            <div className="flex items-center justify-between mt-2">
-              <div className="flex items-center justify-center gap-x-[17px] group">
-                <span>
-                  <AiOutlineClose className="size-[22px] group-hover:opacity-70 hover:!opacity-100 hover:size-7 text-[#292D32] hover:text-black cursor-pointer" />
+            <div className="flex items-center justify-between ">
+              <div className="flex items-center gap-x-[17px] max-h-6 group">
+                <span className="">
+                  <AiOutlineClose className="size-[22px] group-hover:opacity-60 hover:!opacity-100 hover:size-7 hover:ml-[-6px] text-[#292D32] hover:text-black cursor-pointer" />
                 </span>
-                <span className="text-[17px] font-bold">32</span>
+                <span className="text-[17px] font-bold ">32</span>
                 <span>
-                  <BsFillHeartFill className="size-[22px] group-hover:opacity-70 hover:!opacity-100 text-[#FF0000] hover:size-7 cursor-pointer" />
+                  <BsFillHeartFill className="size-[22px] group-hover:opacity-60 hover:!opacity-100 text-[#FF0000] hover:size-7  cursor-pointer" />
                 </span>
               </div>
               <div className="flex items-center  gap-x-[25px]">

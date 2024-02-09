@@ -1,25 +1,25 @@
 import { HiOutlineBell } from "react-icons/hi2";
 import { IoBookmarks, IoBookmarksOutline } from "react-icons/io5";
-import { GoPlus } from "react-icons/go";
 import { Badge } from "antd";
 import { IconContext } from "react-icons";
 import { useState } from "react";
 import DropdownMenu from "../Dropdown";
-import { notifcations } from "../Dropdown/DropDownCategories";
 import AddModal from "../Modal";
+import { DropNotifications } from "../Dropdown/DropNotifications";
 
 function MenuActions() {
+  const notifys = DropNotifications();
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div className="flex gap-x-[32px] items-center justify-center">
       <IconContext.Provider
         value={{ color: "white", className: "hover:fill-[#ffff]" }}
       >
-        <Badge size={"small"} count={notifcations.length}>
+        <Badge size={"small"} count={notifys.length}>
           <button className="">
             <DropdownMenu
               dropName={<HiOutlineBell className="size-[28px] " />}
-              dropDownItems={notifcations}
+              dropDownItems={DropNotifications()}
               classes={"w-[359px] max-h-[424px] overflow-x-hidden"}
             />
           </button>

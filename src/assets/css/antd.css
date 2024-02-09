@@ -32,13 +32,7 @@
   .ant-dropdown-menu-item{
     @apply   hover:!bg-transparent 
   }
-  .ant-dropdown-menu-item{
-    @apply   !p-2
-  }
- a:hover .checkmark:after{
-    display: block;
-  }
-
+ 
 
   .ant-dropdown-menu-item a{
     @apply hover:!text-black

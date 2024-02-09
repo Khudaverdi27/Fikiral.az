@@ -7,7 +7,7 @@ const DropdownMenu = ({
   profilImg = false,
   dropDownItems = [],
   classes = false,
-  placement=false
+  placement = false,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -33,13 +33,7 @@ const DropdownMenu = ({
             </button>
           </div>
         )}
-        <a
-          rel="noopener noreferrer"
-          href="#"
-          className={`flex items-center space-x-4 text-[#858585] px-2 py-1 ${
-            !item.id ? "justify-between hover:bg-[#D9D9D9] rounded-[6px]" : ""
-          }`}
-        >
+        <a rel="noopener noreferrer" href="#">
           {item.title}
         </a>
       </span>
@@ -56,7 +50,7 @@ const DropdownMenu = ({
       <Dropdown
         trigger={["click"]}
         overlayClassName={`${classes} bg-white rounded-md fixed !top-[85px]`}
-        placement={placement?placement:'bottom'}
+        placement={placement ? placement : "bottom"}
         menu={{
           items,
         }}
