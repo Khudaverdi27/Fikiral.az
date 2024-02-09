@@ -7,6 +7,7 @@ const DropdownMenu = ({
   profilImg = false,
   dropDownItems = [],
   classes = false,
+  placement=false
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -55,7 +56,7 @@ const DropdownMenu = ({
       <Dropdown
         trigger={["click"]}
         overlayClassName={`${classes} bg-white rounded-md fixed !top-[85px]`}
-        placement="bottom"
+        placement={placement?placement:'bottom'}
         menu={{
           items,
         }}

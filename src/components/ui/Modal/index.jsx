@@ -42,7 +42,7 @@ const AddModal = () => {
         }}
         footer={[
           <button
-            className="w-full border rounded-lg p-2 font-[500] text-[16px] bg-[#FAFAFA]"
+            className="w-full  rounded-lg p-2 font-[500] text-[16px] hover:bg-[#280069]  hover:text-white bg-[#FAFAFA]"
             key="submit"
             type="primary"
           >
@@ -52,14 +52,15 @@ const AddModal = () => {
         closeIcon={<IoMdClose className="text-[#FAFAFA] text-2xl" />}
       >
         <DropdownMenu
+        placement={'bottomLeft'}
           dropName={
-            <button className="rounded md border p-[5px] mb-2 bg-[#FAFAFA]">
+            <button className="rounded md hover:text-white px-2 py-[5px] mb-2 bg-[#FAFAFA] hover:bg-[#280069]">
               Kateqoriya seç
             </button>
           }
           dropDownItems={Categories()}
           classes={
-            "w-[314px] max-h-[424px] overflow-x-hidden absolute !top-[230px] !left-[403px] "
+            "w-[314px] max-h-[424px] overflow-x-hidden mt-[105px] ml-9 "
           }
         />
         <TextArea
