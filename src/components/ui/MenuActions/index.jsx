@@ -6,6 +6,7 @@ import { IconContext } from "react-icons";
 import { useState } from "react";
 import DropdownMenu from "../Dropdown";
 import { notifcations } from "../Dropdown/DropDownCategories";
+import AddModal from "../Modal";
 
 function MenuActions() {
   const [isHovered, setIsHovered] = useState(false);
@@ -41,11 +42,7 @@ function MenuActions() {
         )}
       </button>
 
-      <button className="relative hover:bg-[#8FE4FF] hover:rounded-full  ">
-        <span className="addPlusBtn">
-          <GoPlus className="size-[32px] text-white " />
-        </span>
-      </button>
+      <AddModal />
     </div>
   );
 }

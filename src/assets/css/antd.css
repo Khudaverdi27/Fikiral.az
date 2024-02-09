@@ -44,6 +44,11 @@
     @apply hover:!text-black
   }
 
+  .ant-modal-content{
+    @apply !bg-transparent
+  }
+
+
 
 
   
