@@ -6,7 +6,7 @@ const Scrollup = () => (
   <FloatButton.BackTop
     className="bg-white "
     visibilityHeight={50}
-    icon={<FaArrowUp className="text-[#858585] text-bold hover:text-black" />}
+    icon={<FaArrowUp className="text-primaryGray text-bold hover:text-black" />}
   />
 );
 export default Scrollup;

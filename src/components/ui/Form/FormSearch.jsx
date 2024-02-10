@@ -40,13 +40,13 @@ function FormSearch() {
       <Input
         onChange={(e) => onSearch(e)}
         className={`w-[465px] max-h-[37px] rounded-[6px] border-0 outline-none 
-        ${isHovered ? "hover:outline-[3px] hover:outline-[#858585]" : ""}`}
+        ${isHovered ? "hover:outline-[3px] hover:outline-primaryGray" : ""}`}
         size="large"
         placeholder="Axtar"
         prefix={
           <IoMdSearch
             className={`size-[36px] cursor-pointer ${
-              isHovered ? "text-black" : "text-[#858585]"
+              isHovered ? "text-black" : "text-primaryGray"
             }`}
           />
         }
@@ -56,7 +56,7 @@ function FormSearch() {
       {openSrch && (
         <div
           ref={ref}
-          className="w-[465px] bg-white rounded-md mt-[2px] px-5 absolute text-black overflow-auto max-h-[487px]"
+          className={`w-[465px] bg-white rounded-md mt-[2px] px-5 absolute text-black overflow-auto max-h-[387px]`}
         >
           <div className="flex justify-between items-center py-5 px-1 font-[500]">
             <span className="text-[15px]">Axtarış</span>
@@ -72,13 +72,13 @@ function FormSearch() {
             searchRes.map((res, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between py-[10px] hover:border-black border-b"
+                className="flex items-center cursor-pointer justify-between py-[10px] hover:border-black border-b"
               >
-                <div className="flex items-center">
+                <div className="flex items-center ">
                   <span>
                     <IoMdSearch className="size-9" />
                   </span>
-                  <p className="text-sm text-left px-[14px] line-clamp-1 cursor-pointer">
+                  <p className="text-sm text-left px-[14px] line-clamp-1 ">
                     {res}
                   </p>
                 </div>
@@ -90,7 +90,16 @@ function FormSearch() {
                   />
                 </figure>
               </div>
-            ))) || <span>Axtardiginiz xeber tapilmadi</span>}
+            ))) || (
+            <span className="text-orange-500 text-sm">
+              Axtardığınız məlumat tapılmadı...
+            </span>
+          )}
+          {srch.length > 6 && (
+            <div className="text-sm text-center p-3 text-primaryGray">
+              <button>Bütün nəticələri gör</button>
+            </div>
+          )}
         </div>
       )}
     </form>

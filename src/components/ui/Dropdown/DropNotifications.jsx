@@ -15,7 +15,7 @@ export const DropNotifications = () => {
           {arr.map((item, index) => (
             <div
               key={index}
-              className="flex justify-between items-center space-x-2 mb-5 pb-2  border-b  hover:border-[#858585]"
+              className="flex justify-between items-center space-x-2 mb-5 pb-2  border-b  hover:border-primaryGray"
             >
               <figure className="size-9 rounded-full shrink-0 ">
                 <img

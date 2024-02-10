@@ -6,7 +6,7 @@ body{
     @apply size-full object-cover overflow-hidden rounded-full
 }
 .gutter-row{
-    @apply bg-secondary p-4 rounded-[6px] size-full flex flex-col justify-between
+    @apply bg-zinc-50 p-4 rounded-[6px] size-full flex flex-col justify-between
 }
 .addPlusBtn::before {
 
@@ -25,11 +25,22 @@ body{
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-[#D9D9D9] rounded-md 
+  @apply bg-white rounded-md 
 
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-[#FAFAFA] rounded-md 
+  @apply bg-[#D9D9D9]  rounded-md 
 
+}
+.commentLine{
+  @apply w-full text-center relative text-[10px] text-primaryGray
+
+}
+.commentLine::before{
+  @apply content-[''] block w-[82px] h-[1px] bg-primaryGray left-10 top-1/2 absolute
+
+}
+.commentLine::after{
+  @apply content-[''] block w-[82px] h-[1px] bg-primaryGray right-10 top-1/2 absolute
 }

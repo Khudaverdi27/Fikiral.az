@@ -29,10 +29,10 @@ function Footer() {
             <p className="text-xs ml-2 ">info@fikiral.az</p>
 
             <span className="flex space-x-3 ">
-              <FaFacebookF className="hover:text-white text-[#858585] size-6" />
-              <FaInstagram className="hover:text-white text-[#858585] size-6" />
-              <FaLinkedinIn className="hover:text-white text-[#858585] size-6" />
-              <FaXTwitter className="hover:text-white text-[#858585] size-6" />
+              <FaFacebookF className="hover:text-white text-primaryGray size-6" />
+              <FaInstagram className="hover:text-white text-primaryGray size-6" />
+              <FaLinkedinIn className="hover:text-white text-primaryGray size-6" />
+              <FaXTwitter className="hover:text-white text-primaryGray size-6" />
             </span>
           </div>
         </div>

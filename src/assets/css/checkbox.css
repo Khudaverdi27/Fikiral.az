@@ -35,7 +35,7 @@
    
    }
     .checkboxGroup{
-    @apply flex items-center   mb-3 text-[#858585] px-2 py-1 justify-between hover:bg-[#D9D9D9] rounded-[6px]  w-full 
+    @apply flex items-center   mb-3 text-primaryGray px-2 py-1 justify-between hover:bg-[#D9D9D9] rounded-[6px]  w-full 
    }
 
     .checkboxGroup:hover .checkmark:after,
@@ -44,4 +44,4 @@
    }
 
     .categoryTitle{
-    @apply flex items-center  text-[#858585] px-2 py-1 justify-between hover:bg-[#D9D9D9] rounded-[6px]  w-full}
+    @apply flex items-center  text-primaryGray px-2 py-1 justify-between hover:bg-[#D9D9D9] rounded-[6px]  w-full}

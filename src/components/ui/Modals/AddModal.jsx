@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Modal } from "antd";
 import { GoPlus } from "react-icons/go";
 import DropdownMenu from "../Dropdown";
 import { Categories } from "../Dropdown/DropDownCategories";
@@ -27,7 +27,7 @@ const AddModal = () => {
                 alt=""
               />
             </figure>
-            <span className="text-[#FAFAFA]">Samir N</span>
+            <span className="text-bg-zinc-50">Samir N</span>
           </div>
         }
         centered
@@ -42,19 +42,19 @@ const AddModal = () => {
         }}
         footer={[
           <button
-            className="w-full  rounded-lg p-2 font-[500] text-[16px] hover:bg-[#280069]  hover:text-white bg-[#FAFAFA]"
+            className="w-full  rounded-lg p-2 font-[500] text-[16px] hover:bg-[#280069]  hover:text-white bg-zinc-50"
             key="submit"
             type="primary"
           >
             Paylaş
           </button>,
         ]}
-        closeIcon={<IoMdClose className="text-[#FAFAFA] text-2xl" />}
+        closeIcon={<IoMdClose className="bg-zinc-50 text-2xl" />}
       >
         <DropdownMenu
           placement={"bottomLeft"}
           dropName={
-            <button className="rounded md hover:text-white px-2 py-[5px] mb-2 bg-[#FAFAFA] hover:bg-[#280069]">
+            <button className="rounded md hover:text-white px-2 py-[5px] mb-2 bg-zinc-50 hover:bg-[#280069]">
               Kateqoriya seç
             </button>
           }

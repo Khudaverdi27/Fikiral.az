@@ -4,8 +4,8 @@ import { Badge } from "antd";
 import { IconContext } from "react-icons";
 import { useState } from "react";
 import DropdownMenu from "../Dropdown";
-import AddModal from "../Modal";
 import { DropNotifications } from "../Dropdown/DropNotifications";
+import AddModal from "../Modals/AddModal";
 
 function MenuActions() {
   const notifys = DropNotifications();
