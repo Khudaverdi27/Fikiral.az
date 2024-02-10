@@ -12,9 +12,9 @@ export const DropNotifications = () => {
     {
       title: (
         <>
-          {arr.map((item) => (
+          {arr.map((item, index) => (
             <div
-              key={item}
+              key={index}
               className="flex justify-between items-center space-x-2 mb-5 pb-2  border-b  hover:border-[#858585]"
             >
               <figure className="size-9 rounded-full shrink-0 ">

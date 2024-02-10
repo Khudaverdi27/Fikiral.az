@@ -10,6 +10,8 @@ import { IconContext } from "react-icons";
 
 function ThinkSection({ title, thinks = false }) {
   const [bookmark, setBookmark] = useState(false);
+  const [like, setLike] = useState(false);
+
   return (
     <article>
       <h4 className="text-2xl text-white font-semibold mt-5 mb-6">{title}</h4>
@@ -73,13 +75,21 @@ function ThinkSection({ title, thinks = false }) {
             </div>
             <div className="flex items-center justify-between ">
               <div className="flex items-center gap-x-[17px] max-h-6 group">
-                <span className="">
-                  <AiOutlineClose className="size-[22px] group-hover:opacity-60 hover:!opacity-100 hover:size-7 hover:ml-[-6px] text-[#292D32] hover:text-black cursor-pointer" />
-                </span>
+                <button onClick={() => setLike(false)}>
+                  <AiOutlineClose
+                    className={` ${
+                      like ? "size-[22px] " : "size-7 hover:ml-[0px]"
+                    } group-hover:opacity-60  hover:!opacity-100 hover:ml-[-6px]   text-[#292D32] hover:text-black cursor-pointer hover:size-7`}
+                  />
+                </button>
                 <span className="text-[17px] font-bold ">32</span>
-                <span>
-                  <BsFillHeartFill className="size-[22px] group-hover:opacity-60 hover:!opacity-100 text-[#FF0000] hover:size-7  cursor-pointer" />
-                </span>
+                <button onClick={() => setLike(true)}>
+                  <BsFillHeartFill
+                    className={` ${
+                      like ? "size-7 " : "size-[22px] "
+                    } group-hover:opacity-60 hover:!opacity-100 text-[#FF0000]   cursor-pointer hover:size-7`}
+                  />
+                </button>
               </div>
               <div className="flex items-center  gap-x-[25px]">
                 <div className="flex items-center justify-center space-x-1 ">
