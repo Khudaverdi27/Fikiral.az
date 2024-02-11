@@ -6,11 +6,11 @@ import Logo from "./Logo";
 import { useCategories } from "../../hooks/useCategories";
 
 function Header() {
-  const [categories, checkboxStates] = useCategories(true, "checkbox");
+  const [categories] = useCategories(true, "checkbox");
   return (
     <header
       className=" flex space-x-[10px] items-center w-full  
-    h-[113px]  top-0 z-40 backdrop-brightness-40  justify-center sticky text-white"
+    h-[113px]  top-0 z-40   justify-center sticky text-white"
     >
       <div className=" flex items-center">
         <Logo />

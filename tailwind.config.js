@@ -6,6 +6,7 @@ export default {
   ],
   theme: {
     extend: {
+      
       colors:{
         primaryGray: '#858585',
       },
@@ -15,10 +16,6 @@ export default {
       },
       letterSpacing: {
         widest: '0.30em',
-      },
-      backgroundImage: {
-        'heroBackground': "url('/public/background.png')",
-        
       },
       backdropBrightness: {
         40: '.43',
