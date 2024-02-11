@@ -44,7 +44,7 @@ export const useCategories = (allSelect = true, type) => {
       return acc;
     }, []);
 
-    console.log(updatedContent);
+    // console.log(updatedContent);
   }, [checkboxStates]);
 
   const categories = [

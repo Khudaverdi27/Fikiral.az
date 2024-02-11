@@ -8,31 +8,31 @@ import {
 
 function Footer() {
   return (
-    <footer className=" px-[150px] py-10 text-white backdrop-brightness-40 mt-28">
+    <footer className=" px-[150px] py-10 text-white bg-transparent mt-28">
       <div className="flex justify-between items-center">
-        <div>
+        <div className="text-black">
           <p className="text-[32px] font-semibold ">
             Yeni biznesə fikrini doğruldaraq başla!
           </p>
           <span className="text-sm">© 2024 Fikiral</span>
         </div>
-        <div className="flex gap-x-[75px] cursor-pointer">
+        <div className="flex gap-x-[75px] cursor-pointer ">
           <div className="space-y-2">
-            <h6 className="text-sm font-semibold">Haqqımızda</h6>
-            <Link to={"/"} className="text-xs">
+            <h6 className="text-sm font-semibold text-black">Haqqımızda</h6>
+            <Link to={"/"} className="text-xs text-primaryGray">
               Fikiral
             </Link>
-            <p className="text-xs">Yardım mərkəzi</p>
+            <p className="text-xs text-primaryGray">Yardım mərkəzi</p>
           </div>
           <div className="space-y-2 cursor-pointer">
-            <h6 className="text-sm font-semibold ml-2">Əlaqə</h6>
-            <p className="text-xs ml-2 ">info@fikiral.az</p>
+            <h6 className="text-sm font-semibold ml-2 text-black">Əlaqə</h6>
+            <p className="text-xs ml-2 text-primaryGray">info@fikiral.az</p>
 
             <span className="flex space-x-3 ">
-              <FaFacebookF className="hover:text-white text-primaryGray size-6" />
-              <FaInstagram className="hover:text-white text-primaryGray size-6" />
-              <FaLinkedinIn className="hover:text-white text-primaryGray size-6" />
-              <FaXTwitter className="hover:text-white text-primaryGray size-6" />
+              <FaFacebookF className="hover:text-[#232323] text-primaryGray size-6" />
+              <FaInstagram className="hover:text-[#232323] text-primaryGray size-6" />
+              <FaLinkedinIn className="hover:text-[#232323] text-primaryGray size-6" />
+              <FaXTwitter className="hover:text-[#232323] text-primaryGray size-6" />
             </span>
           </div>
         </div>

@@ -36,16 +36,16 @@ function FormSearch() {
   }, [text]);
 
   return (
-    <form className="ml-20 mr-14 relative">
+    <form className="ml-12 mr-12 relative">
       <Input
         onChange={(e) => onSearch(e)}
-        className={`w-[465px] max-h-[37px] rounded-[6px] border-0 outline-none 
-        ${isHovered ? "hover:outline-[3px] hover:outline-primaryGray" : ""}`}
+        className={`w-[465px] max-h-[37px] bg-[#E0E0E0] rounded-[6px] border-0 outline-none 
+        ${isHovered ? "hover:outline-[3px] hover:outline-[#E0E0E0]" : ""}`}
         size="large"
         placeholder="Axtar"
         prefix={
           <IoMdSearch
-            className={`size-[36px] cursor-pointer ${
+            className={`size-6 cursor-pointer ${
               isHovered ? "text-black" : "text-primaryGray"
             }`}
           />
@@ -76,7 +76,7 @@ function FormSearch() {
               >
                 <div className="flex items-center ">
                   <span>
-                    <IoMdSearch className="size-9" />
+                    <IoMdSearch className="size-6" />
                   </span>
                   <p className="text-sm text-left px-[14px] line-clamp-1 ">
                     {res}

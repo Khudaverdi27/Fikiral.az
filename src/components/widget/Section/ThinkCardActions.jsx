@@ -5,6 +5,7 @@ import AddCommentModal from "../../ui/Modals/AddCommentModal";
 import { useState } from "react";
 function ThinkCardActions({ disabled = true }) {
   const [like, setLike] = useState(false);
+
   return (
     <div className="flex items-center justify-between ">
       <div className="flex items-center gap-x-[17px] max-h-6 group">

@@ -32,8 +32,15 @@
   .ant-dropdown-menu-item{
     @apply   hover:!bg-transparent 
   }
- 
-
+  .dropLanguage{
+    @apply fixed
+  }
+ .dropLanguage  .ant-dropdown-menu-item{
+  @apply   hover:!bg-[#D9D9D9] 
+ }
+ .dropLanguage  .ant-dropdown-menu-item-selected{
+  @apply !bg-[#D9D9D9]
+ }
   .ant-dropdown-menu-item a{
     @apply hover:!text-black
   }

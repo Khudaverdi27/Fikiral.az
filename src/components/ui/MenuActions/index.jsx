@@ -7,14 +7,16 @@ import DropdownMenu from "../Dropdown";
 import { DropNotifications } from "../Dropdown/DropNotifications";
 import AddModal from "../Modals/AddModal";
 import { Link } from "react-router-dom";
+import { IoSunnyOutline } from "react-icons/io5";
+import DropLanguage from "../Dropdown/DropLanguage";
 
 function MenuActions() {
   const [notifications, arr] = DropNotifications();
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <div className="flex gap-x-[32px] items-center justify-center">
+    <div className="flex gap-x-[25px] items-center justify-center text-primaryGray">
       <IconContext.Provider
-        value={{ color: "white", className: "hover:fill-[#ffff]" }}
+        value={{ color: "#858585", className: "hover:fill-[#858585]" }}
       >
         <Badge size={"small"} count={arr.length}>
           <button className="">
@@ -30,19 +32,22 @@ function MenuActions() {
       <Link to={"/favorites"}>
         {isHovered ? (
           <IoBookmarks
-            className="size-[24px] text-white"
+            className="size-[24px] text-primaryGray"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           />
         ) : (
           <IoBookmarksOutline
-            className="size-[24px] text-white"
+            className="size-[24px] text-primaryGray"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           />
         )}
       </Link>
-
+      <>
+        <IoSunnyOutline className="size-[24px]" />
+        <DropLanguage />
+      </>
       <AddModal />
     </div>
   );

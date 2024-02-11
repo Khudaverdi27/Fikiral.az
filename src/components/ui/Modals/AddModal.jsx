@@ -45,13 +45,13 @@ const AddModal = () => {
         className="relative hover:bg-[#8FE4FF] hover:rounded-full  "
       >
         <span className="addPlusBtn">
-          <GoPlus className="size-[32px] text-white " />
+          <GoPlus className="size-[32px] text-primaryGray " />
         </span>
       </button>
 
       <Modal
         title={
-          <div className="flex items-center space-x-2 bg-[#232323]">
+          <div className="flex items-center space-x-2 bg-primaryGray">
             <figure className="size-9 rounded-full shrink-0">
               <img
                 className="img-cover"
