@@ -6,27 +6,28 @@ import { useState } from "react";
 import DropdownMenu from "../Dropdown";
 import { DropNotifications } from "../Dropdown/DropNotifications";
 import AddModal from "../Modals/AddModal";
+import { Link } from "react-router-dom";
 
 function MenuActions() {
-  const notifys = DropNotifications();
+  const [notifications, arr] = DropNotifications();
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div className="flex gap-x-[32px] items-center justify-center">
       <IconContext.Provider
         value={{ color: "white", className: "hover:fill-[#ffff]" }}
       >
-        <Badge size={"small"} count={notifys.length}>
+        <Badge size={"small"} count={arr.length}>
           <button className="">
             <DropdownMenu
               dropName={<HiOutlineBell className="size-[28px] " />}
-              dropDownItems={DropNotifications()}
+              dropDownItems={notifications}
               classes={"w-[359px] max-h-[424px] overflow-x-hidden"}
             />
           </button>
         </Badge>
       </IconContext.Provider>
 
-      <button>
+      <Link to={"/favorites"}>
         {isHovered ? (
           <IoBookmarks
             className="size-[24px] text-white"
@@ -40,7 +41,7 @@ function MenuActions() {
             onMouseLeave={() => setIsHovered(false)}
           />
         )}
-      </button>
+      </Link>
 
       <AddModal />
     </div>

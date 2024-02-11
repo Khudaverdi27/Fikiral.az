@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export const Categories = () => {
+export const useCategories = (allSelect = true, type) => {
   const arr = [
     "Elm",
     "Medeniyyet",
@@ -22,16 +22,35 @@ export const Categories = () => {
   };
 
   const selectOne = (index) => {
-    setCheckboxStates(
-      checkboxStates.map((state, i) => (i === index ? !state : state))
-    );
-    setAllChecked(false);
+    if (type == "radio") {
+      const newCheckboxStates = checkboxStates.map((state, i) =>
+        i === index ? !state : false
+      );
+      setCheckboxStates(newCheckboxStates);
+    } else {
+      setCheckboxStates(
+        checkboxStates.map((state, i) => (i === index ? !state : state))
+      );
+
+      setAllChecked(false);
+    }
   };
+
+  useEffect(() => {
+    const updatedContent = checkboxStates.reduce((acc, state, i) => {
+      if (state === true) {
+        acc.push({ category: arr[i], id: i });
+      }
+      return acc;
+    }, []);
+
+    console.log(updatedContent);
+  }, [checkboxStates]);
 
   const categories = [
     {
       name: "Kateqoriyalar",
-      title: (
+      title: allSelect && (
         <div className="categoryTitle">
           <label className="cursor-pointer w-full" htmlFor="check">
             Hamısı
@@ -61,9 +80,9 @@ export const Categories = () => {
               </label>
               <span className="container">
                 <input
-                  onChange={() => selectOne(index)}
+                  onChange={() => selectOne(index, type)}
                   checked={checkboxStates[index]}
-                  type="checkbox"
+                  type={type}
                   id={`check-${item}`}
                 />
                 <span className="checkmark"></span>
@@ -75,5 +94,5 @@ export const Categories = () => {
     },
   ];
 
-  return categories;
+  return [categories, checkboxStates, arr];
 };

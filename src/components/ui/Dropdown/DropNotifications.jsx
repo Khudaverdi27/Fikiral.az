@@ -34,5 +34,5 @@ export const DropNotifications = () => {
     },
   ];
 
-  return notifications;
+  return [notifications, arr];
 };

@@ -30,14 +30,14 @@ function ThinkSection({ title, thinks = false }) {
         </Col>
       </Row>
 
-      {title === "Sizin üçün" ? (
+      {title === "Popular" ? (
+        <ChangePage />
+      ) : (
         <div className="flex justify-end text-white mt-2 text-sm ">
           <button className="hover:bg-[#280069] rounded-[4px] py-2 px-4">
             Daha Çox
           </button>
         </div>
-      ) : (
-        <ChangePage />
       )}
     </article>
   );

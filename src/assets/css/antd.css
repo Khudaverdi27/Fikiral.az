@@ -39,7 +39,7 @@
   }
 
   .ant-modal-content{
-    @apply !bg-transparent
+    @apply !bg-transparent 
   }
 
 

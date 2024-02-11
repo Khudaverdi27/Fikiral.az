@@ -49,7 +49,7 @@ const DropdownMenu = ({
       )}
       <Dropdown
         trigger={["click"]}
-        overlayClassName={`${classes} bg-white rounded-md fixed !top-[85px]`}
+        overlayClassName={`${classes} bg-white rounded-md fixed !top-[90px]`}
         placement={placement ? placement : "bottom"}
         menu={{
           items,
