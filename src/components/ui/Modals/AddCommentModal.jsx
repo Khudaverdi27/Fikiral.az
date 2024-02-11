@@ -7,27 +7,32 @@ import { IoMdClose } from "react-icons/io";
 import ThinkComments from "../../widget/Section/ThinkComment";
 import ThinkCardActions from "../../widget/Section/ThinkCardActions";
 const AddCommentModal = () => {
-  const [iscommentOpen, setIsCommentOpen] = useState(false);
-  const [bookmark, setBookmark] = useState(false);
-
   const comments = [
     "Çox bəyəndim bu fikri",
     "Çox bəyəndim bu fikri",
     "Çox bəyəndim bu fikri",
-    "Çox bəyəndim bu fikri",
-    "Çox bəyəndim bu fikri",
-    "Çox bəyəndim bu fikri",
-    "Çox bəyəndim bu fikri",
-    "Çox bəyəndim bu fikri",
-    "Çox bəyəndim bu fikri",
-    "Çox bəyəndim bu fikri",
-    "Çox bəyəndim bu fikri",
   ];
+
+  const [iscommentOpen, setIsCommentOpen] = useState(false);
+  const [bookmark, setBookmark] = useState(false);
+  const [newComment, setNewComment] = useState(comments);
+  const [value, setValue] = useState("");
+
+  const addNewComment = (e) => {
+    e.preventDefault();
+    setNewComment([...newComment, value]);
+  };
   return (
     <div className="commentModal">
-      <button onClick={() => setIsCommentOpen(true)}>
-        <BiMessageSquareDots className="size-[22px] hover:text-black text-[#5E6268] cursor-pointer" />
-      </button>
+      <div className="flex items-center justify-center space-x-2">
+        <span className="text-[17px] hover:text-black font-bold text-[#5E6268]">
+          {comments.length}
+        </span>
+
+        <button onClick={() => setIsCommentOpen(true)}>
+          <BiMessageSquareDots className="size-[22px] hover:text-black text-[#5E6268] cursor-pointer" />
+        </button>
+      </div>
       <Modal
         centered
         footer={false}
@@ -67,7 +72,7 @@ const AddCommentModal = () => {
           </Col>
 
           <Col span={12}>
-            <div className="overflow-auto max-h-[370px] mt-16 pr-4">
+            <div className="overflow-auto max-h-[370px] h-[370px] mt-16 pr-4">
               <div className="flex items-center justify-end space-x-2">
                 <IconContext.Provider
                   value={{
@@ -94,7 +99,7 @@ const AddCommentModal = () => {
               </div>
 
               <div className="space-y-3 ">
-                {comments.map((comment, index) => (
+                {newComment.map((comment, index) => (
                   <ThinkComments key={index} comment={comment} />
                 ))}
               </div>
@@ -103,16 +108,19 @@ const AddCommentModal = () => {
               <div className="border-t p-2 border-gray-300 border-b ">
                 <ThinkCardActions disabled={false} />
               </div>
-              <div>
+              <form onSubmit={addNewComment}>
                 <Space.Compact className="w-full">
                   <Input
+                    onChange={(e) => setValue(e.target.value)}
                     className="placeholder:font-[400]"
                     variant="borderless"
                     placeholder="Rəy bildir..."
                   />
-                  <button className="text-primaryGray text-sm">Paylaş</button>
+                  <button type="submit" className="text-primaryGray text-sm">
+                    Paylaş
+                  </button>
                 </Space.Compact>
-              </div>
+              </form>
             </div>
           </Col>
         </Row>

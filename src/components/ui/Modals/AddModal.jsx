@@ -51,7 +51,7 @@ const AddModal = () => {
 
       <Modal
         title={
-          <div className="flex items-center space-x-2 bg-primaryGray">
+          <div className="flex items-center space-x-2 bg-[#232323]">
             <figure className="size-9 rounded-full shrink-0">
               <img
                 className="img-cover"
