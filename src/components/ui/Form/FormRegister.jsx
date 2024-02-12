@@ -4,12 +4,27 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import FormContainer from "./FormContainer";
 import FormLogin from "./FormLogin";
+import { Button } from "antd";
 
 const FormRegister = () => {
   const [type, setType] = useState(false);
+  const [isMainModel, setMainModel] = useState(false); // First Model
+  const [isSubModel, setSubModel] = useState(false); // Second Model
 
+  const onSubModel = (e, stateSub = true, stateMain = false) => {
+    e.preventDefault();
+    setMainModel(stateMain);
+    setSubModel(stateSub);
+  };
   return (
-    <FormContainer modalName={"Qeydiyyat"}>
+    <FormContainer
+      modalName={"Qeydiyyat"}
+      isMainModel={isMainModel}
+      setMainModel={setMainModel}
+      isSubModel={isSubModel}
+      setSubModel={setSubModel}
+      onSubModel={onSubModel}
+    >
       <h3 className="text-center text-[16px]">Fikiral-a xoş gəlmisiz!</h3>
       <label className="block text-[#4C4B4E]">Ad Soyad</label>
       <input
@@ -54,7 +69,7 @@ const FormRegister = () => {
       <div className="text-center space-x-2">
         <span>Artıq hesabın var?</span>
         <span className="text-[#111A6E]">
-          <FormLogin />
+          <button onClick={onSubModel}>Daxil ol</button>
         </span>
       </div>
     </FormContainer>

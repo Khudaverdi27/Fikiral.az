@@ -8,11 +8,12 @@ export default {
     extend: {
       
       colors:{
-        primaryGray: '#858585',
+        primaryGray: ' #262626'
+        
       },
       fontFamily: {
         'Manrope': ['ui-serif', 'Manrope'],
-        'Biryani': ['ui-serif', 'Biryani'],
+        'roboto': ['ui-serif', 'Roboto'],
       },
       letterSpacing: {
         widest: '0.30em',

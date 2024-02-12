@@ -13,14 +13,14 @@ function Header() {
   const token = getStorage("token");
   return (
     <header
-      className=" flex items-center w-full  
-    h-[113px]  top-0 z-40   justify-center sticky text-white"
+      className=" flex items-center w-full   
+    h-[113px]  top-0 z-40   justify-between sticky text-white"
     >
       <div className=" flex items-center">
         <Logo />
         <FormSearch />
       </div>
-      <div className="flex space-x-[15px]  pr-14 cursor-pointer items-center">
+      <div className="flex space-x-[15px]  cursor-pointer items-center">
         <DropdownMenu
           dropName={<span className="text-primaryGray">Kateqoriya</span>}
           dropDownItems={categories}

@@ -2,7 +2,7 @@ import { useClickAway } from "@uidotdev/usehooks";
 import { Input } from "antd";
 import { useEffect, useState } from "react";
 import { IoMdClose, IoMdSearch } from "react-icons/io";
-
+import { getStorage } from "../../../utils/helpers";
 function FormSearch() {
   const [isHovered, setIsHovered] = useState(false);
   const [text, setText] = useState("");
@@ -23,7 +23,7 @@ function FormSearch() {
       setOpenSrch(true);
     }
   };
-
+  const token = getStorage("token");
   useEffect(() => {
     const trimmed = text.trim() !== "";
     if (trimmed) {
@@ -36,11 +36,13 @@ function FormSearch() {
   }, [text]);
 
   return (
-    <form className="ml-12 mr-12 relative">
+    <form className="ml-12 mr-12 relative ">
       <Input
         onChange={(e) => onSearch(e)}
-        className={`w-[265px] max-h-[37px] bg-[#E0E0E0] rounded-[6px] border-0 outline-none 
-        ${isHovered ? "hover:outline-[3px] hover:outline-[#E0E0E0]" : ""}`}
+        className={`${
+          token ? "w-[320px]" : "w-[420px]"
+        }  max-h-[37px] bg-[#E0E0E0] rounded-[6px] border-0 outline-none 
+        ${isHovered && "hover:outline-[3px] hover:outline-[#E0E0E0]"}`}
         size="large"
         placeholder="Axtar"
         prefix={
@@ -56,7 +58,7 @@ function FormSearch() {
       {openSrch && (
         <div
           ref={ref}
-          className={`w-[265px] bg-white rounded-md mt-[2px] px-5 absolute text-black overflow-auto max-h-[387px]`}
+          className={`${token} ? "w-[320px]" : "w-[420px]" bg-white rounded-md mt-[2px] px-5 absolute text-black overflow-auto max-h-[387px]`}
         >
           <div className="flex justify-between items-center py-5 px-1 font-[500]">
             <span className="text-[15px]">Axtarış</span>

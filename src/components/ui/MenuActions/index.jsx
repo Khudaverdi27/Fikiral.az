@@ -1,5 +1,5 @@
-import { HiOutlineBell } from "react-icons/hi2";
-import { IoBookmarks, IoBookmarksOutline } from "react-icons/io5";
+import { HiOutlineBell, HiOutlineBookmark } from "react-icons/hi2";
+import { HiBookmark } from "react-icons/hi2";
 import { Badge } from "antd";
 import { IconContext } from "react-icons";
 import { useState } from "react";
@@ -9,46 +9,39 @@ import AddModal from "../Modals/AddModal";
 import { Link } from "react-router-dom";
 import { IoSunnyOutline } from "react-icons/io5";
 import DropLanguage from "../Dropdown/DropLanguage";
+import { getStorage } from "../../../utils/helpers";
 
 function MenuActions() {
   const [notifications, arr] = DropNotifications();
-  const [isHovered, setIsHovered] = useState(false);
+
+  const token = getStorage("token");
+
   return (
     <div className="flex gap-x-[25px] items-center justify-center text-primaryGray">
-      <IconContext.Provider
-        value={{ color: "#858585", className: "hover:fill-[#858585]" }}
-      >
-        <Badge size={"small"} count={arr.length}>
-          <button className="">
-            <DropdownMenu
-              dropName={<HiOutlineBell className="size-[28px] " />}
-              dropDownItems={notifications}
-              classes={"w-[359px] max-h-[424px] overflow-x-hidden"}
-            />
-          </button>
-        </Badge>
-      </IconContext.Provider>
+      {token && (
+        <IconContext.Provider
+          value={{ color: "#262626", className: "hover:fill-[#262626]" }}
+        >
+          <Badge size={"small"} count={arr.length}>
+            <button className="">
+              <DropdownMenu
+                dropName={<HiOutlineBell className="size-7 " />}
+                dropDownItems={notifications}
+                classes={"w-[359px] max-h-[424px] overflow-x-hidden"}
+              />
+            </button>
+          </Badge>
 
-      <Link to={"/favorites"}>
-        {isHovered ? (
-          <IoBookmarks
-            className="size-[24px] text-primaryGray"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          />
-        ) : (
-          <IoBookmarksOutline
-            className="size-[24px] text-primaryGray"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          />
-        )}
-      </Link>
+          <Link to={"/favorites"}>
+            <HiOutlineBookmark className="size-6 text-primaryGray" />
+          </Link>
+        </IconContext.Provider>
+      )}
+      <IoSunnyOutline className="size-7 shrink-0" />
       <>
-        <IoSunnyOutline className="size-[24px]" />
         <DropLanguage />
       </>
-      <AddModal />
+      {token && <AddModal />}
     </div>
   );
 }

@@ -43,13 +43,13 @@ const DropdownMenu = ({
   return (
     <div className="flex items-center">
       {profilImg && (
-        <figure className="size-7 mr-2">
+        <figure className="size-11 mr-2">
           <img className="img-cover" src={`${profilImg}`} alt="" />
         </figure>
       )}
       <Dropdown
         trigger={["click"]}
-        overlayClassName={`${classes} bg-white rounded-md fixed !top-[90px]`}
+        overlayClassName={`${classes} bg-white rounded-md fixed !top-[110px]`}
         placement={placement ? placement : "bottom"}
         menu={{
           items,

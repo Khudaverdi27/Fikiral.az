@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "antd";
-import { GoPlus } from "react-icons/go";
 import DropdownMenu from "../Dropdown";
 import { IoMdClose } from "react-icons/io";
 import { useForm } from "react-hook-form";
@@ -42,17 +41,15 @@ const AddModal = () => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="relative hover:bg-[#8FE4FF] hover:rounded-full  "
+        className=" bg-[#6366F1] text-white w-full whitespace-nowrap px-4 py-2 rounded-[12px]"
       >
-        <span className="addPlusBtn">
-          <GoPlus className="size-[32px] text-primaryGray " />
-        </span>
+        İdeyanı paylaş
       </button>
 
       <Modal
         title={
           <div className="flex items-center space-x-2 bg-[#232323]">
-            <figure className="size-9 rounded-full shrink-0">
+            <figure className="size-11 rounded-full shrink-0">
               <img
                 className="img-cover"
                 src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1427"
