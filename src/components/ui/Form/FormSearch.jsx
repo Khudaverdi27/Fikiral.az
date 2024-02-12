@@ -39,7 +39,7 @@ function FormSearch() {
     <form className="ml-12 mr-12 relative">
       <Input
         onChange={(e) => onSearch(e)}
-        className={`w-[465px] max-h-[37px] bg-[#E0E0E0] rounded-[6px] border-0 outline-none 
+        className={`w-[265px] max-h-[37px] bg-[#E0E0E0] rounded-[6px] border-0 outline-none 
         ${isHovered ? "hover:outline-[3px] hover:outline-[#E0E0E0]" : ""}`}
         size="large"
         placeholder="Axtar"
@@ -56,7 +56,7 @@ function FormSearch() {
       {openSrch && (
         <div
           ref={ref}
-          className={`w-[465px] bg-white rounded-md mt-[2px] px-5 absolute text-black overflow-auto max-h-[387px]`}
+          className={`w-[265px] bg-white rounded-md mt-[2px] px-5 absolute text-black overflow-auto max-h-[387px]`}
         >
           <div className="flex justify-between items-center py-5 px-1 font-[500]">
             <span className="text-[15px]">Axtarış</span>
