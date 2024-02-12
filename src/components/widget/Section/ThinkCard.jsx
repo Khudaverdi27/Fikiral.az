@@ -33,8 +33,8 @@ function ThinkCard() {
                 onClick={() => setBookmark(!bookmark)}
                 className={`size-5  cursor-pointer `}
               />
-              <HiDotsVertical className="ml-2 size-5 cursor-pointer " />
             </IconContext.Provider>
+            <HiDotsVertical className="ml-2 size-5 cursor-pointer " />
           </div>
         </div>
 

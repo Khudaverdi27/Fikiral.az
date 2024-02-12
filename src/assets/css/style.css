@@ -1,6 +1,7 @@
 body, header {
   @apply font-roboto;
   background-image: linear-gradient(to right, #d3cce3, #e9e4f0);
+
 }
 
 

@@ -1,4 +1,4 @@
-.container {
+    .container {
     @apply w-0 relative mb-[32px]  pl-[25px] cursor-pointer text-[22px] leading-none select-none
    }
    
@@ -45,3 +45,8 @@
 
     .categoryTitle{
     @apply flex items-center  text-primaryGray px-2 py-1 justify-between hover:bg-[#D9D9D9] rounded-[6px]  w-full}
+
+    .loginInput{
+        @apply outline-none border w-full bg-[#F6F7FB] border-[#999999] rounded-[8px] 
+        py-[6px] px-4
+    }

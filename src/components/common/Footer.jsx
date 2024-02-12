@@ -8,7 +8,7 @@ import {
 
 function Footer() {
   return (
-    <footer className=" px-[150px] py-10 text-white bg-transparent mt-28">
+    <footer className="  text-white bg-transparent mt-28">
       <div className="flex justify-between items-center">
         <div className="text-black">
           <p className="text-[32px] font-semibold ">
