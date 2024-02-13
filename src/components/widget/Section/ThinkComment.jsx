@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BsHeart } from "react-icons/bs";
+import { BsHeart, BsHeartFill } from "react-icons/bs";
 
 function ThinkComments({ comment }) {
   const [like, setLike] = useState(false);
@@ -28,11 +28,11 @@ function ThinkComments({ comment }) {
         </div>
 
         <button onClick={() => setLike(!like)}>
-          <BsHeart
-            className={` ${
-              like ? "size-6 text-[#FF0000]" : "size-[22px] text-black"
-            }    cursor-pointer hover:size-6 hover:text-[#FF0000]`}
-          />
+          {like ? (
+            <BsHeartFill className="size-6 text-[#FF0000]" />
+          ) : (
+            <BsHeart className="size-6 " />
+          )}
         </button>
       </div>
       <button className="commentLine">

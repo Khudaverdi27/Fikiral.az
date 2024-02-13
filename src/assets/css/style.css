@@ -1,5 +1,4 @@
 body, header {
-  @apply font-roboto;
   background-image: linear-gradient(to right, #d3cce3, #e9e4f0);
 
 }
@@ -9,6 +8,7 @@ body, header {
 }
 .gutter-row{
     @apply bg-[#F5F5F5] p-4 rounded-[6px] size-full flex flex-col justify-between
+   
 }
 
 /* scroll */

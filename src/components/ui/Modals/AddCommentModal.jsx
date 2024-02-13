@@ -24,14 +24,13 @@ const AddCommentModal = () => {
   };
   return (
     <div className="commentModal">
-      <div className="flex items-center justify-center space-x-2">
-        <span className="text-[17px] hover:text-black font-bold text-[#5E6268]">
+      <div className="flex items-center justify-center ">
+        <button onClick={() => setIsCommentOpen(true)}>
+          <BiMessageSquareDots className="size-[22px] hover:text-black text-[#636363] cursor-pointer" />
+        </button>
+        <span className="text-sm hover:text-black font-bold text-[#636363] ml-2">
           {comments.length}
         </span>
-
-        <button onClick={() => setIsCommentOpen(true)}>
-          <BiMessageSquareDots className="size-[22px] hover:text-black text-[#5E6268] cursor-pointer" />
-        </button>
       </div>
       <Modal
         centered

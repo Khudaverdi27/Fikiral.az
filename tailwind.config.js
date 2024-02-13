@@ -11,10 +11,6 @@ export default {
         primaryGray: ' #262626'
         
       },
-      fontFamily: {
-        'Manrope': ['ui-serif', 'Manrope'],
-        'roboto': ['ui-serif', 'Roboto'],
-      },
       letterSpacing: {
         widest: '0.30em',
       },

@@ -1,7 +1,9 @@
 .ant-pagination-item {
     @apply !border-0 !size-0 
 }
-
+.ant-badge-count-sm{
+  @apply !right-[6px] !top-[2px]
+}
 .ant-pagination-item a{
     @apply  !text-[#ACACAC]
 }

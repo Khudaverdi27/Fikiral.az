@@ -7,7 +7,7 @@ function ThinkCard() {
   const [bookmark, setBookmark] = useState(false);
 
   return (
-    <div className="gutter-row  hover:shadow-[0_10px_10px_rgba(22,_22,_24,_0.8)]">
+    <div className="gutter-row  hover:shadow-[0_8px_16px_0px_rgba(0,_0,_0,_0.15)]">
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex space-x-1 items-center">
@@ -23,9 +23,9 @@ function ThinkCard() {
           <div className="flex items-center">
             <IconContext.Provider
               value={{
-                color: "#636363",
+                color: "#262626",
                 className: `hover:stroke-black  ${
-                  bookmark && "fill-[#FFA524]"
+                  bookmark && "fill-[#262626]"
                 } `,
               }}
             >
@@ -46,7 +46,7 @@ function ThinkCard() {
             2 gün əvvəl
           </span>
         </div>
-        <p className="font-Manrope text-sm ">
+        <p className="text-[16px] ">
           Yaxın ərazidə siqaret çəkmək üçün rahat məkan ( mobil tətbiq)
         </p>
       </div>

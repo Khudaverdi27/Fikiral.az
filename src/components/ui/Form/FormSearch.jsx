@@ -46,11 +46,7 @@ function FormSearch() {
         size="large"
         placeholder="Axtar"
         prefix={
-          <IoMdSearch
-            className={`size-6 cursor-pointer ${
-              isHovered ? "text-black" : "text-primaryGray"
-            }`}
-          />
+          <IoMdSearch className={`size-6 cursor-pointer text-[#999999] `} />
         }
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -78,7 +74,7 @@ function FormSearch() {
               >
                 <div className="flex items-center ">
                   <span>
-                    <IoMdSearch className="size-6" />
+                    <IoMdSearch className="size-6 text-[#999999]" />
                   </span>
                   <p className="text-sm text-left px-[14px] line-clamp-1 ">
                     {res}
