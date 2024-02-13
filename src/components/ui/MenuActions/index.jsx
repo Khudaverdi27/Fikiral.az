@@ -30,9 +30,9 @@ function MenuActions() {
             </Link>
           </IconContext.Provider>
           <Badge size={"small"} count={arr.length}>
-            <button className="">
+            <button>
               <DropdownMenu
-                dropName={<HiOutlineBell className="size-6 " />}
+                dropName={<HiOutlineBell className="size-6" />}
                 dropDownItems={notifications}
                 classes={"w-[359px] max-h-[424px] overflow-x-hidden"}
               />

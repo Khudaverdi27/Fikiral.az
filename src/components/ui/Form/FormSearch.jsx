@@ -54,7 +54,9 @@ function FormSearch() {
       {openSrch && (
         <div
           ref={ref}
-          className={`${token} ? "w-[320px]" : "w-[420px]" bg-white rounded-md mt-[2px] px-5 absolute text-black overflow-auto max-h-[387px]`}
+          className={`${
+            token ? "w-[320px]" : "w-[420px]"
+          }   bg-white rounded-md mt-[2px] px-5 absolute text-black overflow-auto max-h-[387px]`}
         >
           <div className="flex justify-between items-center py-5 px-1 font-[500]">
             <span className="text-[15px]">Axtarış</span>
