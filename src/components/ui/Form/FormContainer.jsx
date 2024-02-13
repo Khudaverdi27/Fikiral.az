@@ -1,6 +1,6 @@
 import { Modal } from "antd";
 import { IoMdClose } from "react-icons/io";
-import FormLogin from "./FormLogin";
+import FormResetPassword from "./FormResetPassword";
 
 const FormContainer = ({
   children,
@@ -51,14 +51,11 @@ const FormContainer = ({
         onOk={(e) => onSubModel(e, false)}
         onCancel={(e) => onSubModel(e, false)}
       >
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="flex justify-center items-center pt-10"
-        >
+        <div className="flex justify-center items-center pt-10">
           <div className="w-[300px] space-y-3">
-            <FormLogin />
+            <FormResetPassword />
           </div>
-        </form>
+        </div>
       </Modal>
     </>
   );

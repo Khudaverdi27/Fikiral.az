@@ -4,7 +4,6 @@ import MenuActions from "../ui/MenuActions";
 import { GrLogout } from "react-icons/gr";
 import Logo from "./Logo";
 import { useCategories } from "../../hooks/useCategories";
-import FormLogin from "../ui/Form/FormLogin";
 import FormRegister from "../ui/Form/FormRegister";
 import { getStorage } from "../../utils/helpers";
 

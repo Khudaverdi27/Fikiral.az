@@ -1,7 +1,6 @@
 import { Col, Row } from "antd";
 import ChangePage from "../../ui/Pagination";
 import ThinkCard from "./ThinkCard";
-import { FaArrowRightLong } from "react-icons/fa6";
 
 function ThinkSection({ title, thinks = false }) {
   return (
@@ -37,8 +36,8 @@ function ThinkSection({ title, thinks = false }) {
         <ChangePage />
       ) : (
         <div className="flex justify-end text-[#929292] mt-2 text-sm ">
-          <button className="hover:bg-[#280069] flex items-center space-x-2 hover:text-white rounded-[4px] py-2 px-4">
-            <span> Hamısına bax</span> <FaArrowRightLong />
+          <button className="hover:bg-[#280069]  space-x-2 hover:text-white rounded-[4px] py-2 px-4">
+            Daha çox
           </button>
         </div>
       )}

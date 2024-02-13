@@ -14,21 +14,25 @@ const FormRegister = () => {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
 
   const onSubModel = (e, stateSub = true, stateMain = false) => {
     e.preventDefault();
     setMainModel(stateMain);
     setSubModel(stateSub);
+    reset();
   };
 
   const switchLoginModal = () => {
     setMainModel(true);
     setAccesLogin(false);
+    reset();
   };
   const switcRegisterModal = () => {
     setMainModel(true);
     setAccesLogin(true);
+    reset();
   };
 
   const onSubmit = (data) => console.log(data);
@@ -49,6 +53,7 @@ const FormRegister = () => {
               Ad soyad
             </label>
             <input
+              placeholder="Ad soyad"
               type="text"
               className="loginInput"
               {...register("name", {
@@ -72,6 +77,7 @@ const FormRegister = () => {
             Email
           </label>
           <input
+            placeholder="Email daxil edin"
             type="email"
             className="loginInput"
             {...register("email", {
@@ -94,6 +100,7 @@ const FormRegister = () => {
           <div>
             <div className=" bg-[#F6F7FB] items-center border border-[#999999] flex rounded-[8px] ">
               <input
+                placeholder="Şifrəni daxil edin"
                 {...register("password", {
                   required: "Boş buraxıla bilməz",
                   minLength: {
@@ -129,7 +136,7 @@ const FormRegister = () => {
           )}
         </div>
         <button className="bg-[#111A6E] text-white w-full py-[8px] rounded-[8px]">
-          Qeydiyyat
+          {accescLogin ? "Qeydiyyat" : "Daxil ol"}
         </button>
       </form>
       <div className="text-center text-[16px]">Və ya</div>
@@ -148,7 +155,12 @@ const FormRegister = () => {
       <div className="text-center space-x-2">
         <span>{accescLogin ? "Artıq hesabın var?" : "Hesabın yoxdur?"}</span>
         <span className="text-[#111A6E]">
-          <button onClick={() => setAccesLogin(!accescLogin)}>
+          <button
+            onClick={() => {
+              setAccesLogin(!accescLogin);
+              reset();
+            }}
+          >
             {accescLogin ? "Daxil ol" : "Qeydiyyatdan keç"}
           </button>
         </span>
