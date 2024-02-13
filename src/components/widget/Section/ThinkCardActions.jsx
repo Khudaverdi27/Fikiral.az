@@ -10,15 +10,17 @@ function ThinkCardActions({ disabled = true }) {
 
   const likeActions = () => {
     if (!like) {
+      setCount((count) => (dislike ? count + 2 : count + 1));
       setLike(true);
-      setCount((count) => count + 1);
+      setDislike(false);
     }
   };
 
   const dislikeActions = () => {
     if (!dislike) {
-      setDislike(true);
       setCount((count) => count - 2);
+      setLike(false);
+      setDislike(true);
     }
   };
 

@@ -3,8 +3,10 @@ import { IconContext } from "react-icons";
 import { useState } from "react";
 import ThinkCardActions from "./ThinkCardActions";
 import { HiDotsVertical } from "react-icons/hi";
+import { useLocation } from "react-router-dom";
 function ThinkCard() {
   const [bookmark, setBookmark] = useState(false);
+  const path = useLocation().pathname;
 
   return (
     <div className="gutter-row  hover:shadow-[0_8px_16px_0px_rgba(0,_0,_0,_0.15)]">
@@ -24,7 +26,7 @@ function ThinkCard() {
             <IconContext.Provider
               value={{
                 color: "#262626",
-                className: `hover:stroke-black  ${
+                className: `${path === "/favorites" && "fill-[#262626]"} ${
                   bookmark && "fill-[#262626]"
                 } `,
               }}
