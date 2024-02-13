@@ -32,11 +32,15 @@ function ThinkSection({ title, thinks = false }) {
         </Col>
       </Row>
 
-      <div className="flex justify-end text-[#929292] mt-2 text-sm ">
-        <button className="hover:bg-[#280069]  space-x-2 hover:text-white rounded-[4px] py-2 px-4">
-          Daha çox
-        </button>
-      </div>
+      {title === "Popular fikirlər" ? (
+        <ChangePage />
+      ) : (
+        <div className="flex justify-end text-primaryGray mt-2 text-sm ">
+          <button className="hover:bg-[#280069]  space-x-2 hover:text-white rounded-[4px] py-2 px-4">
+            Hamısına bax
+          </button>
+        </div>
+      )}
     </article>
   );
 }

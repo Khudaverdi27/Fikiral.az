@@ -41,7 +41,7 @@ function FormSearch() {
         onChange={(e) => onSearch(e)}
         className={`${
           token ? "w-[320px]" : "w-[420px]"
-        }  max-h-[37px] bg-[#E0E0E0] rounded-[6px] border-0 outline-none 
+        }  max-h-[37px] bg-[#E8E8E8] rounded-[6px] border-0 outline-none 
         ${isHovered && "hover:outline-[3px] hover:outline-[#E0E0E0]"}`}
         size="large"
         placeholder="Axtar"

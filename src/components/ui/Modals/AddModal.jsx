@@ -48,7 +48,7 @@ const AddModal = () => {
 
       <Modal
         title={
-          <div className="flex items-center space-x-2 bg-[#232323]">
+          <div className="flex items-center space-x-2 bg-[#999999]">
             <figure className="size-11 rounded-full shrink-0">
               <img
                 className="img-cover"
@@ -65,7 +65,7 @@ const AddModal = () => {
         onCancel={() => setOpen(false)}
         width={603}
         closable={true}
-        className="bg-[#232323] rounded-md"
+        className="bg-[#999999] rounded-md"
         style={{
           top: 50,
         }}
@@ -99,13 +99,15 @@ const AddModal = () => {
               Zəhmət olmasa kategoriya seçimi edin və fikrinizi yazın
             </p>
           )}
-          <button
-            className="w-full mt-3 rounded-lg p-2 font-[500] text-[16px] hover:bg-[#280069]  hover:text-white bg-zinc-50"
-            type="submit"
-            key={"btn"}
-          >
-            Paylaş
-          </button>
+          <div className="flex items-center justify-center">
+            <button
+              className=" mt-3 rounded-lg text-[16px] text-white hover:bg-[#280069]  px-6 py-[10px] bg-[#6366F1]"
+              type="submit"
+              key={"btn"}
+            >
+              Paylaş
+            </button>
+          </div>
         </form>
       </Modal>
     </>

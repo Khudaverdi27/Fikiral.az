@@ -39,8 +39,8 @@ function ThinkCard() {
         </div>
 
         <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
-          <span className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] px-2 rounded-[4px] cursor-pointer">
-            Lifestyle
+          <span className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] pr-2 rounded-[4px] cursor-pointer">
+            Texnologiya
           </span>
           <span className="text-[#808080] relative  before:content-[''] before:absolute before:left-[-15px] before:top-[7px] before:size-1 before:rounded-full before:bg-primaryGray">
             2 gün əvvəl
