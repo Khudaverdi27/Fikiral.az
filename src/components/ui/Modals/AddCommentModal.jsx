@@ -6,6 +6,8 @@ import { HiOutlineBookmark } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io";
 import ThinkComments from "../../widget/Section/ThinkComment";
 import ThinkCardActions from "../../widget/Section/ThinkCardActions";
+import { getStorage } from "../../../utils/helpers";
+import { useModalActions } from "../../../context/LoginModalProvider";
 const AddCommentModal = () => {
   const comments = [
     "Çox bəyəndim bu fikri",
@@ -17,7 +19,17 @@ const AddCommentModal = () => {
   const [bookmark, setBookmark] = useState(false);
   const [newComment, setNewComment] = useState(comments);
   const [value, setValue] = useState("");
+  const { switcRegisterModal } = useModalActions();
 
+  const token = getStorage("token");
+
+  const changeBookmark = () => {
+    if (!token) {
+      switcRegisterModal();
+    } else {
+      setBookmark(!bookmark);
+    }
+  };
   const addNewComment = (e) => {
     e.preventDefault();
     setNewComment([...newComment, value]);
@@ -86,12 +98,12 @@ const AddCommentModal = () => {
                   value={{
                     color: "#636363",
                     className: `hover:stroke-black  ${
-                      bookmark && "fill-[#FFA524]"
+                      bookmark && "fill-primaryGray"
                     } `,
                   }}
                 >
                   <HiOutlineBookmark
-                    onClick={() => setBookmark(!bookmark)}
+                    onClick={changeBookmark}
                     className={`size-5  cursor-pointer absolute right-3 top-0 `}
                   />
                 </IconContext.Provider>

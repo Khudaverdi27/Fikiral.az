@@ -15,7 +15,7 @@ function Footer() {
 
         <div className="space-y-2">
           <h6 className="text-sm font-semibold text-black">Haqqımızda</h6>
-          <Link to={"/"} className="text-xs text-primaryGray">
+          <Link to={"/home"} className="text-xs text-primaryGray">
             Fikiral
           </Link>
         </div>

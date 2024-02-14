@@ -1,24 +1,11 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useModalActions } from "../../../context/LoginModalProvider";
 
 function FormResetPassword() {
-  const [resetPassword, setResetPassword] = useState(false);
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm();
-  const sendMailforPassword = (data) => {
-    console.log(data);
-    reset();
-    setResetPassword(true);
-  };
+  const { handleSubmit, register, errors, resetPassword, onSubmit } =
+    useModalActions();
+
   return (
-    <form
-      onSubmit={handleSubmit(sendMailforPassword)}
-      className="space-y-4 text-[16px]"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 text-[16px]">
       {!resetPassword ? (
         <>
           <h5>Şifrəni unutmusunuz?</h5>

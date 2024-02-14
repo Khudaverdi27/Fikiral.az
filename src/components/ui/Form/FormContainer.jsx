@@ -1,16 +1,17 @@
 import { Modal } from "antd";
 import { IoMdClose } from "react-icons/io";
 import FormResetPassword from "./FormResetPassword";
+import { useModalActions } from "../../../context/LoginModalProvider";
 
-const FormContainer = ({
-  children,
-  isMainModel,
-  setMainModel,
-  isSubModel,
-  onSubModel,
-  switchLoginModal,
-  switcRegisterModal,
-}) => {
+const FormContainer = ({ children }) => {
+  const {
+    switchLoginModal,
+    switcRegisterModal,
+    isMainModel,
+    setMainModel,
+    isSubModel,
+    onSubModel,
+  } = useModalActions();
   return (
     <>
       <button

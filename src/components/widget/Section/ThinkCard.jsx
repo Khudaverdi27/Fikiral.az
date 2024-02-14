@@ -4,8 +4,20 @@ import { useState } from "react";
 import ThinkCardActions from "./ThinkCardActions";
 import { HiDotsVertical } from "react-icons/hi";
 import { useLocation } from "react-router-dom";
+import { useModalActions } from "../../../context/LoginModalProvider";
+import { getStorage } from "../../../utils/helpers";
 function ThinkCard() {
   const [bookmark, setBookmark] = useState(false);
+  const { switcRegisterModal } = useModalActions();
+  const token = getStorage("token");
+  const changeBookmark = () => {
+    if (!token) {
+      switcRegisterModal();
+    } else {
+      setBookmark(!bookmark);
+    }
+  };
+
   const path = useLocation().pathname;
 
   return (
@@ -32,7 +44,7 @@ function ThinkCard() {
               }}
             >
               <HiOutlineBookmark
-                onClick={() => setBookmark(!bookmark)}
+                onClick={changeBookmark}
                 className={`size-5  cursor-pointer `}
               />
             </IconContext.Provider>

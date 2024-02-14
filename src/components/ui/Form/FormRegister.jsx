@@ -2,49 +2,24 @@ import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-import { useForm } from "react-hook-form";
 import FormContainer from "./FormContainer";
+import { useModalActions } from "../../../context/LoginModalProvider";
 
 const FormRegister = () => {
   const [type, setType] = useState(false);
-  const [isMainModel, setMainModel] = useState(false); // First Model
-  const [isSubModel, setSubModel] = useState(false); // Second Model
-  const [accescLogin, setAccesLogin] = useState(false);
   const {
-    register,
-    formState: { errors },
     handleSubmit,
+    register,
+    accescLogin,
+    setAccesLogin,
+    errors,
+    onSubModel,
     reset,
-  } = useForm();
+    onSubmit,
+  } = useModalActions();
 
-  const onSubModel = (e, stateSub = true, stateMain = false) => {
-    e.preventDefault();
-    setMainModel(stateMain);
-    setSubModel(stateSub);
-    reset();
-  };
-
-  const switchLoginModal = () => {
-    setMainModel(true);
-    setAccesLogin(false);
-    reset();
-  };
-  const switcRegisterModal = () => {
-    setMainModel(true);
-    setAccesLogin(true);
-    reset();
-  };
-
-  const onSubmit = (data) => console.log(data);
   return (
-    <FormContainer
-      isMainModel={isMainModel}
-      setMainModel={setMainModel}
-      isSubModel={isSubModel}
-      onSubModel={onSubModel}
-      switchLoginModal={switchLoginModal}
-      switcRegisterModal={switcRegisterModal}
-    >
+    <FormContainer>
       <h3 className="text-center text-[16px]">Fikiral-a xoş gəlmisiz!</h3>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
         {accescLogin && (

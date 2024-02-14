@@ -5,11 +5,16 @@ import { GrLogout } from "react-icons/gr";
 import Logo from "./Logo";
 import { useCategories } from "../../hooks/useCategories";
 import FormRegister from "../ui/Form/FormRegister";
-import { getStorage } from "../../utils/helpers";
+import { getStorage, removeStorage } from "../../utils/helpers";
 
 function Header() {
   const [categories] = useCategories(true, "checkbox");
   const token = getStorage("token");
+
+  const logoutProfile = () => {
+    removeStorage("token");
+    location.reload();
+  };
   return (
     <header
       className=" flex items-center w-full py-[25px] px-[150px]   
@@ -45,10 +50,13 @@ function Header() {
               {
                 id: "logoutProfile",
                 title: (
-                  <div className="flex items-center  text-[16px] space-x-5 hover:border hover:border-black hover:px-1">
+                  <button
+                    onClick={logoutProfile}
+                    className="flex items-center  text-[16px] space-x-5 hover:border hover:border-black hover:px-1"
+                  >
                     <span>Çıxış et</span>
                     <GrLogout className="w-[14px] h-[20] " />
-                  </div>
+                  </button>
                 ),
               },
             ]}
