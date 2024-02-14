@@ -87,7 +87,11 @@ const FormRegister = () => {
                 className="loginInput !border-0"
               />
 
-              <button onClick={() => setType(!type)} className="w-11 h-8 ">
+              <button
+                type="button"
+                onClick={() => setType(!type)}
+                className="w-11 h-8 "
+              >
                 {!type ? (
                   <FiEye className="size-full px-2 text-[#BCBCBE]" />
                 ) : (
