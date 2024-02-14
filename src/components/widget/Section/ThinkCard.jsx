@@ -22,7 +22,7 @@ function ThinkCard() {
 
   return (
     <div className="gutter-row  hover:shadow-[0_8px_16px_0px_rgba(0,_0,_0,_0.15)]">
-      <div className="space-y-2">
+      <div className="space-y-2 mb-2">
         <div className="flex items-center justify-between">
           <div className="flex space-x-1 items-center">
             <figure className="size-11">
@@ -53,15 +53,18 @@ function ThinkCard() {
         </div>
 
         <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
-          <span className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] pr-2 rounded-[4px] cursor-pointer">
-            Texnologiya
+          <span className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px] cursor-pointer">
+            Digər
           </span>
           <span className="text-[#808080] relative  before:content-[''] before:absolute before:left-[-15px] before:top-[7px] before:size-1 before:rounded-full before:bg-primaryGray">
             2 gün əvvəl
           </span>
         </div>
         <p className="text-[16px] ">
-          Yaxın ərazidə siqaret çəkmək üçün rahat məkan ( mobil tətbiq)
+          Lorem ipsum, son nüsxə mövcud olana qədər nümunə mətni kimi istifadə
+          edilə bilər. O həmçinin adlanan prosesdə mətni müvəqqəti olaraq əvəz
+          etmək üçün istifadə olunur ki, bu da dizaynerlərə veb-səhifənin və ya
+          nəşrin formasını nəzərdən keçirməyə imkan verir.
         </p>
       </div>
       <ThinkCardActions disabled={true} />

@@ -14,6 +14,7 @@ function Header() {
   const logoutProfile = () => {
     removeStorage("token");
     location.reload();
+    location.href = "/";
   };
   return (
     <header
@@ -26,7 +27,11 @@ function Header() {
       </div>
       <div className="flex space-x-[15px]  cursor-pointer items-center">
         <DropdownMenu
-          dropName={<span className="text-primaryGray">Kateqoriya</span>}
+          dropName={
+            <span className="text-primaryGray hover:text-[#6366F1] ">
+              Kateqoriya
+            </span>
+          }
           dropDownItems={categories}
           classes={"w-[314px] max-h-[424px] overflow-x-hidden "}
         />

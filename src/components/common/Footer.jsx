@@ -15,7 +15,7 @@ function Footer() {
 
         <div className="space-y-2">
           <h6 className="text-sm font-semibold text-black">Haqqımızda</h6>
-          <Link to={"/home"} className="text-xs text-primaryGray">
+          <Link to={"/homey"} className="text-xs text-primaryGray">
             Fikiral
           </Link>
         </div>
@@ -26,14 +26,14 @@ function Footer() {
           <p className="text-xs text-primaryGray">Məxfilik qaydaları</p>
         </div>
         <div className="space-y-2 cursor-pointer">
-          <h6 className="text-sm font-semibold ml-2 text-black">Əlaqə</h6>
-          <p className="text-xs ml-2 text-primaryGray">info@fikiral.az</p>
+          <h6 className="text-sm font-semibold  text-black">Əlaqə</h6>
+          <p className="text-xs  text-primaryGray">info@fikiral.az</p>
 
           <span className="flex space-x-3 ">
-            <FaInstagram className="text-[#232323]  size-6" />
-            <FaLinkedinIn className="text-[#232323]  size-6" />
-            <FaFacebookF className="text-[#232323]  size-6" />
-            <FaXTwitter className="text-[#232323]  size-6" />
+            <FaInstagram className="text-[#232323] hover:text-[#6366F1] size-6" />
+            <FaLinkedinIn className="text-[#232323] hover:text-[#6366F1] size-6" />
+            <FaFacebookF className="text-[#232323] hover:text-[#6366F1] size-6" />
+            <FaXTwitter className="text-[#232323] hover:text-[#6366F1] size-6" />
           </span>
         </div>
       </div>

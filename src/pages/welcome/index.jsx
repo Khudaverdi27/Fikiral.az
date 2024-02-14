@@ -28,8 +28,10 @@ function WelcomePage() {
           Başla
         </Link>
       </div>
-      <ThinkSection title={"Popluyar fikirlər"} />
-      <ThinkSection title={"Yeni fikirlər"} />
+      <ThinkSection
+        title={<h2 className="text-center">Popluyar fikirlər</h2>}
+      />
+      <ThinkSection title={<h2 className="text-center">Yeni fikirlər</h2>} />
     </section>
   );
 }

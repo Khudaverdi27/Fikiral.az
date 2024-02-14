@@ -30,13 +30,39 @@ function ThinkSection({ title, thinks = false }) {
         >
           <ThinkCard />
         </Col>
+        <Col
+          xl={{
+            span: 8,
+          }}
+          lg={{
+            span: 12,
+          }}
+          md={{ span: 12 }}
+          sm={{ span: 24 }}
+          xs={{ span: 24 }}
+        >
+          <ThinkCard />
+        </Col>
+        <Col
+          xl={{
+            span: 8,
+          }}
+          lg={{
+            span: 12,
+          }}
+          md={{ span: 12 }}
+          sm={{ span: 24 }}
+          xs={{ span: 24 }}
+        >
+          <ThinkCard />
+        </Col>
       </Row>
 
       {title === "Popular fikirlər" ? (
         <ChangePage />
       ) : (
         <div className="flex justify-end text-primaryGray mt-2 text-sm ">
-          <button className="hover:bg-[#280069]  space-x-2 hover:text-white rounded-[4px] py-2 px-4">
+          <button className="hover:bg-[#6366F1]  space-x-2 hover:text-white rounded-[4px] py-2 px-4">
             Hamısına bax
           </button>
         </div>
