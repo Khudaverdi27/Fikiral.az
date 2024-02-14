@@ -1,12 +1,13 @@
 import { getStorage, objectToQueryString, removeStorage } from "./helpers";
+// + (params ? "?" + objectToQueryString(params) : "")
+const base_URL = "https://fikiral-app.onrender.com/fikiral/v1";
 
-const base_URL = import.meta.env.VITE_API_URL;
-
-const request = async (base_URL, url, method, params = false) => {
+const request = async (baseURL, url, method, params = false) => {
   const token = getStorage("token");
 
   let headers = {
     Accept: "application/json",
+    "Content-Type": "application/json",
   };
 
   let options = {
@@ -16,15 +17,14 @@ const request = async (base_URL, url, method, params = false) => {
 
   if (params) {
     options.body = JSON.stringify(params);
-    headers["Content-Type"] = "application/json";
+
     //post comment to thinks
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     }
   }
 
-  const api = await fetch(base_URL + url, options);
-
+  const api = await fetch(baseURL + url, options);
   if (api.ok) {
     return await api.json();
   } else if (api.status === 404) {
@@ -42,11 +42,6 @@ const request = async (base_URL, url, method, params = false) => {
   }
 };
 
-export const get = (url, params = false) =>
-  request(
-    base_URL,
-    url + (params ? "?" + objectToQueryString(params) : ""),
-    "GET"
-  );
+export const get = (url, params = false) => request(base_URL, url, "GET");
 export const post = (url, params) => request(base_URL, url, "POST", params);
 export const destroy = (url) => request(base_URL, url, "DELETE");

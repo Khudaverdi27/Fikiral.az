@@ -1,8 +1,15 @@
 import { Col, Row } from "antd";
 import ChangePage from "../../ui/Pagination";
 import ThinkCard from "./ThinkCard";
+import { useFetchThinksList } from "../../../hooks/useFetch";
+import { useEffect } from "react";
 
-function ThinkSection({ title, thinks = false }) {
+function ThinkSection({ title }) {
+  const [data, apiFetch, loading] = useFetchThinksList();
+
+  useEffect(() => {
+    apiFetch();
+  }, [data.length]);
   return (
     <article>
       <h4 className="text-2xl text-primaryGray font-semibold mt-5 mb-6">
@@ -17,48 +24,23 @@ function ThinkSection({ title, thinks = false }) {
           lg: 32,
         }}
       >
-        <Col
-          className="my-5"
-          xl={{
-            span: 8,
-          }}
-          lg={{
-            span: 12,
-          }}
-          md={{ span: 12 }}
-          sm={{ span: 24 }}
-          xs={{ span: 24 }}
-        >
-          <ThinkCard />
-        </Col>
-        <Col
-          className="my-5"
-          xl={{
-            span: 8,
-          }}
-          lg={{
-            span: 12,
-          }}
-          md={{ span: 12 }}
-          sm={{ span: 24 }}
-          xs={{ span: 24 }}
-        >
-          <ThinkCard />
-        </Col>
-        <Col
-          className="my-5"
-          xl={{
-            span: 8,
-          }}
-          lg={{
-            span: 12,
-          }}
-          md={{ span: 12 }}
-          sm={{ span: 24 }}
-          xs={{ span: 24 }}
-        >
-          <ThinkCard />
-        </Col>
+        {data.map((think, index) => (
+          <Col
+            key={index}
+            className="my-5"
+            xl={{
+              span: 8,
+            }}
+            lg={{
+              span: 12,
+            }}
+            md={{ span: 12 }}
+            sm={{ span: 24 }}
+            xs={{ span: 24 }}
+          >
+            <ThinkCard key={index} thinks={think} />
+          </Col>
+        ))}
       </Row>
 
       {title === "Popular fikirlər" ? (

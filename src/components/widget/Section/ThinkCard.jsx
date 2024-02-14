@@ -6,7 +6,8 @@ import { HiDotsVertical } from "react-icons/hi";
 import { useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { getStorage } from "../../../utils/helpers";
-function ThinkCard() {
+import moment from "moment";
+function ThinkCard({ thinks }) {
   const [bookmark, setBookmark] = useState(false);
   const { switcRegisterModal } = useModalActions();
   const token = getStorage("token");
@@ -17,6 +18,11 @@ function ThinkCard() {
       setBookmark(!bookmark);
     }
   };
+
+  const currentDate = moment();
+  const targetDate = moment(thinks.publishedAt);
+  const differenceInDays = currentDate.diff(targetDate, "days");
+  const differenceInHours = currentDate.diff(targetDate, "hours");
 
   const path = useLocation().pathname;
 
@@ -32,7 +38,7 @@ function ThinkCard() {
                 alt=""
               />
             </figure>
-            <h6>Samir N.</h6>
+            <h6>{thinks.userName ? thinks.userName : "samir_27"}</h6>
           </div>
           <div className="flex items-center">
             <IconContext.Provider
@@ -54,20 +60,25 @@ function ThinkCard() {
 
         <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
           <span className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px] cursor-pointer">
-            Digər
+            {thinks.category ? thinks.category : "Elm"}
           </span>
           <span className="text-[#808080] relative  before:content-[''] before:absolute before:left-[-15px] before:top-[7px] before:size-1 before:rounded-full before:bg-primaryGray">
-            2 gün əvvəl
+            {differenceInDays < 0
+              ? `${differenceInDays} gün əvvəl`
+              : `${differenceInHours} saat əvvəl`}
           </span>
         </div>
         <p className="text-[16px] ">
-          Lorem ipsum, son nüsxə mövcud olana qədər nümunə mətni kimi istifadə
-          edilə bilər. O həmçinin adlanan prosesdə mətni müvəqqəti olaraq əvəz
-          etmək üçün istifadə olunur ki, bu da dizaynerlərə veb-səhifənin və ya
-          nəşrin formasını nəzərdən keçirməyə imkan verir.
+          {thinks.content
+            ? thinks.content
+            : "Lorem ipsum, son nüsxə mövcud olana qədər nümunə mətni kimi istifadə edilə bilər. O həmçinin adlanan prosesdə mətni müvəqqəti olaraq əvəz etmək üçün istifadə olunur ki, bu da dizaynerlərə veb-səhifənin və ya nəşrin formasını nəzərdən keçirməyə imkan verir."}
         </p>
       </div>
-      <ThinkCardActions disabled={true} />
+      <ThinkCardActions
+        comment={thinks.commentsCount}
+        likes={thinks.likes}
+        disabled={true}
+      />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { getStorage } from "../../utils/helpers";
 function WelcomePage() {
   const { switcRegisterModal } = useModalActions();
   const token = getStorage("token");
+
   return (
     <section>
       <div className="h-[70vh] flex flex-col items-center space-y-8 mt-20">
@@ -28,6 +29,7 @@ function WelcomePage() {
           Başla
         </Link>
       </div>
+
       <ThinkSection title={<p className="text-center">Popluyar fikirlər</p>} />
       <ThinkSection title={<p className="text-center">Yeni fikirlər</p>} />
     </section>

@@ -1,4 +1,4 @@
-const userId = {
+export const userId = {
   allUser: "/user/",
   getUserById: "/user/:id",
   updateUserById: "/user/:id",

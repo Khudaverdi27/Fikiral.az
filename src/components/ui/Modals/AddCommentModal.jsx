@@ -8,16 +8,10 @@ import ThinkComments from "../../widget/Section/ThinkComment";
 import ThinkCardActions from "../../widget/Section/ThinkCardActions";
 import { getStorage } from "../../../utils/helpers";
 import { useModalActions } from "../../../context/LoginModalProvider";
-const AddCommentModal = () => {
-  const comments = [
-    "Çox bəyəndim bu fikri",
-    "Çox bəyəndim bu fikri",
-    "Çox bəyəndim bu fikri",
-  ];
-
+const AddCommentModal = ({ comment }) => {
   const [iscommentOpen, setIsCommentOpen] = useState(false);
   const [bookmark, setBookmark] = useState(false);
-  const [newComment, setNewComment] = useState(comments);
+  const [newComment, setNewComment] = useState([]);
   const [value, setValue] = useState("");
   const { switcRegisterModal } = useModalActions();
 
@@ -42,7 +36,7 @@ const AddCommentModal = () => {
           <BiMessageSquareDots className="size-[22px] hover:text-black text-[#636363] cursor-pointer" />
         </button>
         <span className="text-sm hover:text-black font-bold text-[#636363] ml-2">
-          {comments.length}
+          {comment ? comment : 5}
         </span>
       </div>
       <Modal

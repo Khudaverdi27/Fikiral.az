@@ -1,3 +1,3 @@
-const categoryApi = {
+export const categoryApi = {
   list: "/think/:category",
 };

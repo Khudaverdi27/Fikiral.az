@@ -3,10 +3,10 @@ import { BsFillHeartFill } from "react-icons/bs";
 import { VscLink } from "react-icons/vsc";
 import AddCommentModal from "../../ui/Modals/AddCommentModal";
 import { useState } from "react";
-function ThinkCardActions({ disabled = true }) {
+function ThinkCardActions({ disabled = true, comment, likes }) {
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
-  const [count, setCount] = useState(34);
+  const [count, setCount] = useState(likes ? likes : 34);
 
   const likeActions = () => {
     if (!like) {
@@ -47,7 +47,7 @@ function ThinkCardActions({ disabled = true }) {
       <div className="flex items-center  gap-x-[10px]">
         {disabled && (
           <>
-            <AddCommentModal />
+            <AddCommentModal comment={comment} />
           </>
         )}
         <span>
