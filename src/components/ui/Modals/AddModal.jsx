@@ -76,7 +76,7 @@ const AddModal = () => {
           <DropdownMenu
             placement={"bottomLeft"}
             dropName={
-              <button className="rounded md hover:text-white px-2 py-[5px] mb-2 bg-zinc-50 hover:bg-[#280069]">
+              <button className="rounded md hover:text-white px-2 py-[5px] mb-2 bg-zinc-50 hover:bg-[#6366F1]">
                 <span className="text-red-500 mr-1 font-bold">*</span>Kateqoriya
                 seç
               </button>

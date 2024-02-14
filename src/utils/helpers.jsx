@@ -9,3 +9,12 @@ export const getStorage = (key) => {
 export const removeStorage = (key) => {
   return sessionStorage.removeItem(key);
 };
+
+export const objectToQueryString = (obj) => {
+  return Object.entries(obj)
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+    )
+    .join("&");
+};
