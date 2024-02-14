@@ -6,7 +6,7 @@ export const DropNotifications = () => {
   ];
   const notifications = [
     {
-      name: "Bildirisler",
+      name: "Bildirşlər",
       title: "",
     },
     {

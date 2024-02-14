@@ -108,14 +108,14 @@ const FormRegister = () => {
           {!accescLogin && (
             <button
               type="button"
-              className="text-[#111A6E] text-[16px] mt-1"
+              className="text-[#6366F1] text-[16px] mt-1"
               onClick={onSubModel}
             >
               Şifrəni unutmusan?
             </button>
           )}
         </div>
-        <button className="bg-[#111A6E] text-white w-full py-[8px] rounded-[8px]">
+        <button className="bg-[#6366F1] text-white w-full py-[8px] rounded-[8px]">
           {accescLogin ? "Qeydiyyat" : "Daxil ol"}
         </button>
       </form>
@@ -134,7 +134,7 @@ const FormRegister = () => {
       </button>
       <div className="text-center space-x-2">
         <span>{accescLogin ? "Artıq hesabın var?" : "Hesabın yoxdur?"}</span>
-        <span className="text-[#111A6E]">
+        <span className="text-[#6366F1]">
           <button
             onClick={() => {
               setAccesLogin(!accescLogin);

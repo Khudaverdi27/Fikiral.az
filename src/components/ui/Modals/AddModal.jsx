@@ -101,7 +101,7 @@ const AddModal = () => {
           )}
           <div className="flex items-center justify-center">
             <button
-              className=" mt-3 rounded-lg text-[16px] text-white hover:bg-[#280069]  px-6 py-[10px] bg-[#F16367]"
+              className=" mt-3 rounded-lg text-[16px] text-white hover:bg-[#F16367] px-6 py-[10px] bg-[#6366F1]"
               type="submit"
               key={"btn"}
             >

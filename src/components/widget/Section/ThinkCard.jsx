@@ -21,7 +21,7 @@ function ThinkCard() {
   const path = useLocation().pathname;
 
   return (
-    <div className="gutter-row  hover:shadow-[0_8px_16px_0px_rgba(0,_0,_0,_0.15)]">
+    <div className="gutter-row">
       <div className="space-y-2 mb-2">
         <div className="flex items-center justify-between">
           <div className="flex space-x-1 items-center">

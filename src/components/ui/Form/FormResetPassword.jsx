@@ -86,7 +86,7 @@ function FormResetPassword() {
       )}
       <button
         type="submit"
-        className="bg-[#111A6E] text-white w-full py-[8px] rounded-[8px]"
+        className="bg-[#6366F1] text-white w-full py-[8px] rounded-[8px]"
       >
         {!resetPassword ? " Bərpa e-maili göndərin" : "Şifrəni təsdiq edin"}
       </button>

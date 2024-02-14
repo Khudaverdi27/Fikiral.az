@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { saveStorage } from "../utils/helpers";
+import { useNavigate } from "react-router-dom";
 
 const LoginModal = createContext();
 
@@ -8,7 +9,7 @@ function ModalProvider({ children }) {
   const [isMainModel, setMainModel] = useState(false); // First Model
   const [isSubModel, setSubModel] = useState(false); // Second Model
   const [accescLogin, setAccesLogin] = useState(false);
-
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -19,8 +20,10 @@ function ModalProvider({ children }) {
   const onSubmit = (data) => {
     saveStorage("token", 123);
     reset();
-    location.reload();
     console.log(data);
+    if (data.password) {
+      navigate("/home");
+    }
   };
 
   const onSubModel = (e, stateSub = true, stateMain = false) => {

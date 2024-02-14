@@ -18,6 +18,7 @@ function ThinkSection({ title, thinks = false }) {
         }}
       >
         <Col
+          className="my-5"
           xl={{
             span: 8,
           }}
@@ -31,6 +32,7 @@ function ThinkSection({ title, thinks = false }) {
           <ThinkCard />
         </Col>
         <Col
+          className="my-5"
           xl={{
             span: 8,
           }}
@@ -44,6 +46,7 @@ function ThinkSection({ title, thinks = false }) {
           <ThinkCard />
         </Col>
         <Col
+          className="my-5"
           xl={{
             span: 8,
           }}
