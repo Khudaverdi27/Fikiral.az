@@ -51,7 +51,7 @@ function FormSearch() {
         <div
           ref={ref}
           className="w-[320px]
-          bg-white rounded-md mt-[2px] px-5 absolute text-black overflow-auto max-h-[387px]"
+          bg-white rounded-md mt-[2px] absolute text-black overflow-auto max-h-[387px]"
         >
           <div className="flex justify-between items-center py-5 px-1 font-[500]">
             <span className="text-[15px]">Axtarış</span>
