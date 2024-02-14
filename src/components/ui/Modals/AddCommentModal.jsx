@@ -26,6 +26,7 @@ const AddCommentModal = () => {
   const changeBookmark = () => {
     if (!token) {
       switcRegisterModal();
+      setIsCommentOpen(false);
     } else {
       setBookmark(!bookmark);
     }

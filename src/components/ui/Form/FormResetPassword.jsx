@@ -1,11 +1,33 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useModalActions } from "../../../context/LoginModalProvider";
 
 function FormResetPassword() {
-  const { handleSubmit, register, errors, resetPassword, onSubmit } =
-    useModalActions();
+  const [resetPassword, setResetPassword] = useState(false);
+  const { setMainModel, setSubModel } = useModalActions();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm();
+
+  const newPassword = (data) => {
+    setResetPassword(true);
+    console.log(data);
+    reset();
+    if (data.password) {
+      setResetPassword(false);
+      setSubModel(false);
+      setMainModel(true);
+    }
+  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 text-[16px]">
+    <form
+      onSubmit={handleSubmit(newPassword)}
+      className="space-y-4 text-[16px]"
+    >
       {!resetPassword ? (
         <>
           <h5>Şifrəni unutmusunuz?</h5>
@@ -13,7 +35,7 @@ function FormResetPassword() {
             Narahat olmayın! Sadəcə e-mailinizi daxil edin və biz sizə şifrə
             yeniləmə linki göndərəcəyik.
           </p>
-          <label cla>Email</label>
+          <label>Email</label>
           <input
             placeholder="Email daxil edin"
             {...register("email", {

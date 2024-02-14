@@ -107,6 +107,7 @@ const FormRegister = () => {
           </div>
           {!accescLogin && (
             <button
+              type="button"
               className="text-[#111A6E] text-[16px] mt-1"
               onClick={onSubModel}
             >

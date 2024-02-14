@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { saveStorage } from "../utils/helpers";
 
 const LoginModal = createContext();
 
@@ -7,7 +8,7 @@ function ModalProvider({ children }) {
   const [isMainModel, setMainModel] = useState(false); // First Model
   const [isSubModel, setSubModel] = useState(false); // Second Model
   const [accescLogin, setAccesLogin] = useState(false);
-  const [resetPassword, setResetPassword] = useState(false);
+
   const {
     register,
     formState: { errors },
@@ -16,15 +17,17 @@ function ModalProvider({ children }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    saveStorage("token", 123);
     reset();
-    setResetPassword(true);
+    location.reload();
+    console.log(data);
   };
 
   const onSubModel = (e, stateSub = true, stateMain = false) => {
     e.preventDefault();
     setMainModel(stateMain);
     setSubModel(stateSub);
+
     reset();
   };
 
@@ -44,8 +47,6 @@ function ModalProvider({ children }) {
     setMainModel,
     isSubModel,
     setSubModel,
-    resetPassword,
-    setResetPassword,
     accescLogin,
     setAccesLogin,
     onSubModel,
