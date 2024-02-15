@@ -8,7 +8,7 @@ import { useModalActions } from "../../../context/LoginModalProvider";
 import { getStorage } from "../../../utils/helpers";
 import moment from "moment";
 
-function ThinkCard({ thinks, children }) {
+function ThinkCard({ thinks, children, items }) {
   const [bookmark, setBookmark] = useState(false);
   const { switcRegisterModal } = useModalActions();
   const token = getStorage("token");
@@ -75,6 +75,8 @@ function ThinkCard({ thinks, children }) {
         comment={thinks.commentsCount}
         likes={thinks.likes}
         disabled={true}
+        thinkId={thinks.id}
+        items={items}
       />
       {children}
     </div>

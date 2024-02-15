@@ -8,13 +8,13 @@ import ThinkCardActions from "../../widget/Thinks/ThinkCardActions";
 import { getStorage } from "../../../utils/helpers";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import ThinkComments from "../../widget/Thinks/ThinkComment";
-const AddCommentModal = ({ comment }) => {
+const AddCommentModal = ({ comment, thinkId, items }) => {
   const [iscommentOpen, setIsCommentOpen] = useState(false);
   const [bookmark, setBookmark] = useState(false);
   const [newComment, setNewComment] = useState([]);
   const [value, setValue] = useState("");
   const { switcRegisterModal } = useModalActions();
-
+  const [modalData, setModalData] = useState({});
   const token = getStorage("token");
 
   const changeBookmark = () => {
@@ -29,10 +29,16 @@ const AddCommentModal = ({ comment }) => {
     e.preventDefault();
     setNewComment([...newComment, value]);
   };
+
+  const openMessageModal = () => {
+    setIsCommentOpen(true);
+    const findData = items.find((i) => i.id === thinkId);
+    setModalData(findData);
+  };
   return (
     <div className="commentModal">
       <div className="flex items-center justify-center ">
-        <button onClick={() => setIsCommentOpen(true)}>
+        <button onClick={openMessageModal}>
           <BiMessageSquareDots className="size-[22px] hover:text-black text-[#636363] cursor-pointer" />
         </button>
         <span className="text-sm hover:text-black font-bold text-[#636363] ml-2">
@@ -71,9 +77,7 @@ const AddCommentModal = ({ comment }) => {
                 </span>
                 <span className="text-[#808080]  ">2 gün əvvəl</span>
               </div>
-              <p className="font-Manrope text-sm ">
-                Yaxın ərazidə siqaret çəkmək üçün rahat məkan ( mobil tətbiq)
-              </p>
+              <p className="font-Manrope text-sm ">{modalData.content}</p>
             </div>
           </Col>
 

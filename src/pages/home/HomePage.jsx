@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useFetchThinksList } from "../../hooks/useFetch";
+
 import ThinkSection from "./components/ThinkSections";
 
 function HomePage() {
@@ -14,15 +15,9 @@ function HomePage() {
       <ThinkSection title={"Sizin üçün"} items={data} loading={loading} />
 
       <ThinkSection
-        title={
-          loading ? (
-            <span className="text-white">Popluyar fikirlər</span>
-          ) : (
-            "Popluyar fikirlər"
-          )
-        }
+        title={"Popluyar fikirlər"}
         items={data}
-        loading={false}
+        loading={loading}
       />
     </>
   );
