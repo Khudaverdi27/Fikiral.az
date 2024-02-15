@@ -99,15 +99,14 @@ const AddModal = () => {
               Zəhmət olmasa kategoriya seçimi edin və fikrinizi yazın
             </p>
           )}
-          <div className="flex items-center justify-center">
-            <button
-              className=" mt-3 rounded-lg text-[16px] text-white hover:bg-[#F16367] px-6 py-[10px] bg-[#6366F1]"
-              type="submit"
-              key={"btn"}
-            >
-              Paylaş
-            </button>
-          </div>
+
+          <button
+            className="w-full mt-3 rounded-lg text-[16px] text-white hover:bg-[#F16367] px-6 py-[10px] bg-[#6366F1]"
+            type="submit"
+            key={"btn"}
+          >
+            Paylaş
+          </button>
         </form>
       </Modal>
     </>

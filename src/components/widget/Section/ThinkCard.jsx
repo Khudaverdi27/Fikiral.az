@@ -38,7 +38,7 @@ function ThinkCard({ thinks }) {
                 alt=""
               />
             </figure>
-            <h6>{thinks.userName ? thinks.userName : "samir_27"}</h6>
+            <h6>{thinks.userName}</h6>
           </div>
           <div className="flex items-center">
             <IconContext.Provider
@@ -60,7 +60,7 @@ function ThinkCard({ thinks }) {
 
         <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
           <span className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px] cursor-pointer">
-            {thinks.category ? thinks.category : "Elm"}
+            {thinks.category}
           </span>
           <span className="text-[#808080] relative  before:content-[''] before:absolute before:left-[-15px] before:top-[7px] before:size-1 before:rounded-full before:bg-primaryGray">
             {differenceInDays < 0
@@ -68,11 +68,7 @@ function ThinkCard({ thinks }) {
               : `${differenceInHours} saat əvvəl`}
           </span>
         </div>
-        <p className="text-[16px] ">
-          {thinks.content
-            ? thinks.content
-            : "Lorem ipsum, son nüsxə mövcud olana qədər nümunə mətni kimi istifadə edilə bilər. O həmçinin adlanan prosesdə mətni müvəqqəti olaraq əvəz etmək üçün istifadə olunur ki, bu da dizaynerlərə veb-səhifənin və ya nəşrin formasını nəzərdən keçirməyə imkan verir."}
-        </p>
+        <p className="text-[16px] ">{thinks.content}</p>
       </div>
       <ThinkCardActions
         comment={thinks.commentsCount}

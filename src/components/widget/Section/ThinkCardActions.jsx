@@ -6,7 +6,7 @@ import { useState } from "react";
 function ThinkCardActions({ disabled = true, comment, likes }) {
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
-  const [count, setCount] = useState(likes ? likes : 34);
+  const [count, setCount] = useState(likes);
 
   const likeActions = () => {
     if (!like) {

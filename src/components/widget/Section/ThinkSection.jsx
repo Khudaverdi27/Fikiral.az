@@ -9,7 +9,7 @@ function ThinkSection({ title }) {
 
   useEffect(() => {
     apiFetch();
-  }, [data.length]);
+  }, []);
   return (
     <article>
       <h4 className="text-2xl text-primaryGray font-semibold mt-5 mb-6">

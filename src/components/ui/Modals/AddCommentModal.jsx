@@ -36,7 +36,7 @@ const AddCommentModal = ({ comment }) => {
           <BiMessageSquareDots className="size-[22px] hover:text-black text-[#636363] cursor-pointer" />
         </button>
         <span className="text-sm hover:text-black font-bold text-[#636363] ml-2">
-          {comment ? comment : 5}
+          {comment}
         </span>
       </div>
       <Modal
