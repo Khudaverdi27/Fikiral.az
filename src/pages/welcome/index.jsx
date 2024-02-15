@@ -1,19 +1,13 @@
 import { Link } from "react-router-dom";
 import { useModalActions } from "../../context/LoginModalProvider";
 import { getStorage } from "../../utils/helpers";
-import { useFetchThinksList } from "../../hooks/useFetch";
-import { useEffect } from "react";
 import ThinkSection from "../home/components/ThinkSections";
+import { useFetchData } from "../../context/FetchDataProvider";
 
 function WelcomePage() {
   const { switcRegisterModal } = useModalActions();
   const token = getStorage("token");
-  const [data, apiFetch, loading] = useFetchThinksList();
-
-  useEffect(() => {
-    apiFetch();
-  }, []);
-
+  const { data, loading } = useFetchData();
   return (
     <section>
       <div className="h-[70vh] flex flex-col items-center space-y-8 mt-20">

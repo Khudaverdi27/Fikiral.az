@@ -6,11 +6,12 @@ import { HiDotsVertical } from "react-icons/hi";
 import { useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { getStorage } from "../../../utils/helpers";
-import moment from "moment";
+import { useFetchData } from "../../../context/FetchDataProvider";
 
-function ThinkCard({ thinks, children, items }) {
+function ThinkCard({ thinks, children }) {
   const [bookmark, setBookmark] = useState(false);
   const { switcRegisterModal } = useModalActions();
+  const { changeTime } = useFetchData();
   const token = getStorage("token");
   const changeBookmark = () => {
     if (!token) {
@@ -19,11 +20,6 @@ function ThinkCard({ thinks, children, items }) {
       setBookmark(!bookmark);
     }
   };
-
-  const currentDate = moment();
-  const targetDate = moment(thinks.publishedAt);
-  const differenceInDays = currentDate.diff(targetDate, "days");
-  const differenceInHours = currentDate.diff(targetDate, "hours");
 
   const path = useLocation().pathname;
 
@@ -63,11 +59,7 @@ function ThinkCard({ thinks, children, items }) {
           <span className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px] cursor-pointer">
             {thinks.category}
           </span>
-          <span className="text-[#808080] relative  before:content-[''] before:absolute before:left-[-15px] before:top-[7px] before:size-1 before:rounded-full before:bg-primaryGray">
-            {differenceInDays < 0
-              ? `${differenceInDays} gün əvvəl`
-              : `${differenceInHours} saat əvvəl`}
-          </span>
+          <span className="dotForTime">{changeTime(thinks.publishedAt)}</span>
         </div>
         <p className="text-[16px] ">{thinks.content}</p>
       </div>
@@ -76,7 +68,6 @@ function ThinkCard({ thinks, children, items }) {
         likes={thinks.likes}
         disabled={true}
         thinkId={thinks.id}
-        items={items}
       />
       {children}
     </div>

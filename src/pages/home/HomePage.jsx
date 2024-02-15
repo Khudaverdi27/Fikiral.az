@@ -2,13 +2,10 @@ import { useEffect } from "react";
 import { useFetchThinksList } from "../../hooks/useFetch";
 
 import ThinkSection from "./components/ThinkSections";
+import { useFetchData } from "../../context/FetchDataProvider";
 
 function HomePage() {
-  const [data, apiFetch, loading] = useFetchThinksList();
-
-  useEffect(() => {
-    apiFetch();
-  }, []);
+  const { data, loading } = useFetchData();
 
   return (
     <>

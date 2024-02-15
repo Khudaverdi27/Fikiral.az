@@ -8,13 +8,17 @@ import ThinkCardActions from "../../widget/Thinks/ThinkCardActions";
 import { getStorage } from "../../../utils/helpers";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import ThinkComments from "../../widget/Thinks/ThinkComment";
-const AddCommentModal = ({ comment, thinkId, items }) => {
+import { useFetchData } from "../../../context/FetchDataProvider";
+
+const AddCommentModal = ({ comment, thinkId }) => {
   const [iscommentOpen, setIsCommentOpen] = useState(false);
   const [bookmark, setBookmark] = useState(false);
   const [newComment, setNewComment] = useState([]);
   const [value, setValue] = useState("");
   const { switcRegisterModal } = useModalActions();
   const [modalData, setModalData] = useState({});
+
+  const { data, changeTime } = useFetchData();
   const token = getStorage("token");
 
   const changeBookmark = () => {
@@ -32,7 +36,7 @@ const AddCommentModal = ({ comment, thinkId, items }) => {
 
   const openMessageModal = () => {
     setIsCommentOpen(true);
-    const findData = items.find((i) => i.id === thinkId);
+    const findData = data.find((i) => i.id === thinkId);
     setModalData(findData);
   };
   return (
@@ -68,14 +72,16 @@ const AddCommentModal = ({ comment, thinkId, items }) => {
                       alt=""
                     />
                   </figure>
-                  <h6 className="text-[20px]">Samir N.</h6>
+                  <h6 className="text-[20px]">{modalData.userName}</h6>
                 </div>
               </div>
               <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
                 <span className="hover:bg-[#6C58BB] hover:text-white py-[2px] px-2 rounded-[4px] cursor-pointer">
-                  Texnologiya
+                  {modalData.category}
                 </span>
-                <span className="text-[#808080]  ">2 gün əvvəl</span>
+                <span className="dotForTime">
+                  {changeTime(modalData.publishedAt)}
+                </span>
               </div>
               <p className="font-Manrope text-sm ">{modalData.content}</p>
             </div>
@@ -116,7 +122,7 @@ const AddCommentModal = ({ comment, thinkId, items }) => {
             </div>
             <div className="space-y-3 py-1">
               <div className="border-t p-2 border-gray-300 border-b ">
-                <ThinkCardActions likes={5} disabled={false} />
+                <ThinkCardActions likes={modalData.likes} disabled={false} />
               </div>
               <form onSubmit={addNewComment}>
                 <Space.Compact className="w-full">

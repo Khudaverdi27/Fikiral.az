@@ -1,13 +1,8 @@
-import { useEffect } from "react";
-import { useFetchThinksList } from "../../hooks/useFetch";
 import ThinkSection from "../home/components/ThinkSections";
+import { useFetchData } from "../../context/FetchDataProvider";
 
 function FavoritePage() {
-  const [data, apiFetch, loading] = useFetchThinksList();
-
-  useEffect(() => {
-    apiFetch();
-  }, []);
+  const { data, loading } = useFetchData();
 
   return (
     <>

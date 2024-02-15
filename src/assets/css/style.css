@@ -41,3 +41,7 @@ body {
 .commentLine::after{
   @apply content-[''] block w-[82px] h-[1px] bg-primaryGray right-10 top-1/2 absolute
 }
+
+.dotForTime{
+  @apply text-[#808080] relative  before:content-[''] before:absolute before:left-[-15px] before:top-[7px] before:size-1 before:rounded-full before:bg-primaryGray
+}
