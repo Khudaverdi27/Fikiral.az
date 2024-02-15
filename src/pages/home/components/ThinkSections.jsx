@@ -1,20 +1,11 @@
 import { Col, Row } from "antd";
-import ChangePage from "../../ui/Pagination";
-import ThinkCard from "./ThinkCard";
-import { useFetchThinksList } from "../../../hooks/useFetch";
-import { useEffect } from "react";
+import ChangePage from "../../../components/ui/Pagination";
+import ThinkCard from "../../../components/widget/Thinks/ThinkCard";
+import Section from "../../../components/ui/Section";
 
-function ThinkSection({ title }) {
-  const [data, apiFetch, loading] = useFetchThinksList();
-
-  useEffect(() => {
-    apiFetch();
-  }, []);
+function ThinkSection({ items, loading, title }) {
   return (
-    <article>
-      <h4 className="text-2xl text-primaryGray font-semibold mt-5 mb-6">
-        {title}
-      </h4>
+    <Section title={title} loading={loading}>
       <Row
         className="gap-y-5  min-w-[352px] min-h-[280px]  overflow-hidden"
         gutter={{
@@ -24,7 +15,7 @@ function ThinkSection({ title }) {
           lg: 32,
         }}
       >
-        {data.map((think, index) => (
+        {items.map((item, index) => (
           <Col
             key={index}
             className="my-5"
@@ -38,12 +29,12 @@ function ThinkSection({ title }) {
             sm={{ span: 24 }}
             xs={{ span: 24 }}
           >
-            <ThinkCard key={index} thinks={think} />
+            <ThinkCard thinks={item} />
           </Col>
         ))}
       </Row>
 
-      {title === "Popular fikirlər" ? (
+      {title === "Popluyar fikirlər" ? (
         <ChangePage />
       ) : (
         <div className="flex justify-end text-primaryGray mt-2 text-sm ">
@@ -52,7 +43,7 @@ function ThinkSection({ title }) {
           </button>
         </div>
       )}
-    </article>
+    </Section>
   );
 }
 

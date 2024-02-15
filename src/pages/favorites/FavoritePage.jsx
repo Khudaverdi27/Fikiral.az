@@ -1,10 +1,24 @@
-import ThinkSection from "../../components/widget/Section/ThinkSection";
+import { useEffect } from "react";
+import { useFetchThinksList } from "../../hooks/useFetch";
+import ThinkSection from "../home/components/ThinkSections";
 
 function FavoritePage() {
+  const [data, apiFetch, loading] = useFetchThinksList();
+
+  useEffect(() => {
+    apiFetch();
+  }, []);
+
   return (
-    <section>
-      <ThinkSection title={"Yadda saxlananlar"} />
-    </section>
+    <>
+      <div>
+        <ThinkSection
+          title={"Yadda saxlanılanlar"}
+          items={data}
+          loading={loading}
+        />
+      </div>
+    </>
   );
 }
 

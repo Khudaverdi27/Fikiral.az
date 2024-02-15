@@ -4,10 +4,10 @@ import { BiMessageSquareDots } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import { HiOutlineBookmark } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io";
-import ThinkComments from "../../widget/Section/ThinkComment";
-import ThinkCardActions from "../../widget/Section/ThinkCardActions";
+import ThinkCardActions from "../../widget/Thinks/ThinkCardActions";
 import { getStorage } from "../../../utils/helpers";
 import { useModalActions } from "../../../context/LoginModalProvider";
+import ThinkComments from "../../widget/Thinks/ThinkComment";
 const AddCommentModal = ({ comment }) => {
   const [iscommentOpen, setIsCommentOpen] = useState(false);
   const [bookmark, setBookmark] = useState(false);
@@ -36,7 +36,7 @@ const AddCommentModal = ({ comment }) => {
           <BiMessageSquareDots className="size-[22px] hover:text-black text-[#636363] cursor-pointer" />
         </button>
         <span className="text-sm hover:text-black font-bold text-[#636363] ml-2">
-          {comment}
+          {comment ? comment : 0}
         </span>
       </div>
       <Modal
@@ -112,7 +112,7 @@ const AddCommentModal = ({ comment }) => {
             </div>
             <div className="space-y-3 py-1">
               <div className="border-t p-2 border-gray-300 border-b ">
-                <ThinkCardActions disabled={false} />
+                <ThinkCardActions likes={5} disabled={false} />
               </div>
               <form onSubmit={addNewComment}>
                 <Space.Compact className="w-full">

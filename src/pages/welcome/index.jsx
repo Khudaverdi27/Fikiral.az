@@ -1,11 +1,18 @@
 import { Link } from "react-router-dom";
-import ThinkSection from "../../components/widget/Section/ThinkSection";
 import { useModalActions } from "../../context/LoginModalProvider";
 import { getStorage } from "../../utils/helpers";
+import { useFetchThinksList } from "../../hooks/useFetch";
+import { useEffect } from "react";
+import ThinkSection from "../home/components/ThinkSections";
 
 function WelcomePage() {
   const { switcRegisterModal } = useModalActions();
   const token = getStorage("token");
+  const [data, apiFetch, loading] = useFetchThinksList();
+
+  useEffect(() => {
+    apiFetch();
+  }, []);
 
   return (
     <section>
@@ -29,9 +36,22 @@ function WelcomePage() {
           Başla
         </Link>
       </div>
-
-      <ThinkSection title={<p className="text-center">Popluyar fikirlər</p>} />
-      <ThinkSection title={<p className="text-center">Yeni fikirlər</p>} />
+      <>
+        <div>
+          <ThinkSection
+            title={<p className="text-center">Sizin üçün</p>}
+            items={data}
+            loading={loading}
+          />
+        </div>
+        <div>
+          <ThinkSection
+            title={<p className="text-center">Popluyar fikirlər</p>}
+            items={data}
+            loading={loading}
+          />
+        </div>
+      </>
     </section>
   );
 }
