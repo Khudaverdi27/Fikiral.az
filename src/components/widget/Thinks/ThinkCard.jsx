@@ -7,7 +7,8 @@ import { useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { getStorage } from "../../../utils/helpers";
 import moment from "moment";
-function ThinkCard({ thinks }) {
+
+function ThinkCard({ thinks, children }) {
   const [bookmark, setBookmark] = useState(false);
   const { switcRegisterModal } = useModalActions();
   const token = getStorage("token");
@@ -75,6 +76,7 @@ function ThinkCard({ thinks }) {
         likes={thinks.likes}
         disabled={true}
       />
+      {children}
     </div>
   );
 }

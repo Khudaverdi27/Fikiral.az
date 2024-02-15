@@ -2,6 +2,7 @@ import { Col, Row } from "antd";
 import ChangePage from "../../../components/ui/Pagination";
 import ThinkCard from "../../../components/widget/Thinks/ThinkCard";
 import Section from "../../../components/ui/Section";
+import ThinkLoader from "../../../components/widget/Thinks/ThinkSkeleton";
 
 function ThinkSection({ items, loading, title }) {
   return (
@@ -17,7 +18,7 @@ function ThinkSection({ items, loading, title }) {
       >
         {items.map((item, index) => (
           <Col
-            key={index}
+            key={item.id}
             className="my-5"
             xl={{
               span: 8,

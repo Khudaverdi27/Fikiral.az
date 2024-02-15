@@ -11,16 +11,19 @@ function HomePage() {
 
   return (
     <>
-      <div>
-        <ThinkSection title={"Sizin üçün"} items={data} loading={loading} />
-      </div>
-      <div>
-        <ThinkSection
-          title={"Popluyar fikirlər"}
-          items={data}
-          loading={loading}
-        />
-      </div>
+      <ThinkSection title={"Sizin üçün"} items={data} loading={loading} />
+
+      <ThinkSection
+        title={
+          loading ? (
+            <span className="text-white">Popluyar fikirlər</span>
+          ) : (
+            "Popluyar fikirlər"
+          )
+        }
+        items={data}
+        loading={false}
+      />
     </>
   );
 }
