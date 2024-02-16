@@ -1,15 +1,32 @@
+import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 
-export const useCategories = (allSelect = true, type) => {
+export const useCategories = (allSelect = true, type, classes = false) => {
   const arr = [
-    "Elm",
-    "Medeniyyet",
-    "Meiset",
-    "Texnologiya",
-    "Muhit",
-    "Siyaset",
-    "Olke",
-    "Diger",
+    "Avtomobil",
+    "Təmizlik",
+    "Digər",
+    "İnformasiya və texnologiya",
+    "Ekoloji",
+    "Energetika",
+    "İaşə və ödənişli xidmət",
+    "İncəsənət",
+    "Elm və təhsil",
+    "Kənd və meşə təsərrüfatı, balıqçılıq",
+    "Maliyyə və bank",
+    "Moda və dizayn",
+    "Nəqliyyat və logistika",
+    "Oyun və əyləncə mərkəzi",
+    "Proqramlaşdırma",
+    "Restoranlar və otellər",
+    "Sağlamlıq və gözəllik ",
+    "Səhiyyə və farmoseptika",
+    "Sənaye",
+    "Sosial",
+    "Təmir və tikinti",
+    "Ticarət",
+    "Turizm və səyahət",
+    "Xeyriyyə",
   ];
   const [allChecked, setAllChecked] = useState(false);
   const [checkboxStates, setCheckboxStates] = useState(
@@ -20,7 +37,6 @@ export const useCategories = (allSelect = true, type) => {
     setAllChecked((prevState) => !prevState);
     setCheckboxStates(checkboxStates.map(() => !allChecked));
   };
-
   const selectOne = (index) => {
     if (type == "radio") {
       const newCheckboxStates = checkboxStates.map((state, i) =>
@@ -71,21 +87,29 @@ export const useCategories = (allSelect = true, type) => {
       title: (
         <>
           {arr.map((item, index) => (
-            <div className="checkboxGroup" key={item}>
+            <div
+              className={classNames(
+                classes && "checkboxforRegister cursor-pointer",
+                !classes && "checkboxGroup ",
+                { "!bg-[#373994] text-white": classes && checkboxStates[index] }
+              )}
+              key={item}
+            >
               <label
-                className="cursor-pointer w-full"
+                className="cursor-pointer w-full whitespace-nowrap"
                 htmlFor={`check-${item}`}
               >
                 {item}
               </label>
-              <span className="container">
+              <span className={`${classes ? "" : "container"} `}>
                 <input
+                  className=""
                   onChange={() => selectOne(index, type)}
                   checked={checkboxStates[index]}
                   type={type}
                   id={`check-${item}`}
                 />
-                <span className="checkmark"></span>
+                <span className={`checkmark`}></span>
               </span>
             </div>
           ))}

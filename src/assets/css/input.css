@@ -4,7 +4,7 @@
    
    /* Hide the browser's default checkbox */
    .container input {
-    @apply absolute z-10 opacity-0 cursor-pointer size-7 right-[-6px] top-1
+    @apply absolute z-10 opacity-0 cursor-pointer size-8 right-[210px] top-0
    
    }
    
@@ -50,3 +50,14 @@
         @apply outline-none border w-full bg-[#F6F7FB] border-[#999999] rounded-[8px] 
         py-[6px] px-4
     }
+
+    .checkboxforRegister{
+        @apply  relative m-1 rounded-xl text-center bg-[#F5F5F5] text-sm p-[6px] font-[500] 
+    }
+
+    .checkboxforRegister input {
+        @apply absolute z-10 opacity-0 size-7 right-[37px] 
+       
+       }
+  
+       

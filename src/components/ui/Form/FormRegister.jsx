@@ -58,7 +58,7 @@ const FormRegister = () => {
             {...register("email", {
               required: "Boş buraxıla bilməz",
               pattern: {
-                value: /\S+@\S+\.\S+/,
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]{3,}$/,
                 message: "Yazdığınız mail düzgün formatda deyil!",
               },
             })}

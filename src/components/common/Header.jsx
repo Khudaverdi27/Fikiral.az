@@ -36,7 +36,7 @@ function Header() {
           classes={"w-[314px] max-h-[424px] overflow-x-hidden "}
         />
         <MenuActions />
-        {(token && (
+        {token ? (
           <DropdownMenu
             classes={"w-[142px] max-h-[108px]"}
             dropName={<span className="text-primaryGray">Samir N.</span>}
@@ -66,7 +66,9 @@ function Header() {
               },
             ]}
           />
-        )) || <FormRegister />}
+        ) : (
+          <FormRegister />
+        )}
       </div>
     </header>
   );

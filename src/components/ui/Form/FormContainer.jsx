@@ -2,9 +2,11 @@ import { Modal } from "antd";
 import { IoMdClose } from "react-icons/io";
 import FormResetPassword from "./FormResetPassword";
 import { useModalActions } from "../../../context/LoginModalProvider";
+import FormRegisterConfrim from "./FormRegisterConfirim";
 
 const FormContainer = ({ children }) => {
   const {
+    confrimRegister,
     switchLoginModal,
     switcRegisterModal,
     isMainModel,
@@ -12,6 +14,7 @@ const FormContainer = ({ children }) => {
     isSubModel,
     onSubModel,
   } = useModalActions();
+
   return (
     <>
       <button
@@ -53,8 +56,12 @@ const FormContainer = ({ children }) => {
         onCancel={(e) => onSubModel(e, false)}
       >
         <div className="flex justify-center items-center pt-10">
-          <div className="w-[300px] space-y-3">
-            <FormResetPassword />
+          <div
+            className={`${
+              confrimRegister ? "w-[300px]" : "w-[455px]"
+            }  space-y-3`}
+          >
+            {confrimRegister ? <FormResetPassword /> : <FormRegisterConfrim />}
           </div>
         </div>
       </Modal>

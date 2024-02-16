@@ -9,6 +9,7 @@ function ModalProvider({ children }) {
   const [isMainModel, setMainModel] = useState(false); // First Model
   const [isSubModel, setSubModel] = useState(false); // Second Model
   const [accescLogin, setAccesLogin] = useState(false);
+  const [confrimRegister, setConfrimRegister] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -18,11 +19,17 @@ function ModalProvider({ children }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    saveStorage("token", 123);
     reset();
     console.log(data);
-    if (data.password) {
+    if (data.name) {
+      setMainModel(false);
+      setSubModel(true);
+      setConfrimRegister(false);
+    } else {
       navigate("/home");
+      setMainModel(false);
+      setSubModel(false);
+      saveStorage("token", 123);
     }
   };
 
@@ -30,7 +37,7 @@ function ModalProvider({ children }) {
     e.preventDefault();
     setMainModel(stateMain);
     setSubModel(stateSub);
-
+    setConfrimRegister(true);
     reset();
   };
 
@@ -53,6 +60,7 @@ function ModalProvider({ children }) {
     accescLogin,
     setAccesLogin,
     onSubModel,
+    confrimRegister,
     switchLoginModal,
     switcRegisterModal,
     handleSubmit,

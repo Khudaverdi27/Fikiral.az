@@ -15,7 +15,7 @@ function DataProvider({ children }) {
     const targetDate = moment(apiTime);
     const differenceInDays = currentDate.diff(targetDate, "days");
     const differenceInHours = currentDate.diff(targetDate, "hours");
-    console.log(differenceInDays);
+
     return differenceInDays < 0
       ? `${Math.abs(differenceInDays)} gün əvvəl`
       : differenceInHours > 24
