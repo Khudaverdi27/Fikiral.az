@@ -16,6 +16,7 @@ const FormRegister = () => {
     onSubModel,
     reset,
     onSubmit,
+    setConfrimRegister,
   } = useModalActions();
 
   return (
@@ -31,18 +32,18 @@ const FormRegister = () => {
               placeholder="Ad soyad"
               type="text"
               className="loginInput"
-              {...register("name", {
+              {...register("userName", {
                 required: "Boş buraxıla bilməz",
                 pattern: {
                   value: /\s*/,
                   message: "Zəhmət olmasa boşluqlardan istifadə etməyin",
                 },
               })}
-              aria-invalid={errors.name ? "true" : "false"}
+              aria-invalid={errors.userName ? "true" : "false"}
             />
-            {errors.name && (
+            {errors.userName && (
               <span className="text-[#EA3829]" role="alert">
-                {errors.name.message}
+                {errors.userName.message}
               </span>
             )}
           </div>
@@ -55,7 +56,7 @@ const FormRegister = () => {
             placeholder="Email daxil edin"
             type="email"
             className="loginInput"
-            {...register("email", {
+            {...register("gmail", {
               required: "Boş buraxıla bilməz",
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]{3,}$/,
@@ -64,9 +65,9 @@ const FormRegister = () => {
             })}
             aria-invalid={errors.mail ? "true" : "false"}
           />
-          {errors.email && (
+          {errors.gmail && (
             <span className="text-[#EA3829]" role="alert">
-              {errors.email.message}
+              {errors.gmail.message}
             </span>
           )}
         </div>

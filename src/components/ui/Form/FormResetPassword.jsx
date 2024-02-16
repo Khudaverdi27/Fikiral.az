@@ -37,8 +37,8 @@ function FormResetPassword() {
           </p>
           <label>Email</label>
           <input
-            placeholder="Email daxil edin"
-            {...register("email", {
+            placeholder="gmail daxil edin"
+            {...register("gmail", {
               required: "Boş buraxıla bilməz",
               pattern: {
                 value: /\S+@\S+\.\S+/,
@@ -49,9 +49,9 @@ function FormResetPassword() {
             className="loginInput"
             type="email"
           />
-          {errors.email && (
+          {errors.gmail && (
             <span className="text-[#EA3829]" role="alert">
-              {errors.email.message}
+              {errors.gmail.message}
             </span>
           )}
         </>

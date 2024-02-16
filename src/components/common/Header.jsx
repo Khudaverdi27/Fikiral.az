@@ -8,7 +8,7 @@ import FormRegister from "../ui/Form/FormRegister";
 import { getStorage, removeStorage } from "../../utils/helpers";
 
 function Header() {
-  const [categories] = useCategories(true, "checkbox");
+  const [category] = useCategories(true, "checkbox");
   const token = getStorage("token");
 
   const logoutProfile = () => {
@@ -32,7 +32,7 @@ function Header() {
               Kateqoriya
             </span>
           }
-          dropDownItems={categories}
+          dropDownItems={category}
           classes={"w-[314px] max-h-[424px] overflow-x-hidden "}
         />
         <MenuActions />

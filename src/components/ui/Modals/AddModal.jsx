@@ -7,7 +7,7 @@ import { useCategories } from "../../../hooks/useCategories";
 const AddModal = () => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState([]);
-  const [categories, checkboxStates, arr] = useCategories(false, "radio");
+  const [category, checkboxStates, arr] = useCategories(false, "radio");
 
   useEffect(() => {
     const updatedContent = checkboxStates.reduce((acc, state, i) => {
@@ -20,6 +20,7 @@ const AddModal = () => {
     setContent(updatedContent);
   }, [checkboxStates]);
 
+  // for comments
   const handleFormSubmit = (data) => {
     const trimmedComment = data.content.trim();
 
@@ -81,7 +82,7 @@ const AddModal = () => {
                 seç
               </button>
             }
-            dropDownItems={categories}
+            dropDownItems={category}
             classes={
               "w-[314px] max-h-[365px] overflow-x-hidden mt-[105px] ml-9 "
             }
