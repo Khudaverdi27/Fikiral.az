@@ -56,7 +56,7 @@
     }
 
     .checkboxforRegister input {
-        @apply absolute z-10 opacity-0 size-7 right-[37px] 
+        @apply absolute z-10 opacity-0 size-8 right-[38px] 
        
        }
   

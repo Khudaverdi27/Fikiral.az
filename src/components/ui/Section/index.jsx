@@ -1,11 +1,9 @@
-import loadings from "../../../assets/img/loading.svg";
+import LoadingSpin from "../../common/Loading";
 function Section({ title, children, loading }) {
   return (
     <section>
       {loading ? (
-        <div className="flex justify-center">
-          <img src={loadings} alt="Loading..." />
-        </div>
+        <LoadingSpin />
       ) : (
         <>
           <h4 className="text-2xl text-primaryGray font-semibold mt-5 mb-6">

@@ -30,3 +30,17 @@ const ThinkLoader = (props) => (
 );
 
 export default ThinkLoader;
+
+export const MyLoader = (props) => (
+  <ContentLoader
+    speed={2}
+    width={400}
+    height={160}
+    viewBox="0 0 400 160"
+    backgroundColor="#f3f3f3"
+    foregroundColor="#ecebeb"
+    {...props}
+  >
+    <rect x="-12" y="11" rx="3" ry="3" width="52" height="6" />
+  </ContentLoader>
+);

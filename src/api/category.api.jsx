@@ -1,3 +1,3 @@
 export const categoryApi = {
-  list: "/think/:category",
+  list: "/category/",
 };

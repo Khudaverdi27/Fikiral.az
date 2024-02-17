@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ServiceThinksFetchList } from "../services/think.service";
+import { ServiceAllCategoryFetchList } from "../services/category.service";
 
 const useFetch = (state = false) => {
   const [data, setData] = useState(state);
@@ -20,6 +21,15 @@ export const useFetchThinksList = () => {
 
   const apiFetch = async () => {
     fetch(ServiceThinksFetchList);
+  };
+
+  return [data || [], apiFetch, loading];
+};
+export const useFetchAllCategoryList = () => {
+  const [data, fetch, loading] = useFetch([]);
+
+  const apiFetch = async () => {
+    fetch(ServiceAllCategoryFetchList);
   };
 
   return [data || [], apiFetch, loading];

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { useCategories } from "../../../hooks/useCategories";
+import LoadingSpin from "../../common/Loading";
 function FormRegisterConfrim() {
-  const [category, checkboxStates, arr] = useCategories(
+  const [category, checkboxStates, allCategories, loading] = useCategories(
     false,
     "checkbox",
     true
@@ -26,7 +27,9 @@ function FormRegisterConfrim() {
       return acc;
     }, []);
     // find element as trueIndexes array
-    const elementsWithCategory = trueIndexes.map((index) => arr[index]);
+    const elementsWithCategory = trueIndexes.map(
+      (index) => allCategories[index]
+    );
     // find element id
     const categories = elementsWithCategory.map((element) => element.id);
     data["categories"] = categories;
@@ -55,11 +58,17 @@ function FormRegisterConfrim() {
           Bu ana səhifənizi fərdiləşdirəcək
         </h4>
       </div>
-      {category.map((c, i) => (
-        <div key={i} className="flex w-full flex-wrap">
-          {c.title}
-        </div>
-      ))}
+      {loading ? (
+        <LoadingSpin />
+      ) : (
+        <>
+          {category.map((c, i) => (
+            <div key={i} className="flex w-full flex-wrap">
+              {c.title}
+            </div>
+          ))}
+        </>
+      )}
 
       <button
         onClick={withCategory}

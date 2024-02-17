@@ -7,12 +7,15 @@ import { useCategories } from "../../../hooks/useCategories";
 const AddModal = () => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState([]);
-  const [category, checkboxStates, arr] = useCategories(false, "radio");
+  const [category, checkboxStates, allCategories] = useCategories(
+    false,
+    "radio"
+  );
 
   useEffect(() => {
     const updatedContent = checkboxStates.reduce((acc, state, i) => {
       if (state === true) {
-        acc["category"] = arr[i];
+        acc["category"] = allCategories[i];
       }
       return acc;
     }, {});
