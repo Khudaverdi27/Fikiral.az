@@ -1,24 +1,51 @@
 import { useEffect, useState } from "react";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { useCategories } from "../../../hooks/useCategories";
-import LoadingSpin from "../../common/Loading";
+import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
+import { useFetchAuthResgistration } from "../../../hooks/useFetch";
+import { getStorage, removeStorage, saveStorage } from "../../../utils/helpers";
+
 function FormRegisterConfrim() {
   const [category, checkboxStates, allCategories, loading] = useCategories(
     false,
     "checkbox",
     true
   );
+  const [registerAuth, authFetch, authLoading] = useFetchAuthResgistration();
   const [disabled, setDisabled] = useState(true);
-  const { handleSubmit, onSubmit, switchLoginModal, setSubModel, data, reset } =
-    useModalActions();
+  const {
+    handleSubmit,
+    onSubmit,
+    switchLoginModal,
+    switcRegisterModal,
+    setSubModel,
+    resRegister,
+    reset,
+  } = useModalActions();
+
+  const [confrim, setConfrim] = useState(false);
+
+  const controlRegisterAction = () => {
+    setTimeout(() => {
+      if (!confrim) {
+        setSubModel(false);
+        switcRegisterModal(true);
+        setConfrim(!confrim);
+      } else {
+        setSubModel(false);
+        switchLoginModal(true);
+      }
+    }, 2000);
+  };
 
   const skipCategory = () => {
-    setSubModel(false);
-    switchLoginModal(true);
+    authFetch(resRegister);
+    controlRegisterAction();
     reset();
   };
 
   const withCategory = () => {
+    authFetch(resRegister);
     const trueIndexes = checkboxStates.reduce((acc, state, index) => {
       if (state) {
         //add indexes to trueIndexes
@@ -32,15 +59,24 @@ function FormRegisterConfrim() {
     );
     // find element id
     const categories = elementsWithCategory.map((element) => element.id);
-    data["categories"] = categories;
+    resRegister["categories"] = categories;
 
     if (!disabled) {
-      setSubModel(false);
-      switchLoginModal(true);
+      controlRegisterAction();
     }
     reset();
-    console.log(data);
   };
+
+  useEffect(() => {
+    //
+    if (registerAuth.status) {
+      setConfrim(
+        (confrim) =>
+          (confrim =
+            "Bu mail-də istifadəçi mövcuddur yenidən qeydiyyatdan keçin !")
+      );
+    }
+  }, [registerAuth]);
 
   useEffect(() => {
     if (checkboxStates.some((c) => c === true)) {
@@ -51,10 +87,10 @@ function FormRegisterConfrim() {
   }, [checkboxStates]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
       <div className="text-center font-[500]">
-        <h3 className="text-[28px] ">Sizi nələr maraqlandırır?</h3>
-        <h4 className="text-[16px] text-[#4D4D4D]">
+        <h3 className="text-[27px] ">Sizi nələr maraqlandırır?</h3>
+        <h4 className="text-[15px] text-[#4D4D4D]">
           Bu ana səhifənizi fərdiləşdirəcək
         </h4>
       </div>
@@ -69,7 +105,7 @@ function FormRegisterConfrim() {
           ))}
         </>
       )}
-
+      {confrim && <span className="text-red-500 text-[12px] ">{confrim}</span>}
       <button
         onClick={withCategory}
         disabled={disabled}

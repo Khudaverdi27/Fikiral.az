@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ContentLoader from "react-content-loader";
-
-const ThinkLoader = (props) => (
+import loadings from "../../../assets/img/loading.svg";
+const ThinkCardLoading = (props) => (
   <ContentLoader
     speed={2}
     width={370}
@@ -29,9 +29,9 @@ const ThinkLoader = (props) => (
   </ContentLoader>
 );
 
-export default ThinkLoader;
+export default ThinkCardLoading;
 
-export const MyLoader = (props) => (
+export const LineLoading = (props) => (
   <ContentLoader
     speed={2}
     width={400}
@@ -41,6 +41,16 @@ export const MyLoader = (props) => (
     foregroundColor="#ecebeb"
     {...props}
   >
-    <rect x="-12" y="11" rx="3" ry="3" width="52" height="6" />
+    <rect x="4" y="113" rx="3" ry="3" width="260" height="35" />
+    <rect x="5" y="60" rx="3" ry="3" width="260" height="35" />
+    <rect x="5" y="8" rx="3" ry="3" width="260" height="35" />
   </ContentLoader>
 );
+
+export const LoadingSpin = () => {
+  return (
+    <div className="flex justify-center">
+      <img src={loadings} alt="Loading..." />
+    </div>
+  );
+};

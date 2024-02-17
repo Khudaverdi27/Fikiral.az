@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { getStorage, objectToQueryString, removeStorage } from "./helpers";
 // + (params ? "?" + objectToQueryString(params) : "")
 const base_URL = "https://fikiral-app.onrender.com/fikiral/v1";
@@ -35,8 +36,11 @@ const request = async (baseURL, url, method, params = false) => {
     location.reload();
     return false;
   } else if (api.status === 422) {
-    const message = api.json();
+    const message = await api.json();
     return { status: 422, message: message };
+  } else if (api.status === 409) {
+    const message = await api.json();
+    return { status: 409, message: message };
   } else {
     return { status: 500 };
   }

@@ -1,4 +1,5 @@
-import LoadingSpin from "../../common/Loading";
+import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
+
 function Section({ title, children, loading }) {
   return (
     <section>

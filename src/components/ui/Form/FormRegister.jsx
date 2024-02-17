@@ -7,6 +7,7 @@ import { useModalActions } from "../../../context/LoginModalProvider";
 
 const FormRegister = () => {
   const [type, setType] = useState(false);
+
   const {
     handleSubmit,
     register,
@@ -16,7 +17,7 @@ const FormRegister = () => {
     onSubModel,
     reset,
     onSubmit,
-    setConfrimRegister,
+    authLoading,
   } = useModalActions();
 
   return (
@@ -66,9 +67,11 @@ const FormRegister = () => {
             aria-invalid={errors.mail ? "true" : "false"}
           />
           {errors.gmail && (
-            <span className="text-[#EA3829]" role="alert">
-              {errors.gmail.message}
-            </span>
+            <>
+              <span className="text-[#EA3829]" role="alert">
+                {errors.gmail.message}
+              </span>
+            </>
           )}
         </div>
         <label className="block text-[#4C4B4E] ">Şifrə</label>

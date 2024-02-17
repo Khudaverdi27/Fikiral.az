@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { saveStorage } from "../utils/helpers";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,8 @@ function ModalProvider({ children }) {
   const [isSubModel, setSubModel] = useState(false); // Second Model
   const [accescLogin, setAccesLogin] = useState(false);
   const [confrimRegister, setConfrimRegister] = useState(false);
-  const [data, setData] = useState({});
+  const [resRegister, setResRegister] = useState({});
+
   const navigate = useNavigate();
   const {
     register,
@@ -19,14 +20,14 @@ function ModalProvider({ children }) {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    reset();
-    setData(data);
-    console.log(data);
+  const onSubmit = async (data) => {
     if (data.userName) {
+      setConfrimRegister(false);
+      data["categories"] = [];
+      setResRegister(data);
+
       setMainModel(false);
       setSubModel(true);
-      setConfrimRegister(false);
     } else {
       navigate("/home");
       setMainModel(false);
@@ -71,8 +72,8 @@ function ModalProvider({ children }) {
     register,
     errors,
     reset,
-    data,
-    setData,
+    resRegister,
+    setResRegister,
   };
 
   return <LoginModal.Provider value={actions}>{children}</LoginModal.Provider>;

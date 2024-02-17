@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Dropdown, Space } from "antd";
 import { GrClose } from "react-icons/gr";
+import { useFetchData } from "../../../context/FetchDataProvider";
+import { LineLoading } from "../../widget/Loading/ThinkSkeleton";
 
 const DropdownMenu = ({
   dropName,
@@ -10,7 +12,7 @@ const DropdownMenu = ({
   placement = false,
 }) => {
   const [open, setOpen] = useState(false);
-
+  const { loading } = useFetchData();
   const handleOpenChange = (nextOpen, info) => {
     if (info.source === "trigger" || nextOpen) {
       setOpen(nextOpen);
@@ -23,7 +25,9 @@ const DropdownMenu = ({
 
   const items = dropDownItems.map((item, index) => ({
     key: index,
-    label: (
+    label: loading ? (
+      <LineLoading />
+    ) : (
       <span key={index}>
         {!item.id && index === 0 && (
           <div className="flex items-center justify-between pt-2 pb-5  text-[15px] font-[500] ">
