@@ -3,6 +3,7 @@ import { ServiceThinksFetchList } from "../services/think.service";
 import { ServiceAllCategoryFetchList } from "../services/category.service";
 import {
   ServiceAuthCheckMail,
+  ServiceAuthLogin,
   ServiceAuthRegistration,
 } from "../services/auth.service";
 
@@ -55,4 +56,12 @@ export const useFetchAuthResgistration = () => {
     fetch(ServiceAuthRegistration, params);
   };
   return [registerAuth || [], authFetch, authLoading];
+};
+
+export const useFetchAuthLogin = () => {
+  const [loginAuth, fetch, authLoading] = useFetch([]);
+  const loginFetch = async (params = {}) => {
+    fetch(ServiceAuthLogin, params);
+  };
+  return [loginAuth || {}, loginFetch, authLoading];
 };

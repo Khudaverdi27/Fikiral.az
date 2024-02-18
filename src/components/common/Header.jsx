@@ -6,11 +6,12 @@ import Logo from "./Logo";
 import { useCategories } from "../../hooks/useCategories";
 import FormRegister from "../ui/Form/FormRegister";
 import { getStorage, removeStorage } from "../../utils/helpers";
+import { useModalActions } from "../../context/LoginModalProvider";
 
 function Header() {
   const [category] = useCategories(true, "checkbox");
   const token = getStorage("token");
-
+  const { loginAuth } = useModalActions();
   const logoutProfile = () => {
     removeStorage("token");
     location.reload();
@@ -39,9 +40,15 @@ function Header() {
         {token ? (
           <DropdownMenu
             classes={"w-[142px] max-h-[108px]"}
-            dropName={<span className="text-primaryGray">Samir N.</span>}
+            dropName={
+              <span className="text-primaryGray">
+                {loginAuth?.userResponse?.userName}
+              </span>
+            }
             profilImg={
-              "https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1427"
+              loginAuth?.userResponse?.image
+                ? loginAuth.userResponse?.image
+                : loginAuth?.userResponse?.userName?.charAt(0)
             }
             dropDownItems={[
               {

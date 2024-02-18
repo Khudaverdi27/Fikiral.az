@@ -9,3 +9,8 @@ export const ServiceAuthCheckMail = async (params = {}) => {
   const res = await get(authApi.checkMail, params);
   return res;
 };
+
+export const ServiceAuthLogin = async (params = {}) => {
+  const res = await post(authApi.login, params);
+  return res;
+};

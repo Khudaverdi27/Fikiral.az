@@ -19,6 +19,7 @@ const FormRegister = () => {
     onSubmit,
     checkMail,
     chekRes,
+    setChekRes,
   } = useModalActions();
 
   return (
@@ -28,11 +29,12 @@ const FormRegister = () => {
         {accescLogin && (
           <div>
             <label className="outline-none block text-[#4C4B4E] mb-1">
-              Ad soyad
+              İstifadəçi adı
             </label>
             <input
-              placeholder="Ad soyad"
+              placeholder="İstifadəçi adı"
               type="text"
+              maxLength={8}
               className="loginInput"
               {...register("userName", {
                 required: "Boş buraxıla bilməz",
@@ -151,6 +153,7 @@ const FormRegister = () => {
           <button
             onClick={() => {
               setAccesLogin(!accescLogin);
+              setChekRes(false);
               reset();
             }}
           >

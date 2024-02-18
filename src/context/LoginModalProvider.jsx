@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { saveStorage } from "../utils/helpers";
 import { useNavigate } from "react-router-dom";
-import { useFetchAuthCheckMail } from "../hooks/useFetch";
+import { useFetchAuthCheckMail, useFetchAuthLogin } from "../hooks/useFetch";
 
 const LoginModal = createContext();
 
@@ -14,6 +14,8 @@ function ModalProvider({ children }) {
   const [resRegister, setResRegister] = useState({});
   const [authCheckMail, authCheckFetch, authCheckLoading] =
     useFetchAuthCheckMail();
+  const [loginAuth, loginFetch, authLoading] = useFetchAuthLogin();
+  const [login, setLogin] = useState(false);
   const [chekRes, setChekRes] = useState(false);
   const navigate = useNavigate();
   const {
@@ -21,11 +23,11 @@ function ModalProvider({ children }) {
     formState: { errors },
     handleSubmit,
     reset,
+    setError,
     clearErrors,
   } = useForm();
 
   const onSubmit = async (data) => {
-    clearErrors();
     if (data.userName) {
       setConfrimRegister(false);
       data["categories"] = [];
@@ -35,12 +37,32 @@ function ModalProvider({ children }) {
         setSubModel(true);
       }
     } else {
-      navigate("/home");
-      setMainModel(false);
-      setSubModel(false);
-      saveStorage("token", 123);
+      loginFetch(data);
+      setTimeout(() => {
+        if (login) {
+          navigate("/home");
+          setMainModel(false);
+          setSubModel(false);
+        }
+      }, 2000);
     }
   };
+
+  useEffect(() => {
+    if (loginAuth.tokenResponse) {
+      saveStorage("token", loginAuth.tokenResponse.accessToken);
+    } else {
+      setError("gmail", {
+        type: "manual",
+        message: "Mail vəya parol yanlışdır",
+      });
+      setError("password", {
+        type: "manual",
+        message: "Mail vəya parol yanlışdır",
+      });
+    }
+    setLogin(true);
+  }, [loginAuth]);
 
   const checkMail = async (inputMail) => {
     authCheckFetch({ gmail: inputMail });
@@ -63,11 +85,13 @@ function ModalProvider({ children }) {
   };
 
   const switchLoginModal = () => {
+    clearErrors();
     setMainModel(true);
     setAccesLogin(false);
     reset();
   };
   const switcRegisterModal = () => {
+    clearErrors();
     setMainModel(true);
     setAccesLogin(true);
     reset();
@@ -94,6 +118,7 @@ function ModalProvider({ children }) {
     setResRegister,
     checkMail,
     chekRes,
+    loginAuth,
   };
 
   return <LoginModal.Provider value={actions}>{children}</LoginModal.Provider>;

@@ -4,6 +4,7 @@ import DropdownMenu from "../Dropdown";
 import { IoMdClose } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { useCategories } from "../../../hooks/useCategories";
+import { useModalActions } from "../../../context/LoginModalProvider";
 const AddModal = () => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState([]);
@@ -12,6 +13,10 @@ const AddModal = () => {
     "radio"
   );
 
+  const { loginAuth } = useModalActions();
+  const userImg = loginAuth?.userResponse?.image
+    ? loginAuth?.userResponse?.image
+    : loginAuth?.userResponse?.userName?.charAt(0);
   useEffect(() => {
     const updatedContent = checkboxStates.reduce((acc, state, i) => {
       if (state === true) {
@@ -54,13 +59,21 @@ const AddModal = () => {
         title={
           <div className="flex items-center space-x-2 bg-[#999999]">
             <figure className="size-11 rounded-full shrink-0">
-              <img
-                className="img-cover"
-                src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1427"
-                alt=""
-              />
+              {typeof userImg === "string" ? (
+                <span className="size-full text-2xl bg-gray-300 border-gray-500 rounded-full border text-[#6366F1] flex items-center justify-center">
+                  {userImg}
+                </span>
+              ) : (
+                <img
+                  className="img-cover"
+                  src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1427"
+                  alt=""
+                />
+              )}
             </figure>
-            <span className="text-zinc-50">Samir N</span>
+            <span className="text-zinc-50">
+              {loginAuth?.userResponse?.userName}
+            </span>
           </div>
         }
         centered
@@ -95,7 +108,7 @@ const AddModal = () => {
             {...register("content", { required: true })}
             className="resize-none w-full text-[16px] outline-none p-2 rounded-md"
             rows={9}
-            placeholder="maxLength is 500"
+            placeholder="Maximum 500 söz"
             maxLength={500}
           />
           {errors.content && !content.category && (
