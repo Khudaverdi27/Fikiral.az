@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { ServiceThinksFetchList } from "../services/think.service";
 import { ServiceAllCategoryFetchList } from "../services/category.service";
-import { ServiceAuthRegistration } from "../services/auth.service";
+import {
+  ServiceAuthCheckMail,
+  ServiceAuthRegistration,
+} from "../services/auth.service";
 
 const useFetch = (state = false) => {
   const [data, setData] = useState(state);
@@ -34,6 +37,15 @@ export const useFetchAllCategoryList = () => {
   };
 
   return [data || [], apiFetch, loading];
+};
+
+export const useFetchAuthCheckMail = () => {
+  const [authCheckMail, fetch, authCheckLoading] = useFetch([]);
+
+  const authCheckFetch = async (params = {}) => {
+    fetch(ServiceAuthCheckMail, params);
+  };
+  return [authCheckMail || false, authCheckFetch, authCheckLoading];
 };
 
 export const useFetchAuthResgistration = () => {

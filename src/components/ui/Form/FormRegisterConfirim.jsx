@@ -17,35 +17,22 @@ function FormRegisterConfrim() {
     handleSubmit,
     onSubmit,
     switchLoginModal,
-    switcRegisterModal,
     setSubModel,
     resRegister,
     reset,
   } = useModalActions();
 
-  const [confrim, setConfrim] = useState(false);
-
-  const controlRegisterAction = () => {
-    setTimeout(() => {
-      if (!confrim) {
-        setSubModel(false);
-        switcRegisterModal(true);
-        setConfrim(!confrim);
-      } else {
-        setSubModel(false);
-        switchLoginModal(true);
-      }
-    }, 2000);
-  };
-
   const skipCategory = () => {
     authFetch(resRegister);
-    controlRegisterAction();
+    setSubModel(false);
+    switchLoginModal(true);
     reset();
   };
 
   const withCategory = () => {
+    reset();
     authFetch(resRegister);
+    console.log(resRegister);
     const trueIndexes = checkboxStates.reduce((acc, state, index) => {
       if (state) {
         //add indexes to trueIndexes
@@ -62,21 +49,10 @@ function FormRegisterConfrim() {
     resRegister["categories"] = categories;
 
     if (!disabled) {
-      controlRegisterAction();
+      setSubModel(false);
+      switchLoginModal(true);
     }
-    reset();
   };
-
-  useEffect(() => {
-    //
-    if (registerAuth.status) {
-      setConfrim(
-        (confrim) =>
-          (confrim =
-            "Bu mail-də istifadəçi mövcuddur yenidən qeydiyyatdan keçin !")
-      );
-    }
-  }, [registerAuth]);
 
   useEffect(() => {
     if (checkboxStates.some((c) => c === true)) {
@@ -105,7 +81,6 @@ function FormRegisterConfrim() {
           ))}
         </>
       )}
-      {confrim && <span className="text-red-500 text-[12px] ">{confrim}</span>}
       <button
         onClick={withCategory}
         disabled={disabled}

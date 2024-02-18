@@ -1,4 +1,3 @@
-import { message } from "antd";
 import { getStorage, objectToQueryString, removeStorage } from "./helpers";
 // + (params ? "?" + objectToQueryString(params) : "")
 const base_URL = "https://fikiral-app.onrender.com/fikiral/v1";
@@ -46,6 +45,12 @@ const request = async (baseURL, url, method, params = false) => {
   }
 };
 
-export const get = (url, params = false) => request(base_URL, url, "GET");
+export const get = (url, params = false) =>
+  request(
+    base_URL,
+    url + (params ? "?" + objectToQueryString(params) : ""),
+    "GET"
+  );
+
 export const post = (url, params) => request(base_URL, url, "POST", params);
 export const destroy = (url) => request(base_URL, url, "DELETE");

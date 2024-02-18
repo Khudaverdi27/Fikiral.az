@@ -1,7 +1,8 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { saveStorage } from "../utils/helpers";
 import { useNavigate } from "react-router-dom";
+import { useFetchAuthCheckMail } from "../hooks/useFetch";
 
 const LoginModal = createContext();
 
@@ -11,23 +12,28 @@ function ModalProvider({ children }) {
   const [accescLogin, setAccesLogin] = useState(false);
   const [confrimRegister, setConfrimRegister] = useState(false);
   const [resRegister, setResRegister] = useState({});
-
+  const [authCheckMail, authCheckFetch, authCheckLoading] =
+    useFetchAuthCheckMail();
+  const [chekRes, setChekRes] = useState(false);
   const navigate = useNavigate();
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
+    clearErrors,
   } = useForm();
 
   const onSubmit = async (data) => {
+    clearErrors();
     if (data.userName) {
       setConfrimRegister(false);
       data["categories"] = [];
       setResRegister(data);
-
-      setMainModel(false);
-      setSubModel(true);
+      if (authCheckMail !== true) {
+        setMainModel(false);
+        setSubModel(true);
+      }
     } else {
       navigate("/home");
       setMainModel(false);
@@ -35,6 +41,18 @@ function ModalProvider({ children }) {
       saveStorage("token", 123);
     }
   };
+
+  const checkMail = async (inputMail) => {
+    authCheckFetch({ gmail: inputMail });
+  };
+
+  useEffect(() => {
+    if (authCheckMail === true) {
+      setChekRes("Bu maildə istifadəçi mövcuddur");
+    } else {
+      setChekRes(false);
+    }
+  }, [authCheckMail]);
 
   const onSubModel = (e, stateSub = true, stateMain = false) => {
     e.preventDefault();
@@ -74,6 +92,8 @@ function ModalProvider({ children }) {
     reset,
     resRegister,
     setResRegister,
+    checkMail,
+    chekRes,
   };
 
   return <LoginModal.Provider value={actions}>{children}</LoginModal.Provider>;

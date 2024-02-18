@@ -17,7 +17,8 @@ const FormRegister = () => {
     onSubModel,
     reset,
     onSubmit,
-    authLoading,
+    checkMail,
+    chekRes,
   } = useModalActions();
 
   return (
@@ -64,16 +65,21 @@ const FormRegister = () => {
                 message: "Yazdığınız mail düzgün formatda deyil!",
               },
             })}
-            aria-invalid={errors.mail ? "true" : "false"}
+            aria-invalid={errors.gmail ? "true" : "false"}
+            onBlur={(e) => {
+              checkMail(e.target.value);
+            }}
           />
+          {chekRes && accescLogin && (
+            <span className="text-[#EA3829]">{chekRes}</span>
+          )}
           {errors.gmail && (
-            <>
-              <span className="text-[#EA3829]" role="alert">
-                {errors.gmail.message}
-              </span>
-            </>
+            <span className="text-[#EA3829]" role="alert">
+              {errors.gmail.message}
+            </span>
           )}
         </div>
+
         <label className="block text-[#4C4B4E] ">Şifrə</label>
         <div>
           <div>
@@ -119,7 +125,10 @@ const FormRegister = () => {
             </button>
           )}
         </div>
-        <button className="bg-[#6366F1] text-white w-full py-[8px] rounded-[8px]">
+        <button
+          disabled={chekRes && accescLogin && true}
+          className="bg-[#6366F1] text-white w-full disabled:opacity-40 py-[8px] rounded-[8px]"
+        >
           {accescLogin ? "Qeydiyyat" : "Daxil ol"}
         </button>
       </form>
