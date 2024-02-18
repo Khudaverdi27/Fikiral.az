@@ -60,6 +60,7 @@ function ModalProvider({ children }) {
         type: "manual",
         message: "Mail vəya parol yanlışdır",
       });
+      return;
     }
     setLogin(true);
   }, [loginAuth]);

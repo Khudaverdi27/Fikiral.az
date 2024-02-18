@@ -14,7 +14,7 @@ function FormResetPassword() {
 
   const newPassword = (data) => {
     setResetPassword(true);
-    console.log(data);
+
     reset();
     if (data.password) {
       setResetPassword(false);

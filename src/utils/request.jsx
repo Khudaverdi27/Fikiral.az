@@ -1,5 +1,5 @@
 import { getStorage, objectToQueryString, removeStorage } from "./helpers";
-// + (params ? "?" + objectToQueryString(params) : "")
+
 const base_URL = "https://fikiral-app.onrender.com/fikiral/v1";
 
 const request = async (baseURL, url, method, params = false) => {
@@ -17,7 +17,7 @@ const request = async (baseURL, url, method, params = false) => {
 
   if (params) {
     options.body = JSON.stringify(params);
-
+    console.log(options.body);
     //post comment to thinks
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;

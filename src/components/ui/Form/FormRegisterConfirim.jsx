@@ -32,7 +32,7 @@ function FormRegisterConfrim() {
   const withCategory = () => {
     reset();
     authFetch(resRegister);
-    console.log(resRegister);
+
     const trueIndexes = checkboxStates.reduce((acc, state, index) => {
       if (state) {
         //add indexes to trueIndexes

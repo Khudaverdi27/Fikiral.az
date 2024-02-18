@@ -22,7 +22,7 @@ const DropdownMenu = ({
   window.addEventListener("scroll", () => {
     setOpen(false);
   });
-  console.log(profilImg);
+
   const items = dropDownItems.map((item, index) => ({
     key: index,
     label: loading ? (
