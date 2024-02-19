@@ -22,7 +22,7 @@ function ThinkCard({ thinks, children }) {
   };
 
   const path = useLocation().pathname;
-  console.log(thinks);
+
   return (
     <div className="gutter-row">
       <div className="space-y-2 mb-2">

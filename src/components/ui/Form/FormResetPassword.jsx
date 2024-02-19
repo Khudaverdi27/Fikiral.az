@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useModalActions } from "../../../context/LoginModalProvider";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function FormResetPassword() {
+  const [type, setType] = useState(false);
+  const [typecConfrim, setTypeConfrim] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
   const { setMainModel, setSubModel } = useModalActions();
   const {
@@ -10,7 +13,10 @@ function FormResetPassword() {
     formState: { errors },
     handleSubmit,
     reset,
+    watch,
   } = useForm();
+  const password = watch("password", "");
+  const confirmPassword = watch("confirmPassword", "");
 
   const newPassword = (data) => {
     setResetPassword(true);
@@ -60,24 +66,66 @@ function FormResetPassword() {
           <h5>Şifrənizi sıfırlayın</h5>
           <label className="block text-[#4C4B4E] ">Yeni şifrə</label>
           <div>
-            <div>
+            <div className="space-y-3">
               <div className=" bg-[#F6F7FB] items-center border border-[#999999] flex rounded-[8px] ">
                 <input
+                  maxLength={20}
                   placeholder="Şifrəni daxil edin"
                   {...register("password", {
                     required: "Boş buraxıla bilməz",
                     minLength: {
-                      value: 5,
-                      message: "Minumum 5 simvol",
+                      value: 8,
+                      message: "Min 8 max 20 simvol",
                     },
                   })}
-                  type="password"
+                  type={type ? "password" : "text"}
                   className="loginInput !border-0"
                 />
+
+                <button
+                  type="button"
+                  onClick={() => setType(!type)}
+                  className="w-11 h-8 "
+                >
+                  {!type ? (
+                    <FiEye className="size-full px-2 text-[#BCBCBE]" />
+                  ) : (
+                    <FiEyeOff className="size-full px-2 text-[#BCBCBE]" />
+                  )}
+                </button>
               </div>
               {errors.password && (
                 <span className="text-[#EA3829]" role="alert">
                   {errors.password.message}
+                </span>
+              )}
+              <div className=" bg-[#F6F7FB] items-center border border-[#999999] flex rounded-[8px] ">
+                <input
+                  maxLength={20}
+                  placeholder="Şifrəni yenidən daxil edin"
+                  {...register("confirmPassword", {
+                    required: "Boş buraxıla bilməz",
+                    validate: (value) =>
+                      value === password || "Şifrə uyğunlaşmır",
+                  })}
+                  type={typecConfrim ? "password" : "text"}
+                  className="loginInput !border-0"
+                />
+                <button
+                  type="button"
+                  onClick={() => setTypeConfrim(!typecConfrim)}
+                  className="w-11 h-8 "
+                >
+                  {!typecConfrim ? (
+                    <FiEye className="size-full px-2 text-[#BCBCBE]" />
+                  ) : (
+                    <FiEyeOff className="size-full px-2 text-[#BCBCBE]" />
+                  )}
+                </button>
+              </div>
+              {errors.confirmPassword && (
+                <span className="text-[#EA3829]" role="alert">
+                  {errors.confirmPassword.message}
                 </span>
               )}
             </div>
@@ -85,8 +133,9 @@ function FormResetPassword() {
         </>
       )}
       <button
+        disabled={resetPassword && password !== confirmPassword}
         type="submit"
-        className="bg-[#6366F1] text-white w-full py-[8px] rounded-[8px]"
+        className="bg-[#6366F1] disabled:opacity-50 text-white w-full py-[8px] rounded-[8px]"
       >
         {!resetPassword ? " Bərpa e-maili göndərin" : "Şifrəni təsdiq edin"}
       </button>

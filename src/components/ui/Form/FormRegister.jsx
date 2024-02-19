@@ -89,12 +89,13 @@ const FormRegister = () => {
           <div>
             <div className=" bg-[#F6F7FB] items-center border border-[#999999] flex rounded-[8px] ">
               <input
+                maxLength={20}
                 placeholder="Şifrəni daxil edin"
                 {...register("password", {
                   required: "Boş buraxıla bilməz",
                   minLength: {
-                    value: 5,
-                    message: "Minumum 5 simvol",
+                    value: 8,
+                    message: "Min 8 max 20 simvol",
                   },
                 })}
                 type={type ? "password" : "text"}
