@@ -3,7 +3,7 @@ import { IconContext } from "react-icons";
 import { useState } from "react";
 import ThinkCardActions from "./ThinkCardActions";
 import { HiDotsVertical } from "react-icons/hi";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { getStorage } from "../../../utils/helpers";
 import { useFetchData } from "../../../context/FetchDataProvider";
@@ -22,7 +22,7 @@ function ThinkCard({ thinks, children }) {
   };
 
   const path = useLocation().pathname;
-
+  console.log(thinks);
   return (
     <div className="gutter-row">
       <div className="space-y-2 mb-2">
@@ -56,9 +56,12 @@ function ThinkCard({ thinks, children }) {
         </div>
 
         <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
-          <span className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px] cursor-pointer">
+          <Link
+            to={`/categories/:id:/slug`}
+            className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px] cursor-pointer"
+          >
             {thinks.category}
-          </span>
+          </Link>
           <span className="dotForTime">{changeTime(thinks.publishedAt)}</span>
         </div>
         <p className="text-[16px] ">{thinks.content}</p>

@@ -16,7 +16,6 @@ function ModalProvider({ children }) {
     useFetchAuthCheckMail();
   const [loginAuth, loginFetch, authLoading] = useFetchAuthLogin();
   const [login, setLogin] = useState(false);
-  const [chekRes, setChekRes] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -37,14 +36,16 @@ function ModalProvider({ children }) {
         setSubModel(true);
       }
     } else {
-      loginFetch(data);
-      setTimeout(() => {
+      if (data.gmail) {
+        loginFetch(data);
         if (login) {
-          navigate("/home");
           setMainModel(false);
           setSubModel(false);
         }
-      }, 2000);
+        setTimeout(() => {
+          navigate("/home");
+        }, 1000);
+      }
     }
   };
 
@@ -71,11 +72,14 @@ function ModalProvider({ children }) {
 
   useEffect(() => {
     if (authCheckMail === true) {
-      setChekRes("Bu maildə istifadəçi mövcuddur");
+      setError("gmail", {
+        type: "manual",
+        message: "Bu maildə istifadəçi mövcuddur.",
+      });
     } else {
-      setChekRes(false);
+      clearErrors();
     }
-  }, [authCheckMail]);
+  }, [authCheckLoading]);
 
   const onSubModel = (e, stateSub = true, stateMain = false) => {
     e.preventDefault();
@@ -118,8 +122,8 @@ function ModalProvider({ children }) {
     resRegister,
     setResRegister,
     checkMail,
-    chekRes,
     loginAuth,
+    clearErrors,
   };
 
   return <LoginModal.Provider value={actions}>{children}</LoginModal.Provider>;

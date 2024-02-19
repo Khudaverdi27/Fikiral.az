@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { ServiceThinksFetchList } from "../services/think.service";
-import { ServiceAllCategoryFetchList } from "../services/category.service";
+import {
+  ServiceAllCategoryFetchList,
+  ServiceByIdCategoryFetchList,
+} from "../services/category.service";
 import {
   ServiceAuthCheckMail,
   ServiceAuthLogin,
@@ -64,4 +67,14 @@ export const useFetchAuthLogin = () => {
     fetch(ServiceAuthLogin, params);
   };
   return [loginAuth || {}, loginFetch, authLoading];
+};
+
+export const useFetchCategoryById = () => {
+  const [categoryId, fetch, categoryIdLoading] = useFetch([]);
+
+  const categoryIdFetch = async (params = false, id) => {
+    fetch(ServiceByIdCategoryFetchList, params, id);
+
+    return [categoryId, categoryIdFetch, categoryIdLoading];
+  };
 };

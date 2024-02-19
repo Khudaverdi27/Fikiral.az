@@ -31,7 +31,6 @@ function FormRegisterConfrim() {
 
   const withCategory = () => {
     reset();
-    authFetch(resRegister);
 
     const trueIndexes = checkboxStates.reduce((acc, state, index) => {
       if (state) {
@@ -47,7 +46,7 @@ function FormRegisterConfrim() {
     // find element id
     const categories = elementsWithCategory.map((element) => element.id);
     resRegister["categories"] = categories;
-
+    authFetch(resRegister);
     if (!disabled) {
       setSubModel(false);
       switchLoginModal(true);

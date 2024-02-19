@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
@@ -18,9 +18,14 @@ const FormRegister = () => {
     reset,
     onSubmit,
     checkMail,
-    chekRes,
-    setChekRes,
+
+    clearErrors,
   } = useModalActions();
+
+  useEffect(() => {
+    clearErrors();
+    reset();
+  }, [accescLogin]);
 
   return (
     <FormContainer>
@@ -57,6 +62,7 @@ const FormRegister = () => {
             Email
           </label>
           <input
+            autoComplete="off"
             placeholder="Email daxil edin"
             type="email"
             className="loginInput"
@@ -68,13 +74,9 @@ const FormRegister = () => {
               },
             })}
             aria-invalid={errors.gmail ? "true" : "false"}
-            onBlur={(e) => {
-              checkMail(e.target.value);
-            }}
+            onBlur={accescLogin ? (e) => checkMail(e.target.value) : undefined}
           />
-          {chekRes && accescLogin && (
-            <span className="text-[#EA3829]">{chekRes}</span>
-          )}
+
           {errors.gmail && (
             <span className="text-[#EA3829]" role="alert">
               {errors.gmail.message}
@@ -128,7 +130,7 @@ const FormRegister = () => {
           )}
         </div>
         <button
-          disabled={chekRes && accescLogin && true}
+          disabled={errors?.gmail?.message && accescLogin}
           className="bg-[#6366F1] text-white w-full disabled:opacity-40 py-[8px] rounded-[8px]"
         >
           {accescLogin ? "Qeydiyyat" : "Daxil ol"}
@@ -153,8 +155,9 @@ const FormRegister = () => {
           <button
             onClick={() => {
               setAccesLogin(!accescLogin);
-              setChekRes(false);
+
               reset();
+              clearErrors();
             }}
           >
             {accescLogin ? "Daxil ol" : "Qeydiyyatdan keç"}
