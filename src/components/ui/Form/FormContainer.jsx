@@ -19,7 +19,8 @@ const FormContainer = ({ children }) => {
     <>
       <button
         onClick={switchLoginModal}
-        className=" border border-white whitespace-nowrap  text-indigo-500 py-2 px-4 rounded-xl"
+        className=" whitespace-nowrap  text-indigo-500 py-2 px-4 rounded-xl 
+        hover:outline outline-indigo-500 outline-[0.2px]"
       >
         Daxil ol
       </button>

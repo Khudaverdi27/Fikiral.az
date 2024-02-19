@@ -6,7 +6,7 @@ export const ServiceAllCategoryFetchList = async () => {
   return res;
 };
 
-export const ServiceByIdCategoryFetchList = async (id) => {
-  const res = await get(categoryApi.byId.replace(":id", id));
+export const ServiceByIdCategoryFetchList = async (slug) => {
+  const res = await get(categoryApi.byId.replace(":slug", slug));
   return res;
 };

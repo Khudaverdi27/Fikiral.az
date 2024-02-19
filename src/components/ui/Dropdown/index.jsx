@@ -49,7 +49,7 @@ const DropdownMenu = ({
       {profilImg && (
         <figure className="size-11 mr-2">
           {typeof profilImg === "string" ? (
-            <span className="size-full text-2xl bg-gray-300 border-gray-500 rounded-full border text-[#6366F1] flex items-center justify-center">
+            <span className="size-full text-2xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex items-center justify-center">
               {profilImg}
             </span>
           ) : (

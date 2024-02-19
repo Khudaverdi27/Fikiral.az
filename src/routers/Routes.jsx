@@ -10,7 +10,7 @@ export const routes = [
   { path: "/home", element: <HomePage />, layout: "AppLayout" },
   { path: "/favorites", element: <FavoritePage />, layout: "AppLayout" },
   {
-    path: "/categories/:id:/slug",
+    path: "/categories/slug",
     element: <CategoryPage />,
     layout: "AppLayout",
   },

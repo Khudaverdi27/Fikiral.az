@@ -38,13 +38,6 @@ function ModalProvider({ children }) {
     } else {
       if (data.gmail) {
         loginFetch(data);
-        if (login) {
-          setMainModel(false);
-          setSubModel(false);
-        }
-        setTimeout(() => {
-          navigate("/home");
-        }, 1000);
       }
     }
   };
@@ -52,6 +45,7 @@ function ModalProvider({ children }) {
   useEffect(() => {
     if (loginAuth.tokenResponse) {
       saveStorage("token", loginAuth.tokenResponse.accessToken);
+      navigate("/home");
     } else {
       setError("gmail", {
         type: "manual",

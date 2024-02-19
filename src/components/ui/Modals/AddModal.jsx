@@ -50,7 +50,7 @@ const AddModal = () => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className=" bg-[#6366F1] text-white w-full whitespace-nowrap px-4 py-2 rounded-[12px]"
+        className=" bg-indigo-500 text-white w-full whitespace-nowrap px-4 py-2 rounded-[12px]"
       >
         İdeyanı paylaş
       </button>
@@ -60,7 +60,7 @@ const AddModal = () => {
           <div className="flex items-center space-x-2 bg-[#999999]">
             <figure className="size-11 rounded-full shrink-0">
               {typeof userImg === "string" ? (
-                <span className="size-full text-2xl bg-gray-300 border-gray-500 rounded-full border text-[#6366F1] flex items-center justify-center">
+                <span className="size-full text-2xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex justify-center">
                   {userImg}
                 </span>
               ) : (
@@ -93,7 +93,7 @@ const AddModal = () => {
           <DropdownMenu
             placement={"bottomLeft"}
             dropName={
-              <button className="rounded md hover:text-white px-2 py-[5px] mb-2 bg-zinc-50 hover:bg-[#6366F1]">
+              <button className="rounded md hover:text-white px-2 py-[5px] mb-2 bg-zinc-50 hover:bg-indigo-500">
                 <span className="text-red-500 mr-1 font-bold">*</span>Kateqoriya
                 seç
               </button>
@@ -118,7 +118,7 @@ const AddModal = () => {
           )}
 
           <button
-            className="w-full mt-3 rounded-lg text-[16px] text-white hover:bg-[#F16367] px-6 py-[10px] bg-[#6366F1]"
+            className="w-full mt-3 rounded-lg text-[16px] text-white hover:bg-[#F16367] px-6 py-[10px] bg-indigo-500"
             type="submit"
             key={"btn"}
           >

@@ -4,7 +4,7 @@
    
    /* Hide the browser's default checkbox */
    .container input {
-    @apply absolute z-10 opacity-0 cursor-pointer size-8 right-[210px] top-0
+    @apply absolute z-10 opacity-0 cursor-pointer size-8 right-[-7px] top-0
    
    }
    

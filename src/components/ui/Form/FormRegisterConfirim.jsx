@@ -83,7 +83,7 @@ function FormRegisterConfrim() {
       <button
         onClick={withCategory}
         disabled={disabled}
-        className="bg-[#6366F1] font-[500] text-white w-full py-[8px] rounded-[8px] disabled:opacity-50 disabled:cursor-not-allowed"
+        className="bg-indigo-500 font-[500] text-white w-full py-[8px] rounded-[8px] disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Maraqlandığınız sahələri seçin
       </button>

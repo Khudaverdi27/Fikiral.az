@@ -11,7 +11,9 @@ import { useFetchData } from "../../../context/FetchDataProvider";
 function ThinkCard({ thinks, children }) {
   const [bookmark, setBookmark] = useState(false);
   const { switcRegisterModal } = useModalActions();
-  const { changeTime } = useFetchData();
+  const { data, changeTime } = useFetchData();
+  const [iscommentOpen, setIsCommentOpen] = useState(false);
+  const [modalData, setModalData] = useState({});
   const token = getStorage("token");
   const changeBookmark = () => {
     if (!token) {
@@ -19,6 +21,12 @@ function ThinkCard({ thinks, children }) {
     } else {
       setBookmark(!bookmark);
     }
+  };
+
+  const openMessageModal = () => {
+    setIsCommentOpen(true);
+    const findData = data.find((i) => i.id === thinks.id);
+    setModalData(findData);
   };
 
   const path = useLocation().pathname;
@@ -37,7 +45,7 @@ function ThinkCard({ thinks, children }) {
             </figure>
             <h6>{thinks.userName}</h6>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center cursor-pointer">
             <IconContext.Provider
               value={{
                 color: "#262626",
@@ -48,29 +56,39 @@ function ThinkCard({ thinks, children }) {
             >
               <HiOutlineBookmark
                 onClick={changeBookmark}
-                className={`size-5  cursor-pointer `}
+                className={`size-5  `}
               />
             </IconContext.Provider>
-            <HiDotsVertical className="ml-2 size-5 cursor-pointer " />
+            <HiDotsVertical className="ml-2 size-5 " />
           </div>
         </div>
 
         <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
           <Link
-            to={`/categories/:id:/slug`}
-            className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px] cursor-pointer"
+            to={`/categories/${thinks.category.slug}`}
+            className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px]"
           >
-            {thinks.category}
+            {thinks.category.name}
           </Link>
           <span className="dotForTime">{changeTime(thinks.publishedAt)}</span>
         </div>
-        <p className="text-[16px] ">{thinks.content}</p>
+        <p
+          onClick={openMessageModal}
+          className="text-[16px] line-clamp-5 cursor-pointer"
+        >
+          {thinks.content}
+        </p>
       </div>
       <ThinkCardActions
         comment={thinks.commentsCount}
         likes={thinks.likes}
         disabled={true}
-        thinkId={thinks.id}
+        iscommentOpen={iscommentOpen}
+        setIsCommentOpen={setIsCommentOpen}
+        modalData={modalData}
+        setModalData={setModalData}
+        openMessageModal={openMessageModal}
+        changeTime={changeTime}
       />
       {children}
     </div>

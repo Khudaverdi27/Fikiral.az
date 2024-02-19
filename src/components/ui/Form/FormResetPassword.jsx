@@ -47,7 +47,7 @@ function FormResetPassword() {
             {...register("gmail", {
               required: "Boş buraxıla bilməz",
               pattern: {
-                value: /\S+@\S+\.\S+/,
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/,
                 message: "Yazdığınız mail düzgün formatda deyil!",
               },
             })}
@@ -135,7 +135,7 @@ function FormResetPassword() {
       <button
         disabled={resetPassword && password !== confirmPassword}
         type="submit"
-        className="bg-[#6366F1] disabled:opacity-50 text-white w-full py-[8px] rounded-[8px]"
+        className="bg-indigo-500 disabled:opacity-50 text-white w-full py-[8px] rounded-[8px]"
       >
         {!resetPassword ? " Bərpa e-maili göndərin" : "Şifrəni təsdiq edin"}
       </button>

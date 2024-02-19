@@ -29,7 +29,7 @@ function Header() {
       <div className="flex space-x-[15px]  cursor-pointer items-center">
         <DropdownMenu
           dropName={
-            <span className="text-primaryGray hover:text-[#6366F1] ">
+            <span className="text-primaryGray hover:text-indigo-500 ">
               Kateqoriya
             </span>
           }

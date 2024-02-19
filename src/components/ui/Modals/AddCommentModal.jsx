@@ -8,17 +8,20 @@ import ThinkCardActions from "../../widget/Thinks/ThinkCardActions";
 import { getStorage } from "../../../utils/helpers";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import ThinkComments from "../../widget/Thinks/ThinkComment";
-import { useFetchData } from "../../../context/FetchDataProvider";
 
-const AddCommentModal = ({ comment, thinkId }) => {
-  const [iscommentOpen, setIsCommentOpen] = useState(false);
+const AddCommentModal = ({
+  comment,
+  iscommentOpen,
+  setIsCommentOpen,
+  modalData,
+  openMessageModal,
+  changeTime,
+}) => {
   const [bookmark, setBookmark] = useState(false);
   const [newComment, setNewComment] = useState([]);
   const [value, setValue] = useState("");
   const { switcRegisterModal } = useModalActions();
-  const [modalData, setModalData] = useState({});
 
-  const { data, changeTime } = useFetchData();
   const token = getStorage("token");
 
   const changeBookmark = () => {
@@ -32,13 +35,13 @@ const AddCommentModal = ({ comment, thinkId }) => {
   const addNewComment = (e) => {
     e.preventDefault();
     setNewComment([...newComment, value]);
+    setValue("");
+  };
+  const closeMessageModal = () => {
+    setIsCommentOpen(false);
+    console.log(iscommentOpen);
   };
 
-  const openMessageModal = () => {
-    setIsCommentOpen(true);
-    const findData = data.find((i) => i.id === thinkId);
-    setModalData(findData);
-  };
   return (
     <div className="commentModal">
       <div className="flex items-center justify-center ">
@@ -57,8 +60,8 @@ const AddCommentModal = ({ comment, thinkId }) => {
         closable={true}
         closeIcon={<IoMdClose className=" text-2xl text-[#232323] " />}
         open={iscommentOpen}
-        onOk={() => setIsCommentOpen(false)}
-        onCancel={() => setIsCommentOpen(false)}
+        onOk={closeMessageModal}
+        onCancel={closeMessageModal}
       >
         <Row className="relative" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           <Col className="border-r border-primaryGray mr-1" span={11}>
@@ -127,12 +130,22 @@ const AddCommentModal = ({ comment, thinkId }) => {
               <form onSubmit={addNewComment}>
                 <Space.Compact className="w-full">
                   <Input
+                    disabled={!token}
+                    value={value}
                     onChange={(e) => setValue(e.target.value)}
-                    className="placeholder:font-[400]"
+                    className="placeholder:font-[500] disabled:cursor-not-allowed"
                     variant="borderless"
-                    placeholder="Rəy bildir..."
+                    placeholder={
+                      token
+                        ? "Rəy bildir..."
+                        : "Rəy yazmaq üçün hesabınıza giriş edin"
+                    }
                   />
-                  <button type="submit" className="text-primaryGray text-sm">
+                  <button
+                    disabled={!value}
+                    type="submit"
+                    className="text-primaryGray text-sm disabled:opacity-20 disabled:cursor-not-allowed"
+                  >
                     Paylaş
                   </button>
                 </Space.Compact>

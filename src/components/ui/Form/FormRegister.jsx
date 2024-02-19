@@ -69,7 +69,7 @@ const FormRegister = () => {
             {...register("gmail", {
               required: "Boş buraxıla bilməz",
               pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]{3,}$/,
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/,
                 message: "Yazdığınız mail düzgün formatda deyil!",
               },
             })}
@@ -123,7 +123,7 @@ const FormRegister = () => {
           {!accescLogin && (
             <button
               type="button"
-              className="text-[#6366F1] text-[16px] mt-1"
+              className="text-indigo-500 text-[16px] mt-1"
               onClick={onSubModel}
             >
               Şifrəni unutmusan?
@@ -132,7 +132,7 @@ const FormRegister = () => {
         </div>
         <button
           disabled={errors?.gmail?.message && accescLogin}
-          className="bg-[#6366F1] text-white w-full disabled:opacity-40 py-[8px] rounded-[8px]"
+          className="bg-indigo-500 text-white w-full disabled:opacity-40 py-[8px] rounded-[8px]"
         >
           {accescLogin ? "Qeydiyyat" : "Daxil ol"}
         </button>
@@ -152,7 +152,7 @@ const FormRegister = () => {
       </button>
       <div className="text-center space-x-2">
         <span>{accescLogin ? "Artıq hesabın var?" : "Hesabın yoxdur?"}</span>
-        <span className="text-[#6366F1]">
+        <span className="text-indigo-500">
           <button
             onClick={() => {
               setAccesLogin(!accescLogin);

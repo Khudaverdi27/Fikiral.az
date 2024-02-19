@@ -70,9 +70,6 @@ export const useCategories = (allSelect = true, type, classes = false) => {
       title: (
         <>
           {allCategories.map((item, index) => {
-            if (index === 0) {
-              return null;
-            }
             return (
               <div
                 className={classNames(
@@ -85,7 +82,7 @@ export const useCategories = (allSelect = true, type, classes = false) => {
                 )}
                 key={item.id}
               >
-                <label className="cursor-pointer " htmlFor={`check-${item.id}`}>
+                <label className="cursor-pointer" htmlFor={`check-${item.id}`}>
                   {item.name}
                 </label>
                 <span className={`${classes ? "" : "container"} `}>
