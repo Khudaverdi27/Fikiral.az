@@ -51,6 +51,9 @@
     @apply !bg-transparent 
   }
 
+  .ant-spin-dot-item {
+    @apply !bg-indigo-500;
+  }
 
 
 

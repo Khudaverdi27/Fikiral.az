@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { ignoreKeyPressAsDomainLength } from "../../../utils/helpers";
+import { Spin } from "antd";
 
 function FormResetPassword() {
   const [type, setType] = useState(false);
@@ -43,6 +44,9 @@ function FormResetPassword() {
         type: "manual",
         message: "Bu mail-də istifadəçi tapılmadı!",
       });
+      setTimeout(() => {
+        clearErrors();
+      }, 2000);
       setChekDisableBtn(true);
     } else {
       clearErrors();
@@ -63,22 +67,25 @@ function FormResetPassword() {
             yeniləmə linki göndərəcəyik.
           </p>
           <label>Email</label>
-          <input
-            onKeyDown={ignoreKeyPressAsDomainLength}
-            autoComplete="off"
-            placeholder="Email daxil edin"
-            {...register("gmail", {
-              required: "Boş buraxıla bilməz",
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/,
-                message: "Yazdığınız mail düzgün formatda deyil!",
-              },
-            })}
-            aria-invalid={errors.mail ? "true" : "false"}
-            className="loginInput"
-            type="email"
-            onBlur={(e) => checkMail(e.target.value)}
-          />
+          <div className="flex items-center loginInput justify-between">
+            <input
+              onKeyDown={ignoreKeyPressAsDomainLength}
+              autoComplete="off"
+              placeholder="Email daxil edin"
+              {...register("gmail", {
+                required: "Boş buraxıla bilməz",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/,
+                  message: "Yazdığınız mail düzgün formatda deyil!",
+                },
+              })}
+              aria-invalid={errors.mail ? "true" : "false"}
+              className="w-full bg-[#F6F7FB] outline-none"
+              type="email"
+              onBlur={(e) => checkMail(e.target.value)}
+            />
+            {authCheckLoading && <Spin size="small" />}
+          </div>
           {errors.gmail && (
             <span className="text-[#EA3829]" role="alert">
               {errors.gmail.message}

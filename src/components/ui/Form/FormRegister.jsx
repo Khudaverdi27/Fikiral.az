@@ -6,6 +6,7 @@ import FormContainer from "./FormContainer";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import { ignoreKeyPressAsDomainLength } from "../../../utils/helpers";
+import { Spin } from "antd";
 
 const FormRegister = () => {
   const [type, setType] = useState(false);
@@ -22,6 +23,8 @@ const FormRegister = () => {
     checkMail,
     checkUserName,
     clearErrors,
+    authCheckLoading,
+    authCheckUserNameLoading,
     userLoginAuthLoading,
   } = useModalActions();
 
@@ -39,21 +42,25 @@ const FormRegister = () => {
             <label className="outline-none block text-[#4C4B4E] mb-1">
               İstifadəçi adı
             </label>
-            <input
-              placeholder="İstifadəçi adı"
-              type="text"
-              maxLength={8}
-              className="loginInput"
-              {...register("userName", {
-                required: "Boş buraxıla bilməz",
-                pattern: {
-                  value: /\s*/,
-                  message: "Zəhmət olmasa boşluqlardan istifadə etməyin",
-                },
-              })}
-              aria-invalid={errors.userName ? "true" : "false"}
-              onBlur={(e) => checkUserName(e.target.value)}
-            />
+            <div className="flex items-center loginInput justify-between">
+              <input
+                autoComplete="off"
+                placeholder="İstifadəçi adı"
+                type="text"
+                maxLength={8}
+                className="w-full bg-[#F6F7FB] outline-none"
+                {...register("userName", {
+                  required: "Boş buraxıla bilməz",
+                  pattern: {
+                    value: /\s*/,
+                    message: "Zəhmət olmasa boşluqlardan istifadə etməyin",
+                  },
+                })}
+                aria-invalid={errors.userName ? "true" : "false"}
+                onBlur={(e) => checkUserName(e.target.value)}
+              />
+              {authCheckUserNameLoading && <Spin size="small" />}
+            </div>
             {errors.userName && (
               <span className="text-[#EA3829]" role="alert">
                 {errors.userName.message}
@@ -66,30 +73,32 @@ const FormRegister = () => {
             <LoadingSpin />
           ) : (
             <>
-              {" "}
               <div>
                 <label className="outline-none block text-[#4C4B4E] mb-1">
                   Email
                 </label>
-                <input
-                  onKeyDown={ignoreKeyPressAsDomainLength}
-                  autoComplete="off"
-                  placeholder="Email daxil edin"
-                  type="email"
-                  className="loginInput"
-                  {...register("gmail", {
-                    required: "Boş buraxıla bilməz",
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/,
-                      message: "Yazdığınız mail düzgün formatda deyil!",
-                    },
-                  })}
-                  aria-invalid={errors.gmail ? "true" : "false"}
-                  onBlur={
-                    accescLogin ? (e) => checkMail(e.target.value) : undefined
-                  }
-                />
-
+                <div className="flex items-center loginInput justify-between">
+                  <input
+                    onKeyDown={ignoreKeyPressAsDomainLength}
+                    autoComplete="off"
+                    placeholder="Email daxil edin"
+                    type="email"
+                    className="w-full bg-[#F6F7FB] outline-none"
+                    {...register("gmail", {
+                      required: "Boş buraxıla bilməz",
+                      pattern: {
+                        value:
+                          /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/,
+                        message: "Yazdığınız mail düzgün formatda deyil!",
+                      },
+                    })}
+                    aria-invalid={errors.gmail ? "true" : "false"}
+                    onBlur={
+                      accescLogin ? (e) => checkMail(e.target.value) : undefined
+                    }
+                  />
+                  {authCheckLoading && <Spin size="small" />}
+                </div>
                 {errors.gmail && (
                   <span className="text-[#EA3829]" role="alert">
                     {errors.gmail.message}

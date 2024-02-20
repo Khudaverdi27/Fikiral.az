@@ -138,6 +138,7 @@ function ModalProvider({ children }) {
     setResRegister,
     checkMail,
     authCheckLoading,
+    authCheckUserNameLoading,
     userLoginAuthLoading,
     authCheckMail,
     checkUserName,

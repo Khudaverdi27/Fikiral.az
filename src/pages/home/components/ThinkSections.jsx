@@ -2,8 +2,16 @@ import { Col, Row } from "antd";
 import ChangePage from "../../../components/ui/Pagination";
 import ThinkCard from "../../../components/widget/Thinks/ThinkCard";
 import Section from "../../../components/ui/Section";
+import { useEffect, useState } from "react";
 
 function ThinkSection({ items, loading, title }) {
+  const [showAll, setShowAll] = useState(false);
+  const modifyItems = showAll ? items : items?.slice(0, 6);
+
+  const showAllItems = () => {
+    setShowAll(!showAll);
+  };
+
   return (
     <Section title={title} loading={loading}>
       <Row
@@ -15,7 +23,7 @@ function ThinkSection({ items, loading, title }) {
           lg: 32,
         }}
       >
-        {items?.map((item) => (
+        {modifyItems?.map((item) => (
           <Col
             key={item.id}
             className="my-5"
@@ -39,11 +47,12 @@ function ThinkSection({ items, loading, title }) {
       ) : (
         <div className="flex justify-end text-primaryGray mt-2 text-sm ">
           <button
+            onClick={showAllItems}
             className={`hover:bg-indigo-500  space-x-2 hover:text-white rounded-[4px] py-2 px-4 ${
               loading ? "text-white" : ""
             }`}
           >
-            Hamısına bax
+            {showAll ? "Daha az" : " Hamısına bax"}
           </button>
         </div>
       )}

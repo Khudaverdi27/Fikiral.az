@@ -39,7 +39,6 @@ const AddCommentModal = ({
   };
   const closeMessageModal = () => {
     setIsCommentOpen(false);
-    console.log(iscommentOpen);
   };
 
   return (
