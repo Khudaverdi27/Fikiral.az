@@ -17,7 +17,7 @@ const request = async (baseURL, url, method, params = false) => {
 
   if (params) {
     options.body = JSON.stringify(params);
-
+    console.log(options.body);
     //post comment to thinks
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;

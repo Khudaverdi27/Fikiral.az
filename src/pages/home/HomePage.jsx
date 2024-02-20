@@ -1,6 +1,3 @@
-import { useEffect } from "react";
-import { useFetchThinksList } from "../../hooks/useFetch";
-
 import ThinkSection from "./components/ThinkSections";
 import { useFetchData } from "../../context/FetchDataProvider";
 

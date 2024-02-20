@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect } from "react";
 import { useFetchThinksList } from "../hooks/useFetch";
 import moment from "moment";
+import { useParams } from "react-router-dom";
 const FetchData = createContext();
 
 function DataProvider({ children }) {
