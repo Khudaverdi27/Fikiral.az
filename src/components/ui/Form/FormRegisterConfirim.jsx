@@ -3,7 +3,8 @@ import { useModalActions } from "../../../context/LoginModalProvider";
 import { useCategories } from "../../../hooks/useCategories";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import { useFetchAuthResgistration } from "../../../hooks/useFetch";
-import { getStorage, removeStorage, saveStorage } from "../../../utils/helpers";
+import { saveStorage } from "../../../utils/helpers";
+import { useNavigate } from "react-router-dom";
 
 function FormRegisterConfrim() {
   const [category, checkboxStates, allCategories, loading] = useCategories(
@@ -19,13 +20,14 @@ function FormRegisterConfrim() {
     switchLoginModal,
     setSubModel,
     resRegister,
+    setLoginAuth,
     reset,
   } = useModalActions();
 
+  const navigate = useNavigate();
+
   const skipCategory = () => {
     authFetch(resRegister);
-    setSubModel(false);
-    switchLoginModal(true);
     reset();
   };
 
@@ -47,11 +49,16 @@ function FormRegisterConfrim() {
     const categories = elementsWithCategory.map((element) => element.id);
     resRegister["categories"] = categories;
     authFetch(resRegister);
-    if (!disabled) {
-      setSubModel(false);
-      switchLoginModal(true);
-    }
   };
+
+  useEffect(() => {
+    if (registerAuth.tokenResponse) {
+      saveStorage("token", registerAuth.tokenResponse.accessToken);
+      setLoginAuth(registerAuth);
+      setSubModel(false);
+      navigate("/home");
+    }
+  }, [registerAuth]);
 
   useEffect(() => {
     if (checkboxStates.some((c) => c === true)) {

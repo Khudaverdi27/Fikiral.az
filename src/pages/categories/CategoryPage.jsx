@@ -5,7 +5,7 @@ function CategoryPage() {
   return (
     <>
       <div>
-        <ThinkSection title={"Categoriya"} items={data} loading={loading} />
+        <ThinkSection title={"Categoriya"} />
       </div>
     </>
   );

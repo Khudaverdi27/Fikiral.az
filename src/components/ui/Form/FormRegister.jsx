@@ -18,7 +18,7 @@ const FormRegister = () => {
     reset,
     onSubmit,
     checkMail,
-
+    checkUserName,
     clearErrors,
   } = useModalActions();
 
@@ -49,6 +49,7 @@ const FormRegister = () => {
                 },
               })}
               aria-invalid={errors.userName ? "true" : "false"}
+              onBlur={(e) => checkUserName(e.target.value)}
             />
             {errors.userName && (
               <span className="text-[#EA3829]" role="alert">

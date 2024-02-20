@@ -6,6 +6,7 @@ import {
 } from "../services/category.service";
 import {
   ServiceAuthCheckMail,
+  ServiceAuthCheckUserName,
   ServiceAuthLogin,
   ServiceAuthRegistration,
 } from "../services/auth.service";
@@ -52,6 +53,19 @@ export const useFetchAuthCheckMail = () => {
   return [authCheckMail || false, authCheckFetch, authCheckLoading];
 };
 
+export const useFetchAuthCheckUserName = () => {
+  const [authCheckUsername, fetch, authCheckUserNameLoading] = useFetch([]);
+
+  const authCheckUsernameFetch = async (params = {}) => {
+    fetch(ServiceAuthCheckUserName, params);
+  };
+  return [
+    authCheckUsername || false,
+    authCheckUsernameFetch,
+    authCheckUserNameLoading,
+  ];
+};
+
 export const useFetchAuthResgistration = () => {
   const [registerAuth, fetch, authLoading] = useFetch([]);
 
@@ -62,11 +76,11 @@ export const useFetchAuthResgistration = () => {
 };
 
 export const useFetchAuthLogin = () => {
-  const [loginAuth, fetch, authLoading] = useFetch([]);
+  const [userLoginAuth, fetch, userLoginAuthLoading] = useFetch([]);
   const loginFetch = async (params = {}) => {
     fetch(ServiceAuthLogin, params);
   };
-  return [loginAuth || {}, loginFetch, authLoading];
+  return [userLoginAuth || {}, loginFetch, userLoginAuthLoading];
 };
 
 export const useFetchCategoryById = () => {

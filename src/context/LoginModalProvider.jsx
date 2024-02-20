@@ -2,7 +2,11 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { saveStorage } from "../utils/helpers";
 import { useNavigate } from "react-router-dom";
-import { useFetchAuthCheckMail, useFetchAuthLogin } from "../hooks/useFetch";
+import {
+  useFetchAuthCheckMail,
+  useFetchAuthCheckUserName,
+  useFetchAuthLogin,
+} from "../hooks/useFetch";
 
 const LoginModal = createContext();
 
@@ -14,8 +18,10 @@ function ModalProvider({ children }) {
   const [resRegister, setResRegister] = useState({});
   const [authCheckMail, authCheckFetch, authCheckLoading] =
     useFetchAuthCheckMail();
-  const [loginAuth, loginFetch, authLoading] = useFetchAuthLogin();
-  const [login, setLogin] = useState(false);
+  const [userLoginAuth, loginFetch, userLoginAuthLoading] = useFetchAuthLogin();
+  const [authCheckUsername, authCheckUsernameFetch, authCheckUserNameLoading] =
+    useFetchAuthCheckUserName();
+  const [loginAuth, setLoginAuth] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -31,7 +37,7 @@ function ModalProvider({ children }) {
       setConfrimRegister(false);
       data["categories"] = [];
       setResRegister(data);
-      if (authCheckMail !== true) {
+      if (!authCheckMail && !authCheckUsername) {
         setMainModel(false);
         setSubModel(true);
       }
@@ -43,8 +49,9 @@ function ModalProvider({ children }) {
   };
 
   useEffect(() => {
-    if (loginAuth.tokenResponse) {
-      saveStorage("token", loginAuth.tokenResponse.accessToken);
+    if (userLoginAuth.tokenResponse) {
+      saveStorage("token", userLoginAuth.tokenResponse.accessToken);
+      setLoginAuth(userLoginAuth);
       navigate("/home");
     } else {
       setError("gmail", {
@@ -57,11 +64,13 @@ function ModalProvider({ children }) {
       });
       return;
     }
-    setLogin(true);
-  }, [loginAuth]);
+  }, [userLoginAuth]);
 
-  const checkMail = async (inputMail) => {
-    authCheckFetch({ gmail: inputMail });
+  const checkMail = (inputMail) => {
+    authCheckFetch(inputMail);
+  };
+  const checkUserName = (inputUsername) => {
+    authCheckUsernameFetch(inputUsername);
   };
 
   useEffect(() => {
@@ -74,6 +83,17 @@ function ModalProvider({ children }) {
       clearErrors();
     }
   }, [authCheckLoading]);
+
+  useEffect(() => {
+    if (authCheckUsername === true) {
+      setError("userName", {
+        type: "manual",
+        message: "Bu adda istifadəçi mövcuddur.",
+      });
+    } else {
+      clearErrors();
+    }
+  }, [authCheckUserNameLoading]);
 
   const onSubModel = (e, stateSub = true, stateMain = false) => {
     e.preventDefault();
@@ -116,7 +136,11 @@ function ModalProvider({ children }) {
     resRegister,
     setResRegister,
     checkMail,
+    authCheckLoading,
+    authCheckMail,
+    checkUserName,
     loginAuth,
+    setLoginAuth,
     clearErrors,
   };
 

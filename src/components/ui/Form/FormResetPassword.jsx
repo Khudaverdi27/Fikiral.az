@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -7,13 +7,22 @@ function FormResetPassword() {
   const [type, setType] = useState(false);
   const [typecConfrim, setTypeConfrim] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
-  const { setMainModel, setSubModel } = useModalActions();
+  const [chekDisableBtn, setChekDisableBtn] = useState(true);
+  const {
+    setMainModel,
+    setSubModel,
+    checkMail,
+    authCheckMail,
+    authCheckLoading,
+  } = useModalActions();
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
     watch,
+    setError,
+    clearErrors,
   } = useForm();
   const password = watch("password", "");
   const confirmPassword = watch("confirmPassword", "");
@@ -21,13 +30,24 @@ function FormResetPassword() {
   const newPassword = (data) => {
     setResetPassword(true);
 
-    reset();
     if (data.password) {
       setResetPassword(false);
       setSubModel(false);
       setMainModel(true);
     }
   };
+  useEffect(() => {
+    if (!authCheckMail) {
+      setError("gmail", {
+        type: "manual",
+        message: "Bu mail-də istifadəçi tapılmadı!",
+      });
+      setChekDisableBtn(true);
+    } else {
+      clearErrors();
+      setChekDisableBtn(authCheckLoading);
+    }
+  }, [authCheckMail, authCheckLoading]);
 
   return (
     <form
@@ -43,7 +63,8 @@ function FormResetPassword() {
           </p>
           <label>Email</label>
           <input
-            placeholder="gmail daxil edin"
+            autoComplete="off"
+            placeholder="Email daxil edin"
             {...register("gmail", {
               required: "Boş buraxıla bilməz",
               pattern: {
@@ -54,6 +75,7 @@ function FormResetPassword() {
             aria-invalid={errors.mail ? "true" : "false"}
             className="loginInput"
             type="email"
+            onBlur={(e) => checkMail(e.target.value)}
           />
           {errors.gmail && (
             <span className="text-[#EA3829]" role="alert">
@@ -133,7 +155,10 @@ function FormResetPassword() {
         </>
       )}
       <button
-        disabled={resetPassword && password !== confirmPassword}
+        disabled={
+          (!resetPassword && chekDisableBtn) ||
+          (resetPassword && password !== confirmPassword)
+        }
         type="submit"
         className="bg-indigo-500 disabled:opacity-50 text-white w-full py-[8px] rounded-[8px]"
       >

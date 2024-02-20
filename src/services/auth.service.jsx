@@ -6,7 +6,11 @@ export const ServiceAuthRegistration = async (params = {}) => {
   return res;
 };
 export const ServiceAuthCheckMail = async (params = {}) => {
-  const res = await get(authApi.checkMail, params);
+  const res = await post(authApi.checkMail + params);
+  return res;
+};
+export const ServiceAuthCheckUserName = async (params = {}) => {
+  const res = await post(authApi.checkUserName + params);
   return res;
 };
 

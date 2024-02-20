@@ -15,7 +15,7 @@ function ThinkSection({ items, loading, title }) {
           lg: 32,
         }}
       >
-        {items.map((item) => (
+        {items?.map((item) => (
           <Col
             key={item.id}
             className="my-5"

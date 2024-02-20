@@ -43,7 +43,7 @@ function ThinkCard({ thinks, children }) {
                 alt=""
               />
             </figure>
-            <h6>{thinks.userName}</h6>
+            <h6>{thinks.userResponse.userName}</h6>
           </div>
           <div className="flex items-center cursor-pointer">
             <IconContext.Provider
