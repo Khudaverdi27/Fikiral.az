@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
+import { useModalActions } from "../../../context/LoginModalProvider";
 
 function ThinkComments({ comment }) {
   const [like, setLike] = useState(false);
   const [commentLikeCount, setCommentLikeCount] = useState(0);
-
+  const { loginAuth } = useModalActions();
   const giveLikeToComment = () => {
     setLike(!like);
     setCommentLikeCount(
@@ -20,15 +21,23 @@ function ThinkComments({ comment }) {
         <div>
           <div className="flex justify-between ">
             <div className="flex items-center space-x-2 ">
-              <figure className="size-11">
-                <img
-                  className="img-cover"
-                  src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1427"
-                  alt=""
-                />
+              <figure className="size-11 ">
+                {loginAuth?.userResponse?.image ? (
+                  <img
+                    className="img-cover"
+                    src={`${loginAuth?.userResponse?.image}`}
+                    alt="user"
+                  />
+                ) : (
+                  <span className="size-full text-2xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex items-center justify-center">
+                    {loginAuth?.userResponse?.userName?.charAt(0)}
+                  </span>
+                )}
               </figure>
               <div className="mb-[-5px]">
-                <h6 className="font-bold">Samir N.</h6>
+                <h6 className="font-bold">
+                  {loginAuth?.userResponse?.userName}
+                </h6>
                 <span className="text-sm text-[#999999]">2g</span>
               </div>
             </div>

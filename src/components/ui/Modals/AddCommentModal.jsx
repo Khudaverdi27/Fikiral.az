@@ -75,12 +75,14 @@ const AddCommentModal = ({
                       alt=""
                     />
                   </figure>
-                  <h6 className="text-[20px]">{modalData.userName}</h6>
+                  <h6 className="text-[20px]">
+                    {modalData?.userResponse?.userName}
+                  </h6>
                 </div>
               </div>
               <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
                 <span className="hover:bg-[#6C58BB] hover:text-white py-[2px] px-2 rounded-[4px] cursor-pointer">
-                  {modalData.category}
+                  {modalData?.category?.name}
                 </span>
                 <span className="dotForTime">
                   {changeTime(modalData.publishedAt)}

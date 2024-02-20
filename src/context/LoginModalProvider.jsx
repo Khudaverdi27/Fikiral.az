@@ -13,15 +13,15 @@ const LoginModal = createContext();
 function ModalProvider({ children }) {
   const [isMainModel, setMainModel] = useState(false); // First Model
   const [isSubModel, setSubModel] = useState(false); // Second Model
-  const [accescLogin, setAccesLogin] = useState(false);
+  const [accescLogin, setAccesLogin] = useState(false); //register to login
   const [confrimRegister, setConfrimRegister] = useState(false);
-  const [resRegister, setResRegister] = useState({});
+  const [resRegister, setResRegister] = useState({}); //response register
   const [authCheckMail, authCheckFetch, authCheckLoading] =
     useFetchAuthCheckMail();
   const [userLoginAuth, loginFetch, userLoginAuthLoading] = useFetchAuthLogin();
   const [authCheckUsername, authCheckUsernameFetch, authCheckUserNameLoading] =
     useFetchAuthCheckUserName();
-  const [loginAuth, setLoginAuth] = useState(false);
+  const [loginAuth, setLoginAuth] = useState(false); //register or login response
   const navigate = useNavigate();
   const {
     register,
@@ -137,6 +137,7 @@ function ModalProvider({ children }) {
     setResRegister,
     checkMail,
     authCheckLoading,
+    userLoginAuthLoading,
     authCheckMail,
     checkUserName,
     loginAuth,
