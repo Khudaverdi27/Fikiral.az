@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { ignoreKeyPressAsDomainLength } from "../../../utils/helpers";
 
 function FormResetPassword() {
   const [type, setType] = useState(false);
@@ -63,6 +64,7 @@ function FormResetPassword() {
           </p>
           <label>Email</label>
           <input
+            onKeyDown={ignoreKeyPressAsDomainLength}
             autoComplete="off"
             placeholder="Email daxil edin"
             {...register("gmail", {

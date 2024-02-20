@@ -101,6 +101,7 @@ function ModalProvider({ children }) {
     setSubModel(stateSub);
     setConfrimRegister(true);
     reset();
+    clearErrors();
   };
 
   const switchLoginModal = () => {

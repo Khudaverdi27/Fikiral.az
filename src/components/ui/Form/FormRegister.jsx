@@ -5,6 +5,7 @@ import { FaFacebook } from "react-icons/fa";
 import FormContainer from "./FormContainer";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
+import { ignoreKeyPressAsDomainLength } from "../../../utils/helpers";
 
 const FormRegister = () => {
   const [type, setType] = useState(false);
@@ -71,6 +72,7 @@ const FormRegister = () => {
                   Email
                 </label>
                 <input
+                  onKeyDown={ignoreKeyPressAsDomainLength}
                   autoComplete="off"
                   placeholder="Email daxil edin"
                   type="email"
