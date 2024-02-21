@@ -18,18 +18,16 @@ function FormSearch() {
   const searchItems = showFull ? searchResponse : searchResponse.slice(0, 5);
 
   const ref = useClickAway(() => {
-    setOpenSrch(false);
+    setText((searchResponse.length = []));
   });
 
   const onSearch = (e) => {
     setText(e.target.value);
-    if (openSrch === false) {
-      setOpenSrch(true);
-    }
   };
   useEffect(() => {
-    fetchSearchResponse({ content: text.trim() });
-    setOpenSrch(true);
+    if (text) {
+      fetchSearchResponse({ content: text.trim() });
+    }
   }, [text]);
 
   const showAllResults = () => {
@@ -38,7 +36,6 @@ function FormSearch() {
 
   const openMessageModal = (data) => {
     setIsCommentOpen(true);
-
     setDataModal(data);
   };
 
@@ -58,7 +55,7 @@ function FormSearch() {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         />
-        {openSrch && (
+        {searchResponse.length > 0 && (
           <div
             ref={ref}
             className="w-[320px] border px-1
@@ -67,7 +64,7 @@ function FormSearch() {
             <div className="flex justify-between items-center py-5 px-1 font-[500]">
               <span className="text-[15px]">Axtarış</span>
               <button
-                onClick={() => setOpenSrch(false)}
+                onClick={() => setOpenSrch((searchResponse.length = []))}
                 className="cursor-pointer"
               >
                 <IoMdClose className="size-6" />
