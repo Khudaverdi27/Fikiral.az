@@ -81,7 +81,7 @@ const AddCommentModal = ({
               </div>
               <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
                 <Link
-                  to={`#`}
+                  to={`/categories/${modalData?.category?.slug}`}
                   className="hover:bg-[#6C58BB] hover:text-white py-[2px] px-2 rounded-[4px] cursor-pointer"
                 >
                   {modalData?.category?.name}

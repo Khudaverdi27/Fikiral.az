@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { ignoreKeyPressAsDomainLength } from "../../../utils/helpers";
 import { Spin } from "antd";
 
 function FormResetPassword() {
@@ -57,7 +56,7 @@ function FormResetPassword() {
   return (
     <form
       onSubmit={handleSubmit(newPassword)}
-      className="space-y-4 text-[16px]"
+      className="space-y-4 text-[16px] py-7"
     >
       {!resetPassword ? (
         <>
@@ -69,7 +68,7 @@ function FormResetPassword() {
           <label>Email</label>
           <div className="flex items-center loginInput justify-between">
             <input
-              onKeyDown={ignoreKeyPressAsDomainLength}
+              maxLength={35}
               autoComplete="off"
               placeholder="Email daxil edin"
               {...register("gmail", {

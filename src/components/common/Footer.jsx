@@ -15,7 +15,7 @@ function Footer() {
 
         <div className="space-y-2">
           <h6 className="text-sm font-semibold text-black">Haqqımızda</h6>
-          <Link to={"/homey"} className="text-xs text-primaryGray">
+          <Link to={"/home"} className="text-xs text-primaryGray">
             Fikiral
           </Link>
         </div>
@@ -27,17 +27,48 @@ function Footer() {
         </div>
         <div className="space-y-2 cursor-pointer">
           <h6 className="text-sm font-semibold  text-black">Əlaqə</h6>
-          <p className="text-xs  text-primaryGray">info@fikiral.az</p>
+          <Link
+            target="_blank"
+            to={"mailto:info@fikiral.az"}
+            rel="noopener noreferrer"
+            className="text-xs  text-primaryGray"
+          >
+            info@fikiral.az
+          </Link>
 
           <span className="flex space-x-3 ">
-            <FaInstagram className="text-[#232323] hover:text-indigo-500 size-6" />
-            <FaLinkedinIn className="text-[#232323] hover:text-indigo-500 size-6" />
-            <FaFacebookF className="text-[#232323] hover:text-indigo-500 size-6" />
-            <FaXTwitter className="text-[#232323] hover:text-indigo-500 size-6" />
+            <Link
+              to={
+                "https://www.instagram.com/fikiral.az?igsh=MWM1MDY3OWR4b2xtdg%3D%3D&utm_source=qr "
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram className="text-[#232323] hover:text-indigo-500 size-6" />
+            </Link>
+            <Link
+              to={"https://www.linkedin.com/company/fikiralaz/ "}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaLinkedinIn className="text-[#232323] hover:text-indigo-500 size-6" />
+            </Link>
+
+            <Link
+              to={
+                "https://www.facebook.com/profile.php?id=61556776975297&mibextid=eQY6cl "
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaFacebookF className="text-[#232323] hover:text-indigo-500 size-6" />
+            </Link>
+            <Link to={"#"} target="_blank" rel="noopener noreferrer">
+              <FaXTwitter className="text-[#232323] hover:text-indigo-500 size-6" />
+            </Link>
           </span>
         </div>
       </div>
-
       <span className="text-sm text-[#232323]">© 2024 Fikiral</span>
     </footer>
   );

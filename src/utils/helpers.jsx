@@ -21,15 +21,6 @@ export const objectToQueryString = (obj) => {
     .join("&");
 };
 
-export const ignoreKeyPressAsDomainLength = (e) => {
-  const value = e.target.value;
-  const piece = value.includes(".") && value.split(".").pop();
-  const isDeleteKey = e.key === "Delete" || e.key === "Backspace";
-  if (piece.length >= 3 && !isDeleteKey) {
-    e.preventDefault();
-  }
-};
-
 export const changeTime = (apiTime) => {
   const currentDate = moment();
   const targetDate = moment(apiTime);

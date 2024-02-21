@@ -25,8 +25,10 @@ function FormSearch() {
     setText(e.target.value);
   };
   useEffect(() => {
-    if (text) {
+    if (text !== "") {
       fetchSearchResponse({ content: text.trim() });
+    } else {
+      setOpenSrch((searchResponse.length = []));
     }
   }, [text]);
 
@@ -71,26 +73,26 @@ function FormSearch() {
               </button>
             </div>
 
-            {(searchItems.length > 0 &&
-              searchItems.map((res, index) => (
+            {searchResponse.length > 0 ? (
+              searchItems.map((res) => (
                 <div
-                  key={index}
-                  className="flex  items-center cursor-pointer justify-between py-[10px] hover:border-black border-b"
+                  key={res.id}
+                  className="flex items-center cursor-pointer justify-between py-[10px] hover:border-black border-b"
                 >
                   <button
                     onClick={() => openMessageModal(res)}
-                    className="flex items-center "
+                    className="flex items-center"
                   >
                     <span>
                       <IoMdSearch className="size-6 text-[#999999]" />
                     </span>
-                    <p className="text-sm text-left px-[14px] line-clamp-1 ">
+                    <p className="text-sm text-left px-[14px] line-clamp-1">
                       {res.content}
                     </p>
                   </button>
 
-                  <div className="flex items-center space-x-2 ">
-                    <figure className="size-9 ">
+                  <div className="flex items-center space-x-2">
+                    <figure className="size-9">
                       {res?.userResponse?.image ? (
                         <img
                           className="img-cover"
@@ -98,14 +100,15 @@ function FormSearch() {
                           alt="user"
                         />
                       ) : (
-                        <span className="size-full text-2xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex  justify-center">
+                        <span className="size-full text-2xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex justify-center">
                           {res?.userResponse?.userName?.charAt(0)}
                         </span>
                       )}
                     </figure>
                   </div>
                 </div>
-              ))) || (
+              ))
+            ) : (
               <span className="text-orange-500 text-sm">
                 Axtardığınız məlumat tapılmadı...
               </span>

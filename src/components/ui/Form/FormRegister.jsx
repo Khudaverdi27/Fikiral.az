@@ -5,7 +5,6 @@ import { FaFacebook } from "react-icons/fa";
 import FormContainer from "./FormContainer";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
-import { ignoreKeyPressAsDomainLength } from "../../../utils/helpers";
 import { Spin } from "antd";
 
 const FormRegister = () => {
@@ -79,7 +78,7 @@ const FormRegister = () => {
                 </label>
                 <div className="flex items-center loginInput justify-between">
                   <input
-                    onKeyDown={ignoreKeyPressAsDomainLength}
+                    maxLength={35}
                     autoComplete="off"
                     placeholder="Email daxil edin"
                     type="email"
