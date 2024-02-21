@@ -9,7 +9,10 @@ import { getStorage, removeStorage } from "../../utils/helpers";
 import { useModalActions } from "../../context/LoginModalProvider";
 
 function Header() {
-  const [category] = useCategories(true, "checkbox");
+  const [category, checkboxStates, allCategories, loading] = useCategories(
+    true,
+    "checkbox"
+  );
   const token = getStorage("token");
   const { loginAuth } = useModalActions();
   const logoutProfile = () => {
@@ -40,6 +43,7 @@ function Header() {
         {token ? (
           <DropdownMenu
             classes={"w-[142px] max-h-[108px]"}
+            loading={loading}
             dropName={
               <span className="text-primaryGray">
                 {loginAuth?.userResponse?.userName}

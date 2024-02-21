@@ -17,7 +17,7 @@ const request = async (baseURL, url, method, params = false) => {
 
   if (params) {
     options.body = JSON.stringify(params);
-    console.log(options.body);
+
     //post comment to thinks
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
@@ -51,6 +51,8 @@ export const get = (url, params = false) =>
     url + (params ? "?" + objectToQueryString(params) : ""),
     "GET"
   );
+// export const getNew = (url, params = false) =>
+//   request(base_URL, url, "GET", params);
 
 export const post = (url, params) => request(base_URL, url, "POST", params);
 export const destroy = (url) => request(base_URL, url, "DELETE");

@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { Modal } from "antd";
+import { Modal, Spin } from "antd";
 import DropdownMenu from "../Dropdown";
 import { IoMdClose } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { useCategories } from "../../../hooks/useCategories";
 import { useModalActions } from "../../../context/LoginModalProvider";
+import { usePostThink } from "../../../hooks/useFetch";
+
 const AddModal = () => {
   const [open, setOpen] = useState(false);
-  const [content, setContent] = useState([]);
+  const [content, setContent] = useState({});
   const [category, checkboxStates, allCategories] = useCategories(
     false,
     "radio"
   );
 
+  const [postedThink, fetchPost, loading] = usePostThink();
+
   const { loginAuth } = useModalActions();
+
   const userImg = loginAuth?.userResponse?.image
     ? loginAuth?.userResponse?.image
     : loginAuth?.userResponse?.userName?.charAt(0);
+
   useEffect(() => {
     const updatedContent = checkboxStates.reduce((acc, state, i) => {
       if (state === true) {
@@ -28,15 +34,23 @@ const AddModal = () => {
     setContent(updatedContent);
   }, [checkboxStates]);
 
-  // for comments
+  // for post
   const handleFormSubmit = (data) => {
     const trimmedComment = data.content.trim();
 
     if (trimmedComment !== "" && content.category) {
       const updatedContent = { ...content, comment: trimmedComment };
-      setContent(updatedContent);
-      setOpen(false);
-      console.log(updatedContent);
+      setContent(
+        (content["content"] = updatedContent.comment),
+        (content["categoryId"] = updatedContent.category.id),
+        (content["userId"] = loginAuth.userResponse.id)
+      );
+      delete content.category;
+      fetchPost(content);
+
+      if (!loading) {
+        setOpen(false);
+      }
     }
   };
 
@@ -108,8 +122,9 @@ const AddModal = () => {
             {...register("content", { required: true })}
             className="resize-none w-full text-[16px] outline-none p-2 rounded-md"
             rows={9}
-            placeholder="Maximum 500 söz"
-            maxLength={500}
+            placeholder="Minimum 5 maximum 250 simvol"
+            minLength={5}
+            maxLength={250}
           />
           {errors.content && !content.category && (
             <p className="text-red-500 font-[500] ">
@@ -122,7 +137,7 @@ const AddModal = () => {
             type="submit"
             key={"btn"}
           >
-            Paylaş
+            {loading ? <Spin /> : "Paylaş"}
           </button>
         </form>
       </Modal>

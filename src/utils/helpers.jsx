@@ -22,14 +22,22 @@ export const objectToQueryString = (obj) => {
 };
 
 export const changeTime = (apiTime) => {
-  const currentDate = moment();
-  const targetDate = moment(apiTime);
-  const differenceInDays = currentDate.diff(targetDate, "days");
-  const differenceInHours = currentDate.diff(targetDate, "hours");
+  const targetTime = moment(apiTime).subtract(-4, "hours");
+  const currentTime = moment();
+  const difference = moment.duration(currentTime.diff(targetTime));
 
-  return differenceInDays < 0
-    ? `${Math.abs(differenceInDays)} gün əvvəl`
-    : differenceInHours > 24
-    ? `${differenceInDays} gün əvvəl`
-    : `${differenceInHours} saat əvvəl`;
+  const days = difference.days();
+  const hours = difference.hours();
+  const minutes = difference.minutes();
+  const seconds = difference.seconds();
+
+  if (days >= 1) {
+    return `${days} gün əvvəl`;
+  } else if (hours >= 1) {
+    return `${hours} saat əvvəl`;
+  } else if (minutes >= 1) {
+    return `${minutes} dəqiqə əvvəl`;
+  } else {
+    return `${seconds} saniyə əvvəl`;
+  }
 };

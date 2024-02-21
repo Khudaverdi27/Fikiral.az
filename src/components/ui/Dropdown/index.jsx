@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { Dropdown, Space } from "antd";
 import { GrClose } from "react-icons/gr";
-import { useFetchData } from "../../../context/FetchDataProvider";
 import { LineLoading } from "../../widget/Loading/ThinkSkeleton";
 
 const DropdownMenu = ({
   dropName,
+  loading,
   profilImg = false,
   dropDownItems = [],
   classes = false,
   placement = false,
 }) => {
   const [open, setOpen] = useState(false);
-  const { loading } = useFetchData();
   const handleOpenChange = (nextOpen, info) => {
     if (info.source === "trigger" || nextOpen) {
       setOpen(nextOpen);

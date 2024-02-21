@@ -2,12 +2,22 @@ import { Link } from "react-router-dom";
 import { useModalActions } from "../../context/LoginModalProvider";
 import { getStorage } from "../../utils/helpers";
 import ThinkSection from "../home/components/ThinkSections";
-import { useFetchData } from "../../context/FetchDataProvider";
+import { useFetchThinkPopular, useFetchThinksList } from "../../hooks/useFetch";
+import { useEffect } from "react";
 
 function WelcomePage() {
   const { switcRegisterModal } = useModalActions();
   const token = getStorage("token");
-  const { data, loading } = useFetchData();
+  const [popular, fetchPopular, popularLoading] = useFetchThinkPopular();
+  const [data, apiFetch, loading] = useFetchThinksList();
+  const sortedData = data.sort((a, b) => b.id - a.id);
+
+  useEffect(() => {
+    fetchPopular();
+  }, []);
+  useEffect(() => {
+    apiFetch();
+  }, []);
   return (
     <section>
       <div className="h-[70vh] flex flex-col items-center space-y-8 mt-20">
@@ -33,15 +43,15 @@ function WelcomePage() {
       <>
         <div>
           <ThinkSection
-            title={<p className="text-center">Sizin üçün</p>}
-            items={data}
-            loading={loading}
+            title={<p className="text-center">Popluyar fikirlər</p>}
+            items={popular}
+            loading={popularLoading}
           />
         </div>
         <div>
           <ThinkSection
-            title={<p className="text-center">Popluyar fikirlər</p>}
-            items={data}
+            title={<p className="text-center">Bütün fikirlər</p>}
+            items={sortedData}
             loading={loading}
           />
         </div>

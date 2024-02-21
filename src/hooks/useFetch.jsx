@@ -1,10 +1,15 @@
 import { useState } from "react";
 import {
   ServiceThinksByCategoryFetchList,
+  ServiceThinksByPopularFetchList,
   ServiceThinksBySearchFetchList,
   ServiceThinksFetchList,
+  ServiceThinksPost,
 } from "../services/think.service";
-import { ServiceAllCategoryFetchList } from "../services/category.service";
+import {
+  ServiceAllCategoryFetchList,
+  ServiceForUserCategoryFetchList,
+} from "../services/category.service";
 import {
   ServiceAuthCheckMail,
   ServiceAuthCheckUserName,
@@ -32,7 +37,6 @@ export const useFetchThinksList = () => {
   const apiFetch = async () => {
     fetch(ServiceThinksFetchList);
   };
-
   return [data || [], apiFetch, loading];
 };
 export const useFetchAllCategoryList = () => {
@@ -101,4 +105,32 @@ export const useFetchThinkBySearch = () => {
     fetch(ServiceThinksBySearchFetchList, params);
   };
   return [data || [], searchFetch, loading];
+};
+
+export const useFetchThinkPopular = () => {
+  const [data, fetch, loading] = useFetch([]);
+
+  const popularFetch = async () => {
+    fetch(ServiceThinksByPopularFetchList, { limit: 9 });
+  };
+  return [data || [], popularFetch, loading];
+};
+
+export const usePostThink = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const postThink = async (params = {}) => {
+    fetch(ServiceThinksPost, params);
+  };
+
+  return [data || false, postThink, loading];
+};
+
+export const useFetchSelectedCategories = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const fetchSelectedCategories = async (params = {}) => {
+    fetch(ServiceForUserCategoryFetchList, params);
+  };
+  return [data || [], fetchSelectedCategories, loading];
 };

@@ -63,7 +63,11 @@ function Footer() {
             >
               <FaFacebookF className="text-[#232323] hover:text-indigo-500 size-6" />
             </Link>
-            <Link to={"#"} target="_blank" rel="noopener noreferrer">
+            <Link
+              to={"https://x.com/fikiralaz?s=11&t=5frakKLjivhk-NIIvQNMiw"}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaXTwitter className="text-[#232323] hover:text-indigo-500 size-6" />
             </Link>
           </span>

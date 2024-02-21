@@ -46,7 +46,7 @@ const FormRegister = () => {
                 autoComplete="off"
                 placeholder="İstifadəçi adı"
                 type="text"
-                maxLength={8}
+                maxLength={15}
                 className="w-full bg-[#F6F7FB] outline-none"
                 {...register("userName", {
                   required: "Boş buraxıla bilməz",

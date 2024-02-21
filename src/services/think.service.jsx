@@ -1,5 +1,5 @@
 import { thinkApi } from "../api/think.api";
-import { get } from "../utils/request";
+import { get, post } from "../utils/request";
 
 export const ServiceThinksFetchList = async () => {
   const res = await get(thinkApi.list);
@@ -13,5 +13,14 @@ export const ServiceThinksByCategoryFetchList = async (params = {}) => {
 
 export const ServiceThinksBySearchFetchList = async (params = {}) => {
   const res = await get(thinkApi.bySearch, params);
+  return res;
+};
+export const ServiceThinksByPopularFetchList = async (params = {}) => {
+  const res = await get(thinkApi.popular, params);
+  return res;
+};
+
+export const ServiceThinksPost = async (params = {}) => {
+  const res = await post(thinkApi.list, params);
   return res;
 };

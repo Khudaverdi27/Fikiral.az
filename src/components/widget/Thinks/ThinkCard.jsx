@@ -6,12 +6,10 @@ import { HiDotsVertical } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { changeTime, getStorage } from "../../../utils/helpers";
-import { useFetchData } from "../../../context/FetchDataProvider";
 
-function ThinkCard({ thinks, children }) {
+function ThinkCard({ thinks, children, items }) {
   const [bookmark, setBookmark] = useState(false);
   const { switcRegisterModal } = useModalActions();
-  const { data } = useFetchData();
   const [iscommentOpen, setIsCommentOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const token = getStorage("token");
@@ -25,7 +23,7 @@ function ThinkCard({ thinks, children }) {
 
   const openMessageModal = () => {
     setIsCommentOpen(true);
-    const findData = data.find((i) => i.id === thinks.id);
+    const findData = items.find((i) => i.id === thinks.id);
     setModalData(findData);
   };
 
@@ -68,7 +66,7 @@ function ThinkCard({ thinks, children }) {
             to={`/categories/${thinks.category.slug}`}
             className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px]"
           >
-            {thinks.category.name}
+            {thinks.category.name.split(" ").slice(0, 3).join(" ")}
           </Link>
           <span className="dotForTime">{changeTime(thinks.publishedAt)}</span>
         </div>

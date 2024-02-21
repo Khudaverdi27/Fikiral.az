@@ -1,8 +1,7 @@
 import { Col, Row } from "antd";
-import ChangePage from "../../../components/ui/Pagination";
 import ThinkCard from "../../../components/widget/Thinks/ThinkCard";
 import Section from "../../../components/ui/Section";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function ThinkSection({ items, loading, title }) {
   const [showAll, setShowAll] = useState(false);
@@ -42,20 +41,16 @@ function ThinkSection({ items, loading, title }) {
         ))}
       </Row>
 
-      {title === "Popluyar fikirlər" ? (
-        <ChangePage />
-      ) : (
-        <div className="flex justify-end text-primaryGray mt-2 text-sm ">
-          <button
-            onClick={showAllItems}
-            className={`hover:bg-indigo-500  space-x-2 hover:text-white rounded-[4px] py-2 px-4 ${
-              loading ? "text-white" : ""
-            }`}
-          >
-            {showAll ? "Daha az" : " Hamısına bax"}
-          </button>
-        </div>
-      )}
+      <div className="flex justify-end text-primaryGray mt-2 text-sm ">
+        <button
+          onClick={showAllItems}
+          className={`hover:bg-indigo-500  space-x-2 hover:text-white rounded-[4px] py-2 px-4 ${
+            loading ? "text-white" : ""
+          }`}
+        >
+          {showAll ? "Daha az" : " Hamısına bax"}
+        </button>
+      </div>
     </Section>
   );
 }
