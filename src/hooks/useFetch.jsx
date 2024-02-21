@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   ServiceThinksByCategoryFetchList,
+  ServiceThinksBySearchFetchList,
   ServiceThinksFetchList,
 } from "../services/think.service";
 import { ServiceAllCategoryFetchList } from "../services/category.service";
@@ -91,4 +92,13 @@ export const useFetchThinkByCategory = () => {
   };
 
   return [data || [], fetchThinkBy, loading];
+};
+
+export const useFetchThinkBySearch = () => {
+  const [data, fetch, loading] = useFetch([]);
+
+  const searchFetch = async (params = {}) => {
+    fetch(ServiceThinksBySearchFetchList, params);
+  };
+  return [data || [], searchFetch, loading];
 };

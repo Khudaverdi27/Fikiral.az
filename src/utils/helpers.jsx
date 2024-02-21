@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const saveStorage = (key, value) => {
   sessionStorage.setItem(key, JSON.stringify(value));
 };
@@ -26,4 +28,17 @@ export const ignoreKeyPressAsDomainLength = (e) => {
   if (piece.length >= 3 && !isDeleteKey) {
     e.preventDefault();
   }
+};
+
+export const changeTime = (apiTime) => {
+  const currentDate = moment();
+  const targetDate = moment(apiTime);
+  const differenceInDays = currentDate.diff(targetDate, "days");
+  const differenceInHours = currentDate.diff(targetDate, "hours");
+
+  return differenceInDays < 0
+    ? `${Math.abs(differenceInDays)} gün əvvəl`
+    : differenceInHours > 24
+    ? `${differenceInDays} gün əvvəl`
+    : `${differenceInHours} saat əvvəl`;
 };

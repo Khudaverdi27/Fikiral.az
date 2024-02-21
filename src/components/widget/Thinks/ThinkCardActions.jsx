@@ -12,7 +12,6 @@ function ThinkCardActions({
   modalData,
   setModalData,
   openMessageModal,
-  closeMessageModal,
   changeTime,
 }) {
   const [like, setLike] = useState(false);

@@ -5,13 +5,13 @@ import ThinkCardActions from "./ThinkCardActions";
 import { HiDotsVertical } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
-import { getStorage } from "../../../utils/helpers";
+import { changeTime, getStorage } from "../../../utils/helpers";
 import { useFetchData } from "../../../context/FetchDataProvider";
 
 function ThinkCard({ thinks, children }) {
   const [bookmark, setBookmark] = useState(false);
   const { switcRegisterModal } = useModalActions();
-  const { data, changeTime } = useFetchData();
+  const { data } = useFetchData();
   const [iscommentOpen, setIsCommentOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const token = getStorage("token");
@@ -88,7 +88,7 @@ function ThinkCard({ thinks, children }) {
         modalData={modalData}
         setModalData={setModalData}
         openMessageModal={openMessageModal}
-        changeTime={changeTime}
+        changeTime={changeTime(thinks.publishedAt)}
       />
       {children}
     </div>

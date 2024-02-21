@@ -5,9 +5,10 @@ import { IconContext } from "react-icons";
 import { HiOutlineBookmark } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io";
 import ThinkCardActions from "../../widget/Thinks/ThinkCardActions";
-import { getStorage } from "../../../utils/helpers";
+import { changeTime, getStorage } from "../../../utils/helpers";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import ThinkComments from "../../widget/Thinks/ThinkComment";
+import { Link } from "react-router-dom";
 
 const AddCommentModal = ({
   comment,
@@ -15,7 +16,6 @@ const AddCommentModal = ({
   setIsCommentOpen,
   modalData,
   openMessageModal,
-  changeTime,
 }) => {
   const [bookmark, setBookmark] = useState(false);
   const [newComment, setNewComment] = useState([]);
@@ -80,11 +80,14 @@ const AddCommentModal = ({
                 </div>
               </div>
               <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
-                <span className="hover:bg-[#6C58BB] hover:text-white py-[2px] px-2 rounded-[4px] cursor-pointer">
+                <Link
+                  to={`#`}
+                  className="hover:bg-[#6C58BB] hover:text-white py-[2px] px-2 rounded-[4px] cursor-pointer"
+                >
                   {modalData?.category?.name}
-                </span>
+                </Link>
                 <span className="dotForTime">
-                  {changeTime(modalData.publishedAt)}
+                  {changeTime(modalData?.publishedAt)}
                 </span>
               </div>
               <p className="font-Manrope text-sm ">{modalData.content}</p>
