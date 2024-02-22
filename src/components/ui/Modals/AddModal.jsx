@@ -7,6 +7,7 @@ import { useCategories } from "../../../hooks/useCategories";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { usePostThink } from "../../../hooks/useFetch";
 import { findFuckingWords, getStorage } from "../../../utils/helpers";
+import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 
 const AddModal = () => {
   const [open, setOpen] = useState(false);
@@ -55,14 +56,21 @@ const AddModal = () => {
 
       fetchPost(requestData).then(() => {
         setIsPosted(true);
-        setOpen(false);
+
         reset();
         setContent((content[category] = false));
+        checkboxStates.fill(false);
       });
     }
   };
   const textArea = watch("content");
   const result = findFuckingWords(textArea);
+
+  useEffect(() => {
+    if (!loading) {
+      setOpen(false);
+    }
+  }, [loading]);
 
   return (
     <>
@@ -105,48 +113,52 @@ const AddModal = () => {
         footer={false}
         closeIcon={<IoMdClose className="text-zinc-50 text-2xl" />}
       >
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
-          <DropdownMenu
-            placement={"bottomLeft"}
-            dropName={
-              <button className="rounded md hover:text-white px-2 py-[5px] mb-2 bg-zinc-50 hover:bg-indigo-500">
-                <span className="text-red-500 mr-1 font-bold">*</span>Kateqoriya
-                seç
-              </button>
-            }
-            dropDownItems={category}
-            classes={
-              "w-[314px] max-h-[365px] overflow-x-hidden mt-[105px] ml-9 "
-            }
-          />
-          <span className="text-red-500 ml-2 font-bold">*</span>
-          <textarea
-            {...register("content", { required: true })}
-            className="resize-none w-full text-[16px] outline-none p-2 rounded-md"
-            rows={9}
-            placeholder="Minimum 5 maximum 250 simvol"
-            minLength={5}
-            maxLength={250}
-          />
-          {errors.content && (
-            <p className="text-red-500 font-[500] ">
-              Zəhmət olmasa fikrinizi yazın
-            </p>
-          )}
+        {loading ? (
+          <LoadingSpin />
+        ) : (
+          <form onSubmit={handleSubmit(handleFormSubmit)}>
+            <DropdownMenu
+              placement={"bottomLeft"}
+              dropName={
+                <button className="rounded md hover:text-white px-2 py-[5px] mb-2 bg-zinc-50 hover:bg-indigo-500">
+                  <span className="text-red-500 mr-1 font-bold">*</span>
+                  Kateqoriya seç
+                </button>
+              }
+              dropDownItems={category}
+              classes={
+                "w-[314px] max-h-[365px] overflow-x-hidden mt-[105px] ml-9 "
+              }
+            />
+            <span className="text-red-500 ml-2 font-bold">*</span>
+            <textarea
+              {...register("content", { required: true })}
+              className="resize-none w-full text-[16px] outline-none p-2 rounded-md"
+              rows={9}
+              placeholder="Minimum 5 maximum 250 simvol"
+              minLength={5}
+              maxLength={250}
+            />
+            {errors.content && (
+              <p className="text-red-500 font-[500] ">
+                Zəhmət olmasa fikrinizi yazın
+              </p>
+            )}
 
-          <button
-            disabled={(!errors.content && !content.category) || result}
-            className={`w-full mt-3 rounded-lg text-[16px]  text-white  px-6 py-[10px] disabled:opacity-40 disabled:cursor-not-allowed ${
-              result ? "bg-red-500 " : "bg-indigo-500"
-            }`}
-            type="submit"
-            key={"btn"}
-          >
-            {result
-              ? "Qadağan olunmuş sözlərdən istifadə etməyin !!!"
-              : "Paylaş"}
-          </button>
-        </form>
+            <button
+              disabled={(!errors.content && !content.category) || result}
+              className={`w-full mt-3 rounded-lg text-[16px]  text-white  px-6 py-[10px] disabled:opacity-40 disabled:cursor-not-allowed ${
+                result ? "bg-red-500 " : "bg-indigo-500"
+              }`}
+              type="submit"
+              key={"btn"}
+            >
+              {result
+                ? "Qadağan olunmuş sözlərdən istifadə etməyin !!!"
+                : "Paylaş"}
+            </button>
+          </form>
+        )}
       </Modal>
     </>
   );
