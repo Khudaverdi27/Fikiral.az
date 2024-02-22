@@ -10,14 +10,20 @@ import { usePostThink } from "../../../hooks/useFetch";
 const AddModal = () => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState({});
+  const [shareBtn, setShareBtn] = useState("");
   const [category, checkboxStates, allCategories] = useCategories(
     false,
     "radio"
   );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const [postedThink, fetchPost, loading] = usePostThink();
 
-  const { loginAuth } = useModalActions();
+  const { loginAuth, setIsPosted } = useModalActions();
 
   const userImg = loginAuth?.userResponse?.image
     ? loginAuth?.userResponse?.image
@@ -40,25 +46,19 @@ const AddModal = () => {
 
     if (trimmedComment !== "" && content.category) {
       const updatedContent = { ...content, comment: trimmedComment };
-      setContent(
-        (content["content"] = updatedContent.comment),
-        (content["categoryId"] = updatedContent.category.id),
-        (content["userId"] = loginAuth.userResponse.id)
-      );
-      delete content.category;
-      fetchPost(content);
 
-      if (!loading) {
+      const requestData = {
+        content: updatedContent.comment,
+        categoryId: updatedContent.category.id,
+        userId: loginAuth.userResponse.id,
+      };
+
+      fetchPost(requestData).then(() => {
+        setIsPosted(true);
         setOpen(false);
-      }
+      });
     }
   };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
   return (
     <>
@@ -133,11 +133,11 @@ const AddModal = () => {
           )}
 
           <button
-            className="w-full mt-3 rounded-lg text-[16px] text-white hover:bg-[#F16367] px-6 py-[10px] bg-indigo-500"
+            className="w-full mt-3 rounded-lg text-[16px] bg-indigo-500  text-white px-6 py-[10px] disabled:opacity-40 disabled:cursor-not-allowed"
             type="submit"
             key={"btn"}
           >
-            {loading ? <Spin /> : "Paylaş"}
+            Paylaş
           </button>
         </form>
       </Modal>

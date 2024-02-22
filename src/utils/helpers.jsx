@@ -38,6 +38,6 @@ export const changeTime = (apiTime) => {
   } else if (minutes >= 1) {
     return `${minutes} dəqiqə əvvəl`;
   } else {
-    return `${seconds} saniyə əvvəl`;
+    return `${seconds < 0 ? 0 : seconds} saniyə əvvəl`;
   }
 };

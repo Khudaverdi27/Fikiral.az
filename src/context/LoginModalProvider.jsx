@@ -22,6 +22,8 @@ function ModalProvider({ children }) {
   const [authCheckUsername, authCheckUsernameFetch, authCheckUserNameLoading] =
     useFetchAuthCheckUserName();
   const [loginAuth, setLoginAuth] = useState(false); //register or login response
+  const [isPosted, setIsPosted] = useState(false); //register or login response
+
   const navigate = useNavigate();
   const {
     register,
@@ -42,9 +44,7 @@ function ModalProvider({ children }) {
         setSubModel(true);
       }
     } else {
-      if (data.gmail) {
-        loginFetch(data);
-      }
+      loginFetch(data);
     }
   };
 
@@ -145,6 +145,8 @@ function ModalProvider({ children }) {
     loginAuth,
     setLoginAuth,
     clearErrors,
+    setIsPosted,
+    isPosted,
   };
 
   return <LoginModal.Provider value={actions}>{children}</LoginModal.Provider>;

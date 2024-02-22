@@ -24,21 +24,25 @@ const request = async (baseURL, url, method, params = false) => {
     }
   }
 
-  const api = await fetch(baseURL + url, options);
-  if (api.ok) {
-    return await api.json();
-  } else if (api.status === 404) {
+  const res = await fetch(baseURL + url, options);
+  if (res.ok) {
+    try {
+      return await res.json();
+    } catch (error) {
+      return { status: 200 };
+    }
+  } else if (res.status === 404) {
     return { status: 404 };
-  } else if (api.status === 401) {
+  } else if (res.status === 401) {
     removeStorage("token");
     removeStorage("user");
     location.reload();
     return false;
-  } else if (api.status === 422) {
-    const message = await api.json();
+  } else if (res.status === 422) {
+    const message = await res.json();
     return { status: 422, message: message };
-  } else if (api.status === 409) {
-    const message = await api.json();
+  } else if (res.status === 409) {
+    const message = await res.json();
     return { status: 409, message: message };
   } else {
     return { status: 500 };

@@ -14,6 +14,7 @@ function Header() {
     "checkbox"
   );
   const token = getStorage("token");
+  const user = getStorage("user");
   const { loginAuth } = useModalActions();
   const logoutProfile = () => {
     removeStorage("token");

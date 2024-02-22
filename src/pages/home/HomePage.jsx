@@ -11,28 +11,25 @@ function HomePage() {
   const [selectedCategories, fetchSelected, selectLoading] =
     useFetchSelectedCategories();
 
-  const { loginAuth } = useModalActions();
+  const { loginAuth, isPosted, setIsPosted } = useModalActions();
 
   useEffect(() => {
     fetchSelected({ categoryIds: loginAuth.categoryIds });
   }, [loading]);
 
-  console.log([].concat(...selectedCategories));
-
   useEffect(() => {
-    apiFetch();
-  }, []);
+    apiFetch().then(() => {
+      setIsPosted(false);
+    });
+  }, [isPosted]);
+
   const sortedData = data.sort((a, b) => b.id - a.id);
   return (
     <>
       {selectedCategories.length > 0 && (
         <ThinkSection
           title={"Sizin üçün"}
-          items={
-            selectedCategories.length > 0
-              ? [].concat(...selectedCategories)
-              : []
-          }
+          items={[].concat(...selectedCategories)}
           loading={selectLoading}
         />
       )}

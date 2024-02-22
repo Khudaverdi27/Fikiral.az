@@ -63,6 +63,7 @@ function ThinkCard({ thinks, children, items }) {
 
         <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
           <Link
+            onClick={() => setIsCommentOpen(false)}
             to={`/categories/${thinks.category.slug}`}
             className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px]"
           >

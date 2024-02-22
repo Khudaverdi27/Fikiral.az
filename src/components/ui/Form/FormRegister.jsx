@@ -127,7 +127,7 @@ const FormRegister = () => {
                       onClick={() => setType(!type)}
                       className="w-11 h-8 "
                     >
-                      {!type ? (
+                      {type ? (
                         <FiEye className="size-full px-2 text-[#BCBCBE]" />
                       ) : (
                         <FiEyeOff className="size-full px-2 text-[#BCBCBE]" />

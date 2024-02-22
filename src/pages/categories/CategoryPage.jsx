@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import ThinkSection from "../home/components/ThinkSections";
 import { useFetchThinkByCategory } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
+import { useModalActions } from "../../context/LoginModalProvider";
 
 function CategoryPage() {
   const param = useParams();
@@ -9,10 +10,18 @@ function CategoryPage() {
 
   const [thinksByCategory, thinksByCategoryFetch, thinksByCategoryLoading] =
     useFetchThinkByCategory();
+  const { isPosted, setIsPosted } = useModalActions();
+
+  useEffect(() => {
+    thinksByCategoryFetch(param).then(() => {
+      setIsPosted(true);
+    });
+  }, [param]);
 
   useEffect(() => {
     thinksByCategoryFetch(param);
-  }, [param]);
+    setIsPosted(false);
+  }, [isPosted]);
 
   useEffect(() => {
     if (thinksByCategory && thinksByCategory.length > 0) {
@@ -21,13 +30,13 @@ function CategoryPage() {
       );
     }
   }, [thinksByCategory, param]);
-
+  const sortedData = thinksByCategory.sort((a, b) => b.id - a.id);
   return (
     <>
       <div>
         <ThinkSection
           title={title}
-          items={thinksByCategory}
+          items={sortedData}
           loading={thinksByCategoryLoading}
         />
       </div>
