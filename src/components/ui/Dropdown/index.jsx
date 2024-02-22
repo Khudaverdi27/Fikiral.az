@@ -24,23 +24,24 @@ const DropdownMenu = ({
 
   const items = dropDownItems.map((item, index) => ({
     key: index,
-    label: loading ? (
-      <LineLoading />
-    ) : (
-      <span key={index}>
-        {!item.id && index === 0 && (
-          <div className="flex items-center justify-between pt-2 pb-5  text-[15px] font-[500] ">
-            <h1 className="cursor-auto">{item.name}</h1>
-            <button onClick={() => setOpen(false)}>
-              <GrClose className="!text-black" />
-            </button>
-          </div>
-        )}
-        <a rel="noopener noreferrer" href="#">
-          {item.title}
-        </a>
-      </span>
-    ),
+    label:
+      loading && !profilImg ? (
+        <LineLoading />
+      ) : (
+        <span key={index}>
+          {!item.id && index === 0 && (
+            <div className="flex items-center justify-between pt-2 pb-5  text-[15px] font-[500] ">
+              <h1 className="cursor-auto">{item.name}</h1>
+              <button onClick={() => setOpen(false)}>
+                <GrClose className="!text-black" />
+              </button>
+            </div>
+          )}
+          <a rel="noopener noreferrer" href="#">
+            {item.title}
+          </a>
+        </span>
+      ),
   }));
 
   return (

@@ -22,11 +22,8 @@ function ThinkCardActions({
   const [count, setCount] = useState(likes);
   const [fetchLikeCount, loading] = usePutLikeAndDislike();
 
-  const likeEvent = getStorage("like");
-
   const likeActions = () => {
-    saveStorage("like", "like basildi");
-    if (!like && !likeEvent) {
+    if (!like) {
       const updatedCount = dislike ? count + 2 : count + 1;
       setCount(updatedCount);
       setLike(true);
@@ -36,8 +33,7 @@ function ThinkCardActions({
   };
 
   const dislikeActions = () => {
-    removeStorage("like");
-    if (!dislike && likeEvent) {
+    if (!dislike) {
       const updatedCount = like ? count - 2 : count - 1;
       setCount(updatedCount);
       setLike(false);
