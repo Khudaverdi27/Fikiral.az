@@ -22,7 +22,9 @@ function FormSearch() {
   });
 
   const onSearch = (e) => {
-    setText(e.target.value);
+    if (e.target.value.length > 2) {
+      setText(e.target.value);
+    }
   };
   useEffect(() => {
     if (text !== "") {
@@ -101,7 +103,7 @@ function FormSearch() {
                         />
                       ) : (
                         <span className="size-full text-2xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex justify-center">
-                          {res?.userResponse?.userName?.charAt(0)}
+                          {res?.userResponse?.userName?.charAt(0).toLowerCase()}
                         </span>
                       )}
                     </figure>

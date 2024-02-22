@@ -25,10 +25,6 @@ const AddModal = () => {
 
   const { loginAuth, setIsPosted } = useModalActions();
 
-  const userImg = loginAuth?.userResponse?.image
-    ? loginAuth?.userResponse?.image
-    : loginAuth?.userResponse?.userName?.charAt(0);
-
   useEffect(() => {
     const updatedContent = checkboxStates.reduce((acc, state, i) => {
       if (state === true) {
@@ -72,17 +68,17 @@ const AddModal = () => {
       <Modal
         title={
           <div className="flex items-center space-x-2 bg-[#999999]">
-            <figure className="size-11 rounded-full shrink-0">
-              {typeof userImg === "string" ? (
-                <span className="size-full text-2xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex justify-center">
-                  {userImg}
-                </span>
-              ) : (
+            <figure className="size-11 rounded-full shrink-0 ">
+              {loginAuth?.userResponse?.image ? (
                 <img
                   className="img-cover"
-                  src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1427"
-                  alt=""
+                  src={`${loginAuth?.userResponse?.image}`}
+                  alt="user"
                 />
+              ) : (
+                <span className="size-full text-3xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex justify-center">
+                  {loginAuth?.userResponse?.userName?.charAt(0).toLowerCase()}
+                </span>
               )}
             </figure>
             <span className="text-zinc-50">

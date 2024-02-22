@@ -40,17 +40,18 @@ function ThinkSection({ items, loading, title }) {
           </Col>
         ))}
       </Row>
-
-      <div className="flex justify-end text-primaryGray mt-2 text-sm ">
-        <button
-          onClick={showAllItems}
-          className={`hover:bg-indigo-500  space-x-2 hover:text-white rounded-[4px] py-2 px-4 ${
-            loading ? "text-white" : ""
-          }`}
-        >
-          {showAll ? "Daha az" : " Hamısına bax"}
-        </button>
-      </div>
+      {items.length > 6 && (
+        <div className="flex justify-end text-primaryGray mt-2 text-sm ">
+          <button
+            onClick={showAllItems}
+            className={`hover:bg-indigo-500  space-x-2 hover:text-white rounded-[4px] py-2 px-4 ${
+              loading ? "text-white" : ""
+            }`}
+          >
+            {showAll ? "Daha az" : " Hamısına bax"}
+          </button>
+        </div>
+      )}
     </Section>
   );
 }

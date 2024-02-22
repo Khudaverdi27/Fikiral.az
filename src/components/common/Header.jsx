@@ -53,7 +53,7 @@ function Header() {
             profilImg={
               loginAuth?.userResponse?.image
                 ? loginAuth.userResponse?.image
-                : loginAuth?.userResponse?.userName?.charAt(0)
+                : loginAuth?.userResponse?.userName?.charAt(0).toLowerCase()
             }
             dropDownItems={[
               {

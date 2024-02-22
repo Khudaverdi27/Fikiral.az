@@ -67,12 +67,20 @@ const AddCommentModal = ({
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <div className="flex space-x-2 items-center">
-                  <figure className="size-[52px]">
-                    <img
-                      className="img-cover"
-                      src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1427"
-                      alt=""
-                    />
+                  <figure className="size-[52px] ">
+                    {modalData?.userResponse?.image ? (
+                      <img
+                        className="img-cover"
+                        src={`${modalData?.userResponse?.image}`}
+                        alt="user"
+                      />
+                    ) : (
+                      <span className="size-full text-4xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex justify-center">
+                        {modalData?.userResponse?.userName
+                          ?.charAt(0)
+                          .toLowerCase()}
+                      </span>
+                    )}
                   </figure>
                   <h6 className="text-[20px]">
                     {modalData?.userResponse?.userName}
