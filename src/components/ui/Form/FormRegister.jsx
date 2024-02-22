@@ -120,7 +120,7 @@ const FormRegister = () => {
                           message: "Min 8 max 20 simvol",
                         },
                       })}
-                      type={type ? "password" : "text"}
+                      type={!type ? "password" : "text"}
                       className="loginInput !border-0"
                     />
 
