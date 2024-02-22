@@ -54,6 +54,7 @@ function FormRegisterConfrim() {
   useEffect(() => {
     if (registerAuth.tokenResponse) {
       saveStorage("token", registerAuth.tokenResponse.accessToken);
+      saveStorage("user", registerAuth);
       setLoginAuth(registerAuth);
       setSubModel(false);
       navigate("/home");

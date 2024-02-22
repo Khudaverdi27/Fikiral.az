@@ -16,6 +16,7 @@ function Header() {
   const user = getStorage("user");
   const logoutProfile = () => {
     removeStorage("token");
+    removeStorage("user");
     location.reload();
     location.href = "/";
   };
