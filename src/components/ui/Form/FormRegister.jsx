@@ -25,12 +25,14 @@ const FormRegister = () => {
     authCheckLoading,
     authCheckUserNameLoading,
     userLoginAuthLoading,
+    watch,
   } = useModalActions();
 
   useEffect(() => {
     clearErrors();
     reset();
   }, [accescLogin]);
+  const watchFields = watch();
 
   return (
     <FormContainer>
@@ -78,7 +80,7 @@ const FormRegister = () => {
                 </label>
                 <div className="flex items-center loginInput justify-between">
                   <input
-                    maxLength={35}
+                    maxLength={45}
                     autoComplete="off"
                     placeholder="Email daxil edin"
                     type="email"
@@ -151,7 +153,7 @@ const FormRegister = () => {
                 )}
               </div>
               <button
-                disabled={errors?.gmail?.message && accescLogin}
+                disabled={!watchFields.gmail && !watchFields.password}
                 className="bg-indigo-500 text-white w-full disabled:opacity-40 py-[8px] rounded-[8px]"
               >
                 {accescLogin ? "Qeydiyyat" : "Daxil ol"}

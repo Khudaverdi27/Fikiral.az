@@ -6,7 +6,6 @@ import Logo from "./Logo";
 import { useCategories } from "../../hooks/useCategories";
 import FormRegister from "../ui/Form/FormRegister";
 import { getStorage, removeStorage } from "../../utils/helpers";
-import { useModalActions } from "../../context/LoginModalProvider";
 
 function Header() {
   const [category, checkboxStates, allCategories, loading] = useCategories(
@@ -15,7 +14,6 @@ function Header() {
   );
   const token = getStorage("token");
   const user = getStorage("user");
-  const { loginAuth } = useModalActions();
   const logoutProfile = () => {
     removeStorage("token");
     location.reload();
@@ -47,13 +45,13 @@ function Header() {
             loading={loading}
             dropName={
               <span className="text-primaryGray">
-                {loginAuth?.userResponse?.userName}
+                {user?.userResponse?.userName}
               </span>
             }
             profilImg={
-              loginAuth?.userResponse?.image
-                ? loginAuth.userResponse?.image
-                : loginAuth?.userResponse?.userName?.charAt(0).toLowerCase()
+              user?.userResponse?.image
+                ? user.userResponse?.image
+                : user?.userResponse?.userName?.charAt(0).toLowerCase()
             }
             dropDownItems={[
               {

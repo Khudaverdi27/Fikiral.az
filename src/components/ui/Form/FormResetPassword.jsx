@@ -68,7 +68,7 @@ function FormResetPassword() {
           <label>Email</label>
           <div className="flex items-center loginInput justify-between">
             <input
-              maxLength={35}
+              maxLength={45}
               autoComplete="off"
               placeholder="Email daxil edin"
               {...register("gmail", {

@@ -6,24 +6,28 @@ import { useForm } from "react-hook-form";
 import { useCategories } from "../../../hooks/useCategories";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { usePostThink } from "../../../hooks/useFetch";
+import { findFuckingWords, getStorage } from "../../../utils/helpers";
 
 const AddModal = () => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState({});
-  const [shareBtn, setShareBtn] = useState("");
   const [category, checkboxStates, allCategories] = useCategories(
     false,
     "radio"
   );
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
+    watch,
   } = useForm();
 
   const [postedThink, fetchPost, loading] = usePostThink();
 
-  const { loginAuth, setIsPosted } = useModalActions();
+  const { setIsPosted } = useModalActions();
+  const user = getStorage("user");
 
   useEffect(() => {
     const updatedContent = checkboxStates.reduce((acc, state, i) => {
@@ -46,15 +50,19 @@ const AddModal = () => {
       const requestData = {
         content: updatedContent.comment,
         categoryId: updatedContent.category.id,
-        userId: loginAuth.userResponse.id,
+        userId: user.userResponse.id,
       };
 
       fetchPost(requestData).then(() => {
         setIsPosted(true);
         setOpen(false);
+        reset();
+        setContent((content[category] = false));
       });
     }
   };
+  const textArea = watch("content");
+  const result = findFuckingWords(textArea);
 
   return (
     <>
@@ -69,21 +77,19 @@ const AddModal = () => {
         title={
           <div className="flex items-center space-x-2 bg-[#999999]">
             <figure className="size-11 rounded-full shrink-0 ">
-              {loginAuth?.userResponse?.image ? (
+              {user?.userResponse?.image ? (
                 <img
                   className="img-cover"
-                  src={`${loginAuth?.userResponse?.image}`}
+                  src={`${user?.userResponse?.image}`}
                   alt="user"
                 />
               ) : (
                 <span className="size-full text-3xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex justify-center">
-                  {loginAuth?.userResponse?.userName?.charAt(0).toLowerCase()}
+                  {user?.userResponse?.userName?.charAt(0).toLowerCase()}
                 </span>
               )}
             </figure>
-            <span className="text-zinc-50">
-              {loginAuth?.userResponse?.userName}
-            </span>
+            <span className="text-zinc-50">{user?.userResponse?.userName}</span>
           </div>
         }
         centered
@@ -122,18 +128,23 @@ const AddModal = () => {
             minLength={5}
             maxLength={250}
           />
-          {errors.content && !content.category && (
+          {errors.content && (
             <p className="text-red-500 font-[500] ">
-              Zəhmət olmasa kategoriya seçimi edin və fikrinizi yazın
+              Zəhmət olmasa fikrinizi yazın
             </p>
           )}
 
           <button
-            className="w-full mt-3 rounded-lg text-[16px] bg-indigo-500  text-white px-6 py-[10px] disabled:opacity-40 disabled:cursor-not-allowed"
+            disabled={(!errors.content && !content.category) || result}
+            className={`w-full mt-3 rounded-lg text-[16px]  text-white  px-6 py-[10px] disabled:opacity-40 disabled:cursor-not-allowed ${
+              result ? "bg-red-500 " : "bg-indigo-500"
+            }`}
             type="submit"
             key={"btn"}
           >
-            Paylaş
+            {result
+              ? "Qadağan olunmuş sözlərdən istifadə etməyin !!!"
+              : "Paylaş"}
           </button>
         </form>
       </Modal>

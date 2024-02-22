@@ -5,17 +5,18 @@ import {
   useFetchThinksList,
 } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
+import { getStorage } from "../../utils/helpers";
 
 function HomePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
   const [selectedCategories, fetchSelected, selectLoading] =
     useFetchSelectedCategories();
 
-  const { loginAuth, isPosted, setIsPosted } = useModalActions();
-
+  const { isPosted, setIsPosted } = useModalActions();
+  const user = getStorage("user");
   useEffect(() => {
-    fetchSelected({ categoryIds: loginAuth.categoryIds });
-  }, [loading]);
+    fetchSelected({ categoryIds: user.categoryIds });
+  }, []);
 
   useEffect(() => {
     apiFetch().then(() => {

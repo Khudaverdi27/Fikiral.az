@@ -1,5 +1,5 @@
 import moment from "moment";
-
+import forbidddens from "../forbiddenWords.json";
 export const saveStorage = (key, value) => {
   sessionStorage.setItem(key, JSON.stringify(value));
 };
@@ -40,4 +40,8 @@ export const changeTime = (apiTime) => {
   } else {
     return `${seconds < 0 ? 0 : seconds} saniyə əvvəl`;
   }
+};
+
+export const findFuckingWords = (string) => {
+  return forbidddens.some((word) => string?.toLowerCase().includes(word.name));
 };

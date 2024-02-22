@@ -32,6 +32,7 @@ function ModalProvider({ children }) {
     reset,
     setError,
     clearErrors,
+    watch,
   } = useForm();
 
   const onSubmit = async (data) => {
@@ -51,6 +52,8 @@ function ModalProvider({ children }) {
   useEffect(() => {
     if (userLoginAuth.tokenResponse) {
       saveStorage("token", userLoginAuth.tokenResponse.accessToken);
+      saveStorage("user", userLoginAuth);
+
       setLoginAuth(userLoginAuth);
       navigate("/home");
     } else {
@@ -146,6 +149,7 @@ function ModalProvider({ children }) {
     setLoginAuth,
     clearErrors,
     setIsPosted,
+    watch,
     isPosted,
   };
 
