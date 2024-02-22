@@ -87,6 +87,7 @@ function ThinkCard({ thinks, children, items }) {
       <ThinkCardActions
         comment={thinks.commentsCount}
         likes={thinks.likes}
+        postId={thinks.id}
         disabled={true}
         iscommentOpen={iscommentOpen}
         setIsCommentOpen={setIsCommentOpen}

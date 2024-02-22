@@ -3,6 +3,8 @@ import { BsFillHeartFill } from "react-icons/bs";
 import { VscLink } from "react-icons/vsc";
 import AddCommentModal from "../../ui/Modals/AddCommentModal";
 import { useState } from "react";
+import { usePutLikeAndDislike } from "../../../hooks/useFetch";
+import { getStorage, removeStorage, saveStorage } from "../../../utils/helpers";
 function ThinkCardActions({
   disabled = true,
   comment,
@@ -13,25 +15,42 @@ function ThinkCardActions({
   setModalData,
   openMessageModal,
   changeTime,
+  postId,
 }) {
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
   const [count, setCount] = useState(likes);
+  const [fetchLikeCount, loading] = usePutLikeAndDislike();
+
+  const likeEvent = getStorage("like");
 
   const likeActions = () => {
-    if (!like) {
-      setCount((count) => (dislike ? count + 2 : count + 1));
+    saveStorage("like", "like basildi");
+    if (!like && !likeEvent) {
+      const updatedCount = dislike ? count + 2 : count + 1;
+      setCount(updatedCount);
       setLike(true);
       setDislike(false);
+      updateLikeCount(updatedCount);
     }
   };
 
   const dislikeActions = () => {
-    if (!dislike) {
-      setCount((count) => (like ? count - 2 : count - 1));
+    removeStorage("like");
+    if (!dislike && likeEvent) {
+      const updatedCount = like ? count - 2 : count - 1;
+      setCount(updatedCount);
       setLike(false);
       setDislike(true);
+      updateLikeCount(updatedCount);
     }
+  };
+
+  const updateLikeCount = async (updatedCount) => {
+    await fetchLikeCount({
+      likeCount: updatedCount,
+      postId,
+    });
   };
 
   return (

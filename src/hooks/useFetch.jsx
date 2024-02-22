@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  ServiceLikeAndDislikesPost,
   ServiceThinksByCategoryFetchList,
   ServiceThinksByPopularFetchList,
   ServiceThinksBySearchFetchList,
@@ -133,4 +134,13 @@ export const useFetchSelectedCategories = () => {
     fetch(ServiceForUserCategoryFetchList, params);
   };
   return [data || [], fetchSelectedCategories, loading];
+};
+
+export const usePutLikeAndDislike = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const fetchLikeAndDislike = async (params = {}) => {
+    fetch(ServiceLikeAndDislikesPost, params);
+  };
+  return [fetchLikeAndDislike, loading];
 };
