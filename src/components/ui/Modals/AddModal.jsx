@@ -12,7 +12,7 @@ import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 const AddModal = () => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState({});
-  const [category, checkboxStates, allCategories] = useCategories(
+  const { category, checkboxStates, allCategories } = useCategories(
     false,
     "radio"
   );

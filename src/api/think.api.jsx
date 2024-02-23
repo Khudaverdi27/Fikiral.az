@@ -5,4 +5,6 @@ export const thinkApi = {
   byCategory: "/think/category/",
   removeThink: "/think/content/:id",
   likeAndDislikeThink: "/think/like",
+  thinkComments: "/comment/:id",
+  postComments: "/comment/",
 };

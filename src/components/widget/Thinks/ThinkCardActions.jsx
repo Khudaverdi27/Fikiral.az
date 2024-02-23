@@ -7,6 +7,7 @@ import { usePutLikeAndDislike } from "../../../hooks/useFetch";
 import { getStorage, removeStorage, saveStorage } from "../../../utils/helpers";
 function ThinkCardActions({
   disabled = true,
+  allComments,
   comment,
   likes,
   iscommentOpen,
@@ -73,7 +74,9 @@ function ThinkCardActions({
         {disabled && (
           <>
             <AddCommentModal
+              postId={postId}
               comment={comment}
+              allComments={allComments}
               iscommentOpen={iscommentOpen}
               setIsCommentOpen={setIsCommentOpen}
               modalData={modalData}

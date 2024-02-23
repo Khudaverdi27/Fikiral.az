@@ -9,8 +9,11 @@ import { changeTime, getStorage } from "../../../utils/helpers";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import ThinkComments from "../../widget/Thinks/ThinkComment";
 import { Link } from "react-router-dom";
+import { usePostComments } from "../../../hooks/useFetch";
 
 const AddCommentModal = ({
+  postId,
+  allComments,
   comment,
   iscommentOpen,
   setIsCommentOpen,
@@ -18,12 +21,12 @@ const AddCommentModal = ({
   openMessageModal,
 }) => {
   const [bookmark, setBookmark] = useState(false);
-  const [newComment, setNewComment] = useState([]);
   const [value, setValue] = useState("");
   const { switcRegisterModal } = useModalActions();
+  const [data, postComment, postLoading] = usePostComments();
 
   const token = getStorage("token");
-
+  const user = getStorage("user");
   const changeBookmark = () => {
     if (!token) {
       switcRegisterModal();
@@ -32,9 +35,15 @@ const AddCommentModal = ({
       setBookmark(!bookmark);
     }
   };
+
   const addNewComment = (e) => {
     e.preventDefault();
-    setNewComment([...newComment, value]);
+    const postData = {
+      content: value,
+      userId: user.userResponse.id,
+      postId,
+    };
+    postComment(postData);
     setValue("");
   };
   const closeMessageModal = () => {
@@ -130,7 +139,7 @@ const AddCommentModal = ({
               </div>
 
               <div className="space-y-3 ">
-                {newComment.map((comment, index) => (
+                {allComments.map((comment, index) => (
                   <ThinkComments key={index} comment={comment} />
                 ))}
               </div>

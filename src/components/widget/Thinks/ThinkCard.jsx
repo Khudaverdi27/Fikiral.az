@@ -1,17 +1,19 @@
 import { HiOutlineBookmark } from "react-icons/hi2";
 import { IconContext } from "react-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ThinkCardActions from "./ThinkCardActions";
 import { HiDotsVertical } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { changeTime, getStorage } from "../../../utils/helpers";
+import { useFetchCommentLists } from "../../../hooks/useFetch";
 
 function ThinkCard({ thinks, children, items }) {
   const [bookmark, setBookmark] = useState(false);
   const { switcRegisterModal } = useModalActions();
   const [iscommentOpen, setIsCommentOpen] = useState(false);
   const [modalData, setModalData] = useState({});
+  const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
   const token = getStorage("token");
   const changeBookmark = () => {
     if (!token) {
@@ -25,6 +27,7 @@ function ThinkCard({ thinks, children, items }) {
     setIsCommentOpen(true);
     const findData = items.find((i) => i.id === thinks.id);
     setModalData(findData);
+    fetchComments(thinks.id);
   };
 
   const path = useLocation().pathname;
@@ -86,6 +89,7 @@ function ThinkCard({ thinks, children, items }) {
       </div>
       <ThinkCardActions
         comment={thinks.commentsCount}
+        allComments={allComments}
         likes={thinks.likes}
         postId={thinks.id}
         disabled={true}

@@ -1,13 +1,22 @@
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
-import { useFetchAllCategoryList } from "./useFetch";
+import {
+  useFetchAllCategoryList,
+  useFetchSelectedCategories,
+} from "./useFetch";
 
-export const useCategories = (allSelect = true, type, classes = false) => {
+export const useCategories = (
+  allSelect = true,
+  type,
+  classes = false,
+  isFetch = false
+) => {
   const [allCategories, apiFetch, loading] = useFetchAllCategoryList();
   useEffect(() => {
     apiFetch();
   }, []);
-
+  const [selectedCategories, fetchSelected, selectLoading] =
+    useFetchSelectedCategories();
   const [allChecked, setAllChecked] = useState(false);
 
   const [checkboxStates, setCheckboxStates] = useState(
@@ -35,15 +44,23 @@ export const useCategories = (allSelect = true, type, classes = false) => {
     }
   };
 
+  const [newSelections, setNewSelections] = useState([]);
+
   useEffect(() => {
-    const updatedContent = checkboxStates.reduce((acc, state, i) => {
+    const updatedContent = {};
+    checkboxStates.reduce((acc, state, i) => {
       if (state === true) {
-        acc.push({ category: allCategories[i] });
+        acc.push(allCategories[i].id);
+        updatedContent.categoryIds = acc;
       }
       return acc;
     }, []);
 
-    //console.log(updatedContent);
+    if (updatedContent.categoryIds && isFetch) {
+      fetchSelected(updatedContent).then(() => {
+        setNewSelections([].concat(...selectedCategories));
+      });
+    }
   }, [checkboxStates]);
 
   const category = [
@@ -102,5 +119,5 @@ export const useCategories = (allSelect = true, type, classes = false) => {
     },
   ];
 
-  return [category, checkboxStates, allCategories, loading];
+  return { category, checkboxStates, allCategories, loading, newSelections };
 };

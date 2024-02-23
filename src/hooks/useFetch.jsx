@@ -1,6 +1,8 @@
 import { useState } from "react";
 import {
+  ServiceGetComments,
   ServiceLikeAndDislikesPost,
+  ServicePostComment,
   ServiceThinksByCategoryFetchList,
   ServiceThinksByPopularFetchList,
   ServiceThinksBySearchFetchList,
@@ -143,4 +145,22 @@ export const usePutLikeAndDislike = () => {
     fetch(ServiceLikeAndDislikesPost, params);
   };
   return [fetchLikeAndDislike, loading];
+};
+
+export const useFetchCommentLists = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const fetchThinkComments = async (id) => {
+    fetch(ServiceGetComments, id);
+  };
+  return [data || [], fetchThinkComments, loading];
+};
+
+export const usePostComments = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const postThinkComments = async (params = {}) => {
+    fetch(ServicePostComment, params);
+  };
+  return [data || false, postThinkComments, loading];
 };

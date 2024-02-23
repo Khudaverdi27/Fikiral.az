@@ -6,8 +6,12 @@ import {
 } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { getStorage } from "../../utils/helpers";
+import { useCategories } from "../../hooks/useCategories";
 
 function HomePage() {
+  const { newSelections } = useCategories();
+  console.log(newSelections);
+
   const [data, apiFetch, loading] = useFetchThinksList();
   const [selectedCategories, fetchSelected, selectLoading] =
     useFetchSelectedCategories();
@@ -37,7 +41,7 @@ function HomePage() {
 
       <ThinkSection
         title={"Bütün fikirlər"}
-        items={sortedData}
+        items={newSelections}
         loading={loading}
       />
     </>

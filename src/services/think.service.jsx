@@ -29,3 +29,12 @@ export const ServiceLikeAndDislikesPost = async (params = {}) => {
   const res = await put(thinkApi.likeAndDislikeThink, params);
   return res;
 };
+export const ServiceGetComments = async (id) => {
+  const res = await get(thinkApi.thinkComments.replace(":id", id));
+  return res;
+};
+
+export const ServicePostComment = async (params = {}) => {
+  const res = await post(thinkApi.postComments, params);
+  return res;
+};

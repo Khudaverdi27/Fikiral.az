@@ -7,7 +7,7 @@ import { saveStorage } from "../../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 
 function FormRegisterConfrim() {
-  const [category, checkboxStates, allCategories, loading] = useCategories(
+  const { category, checkboxStates, allCategories, loading } = useCategories(
     false,
     "checkbox",
     true

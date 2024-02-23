@@ -8,9 +8,11 @@ import FormRegister from "../ui/Form/FormRegister";
 import { getStorage, removeStorage } from "../../utils/helpers";
 
 function Header() {
-  const [category, checkboxStates, allCategories, loading] = useCategories(
+  const { category, loading, newSelections } = useCategories(
     true,
-    "checkbox"
+    "checkbox",
+    false,
+    true
   );
   const token = getStorage("token");
   const user = getStorage("user");
@@ -20,6 +22,7 @@ function Header() {
     location.reload();
     location.href = "/";
   };
+
   return (
     <header
       className=" flex items-center w-full py-[25px] px-[150px]   
