@@ -1,10 +1,11 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../../assets/img/Logo.png";
+import { getStorage } from "../../utils/helpers";
 function Logo() {
-  const path = useLocation().pathname;
+  const token = getStorage("token");
 
   return (
-    <Link className="w-[91px] h-[53px] " to={`${path === "/" ? "/" : "/home"}`}>
+    <Link className="w-[91px] h-[53px] " to={`${!token ? "/" : "/home"}`}>
       <img src={logo} alt="logo" className="img-cover" />
     </Link>
   );

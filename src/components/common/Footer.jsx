@@ -6,8 +6,10 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import Logo from "./Logo";
+import { getStorage } from "../../utils/helpers";
 
 function Footer() {
+  const token = getStorage("token");
   return (
     <footer className="  text-white  py-[25px]  bg-[#E7E8F1] px-[150px] mt-28">
       <div className="flex justify-between border-b border-primaryGray pb-2">
@@ -15,7 +17,10 @@ function Footer() {
 
         <div className="space-y-2">
           <h6 className="text-sm font-semibold text-black">Haqqımızda</h6>
-          <Link to={"/home"} className="text-xs text-primaryGray">
+          <Link
+            to={`${!token ? "/" : "/home"}`}
+            className="text-xs text-primaryGray"
+          >
             Fikiral
           </Link>
         </div>

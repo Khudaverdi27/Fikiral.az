@@ -11,7 +11,7 @@ export const useCategories = (allSelect = true, type, classes = false) => {
   const [allChecked, setAllChecked] = useState(false);
 
   const [checkboxStates, setCheckboxStates] = useState(
-    Array.from({ length: 29 }, () => false) // 29 beacuse all categories is empty at beginning
+    Array.from({ length: 28 }, () => false) // 28 beacuse all categories is empty at beginning
   );
 
   const selectAll = () => {
