@@ -41,7 +41,7 @@ function HomePage() {
 
       <ThinkSection
         title={"Bütün fikirlər"}
-        items={newSelections}
+        items={sortedData}
         loading={loading}
       />
     </>

@@ -6,7 +6,7 @@ import { HiDotsVertical } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { changeTime, getStorage } from "../../../utils/helpers";
-import { useFetchCommentLists } from "../../../hooks/useFetch";
+import { useDeleteThink, useFetchCommentLists } from "../../../hooks/useFetch";
 
 function ThinkCard({ thinks, children, items }) {
   const [bookmark, setBookmark] = useState(false);
@@ -14,6 +14,7 @@ function ThinkCard({ thinks, children, items }) {
   const [iscommentOpen, setIsCommentOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
+  const [deletedThink, fetcDelete, deleteLoading] = useDeleteThink();
   const token = getStorage("token");
   const changeBookmark = () => {
     if (!token) {
@@ -31,6 +32,10 @@ function ThinkCard({ thinks, children, items }) {
   };
 
   const path = useLocation().pathname;
+
+  const destroyThink = () => {
+    fetcDelete(thinks.id);
+  };
 
   return (
     <div className="gutter-row">
@@ -66,7 +71,9 @@ function ThinkCard({ thinks, children, items }) {
                 className={`size-5  `}
               />
             </IconContext.Provider>
-            <HiDotsVertical className="ml-2 size-5 " />
+            <button onClick={destroyThink}>
+              <HiDotsVertical className="ml-2 size-5 " />
+            </button>
           </div>
         </div>
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  ServiceDeleteThinks,
   ServiceGetComments,
   ServiceLikeAndDislikesPost,
   ServicePostComment,
@@ -127,6 +128,15 @@ export const usePostThink = () => {
   };
 
   return [data || false, postThink, loading];
+};
+export const useDeleteThink = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const deleteThink = async (id) => {
+    fetch(ServiceDeleteThinks, id);
+  };
+
+  return [data || false, deleteThink, loading];
 };
 
 export const useFetchSelectedCategories = () => {
