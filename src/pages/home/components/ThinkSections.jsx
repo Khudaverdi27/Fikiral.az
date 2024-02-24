@@ -2,6 +2,7 @@ import { Col, Row } from "antd";
 import ThinkCard from "../../../components/widget/Thinks/ThinkCard";
 import Section from "../../../components/ui/Section";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 function ThinkSection({ items, loading, title }) {
   const [showAll, setShowAll] = useState(false);
@@ -13,6 +14,9 @@ function ThinkSection({ items, loading, title }) {
 
   return (
     <Section title={title} loading={loading}>
+      <Helmet>
+        <title>{`Fikir al ${title && "/" + title}`}</title>
+      </Helmet>
       <Row
         className="gap-y-5  min-w-[352px] min-h-[280px]  overflow-hidden"
         gutter={{
