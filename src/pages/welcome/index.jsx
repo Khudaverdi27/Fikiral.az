@@ -56,28 +56,27 @@ function WelcomePage() {
       )}
 
       <>
-        <div>
+        {!filteredCategories.length > 0 && (
           <ThinkSection
             title={<p className="text-center">Popluyar fikirlər</p>}
             items={popular}
             loading={popularLoading}
           />
-        </div>
-        <div>
-          <ThinkSection
-            title={
-              <p className="text-center">{`${
-                filteredCategories.length > 0
-                  ? "Seçdiyiniz kateqoriyalardan..."
-                  : "Bütün fikirlər"
-              }`}</p>
-            }
-            items={
-              filteredCategories.length > 0 ? filteredCategories : sortedData
-            }
-            loading={loading}
-          />
-        </div>
+        )}
+
+        <ThinkSection
+          title={
+            <p className="text-center">{`${
+              filteredCategories.length > 0
+                ? "Seçdiyiniz kateqoriyalardan..."
+                : "Bütün fikirlər"
+            }`}</p>
+          }
+          items={
+            filteredCategories.length > 0 ? filteredCategories : sortedData
+          }
+          loading={loading}
+        />
       </>
     </section>
   );

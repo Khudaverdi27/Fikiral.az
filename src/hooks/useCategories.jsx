@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { useFetchAllCategoryList } from "./useFetch";
-import { saveStorage } from "../utils/helpers";
+import { getStorage, removeStorage, saveStorage } from "../utils/helpers";
 import { useModalActions } from "../context/LoginModalProvider";
 
 export const useCategories = (allSelect = true, type, classes = false) => {
@@ -11,9 +11,7 @@ export const useCategories = (allSelect = true, type, classes = false) => {
   }, []);
 
   const { setSelectCategory, selectCategory } = useModalActions();
-
   const [allChecked, setAllChecked] = useState(false);
-
   const [checkboxStates, setCheckboxStates] = useState(
     Array.from({ length: 28 }, () => false) // 28 beacuse all categories is empty at beginning
   );
@@ -23,10 +21,14 @@ export const useCategories = (allSelect = true, type, classes = false) => {
       setSelectCategory(!selectCategory);
       setAllChecked((prevState) => !prevState);
       setCheckboxStates(checkboxStates.map(() => !allChecked));
-      saveStorage(
-        "selectedCategories",
-        allCategories.map((item) => item.id)
-      );
+      if (!allChecked) {
+        saveStorage(
+          "selectedCategories",
+          allCategories?.map((item) => item.id)
+        );
+      } else {
+        saveStorage("selectedCategories", []);
+      }
     }
   };
   const [selectedIds, setSelectedIds] = useState([]);
@@ -87,7 +89,7 @@ export const useCategories = (allSelect = true, type, classes = false) => {
     {
       title: (
         <>
-          {allCategories.map((item, index) => {
+          {allCategories?.map((item, index) => {
             return (
               <div
                 className={classNames(

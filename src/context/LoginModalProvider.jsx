@@ -114,12 +114,14 @@ function ModalProvider({ children }) {
     clearErrors();
     setMainModel(true);
     setAccesLogin(false);
+    removeStorage("selectedCategories");
     reset();
   };
   const switcRegisterModal = () => {
     clearErrors();
     setMainModel(true);
     setAccesLogin(true);
+    removeStorage("selectedCategories");
     reset();
   };
 
