@@ -20,17 +20,20 @@ export const useCategories = (allSelect = true, type, classes = false) => {
 
   const selectAll = () => {
     if (type !== "radio") {
+      setSelectCategory(!selectCategory);
       setAllChecked((prevState) => !prevState);
       setCheckboxStates(checkboxStates.map(() => !allChecked));
+      saveStorage(
+        "selectedCategories",
+        allCategories.map((item) => item.id)
+      );
     }
   };
   const [selectedIds, setSelectedIds] = useState([]);
 
   const selectOne = (index, id) => {
     if (type == "radio") {
-      const newCheckboxStates = checkboxStates.map((state, i) =>
-        i === index ? !state : false
-      );
+      const newCheckboxStates = checkboxStates.map((state, i) => i === index);
       setCheckboxStates(newCheckboxStates);
     } else {
       setSelectCategory(!selectCategory);
@@ -41,13 +44,19 @@ export const useCategories = (allSelect = true, type, classes = false) => {
         if (prev.includes(id)) {
           // Eger id listede varsa, sil
           const updatedArr = prev.filter((itemId) => itemId !== id);
-          saveStorage("selectedCategories", updatedArr);
+          if (!classes) {
+            saveStorage("selectedCategories", updatedArr);
+          }
+
           return updatedArr;
         }
 
         // Eger id listede yoxdursa, elave et
         const updatedArr = [...prev, id];
-        saveStorage("selectedCategories", updatedArr);
+        if (!classes) {
+          saveStorage("selectedCategories", updatedArr);
+        }
+
         return updatedArr;
       });
 

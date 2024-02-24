@@ -6,14 +6,10 @@ import Logo from "./Logo";
 import { useCategories } from "../../hooks/useCategories";
 import FormRegister from "../ui/Form/FormRegister";
 import { getStorage, removeStorage } from "../../utils/helpers";
+import { Link } from "react-router-dom";
 
 function Header() {
-  const { category, loading, newSelections } = useCategories(
-    true,
-    "checkbox",
-    false,
-    true
-  );
+  const { category, loading } = useCategories(true, "checkbox");
   const token = getStorage("token");
   const user = getStorage("user");
   const logoutProfile = () => {
@@ -36,15 +32,18 @@ function Header() {
       <div className="flex space-x-[15px]  cursor-pointer items-center">
         <DropdownMenu
           dropName={
-            <span className="text-primaryGray hover:text-indigo-500 ">
+            <Link
+              to={token.length !== 0 ? "/home" : "/"}
+              className="text-primaryGray hover:text-indigo-500 "
+            >
               Kateqoriya
-            </span>
+            </Link>
           }
           dropDownItems={category}
           classes={"w-[314px] max-h-[424px] overflow-x-hidden "}
         />
         <MenuActions />
-        {token ? (
+        {token.length !== 0 ? (
           <DropdownMenu
             classes={"w-[142px] max-h-[108px]"}
             loading={loading}

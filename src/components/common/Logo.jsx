@@ -5,7 +5,10 @@ function Logo() {
   const token = getStorage("token");
 
   return (
-    <Link className="w-[91px] h-[53px] " to={`${!token ? "/" : "/home"}`}>
+    <Link
+      className="w-[91px] h-[53px] "
+      to={`${token.length !== 0 ? "/home" : "/"}`}
+    >
       <img src={logo} alt="logo" className="img-cover" />
     </Link>
   );

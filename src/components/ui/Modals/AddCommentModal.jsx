@@ -28,7 +28,7 @@ const AddCommentModal = ({
   const token = getStorage("token");
   const user = getStorage("user");
   const changeBookmark = () => {
-    if (!token) {
+    if (token.length !== 0) {
       switcRegisterModal();
       setIsCommentOpen(false);
     } else {
@@ -151,7 +151,7 @@ const AddCommentModal = ({
               <form onSubmit={addNewComment}>
                 <Space.Compact className="w-full">
                   <Input
-                    disabled={!token}
+                    disabled={token.length !== 0}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     className="placeholder:font-[500] disabled:cursor-not-allowed"

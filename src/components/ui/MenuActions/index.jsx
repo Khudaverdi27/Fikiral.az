@@ -15,7 +15,7 @@ function MenuActions() {
   const pathname = useLocation().pathname;
   return (
     <div className="flex gap-x-[25px] items-center justify-center text-primaryGray">
-      {token && (
+      {token.length !== 0 && (
         <>
           <IconContext.Provider
             value={{
@@ -44,7 +44,7 @@ function MenuActions() {
       <>
         <DropLanguage />
       </>
-      {token && <AddModal />}
+      {token.length !== 0 && <AddModal />}
     </div>
   );
 }

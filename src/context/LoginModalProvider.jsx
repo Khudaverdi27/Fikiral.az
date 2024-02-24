@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { saveStorage } from "../utils/helpers";
+import { removeStorage, saveStorage } from "../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import {
   useFetchAuthCheckMail,
@@ -58,6 +58,7 @@ function ModalProvider({ children }) {
 
       setLoginAuth(userLoginAuth);
       navigate("/home");
+      removeStorage("selectedCategories");
     } else {
       setError("gmail", {
         type: "manual",

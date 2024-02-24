@@ -66,9 +66,9 @@ const DropdownMenu = ({
         onOpenChange={handleOpenChange}
         open={open}
       >
-        <a onClick={(e) => e.preventDefault()}>
+        <span onClick={(e) => e.preventDefault()}>
           <Space className="whitespace-nowrap font-[500]">{dropName}</Space>
-        </a>
+        </span>
       </Dropdown>
     </div>
   );

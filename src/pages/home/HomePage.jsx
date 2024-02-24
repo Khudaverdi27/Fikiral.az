@@ -49,7 +49,11 @@ function HomePage() {
       )}
 
       <ThinkSection
-        title={"Bütün fikirlər"}
+        title={`${
+          filteredCategories.length > 0
+            ? "Seçdiyiniz kateqoriyalardan..."
+            : "Bütün fikirlər"
+        }`}
         items={filteredCategories.length > 0 ? filteredCategories : sortedData}
         loading={loading}
       />
