@@ -38,14 +38,15 @@ export const useCategories = (allSelect = true, type, classes = false) => {
       const newCheckboxStates = checkboxStates.map((state, i) => i === index);
       setCheckboxStates(newCheckboxStates);
     } else {
+      const storeData = getStorage("selectedCategories");
       setSelectCategory(!selectCategory);
       setCheckboxStates(
         checkboxStates.map((state, i) => (i === index ? !state : state))
       );
-      setSelectedIds((prev) => {
-        if (prev.includes(id)) {
+      setSelectedIds(() => {
+        if (storeData.includes(id)) {
           // Eger id listede varsa, sil
-          const updatedArr = prev.filter((itemId) => itemId !== id);
+          const updatedArr = storeData.filter((itemId) => itemId !== id);
           if (!classes) {
             saveStorage("selectedCategories", updatedArr);
           }
@@ -54,7 +55,7 @@ export const useCategories = (allSelect = true, type, classes = false) => {
         }
 
         // Eger id listede yoxdursa, elave et
-        const updatedArr = [...prev, id];
+        const updatedArr = [...storeData, id];
         if (!classes) {
           saveStorage("selectedCategories", updatedArr);
         }

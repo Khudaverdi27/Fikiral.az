@@ -17,7 +17,7 @@ function ThinkCard({ thinks, children, items }) {
   const [deletedThink, fetcDelete, deleteLoading] = useDeleteThink();
   const token = getStorage("token");
   const changeBookmark = () => {
-    if (token.length !== 0) {
+    if (token.length == 0) {
       switcRegisterModal();
     } else {
       setBookmark(!bookmark);

@@ -18,7 +18,7 @@ function Footer() {
         <div className="space-y-2">
           <h6 className="text-sm font-semibold text-black">Haqqımızda</h6>
           <Link
-            to={`${token.length !== 0 ? "/" : "/home"}`}
+            to={`${token.length !== 0 ? "/home" : "/"}`}
             className="text-xs text-primaryGray"
           >
             Fikiral

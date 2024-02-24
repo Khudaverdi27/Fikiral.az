@@ -5,7 +5,11 @@ import { IconContext } from "react-icons";
 import { HiOutlineBookmark } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io";
 import ThinkCardActions from "../../widget/Thinks/ThinkCardActions";
-import { changeTime, getStorage } from "../../../utils/helpers";
+import {
+  changeTime,
+  findFuckingWords,
+  getStorage,
+} from "../../../utils/helpers";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import ThinkComments from "../../widget/Thinks/ThinkComment";
 import { Link } from "react-router-dom";
@@ -27,8 +31,9 @@ const AddCommentModal = ({
 
   const token = getStorage("token");
   const user = getStorage("user");
+
   const changeBookmark = () => {
-    if (token.length !== 0) {
+    if (token.length <= 0) {
       switcRegisterModal();
       setIsCommentOpen(false);
     } else {
@@ -37,14 +42,22 @@ const AddCommentModal = ({
   };
 
   const addNewComment = (e) => {
+    const prettyComment = findFuckingWords(value);
     e.preventDefault();
     const postData = {
       content: value,
       userId: user.userResponse.id,
       postId,
     };
-    postComment(postData);
-    setValue("");
+    if (!prettyComment) {
+      postComment(postData);
+      setValue("");
+    } else {
+      setValue("Qadağan olunmuş sözlərdən istifadə etməyin!");
+      setTimeout(() => {
+        setValue("");
+      }, 1000);
+    }
   };
   const closeMessageModal = () => {
     setIsCommentOpen(false);
@@ -139,7 +152,7 @@ const AddCommentModal = ({
               </div>
 
               <div className="space-y-3 ">
-                {allComments.map((comment, index) => (
+                {allComments?.map((comment, index) => (
                   <ThinkComments key={index} comment={comment} />
                 ))}
               </div>
@@ -151,19 +164,19 @@ const AddCommentModal = ({
               <form onSubmit={addNewComment}>
                 <Space.Compact className="w-full">
                   <Input
-                    disabled={token.length !== 0}
+                    disabled={token.length == 0}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     className="placeholder:font-[500] disabled:cursor-not-allowed"
                     variant="borderless"
                     placeholder={
-                      token
+                      token.length !== 0
                         ? "Rəy bildir..."
                         : "Rəy yazmaq üçün hesabınıza giriş edin"
                     }
                   />
                   <button
-                    disabled={!value}
+                    disabled={!value || value.includes("Qadağan")}
                     type="submit"
                     className="text-primaryGray text-sm disabled:opacity-20 disabled:cursor-not-allowed"
                   >
