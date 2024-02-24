@@ -37,9 +37,8 @@ const DropdownMenu = ({
               </button>
             </div>
           )}
-          <a rel="noopener noreferrer" href="#">
-            {item.title}
-          </a>
+
+          {item.title}
         </span>
       ),
   }));

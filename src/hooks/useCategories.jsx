@@ -1,22 +1,17 @@
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
-import {
-  useFetchAllCategoryList,
-  useFetchSelectedCategories,
-} from "./useFetch";
+import { useFetchAllCategoryList } from "./useFetch";
+import { saveStorage } from "../utils/helpers";
+import { useModalActions } from "../context/LoginModalProvider";
 
-export const useCategories = (
-  allSelect = true,
-  type,
-  classes = false,
-  isFetch = false
-) => {
+export const useCategories = (allSelect = true, type, classes = false) => {
   const [allCategories, apiFetch, loading] = useFetchAllCategoryList();
   useEffect(() => {
     apiFetch();
   }, []);
-  const [selectedCategories, fetchSelected, selectLoading] =
-    useFetchSelectedCategories();
+
+  const { setSelectCategory, selectCategory } = useModalActions();
+
   const [allChecked, setAllChecked] = useState(false);
 
   const [checkboxStates, setCheckboxStates] = useState(
@@ -29,39 +24,36 @@ export const useCategories = (
       setCheckboxStates(checkboxStates.map(() => !allChecked));
     }
   };
-  const selectOne = (index) => {
+  const [selectedIds, setSelectedIds] = useState([]);
+
+  const selectOne = (index, id) => {
     if (type == "radio") {
       const newCheckboxStates = checkboxStates.map((state, i) =>
         i === index ? !state : false
       );
       setCheckboxStates(newCheckboxStates);
     } else {
+      setSelectCategory(!selectCategory);
       setCheckboxStates(
         checkboxStates.map((state, i) => (i === index ? !state : state))
       );
+      setSelectedIds((prev) => {
+        if (prev.includes(id)) {
+          // Eger id listede varsa, sil
+          const updatedArr = prev.filter((itemId) => itemId !== id);
+          saveStorage("selectedCategories", updatedArr);
+          return updatedArr;
+        }
+
+        // Eger id listede yoxdursa, elave et
+        const updatedArr = [...prev, id];
+        saveStorage("selectedCategories", updatedArr);
+        return updatedArr;
+      });
 
       setAllChecked(false);
     }
   };
-
-  const [newSelections, setNewSelections] = useState([]);
-
-  useEffect(() => {
-    const updatedContent = {};
-    checkboxStates.reduce((acc, state, i) => {
-      if (state === true) {
-        acc.push(allCategories[i].id);
-        updatedContent.categoryIds = acc;
-      }
-      return acc;
-    }, []);
-
-    if (updatedContent.categoryIds && isFetch) {
-      fetchSelected(updatedContent).then(() => {
-        setNewSelections([].concat(...selectedCategories));
-      });
-    }
-  }, [checkboxStates]);
 
   const category = [
     {
@@ -104,7 +96,7 @@ export const useCategories = (
                 </label>
                 <span className={`${classes ? "" : "container"} `}>
                   <input
-                    onChange={() => selectOne(index, type)}
+                    onChange={() => selectOne(index, item.id)}
                     checked={checkboxStates[index]}
                     type={type}
                     id={`check-${item.id}`}
@@ -119,5 +111,5 @@ export const useCategories = (
     },
   ];
 
-  return { category, checkboxStates, allCategories, loading, newSelections };
+  return { category, checkboxStates, allCategories, loading, selectedIds };
 };

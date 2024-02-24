@@ -24,6 +24,8 @@ function ModalProvider({ children }) {
   const [loginAuth, setLoginAuth] = useState(false); //register or login response
   const [isPosted, setIsPosted] = useState(false); //register or login response
 
+  const [selectCategory, setSelectCategory] = useState(false);
+
   const navigate = useNavigate();
   const {
     register,
@@ -121,6 +123,8 @@ function ModalProvider({ children }) {
   };
 
   const actions = {
+    setSelectCategory,
+    selectCategory,
     isMainModel,
     setMainModel,
     isSubModel,

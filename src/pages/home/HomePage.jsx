@@ -6,21 +6,25 @@ import {
 } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { getStorage } from "../../utils/helpers";
-import { useCategories } from "../../hooks/useCategories";
 
 function HomePage() {
-  const { newSelections } = useCategories();
-  console.log(newSelections);
-
   const [data, apiFetch, loading] = useFetchThinksList();
+  const [newCategories, setNewCategories] = useState([]);
+
   const [selectedCategories, fetchSelected, selectLoading] =
     useFetchSelectedCategories();
+  const { isPosted, setIsPosted, selectCategory } = useModalActions();
 
-  const { isPosted, setIsPosted } = useModalActions();
   const user = getStorage("user");
+
   useEffect(() => {
     fetchSelected({ categoryIds: user.categoryIds });
   }, []);
+
+  useEffect(() => {
+    const categoryFromStorage = getStorage("selectedCategories");
+    setNewCategories(categoryFromStorage);
+  }, [selectCategory]);
 
   useEffect(() => {
     apiFetch().then(() => {
@@ -29,6 +33,11 @@ function HomePage() {
   }, [isPosted]);
 
   const sortedData = data.sort((a, b) => b.id - a.id);
+
+  const filteredCategories = sortedData.filter((item) =>
+    newCategories?.includes(item.category.id)
+  );
+
   return (
     <>
       {selectedCategories.length > 0 && (
@@ -41,7 +50,7 @@ function HomePage() {
 
       <ThinkSection
         title={"Bütün fikirlər"}
-        items={sortedData}
+        items={filteredCategories.length > 0 ? filteredCategories : sortedData}
         loading={loading}
       />
     </>

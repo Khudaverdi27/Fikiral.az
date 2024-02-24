@@ -19,6 +19,7 @@ function Header() {
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("user");
+    removeStorage("selectedCategories");
     location.reload();
     location.href = "/";
   };
