@@ -22,8 +22,10 @@ function Header() {
 
   return (
     <header
-      className=" flex items-center w-full py-[25px]   
-    h-[113px]  top-0 z-40  bg-white justify-center sticky text-white"
+      className={`flex items-center w-full py-[25px]   
+     top-0 z-40  bg-white ${
+       token.length > 0 ? "justify-center " : "justify-evenly"
+     } sticky text-white`}
     >
       <div className=" flex items-center">
         <Logo />

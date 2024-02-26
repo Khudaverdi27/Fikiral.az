@@ -4,7 +4,7 @@ function AppLayout({ children }) {
   return (
     <main className="  ">
       <Header />
-      <section className=" py-[25px] px-[150px] mx-auto h-full max-w-[1440px] ">
+      <section className=" py-[25px] px-[150px] mx-auto h-full max-w-[1340px] ">
         {children}
       </section>
 

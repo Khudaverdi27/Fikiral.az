@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Col, Input, Modal, Row, Space } from "antd";
+import { Col, Input, Modal, Row, Space, Spin } from "antd";
 import { BiMessageSquareDots } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import { HiOutlineBookmark } from "react-icons/hi2";
@@ -26,7 +26,7 @@ const AddCommentModal = ({
 }) => {
   const [bookmark, setBookmark] = useState(false);
   const [value, setValue] = useState("");
-  const { switcRegisterModal } = useModalActions();
+  const { switcRegisterModal, setIsCommented } = useModalActions();
   const [data, postComment, postLoading] = usePostComments();
 
   const token = getStorage("token");
@@ -50,7 +50,7 @@ const AddCommentModal = ({
       postId,
     };
     if (!prettyComment) {
-      postComment(postData);
+      postComment(postData).then(() => setIsCommented(true));
       setValue("");
     } else {
       setValue("Qadağan olunmuş sözlərdən istifadə etməyin!");
@@ -90,23 +90,19 @@ const AddCommentModal = ({
               <div className="flex items-center justify-between">
                 <div className="flex space-x-2 items-center">
                   <figure className="size-[52px] ">
-                    {modalData?.userResponse?.image ? (
+                    {modalData?.user?.image ? (
                       <img
                         className="img-cover"
-                        src={`${modalData?.userResponse?.image}`}
+                        src={`${modalData?.user?.image}`}
                         alt="user"
                       />
                     ) : (
                       <span className="size-full text-4xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex justify-center">
-                        {modalData?.userResponse?.userName
-                          ?.charAt(0)
-                          .toLowerCase()}
+                        {modalData?.user?.userName?.charAt(0).toLowerCase()}
                       </span>
                     )}
                   </figure>
-                  <h6 className="text-[20px]">
-                    {modalData?.userResponse?.userName}
-                  </h6>
+                  <h6 className="text-[20px]">{modalData?.user?.userName}</h6>
                 </div>
               </div>
               <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
@@ -182,9 +178,11 @@ const AddCommentModal = ({
                   <button
                     disabled={!value || value.includes("Qadağan")}
                     type="submit"
-                    className="text-primaryGray text-sm disabled:opacity-20 disabled:cursor-not-allowed"
+                    className={`text-primaryGray text-sm disabled:opacity-20 disabled:cursor-not-allowed ${
+                      postLoading && "disabled:opacity-100"
+                    }`}
                   >
-                    Paylaş
+                    {postLoading ? <Spin /> : "Paylaş"}
                   </button>
                 </Space.Compact>
               </form>

@@ -22,8 +22,8 @@ function ModalProvider({ children }) {
   const [authCheckUsername, authCheckUsernameFetch, authCheckUserNameLoading] =
     useFetchAuthCheckUserName();
   const [loginAuth, setLoginAuth] = useState(false); //register or login response
-  const [isPosted, setIsPosted] = useState(false); //register or login response
-
+  const [isPosted, setIsPosted] = useState(false); //post think and refresh state
+  const [isCommented, setIsCommented] = useState(false); //post comment and refresh state
   const [selectCategory, setSelectCategory] = useState(false);
 
   const navigate = useNavigate();
@@ -158,6 +158,8 @@ function ModalProvider({ children }) {
     setIsPosted,
     watch,
     isPosted,
+    isCommented,
+    setIsCommented,
   };
 
   return <LoginModal.Provider value={actions}>{children}</LoginModal.Provider>;

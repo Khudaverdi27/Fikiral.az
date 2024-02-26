@@ -40,7 +40,7 @@ function HomePage() {
 
   return (
     <>
-      {selectedCategories.length > 0 && (
+      {[].concat(...selectedCategories).length > 0 && (
         <ThinkSection
           title={"Sizin üçün"}
           items={[].concat(...selectedCategories)}

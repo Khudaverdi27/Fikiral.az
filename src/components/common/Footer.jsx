@@ -11,10 +11,10 @@ import { getStorage } from "../../utils/helpers";
 function Footer() {
   const token = getStorage("token");
   return (
-    <footer className="  text-white  px-[150px] py-6 bg-[#E7E8F1]  mt-28">
-      <div className="border-b border-primaryGray pb-2">
+    <footer className="  text-white  px-[150px] py-5 bg-[#E7E8F1]  mt-28">
+      <div className="border-b border-primaryGray">
         <div className="flex justify-center">
-          <div className="flex w-full 2xl:justify-around justify-between   max-w-[1440px]">
+          <div className="flex w-full 2xl:justify-around justify-between pb-2  max-w-[1040px]">
             <Logo />
             <div className="space-y-2">
               <h6 className="text-sm font-semibold text-black">Haqqımızda</h6>

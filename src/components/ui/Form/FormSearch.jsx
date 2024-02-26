@@ -45,7 +45,7 @@ function FormSearch() {
 
   return (
     <>
-      <div className="ml-12 mr-12 relative ">
+      <div className="ml-12 mr-10 relative ">
         <Input
           onChange={(e) => onSearch(e)}
           className={`max-h-[37px] focus-within:shadow-none focus-within:border focus-within:border-[#e0e0e0] bg-[#E8E8E8] rounded-[6px] border-0 outline-none w-[320px]
@@ -95,7 +95,7 @@ function FormSearch() {
 
                   <div className="flex items-center space-x-2">
                     <figure className="size-9">
-                      {res?.userResponse?.image ? (
+                      {res?.user?.image ? (
                         <img
                           className="img-cover"
                           src={`${res?.res?.image}`}
@@ -103,7 +103,7 @@ function FormSearch() {
                         />
                       ) : (
                         <span className="size-full text-2xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex justify-center">
-                          {res?.userResponse?.userName?.charAt(0).toLowerCase()}
+                          {res?.user?.userName?.charAt(0).toLowerCase()}
                         </span>
                       )}
                     </figure>
