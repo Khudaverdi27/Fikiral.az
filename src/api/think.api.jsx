@@ -4,7 +4,6 @@ export const thinkApi = {
   popular: "/think/popular",
   byCategory: "/think/category/",
   removeThink: "/think/:id",
-  likeAndDislikeThink: "/think/like",
   thinkComments: "/comment/:id",
   postComments: "/comment/",
 };

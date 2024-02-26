@@ -159,7 +159,11 @@ const AddCommentModal = ({
             </div>
             <div className="space-y-3 py-1">
               <div className="border-t p-2 border-gray-300 border-b ">
-                <ThinkCardActions likes={modalData.likes} disabled={false} />
+                <ThinkCardActions
+                  postId={postId}
+                  likeCount={modalData.likeCount}
+                  disabled={false}
+                />
               </div>
               <form onSubmit={addNewComment}>
                 <Space.Compact className="w-full">

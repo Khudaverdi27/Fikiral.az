@@ -32,7 +32,7 @@ function HomePage() {
     });
   }, [isPosted]);
 
-  const sortedData = data.sort((a, b) => b.id - a.id);
+  const sortedData = data?.sort((a, b) => b.id - a.id);
 
   const filteredCategories = sortedData.filter((item) =>
     newCategories?.includes(item.category.id)

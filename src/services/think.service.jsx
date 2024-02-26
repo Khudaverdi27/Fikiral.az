@@ -1,5 +1,5 @@
 import { thinkApi } from "../api/think.api";
-import { destroy, get, post, put } from "../utils/request";
+import { destroy, get, post } from "../utils/request";
 
 export const ServiceThinksFetchList = async () => {
   const res = await get(thinkApi.list);
@@ -30,10 +30,6 @@ export const ServiceDeleteThinks = async (id) => {
   return res;
 };
 
-export const ServiceLikeAndDislikesPost = async (params = {}) => {
-  const res = await put(thinkApi.likeAndDislikeThink, params);
-  return res;
-};
 export const ServiceGetComments = async (id) => {
   const res = await get(thinkApi.thinkComments.replace(":id", id));
   return res;

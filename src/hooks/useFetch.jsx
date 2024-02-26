@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   ServiceDeleteThinks,
   ServiceGetComments,
-  ServiceLikeAndDislikesPost,
   ServicePostComment,
   ServiceThinksByCategoryFetchList,
   ServiceThinksByPopularFetchList,
@@ -19,6 +18,7 @@ import {
   ServiceAuthCheckUserName,
   ServiceAuthLogin,
   ServiceAuthRegistration,
+  ServiceLikeAndDislikesPost,
 } from "../services/auth.service";
 
 const useFetch = (state = false) => {
@@ -148,7 +148,7 @@ export const useFetchSelectedCategories = () => {
   return [data || [], fetchSelectedCategories, loading];
 };
 
-export const usePutLikeAndDislike = () => {
+export const usePostLikeAndDislike = () => {
   const [data, fetch, loading] = useFetch();
 
   const fetchLikeAndDislike = async (params = {}) => {

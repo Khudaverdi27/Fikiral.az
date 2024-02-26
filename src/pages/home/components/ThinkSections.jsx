@@ -15,7 +15,7 @@ function ThinkSection({ items, loading, title }) {
   return (
     <Section title={title} loading={loading}>
       <Helmet>
-        <title>{`Fikir al ${title && "/" + title}`}</title>
+        <title>{`Fikir al ${title.length > 0 ? "/" + title : ""}`}</title>
       </Helmet>
       <Row
         className="gap-y-5  min-w-[352px] min-h-[280px]  overflow-hidden"

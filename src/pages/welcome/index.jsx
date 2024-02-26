@@ -12,7 +12,7 @@ function WelcomePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
   const [newCategories, setNewCategories] = useState([]);
 
-  const sortedData = data.sort((a, b) => b.id - a.id);
+  const sortedData = data?.sort((a, b) => b.id - a.id);
 
   useEffect(() => {
     const categoryFromStorage = getStorage("selectedCategories");

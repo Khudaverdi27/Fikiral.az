@@ -2,14 +2,14 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BsFillHeartFill } from "react-icons/bs";
 import { VscLink } from "react-icons/vsc";
 import AddCommentModal from "../../ui/Modals/AddCommentModal";
-import { useState } from "react";
-import { usePutLikeAndDislike } from "../../../hooks/useFetch";
+import { useEffect, useState } from "react";
+import { usePostLikeAndDislike } from "../../../hooks/useFetch";
 import { getStorage } from "../../../utils/helpers";
 function ThinkCardActions({
   disabled = true,
   allComments,
   comment,
-  likes,
+  likeCount,
   iscommentOpen,
   setIsCommentOpen,
   modalData,
@@ -18,35 +18,54 @@ function ThinkCardActions({
   changeTime,
   postId,
 }) {
-  const [like, setLike] = useState(false);
-  const [dislike, setDislike] = useState(false);
-  const [count, setCount] = useState(likes);
-  const [fetchLikeCount, loading] = usePutLikeAndDislike();
+  const [like, setLike] = useState(true);
+  const [dislike, setDislike] = useState(true);
+  const [count, setCount] = useState(likeCount);
+  const [fetchLikeCount, loading] = usePostLikeAndDislike();
+  const [dislikedArray, setdisLikedArray] = useState([]);
+  const [likedArray, setLikedArray] = useState([]);
   const token = getStorage("token");
-  const likeActions = () => {
-    if (!like) {
-      const updatedCount = dislike ? count + 2 : count + 1;
-      setCount(updatedCount);
-      setLike(true);
-      setDislike(false);
-      updateLikeCount(updatedCount);
-    }
-  };
+  const user = getStorage("user");
 
-  const dislikeActions = () => {
-    if (!dislike) {
-      const updatedCount = like ? count - 2 : count - 1;
+  useEffect(() => {
+    setdisLikedArray(user?.userResponse?.disLikedPostsIDs);
+  }, []);
+  useEffect(() => {
+    setLikedArray(user?.userResponse?.likedPostsIDs);
+  }, []);
+
+  const findDislikeds = dislikedArray?.includes(postId);
+  const findLikeds = likedArray?.includes(postId);
+
+  const likeActions = (id) => {
+    setdisLikedArray(
+      user?.userResponse?.disLikedPostsIDs.filter((i) => i !== id)
+    );
+    if (like && !findLikeds) {
+      const updatedCount = dislike ? count + 1 : count + 2;
       setCount(updatedCount);
       setLike(false);
       setDislike(true);
-      updateLikeCount(updatedCount);
+      updateLikeCount(true);
     }
   };
 
-  const updateLikeCount = async (updatedCount) => {
-    await fetchLikeCount({
-      likeCount: updatedCount,
+  const dislikeActions = (id) => {
+    setLikedArray(user?.userResponse?.likedPostsIDs.filter((i) => i !== id));
+    if (dislike && !findDislikeds) {
+      const updatedCount = like ? count - 1 : count - 2;
+      setCount(updatedCount);
+      setDislike(false);
+      setLike(true);
+      updateLikeCount(false);
+    }
+  };
+
+  const updateLikeCount = (isLiked) => {
+    fetchLikeCount({
+      userId: user.userResponse.id,
       postId,
+      liked: isLiked,
     });
   };
 
@@ -55,25 +74,25 @@ function ThinkCardActions({
       <div className="flex items-center gap-x-[17px] max-h-6 group">
         <button
           disabled={token.length == 0}
-          onClick={dislikeActions}
+          onClick={() => dislikeActions(postId)}
           className="disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <AiOutlineClose
-            className={` ${
-              like ? "size-[22px] " : "size-7 hover:ml-[0px]"
-            } group-hover:opacity-60  hover:!opacity-100 hover:ml-[-6px]   text-[#292D32] hover:text-black hover:size-7`}
+            className={`${
+              (!dislike || findDislikeds) && "size-7 hover:ml-[0.1px]"
+            } size-6 group-hover:opacity-60  hover:!opacity-100 hover:ml-[-4px]   text-[#292D32] hover:text-black hover:size-7`}
           />
         </button>
         <span className="text-sm font-[500] ">{count}</span>
         <button
           disabled={token.length == 0}
-          onClick={likeActions}
+          onClick={() => likeActions(postId)}
           className="disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <BsFillHeartFill
-            className={` ${
-              like ? "size-7 " : "size-[22px] "
-            } group-hover:opacity-60 hover:!opacity-100 text-[#FF0000]   hover:size-7`}
+            className={`${
+              (!like || findLikeds) && "size-7"
+            } size-6 group-hover:opacity-60 hover:!opacity-100 text-[#FF0000]   hover:size-7`}
           />
         </button>
       </div>
