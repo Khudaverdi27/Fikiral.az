@@ -18,8 +18,11 @@ import {
   ServiceAuthCheckUserName,
   ServiceAuthLogin,
   ServiceAuthRegistration,
-  ServiceLikeAndDislikesPost,
 } from "../services/auth.service";
+import {
+  ServicePutUserSavedPosts,
+  ServiceUserLikeAndDislikesPost,
+} from "../services/user.service";
 
 const useFetch = (state = false) => {
   const [data, setData] = useState(state);
@@ -152,7 +155,7 @@ export const usePostLikeAndDislike = () => {
   const [data, fetch, loading] = useFetch();
 
   const fetchLikeAndDislike = async (params = {}) => {
-    fetch(ServiceLikeAndDislikesPost, params);
+    fetch(ServiceUserLikeAndDislikesPost, params);
   };
   return [fetchLikeAndDislike, loading];
 };
@@ -173,4 +176,13 @@ export const usePostComments = () => {
     fetch(ServicePostComment, params);
   };
   return [data || false, postThinkComments, loading];
+};
+
+export const usePutSavedPosts = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const putSavedFetch = async (params) => {
+    fetch(ServicePutUserSavedPosts, params);
+  };
+  return [data || false, putSavedFetch, loading];
 };

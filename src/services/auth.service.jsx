@@ -14,11 +14,6 @@ export const ServiceAuthCheckUserName = async (params = {}) => {
   const res = await post(authApi.checkUserName + params);
   return res;
 };
-export const ServiceLikeAndDislikesPost = async (params = {}) => {
-  console.log(params);
-  const res = await post(userApi.likeAndDislikeThink, params);
-  return res;
-};
 
 export const ServiceAuthLogin = async (params = {}) => {
   const res = await post(authApi.login, params);

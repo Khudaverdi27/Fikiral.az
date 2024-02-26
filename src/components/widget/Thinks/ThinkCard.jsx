@@ -6,7 +6,11 @@ import { HiDotsVertical } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { changeTime, getStorage } from "../../../utils/helpers";
-import { useDeleteThink, useFetchCommentLists } from "../../../hooks/useFetch";
+import {
+  useDeleteThink,
+  useFetchCommentLists,
+  usePutSavedPosts,
+} from "../../../hooks/useFetch";
 
 function ThinkCard({ thinks, children, items }) {
   const [bookmark, setBookmark] = useState(false);
@@ -15,12 +19,18 @@ function ThinkCard({ thinks, children, items }) {
   const [modalData, setModalData] = useState({});
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
   const [deletedThink, fetcDelete, deleteLoading] = useDeleteThink();
+  const [savedResponse, saveFetch, saveLoading] = usePutSavedPosts();
   const token = getStorage("token");
-  const changeBookmark = () => {
+
+  const sendToSaveds = (id) => {
     if (token.length == 0) {
       switcRegisterModal();
     } else {
       setBookmark(!bookmark);
+      saveFetch({
+        userId: thinks?.userResponse?.id,
+        postId: thinks?.id,
+      });
     }
   };
 
@@ -66,10 +76,9 @@ function ThinkCard({ thinks, children, items }) {
                 } `,
               }}
             >
-              <HiOutlineBookmark
-                onClick={changeBookmark}
-                className={`size-5  `}
-              />
+              <button onClick={() => sendToSaveds(thinks.id)}>
+                <HiOutlineBookmark className={`size-5  `} />
+              </button>
             </IconContext.Provider>
             <button onClick={destroyThink}>
               <HiDotsVertical className="ml-2 size-5 " />
