@@ -1,29 +1,7 @@
-.ant-pagination-item {
-    @apply !border-0 !size-0 
-}
 .ant-badge-count-sm{
   @apply !right-[6px] !top-[2px]
 }
-.ant-pagination-item a{
-    @apply  !text-[#ACACAC]
-}
-.ant-pagination-item-active{
-    @apply !border-0 !text-black
-}
-.ant-pagination-item-active a{
-    @apply !text-black
-}
 
-.ant-pagination li:nth-child(1) {
-   @apply ml-[0px]
-  }
-.ant-pagination li:nth-child(2)
- {
-   @apply ml-[350px]
-  }
-.ant-pagination li:nth-child(4) {
-    @apply mr-auto;
-  }
 .anticon{
     @apply hidden
   }
@@ -55,6 +33,7 @@
     @apply !bg-indigo-500;
   }
 
+  
 
 
   

@@ -48,7 +48,7 @@ function FormSearch() {
       <div className="ml-12 mr-12 relative ">
         <Input
           onChange={(e) => onSearch(e)}
-          className={`max-h-[37px] bg-[#E8E8E8] rounded-[6px] border-0 outline-none w-[320px]
+          className={`max-h-[37px] focus-within:shadow-none focus-within:border focus-within:border-[#e0e0e0] bg-[#E8E8E8] rounded-[6px] border-0 outline-none w-[320px]
         ${isHovered && "hover:outline-[3px] hover:outline-[#E0E0E0]"}`}
           size="large"
           placeholder="Axtar"

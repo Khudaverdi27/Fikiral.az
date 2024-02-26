@@ -22,8 +22,8 @@ function Header() {
 
   return (
     <header
-      className=" flex items-center w-full py-[25px] px-[150px]   
-    h-[113px]  top-0 z-40  bg-white justify-between sticky text-white"
+      className=" flex items-center w-full py-[25px]   
+    h-[113px]  top-0 z-40  bg-white justify-center sticky text-white"
     >
       <div className=" flex items-center">
         <Logo />
