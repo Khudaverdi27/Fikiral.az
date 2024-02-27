@@ -3,7 +3,7 @@ import { IconContext } from "react-icons";
 import { useEffect, useState } from "react";
 import ThinkCardActions from "./ThinkCardActions";
 import { HiDotsVertical } from "react-icons/hi";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { changeTime, getStorage } from "../../../utils/helpers";
 import {
@@ -116,6 +116,7 @@ function ThinkCard({ thinks, children, items, userById }) {
         </p>
       </div>
       <ThinkCardActions
+        userById={userById}
         comment={thinks.commentCount}
         commentLoading={commentLoading}
         allComments={allComments}
