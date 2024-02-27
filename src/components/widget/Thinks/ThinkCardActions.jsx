@@ -29,7 +29,7 @@ function ThinkCardActions({
 
   const likeActions = () => {
     if (!like) {
-      const updatedCount = dislike ? count + 1 : count + 2;
+      const updatedCount = dislike ? count + 2 : count + 1;
       setCount(updatedCount);
       setLike(true);
       setDislike(false);
@@ -39,7 +39,7 @@ function ThinkCardActions({
 
   const dislikeActions = () => {
     if (!dislike) {
-      const updatedCount = like ? count - 1 : count - 2;
+      const updatedCount = like ? count - 2 : count - 1;
       setCount(updatedCount);
       setDislike(true);
       setLike(false);
@@ -58,15 +58,15 @@ function ThinkCardActions({
   useEffect(() => {
     if (token.length > 0) {
       const findLikeds = userById.likedPostsIDs;
-      if (findLikeds.includes(postId)) {
+      if (findLikeds?.includes(postId)) {
         setLike(true);
       }
     }
   }, []);
   useEffect(() => {
     if (token.length > 0) {
-      const findDislikeds = userById.disLikedPostsIDs;
-      if (findDislikeds.includes(postId)) {
+      const findDislikeds = userById?.disLikedPostsIDs;
+      if (findDislikeds?.includes(postId)) {
         setDislike(true);
       }
     }
