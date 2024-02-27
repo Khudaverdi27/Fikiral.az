@@ -12,7 +12,7 @@ import {
   usePutSavedPosts,
 } from "../../../hooks/useFetch";
 
-function ThinkCard({ thinks, children, items }) {
+function ThinkCard({ thinks, children, items, userById }) {
   const [bookmark, setBookmark] = useState(false);
   const { switcRegisterModal, isCommented, setIsCommented } = useModalActions();
   const [iscommentOpen, setIsCommentOpen] = useState(false);
@@ -20,7 +20,9 @@ function ThinkCard({ thinks, children, items }) {
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
   const [deletedThink, fetcDelete, deleteLoading] = useDeleteThink();
   const [savedResponse, saveFetch, saveLoading] = usePutSavedPosts();
+
   const token = getStorage("token");
+  const user = getStorage("user");
 
   const sendToSaveds = () => {
     if (token.length == 0) {
@@ -29,7 +31,7 @@ function ThinkCard({ thinks, children, items }) {
       setBookmark(!bookmark);
 
       saveFetch({
-        userId: thinks?.user?.id,
+        userId: user?.userResponse?.id,
         postId: thinks?.id,
       });
     }
@@ -43,12 +45,6 @@ function ThinkCard({ thinks, children, items }) {
   };
 
   useEffect(() => {
-    if (iscommentOpen && isCommented) {
-      fetchComments(thinks.id);
-    }
-  }, [isCommented]);
-
-  useEffect(() => {
     if (isCommented && iscommentOpen) {
       fetchComments(thinks.id).then(() => {
         setIsCommented(false);
@@ -56,11 +52,14 @@ function ThinkCard({ thinks, children, items }) {
     }
   }, [isCommented]);
 
-  const path = useLocation().pathname;
-
   const destroyThink = () => {
     fetcDelete(thinks.id);
   };
+
+  useEffect(() => {
+    const findSaved = userById.savedPostsIDs;
+    setBookmark(findSaved.includes(thinks.id));
+  }, []);
 
   return (
     <div className="gutter-row">
@@ -86,9 +85,7 @@ function ThinkCard({ thinks, children, items }) {
             <IconContext.Provider
               value={{
                 color: "#262626",
-                className: `${path === "/favorites" && "fill-[#262626]"} ${
-                  bookmark && "fill-[#262626]"
-                } `,
+                className: ` ${bookmark && "fill-[#262626]"} `,
               }}
             >
               <button onClick={sendToSaveds}>

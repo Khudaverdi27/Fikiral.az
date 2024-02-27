@@ -52,7 +52,12 @@ const AddCommentModal = ({
       postId,
     };
     if (!prettyComment) {
-      postComment(postData).then(() => setIsCommented(true));
+      postComment(postData).then(() =>
+        setTimeout(() => {
+          setIsCommented(true);
+        }, 1000)
+      );
+
       setValue("");
     } else {
       setValue("Qadağan olunmuş sözlərdən istifadə etməyin!");

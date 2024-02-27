@@ -1,5 +1,5 @@
 import { userApi } from "../api/user.api";
-import { post, put } from "../utils/request";
+import { get, post, put } from "../utils/request";
 
 export const ServiceUserLikeAndDislikesPost = async (params = {}) => {
   const res = await post(userApi.likeAndDislikeThink, params);
@@ -8,5 +8,10 @@ export const ServiceUserLikeAndDislikesPost = async (params = {}) => {
 
 export const ServicePutUserSavedPosts = async (params = {}) => {
   const res = await put(userApi.userSavedPosts, params);
+  return res;
+};
+
+export const ServiceGetUserById = async (id) => {
+  const res = await get(userApi.getUserById.replace(":id", id));
   return res;
 };

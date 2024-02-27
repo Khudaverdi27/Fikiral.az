@@ -1,17 +1,24 @@
 import { Col, Row } from "antd";
 import ThinkCard from "../../../components/widget/Thinks/ThinkCard";
 import Section from "../../../components/ui/Section";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import { useGetUserById } from "../../../hooks/useFetch";
+import { getStorage } from "../../../utils/helpers";
 
 function ThinkSection({ items, loading, title }) {
   const [showAll, setShowAll] = useState(false);
   const modifyItems = showAll ? items : items?.slice(0, 6);
+  const [userById, getUserFetch, userLoading] = useGetUserById();
 
+  const user = getStorage("user");
   const showAllItems = () => {
     setShowAll(!showAll);
   };
 
+  useEffect(() => {
+    getUserFetch(user.userResponse.id);
+  }, []);
   return (
     <Section title={title} loading={loading}>
       <Helmet>
@@ -40,7 +47,7 @@ function ThinkSection({ items, loading, title }) {
             sm={{ span: 24 }}
             xs={{ span: 24 }}
           >
-            <ThinkCard thinks={item} items={items} />
+            <ThinkCard thinks={item} items={items} userById={userById} />
           </Col>
         ))}
       </Row>

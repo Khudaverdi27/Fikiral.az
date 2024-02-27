@@ -28,21 +28,21 @@ function ThinkCardActions({
   const token = getStorage("token");
   const user = getStorage("user");
 
-  useEffect(() => {
-    setdisLikedArray(user?.userResponse?.disLikedPostsIDs);
-  }, []);
-  useEffect(() => {
-    setLikedArray(user?.userResponse?.likedPostsIDs);
-  }, []);
+  // useEffect(() => {
+  //   setdisLikedArray(user?.userResponse?.disLikedPostsIDs);
+  // }, []);
+  // useEffect(() => {
+  //   setLikedArray(user?.userResponse?.likedPostsIDs);
+  // }, []);
 
-  const findDislikeds = dislikedArray?.includes(postId);
-  const findLikeds = likedArray?.includes(postId);
+  // const findDislikeds = dislikedArray?.includes(postId);
+  // const findLikeds = likedArray?.includes(postId);
 
   const likeActions = (id) => {
-    setdisLikedArray(
-      user?.userResponse?.disLikedPostsIDs.filter((i) => i !== id)
-    );
-    if (like && !findLikeds) {
+    // setdisLikedArray(
+    //   user?.userResponse?.disLikedPostsIDs.filter((i) => i !== id)
+    // );
+    if (like) {
       const updatedCount = dislike ? count + 1 : count + 2;
       setCount(updatedCount);
       setLike(false);
@@ -52,8 +52,8 @@ function ThinkCardActions({
   };
 
   const dislikeActions = (id) => {
-    setLikedArray(user?.userResponse?.likedPostsIDs.filter((i) => i !== id));
-    if (dislike && !findDislikeds) {
+    // setLikedArray(user?.userResponse?.likedPostsIDs.filter((i) => i !== id));
+    if (dislike) {
       const updatedCount = like ? count - 1 : count - 2;
       setCount(updatedCount);
       setDislike(false);
@@ -80,7 +80,7 @@ function ThinkCardActions({
         >
           <AiOutlineClose
             className={`${
-              (!dislike || findDislikeds) && "size-7 hover:ml-[0.1px]"
+              !dislike && "size-7 hover:ml-[0.1px]"
             } size-6 group-hover:opacity-60  hover:!opacity-100 hover:ml-[-4px]   text-[#292D32] hover:text-black hover:size-7`}
           />
         </button>
@@ -92,7 +92,7 @@ function ThinkCardActions({
         >
           <BsFillHeartFill
             className={`${
-              (!like || findLikeds) && "size-7"
+              !like && "size-7"
             } size-6 group-hover:opacity-60 hover:!opacity-100 text-[#FF0000]   hover:size-7`}
           />
         </button>

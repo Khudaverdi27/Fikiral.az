@@ -20,6 +20,7 @@ import {
   ServiceAuthRegistration,
 } from "../services/auth.service";
 import {
+  ServiceGetUserById,
   ServicePutUserSavedPosts,
   ServiceUserLikeAndDislikesPost,
 } from "../services/user.service";
@@ -185,4 +186,12 @@ export const usePutSavedPosts = () => {
     fetch(ServicePutUserSavedPosts, params);
   };
   return [data || false, putSavedFetch, loading];
+};
+export const useGetUserById = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const getUserFetch = async (id) => {
+    fetch(ServiceGetUserById, id);
+  };
+  return [data || {}, getUserFetch, loading];
 };
