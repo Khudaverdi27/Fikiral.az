@@ -55,7 +55,7 @@ const AddCommentModal = ({
       postComment(postData).then(() =>
         setTimeout(() => {
           setIsCommented(true);
-        }, 1000)
+        }, 1500)
       );
 
       setValue("");

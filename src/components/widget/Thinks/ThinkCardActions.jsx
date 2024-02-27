@@ -57,7 +57,7 @@ function ThinkCardActions({
 
   useEffect(() => {
     if (token.length > 0) {
-      const findLikeds = userById.likedPostsIDs;
+      const findLikeds = userById?.likedPostsIDs;
       if (findLikeds?.includes(postId)) {
         setLike(true);
       }
