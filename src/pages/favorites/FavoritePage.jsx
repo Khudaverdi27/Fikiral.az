@@ -9,7 +9,7 @@ function FavoritePage() {
   const user = getStorage("user");
   const userSavedPosts = user?.userResponse?.savedPostsIDs;
 
-  const findSavedPosts = data?.filter((d) => userSavedPosts?.includes(d));
+  const findSavedPosts = data?.filter((d) => userSavedPosts?.includes(d.id));
 
   useEffect(() => {
     apiFetch();

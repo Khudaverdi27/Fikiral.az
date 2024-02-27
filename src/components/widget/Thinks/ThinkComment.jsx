@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { useModalActions } from "../../../context/LoginModalProvider";
+import { changeTime } from "../../../utils/helpers";
 
 function ThinkComments({ comment }) {
   const [like, setLike] = useState(false);
-  const [commentLikeCount, setCommentLikeCount] = useState(0);
+  const [commentLikeCount, setCommentLikeCount] = useState(comment.likeCount);
   const { loginAuth } = useModalActions();
   const giveLikeToComment = () => {
     setLike(!like);
@@ -36,7 +37,9 @@ function ThinkComments({ comment }) {
               </figure>
               <div className="mb-[-5px]">
                 <h6 className="font-bold">{comment?.user?.userName}</h6>
-                <span className="text-sm text-[#999999]">2g</span>
+                <span className="text-xs text-[#999999]">
+                  {changeTime(comment.publishedAt)}
+                </span>
               </div>
             </div>
             <button className="mb-[-5px]" onClick={giveLikeToComment}>
