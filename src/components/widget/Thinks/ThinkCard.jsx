@@ -57,8 +57,10 @@ function ThinkCard({ thinks, children, items, userById }) {
   };
 
   useEffect(() => {
-    const findSaved = userById.savedPostsIDs;
-    setBookmark(findSaved.includes(thinks.id));
+    if (token.length > 0) {
+      const findSaved = userById.savedPostsIDs;
+      setBookmark(findSaved.includes(thinks.id));
+    }
   }, []);
 
   return (

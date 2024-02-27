@@ -12,12 +12,15 @@ function ThinkSection({ items, loading, title }) {
   const [userById, getUserFetch, userLoading] = useGetUserById();
 
   const user = getStorage("user");
+  const token = getStorage("token");
   const showAllItems = () => {
     setShowAll(!showAll);
   };
 
   useEffect(() => {
-    getUserFetch(user.userResponse.id);
+    if (token.length > 0) {
+      getUserFetch(user.userResponse.id);
+    }
   }, []);
   return (
     <Section title={title} loading={loading}>

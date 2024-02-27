@@ -56,15 +56,19 @@ function ThinkCardActions({
   };
 
   useEffect(() => {
-    const findLikeds = userById.likedPostsIDs;
-    if (findLikeds.includes(postId)) {
-      setLike(true);
+    if (token.length > 0) {
+      const findLikeds = userById.likedPostsIDs;
+      if (findLikeds.includes(postId)) {
+        setLike(true);
+      }
     }
   }, []);
   useEffect(() => {
-    const findDislikeds = userById.disLikedPostsIDs;
-    if (findDislikeds.includes(postId)) {
-      setDislike(true);
+    if (token.length > 0) {
+      const findDislikeds = userById.disLikedPostsIDs;
+      if (findDislikeds.includes(postId)) {
+        setDislike(true);
+      }
     }
   }, []);
 
