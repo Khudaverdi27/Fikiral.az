@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useFetchThinksList } from "../../hooks/useFetch";
 import ThinkSection from "../home/components/ThinkSections";
 import { getStorage } from "../../utils/helpers";
+import ErrorBoundary from "../../components/common/ErrorBoundary";
 
 function FavoritePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
@@ -16,13 +17,13 @@ function FavoritePage() {
 
   return (
     <>
-      <div>
+      <ErrorBoundary>
         <ThinkSection
           title={"Yadda saxlanılanlar"}
           items={findSavedPosts}
           loading={loading}
         />
-      </div>
+      </ErrorBoundary>
     </>
   );
 }

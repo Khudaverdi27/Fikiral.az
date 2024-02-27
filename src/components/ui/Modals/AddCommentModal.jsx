@@ -164,6 +164,7 @@ const AddCommentModal = ({
               <form onSubmit={addNewComment}>
                 <Space.Compact className="w-full">
                   <Input
+                    maxLength={250}
                     disabled={token.length == 0}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}

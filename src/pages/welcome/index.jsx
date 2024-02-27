@@ -4,6 +4,7 @@ import { getStorage } from "../../utils/helpers";
 import ThinkSection from "../home/components/ThinkSections";
 import { useFetchThinkPopular, useFetchThinksList } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
+import ErrorBoundary from "../../components/common/ErrorBoundary";
 
 function WelcomePage() {
   const { switcRegisterModal, selectCategory } = useModalActions();
@@ -56,27 +57,30 @@ function WelcomePage() {
       )}
 
       <>
-        {!filteredCategories.length > 0 && (
+        <ErrorBoundary>
+          {!filteredCategories.length > 0 && (
+            <ThinkSection
+              title={<p className="text-center">Popluyar fikirlər</p>}
+              items={popular}
+              loading={popularLoading}
+            />
+          )}
+        </ErrorBoundary>
+        <ErrorBoundary>
           <ThinkSection
-            title={<p className="text-center">Popluyar fikirlər</p>}
-            items={popular}
-            loading={popularLoading}
+            title={
+              <p className="text-center">{`${
+                filteredCategories.length > 0
+                  ? "Seçdiyiniz kateqoriyalardan..."
+                  : "Bütün fikirlər"
+              }`}</p>
+            }
+            items={
+              filteredCategories.length > 0 ? filteredCategories : sortedData
+            }
+            loading={loading}
           />
-        )}
-
-        <ThinkSection
-          title={
-            <p className="text-center">{`${
-              filteredCategories.length > 0
-                ? "Seçdiyiniz kateqoriyalardan..."
-                : "Bütün fikirlər"
-            }`}</p>
-          }
-          items={
-            filteredCategories.length > 0 ? filteredCategories : sortedData
-          }
-          loading={loading}
-        />
+        </ErrorBoundary>
       </>
     </section>
   );

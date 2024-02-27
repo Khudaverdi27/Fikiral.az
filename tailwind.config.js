@@ -6,7 +6,8 @@ export default {
   ],
   theme: {
     extend: {
-      
+      fontFamily: {
+        'roboto': ['Roboto', 'system-ui',"serif"]},
       colors:{
         primaryGray: ' #262626'
         
@@ -21,6 +22,7 @@ export default {
       rotate: {
         '35': '35deg',
       },
+      
     
     },
   },

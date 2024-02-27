@@ -3,6 +3,7 @@ import ThinkSection from "../home/components/ThinkSections";
 import { useFetchThinkByCategory } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { useModalActions } from "../../context/LoginModalProvider";
+import ErrorBoundary from "../../components/common/ErrorBoundary";
 
 function CategoryPage() {
   const param = useParams();
@@ -33,13 +34,13 @@ function CategoryPage() {
   const sortedData = thinksByCategory.sort((a, b) => b.id - a.id);
   return (
     <>
-      <div>
+      <ErrorBoundary>
         <ThinkSection
           title={title}
           items={sortedData}
           loading={thinksByCategoryLoading}
         />
-      </div>
+      </ErrorBoundary>
     </>
   );
 }

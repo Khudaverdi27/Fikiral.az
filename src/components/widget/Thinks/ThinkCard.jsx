@@ -31,7 +31,7 @@ function ThinkCard({ thinks, children, items }) {
       saveFetch({
         userId: thinks?.user?.id,
         postId: thinks?.id,
-        isSaved: bookmark,
+        isSaved: !bookmark,
       });
     }
   };

@@ -6,6 +6,7 @@ import {
 } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { getStorage } from "../../utils/helpers";
+import ErrorBoundary from "../../components/common/ErrorBoundary";
 
 function HomePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
@@ -40,23 +41,28 @@ function HomePage() {
 
   return (
     <>
-      {[].concat(...selectedCategories).length > 0 && (
+      <ErrorBoundary>
+        {[].concat(...selectedCategories).length > 0 && (
+          <ThinkSection
+            title={"Sizin üçün"}
+            items={[].concat(...selectedCategories)}
+            loading={selectLoading}
+          />
+        )}
+      </ErrorBoundary>
+      <ErrorBoundary>
         <ThinkSection
-          title={"Sizin üçün"}
-          items={[].concat(...selectedCategories)}
-          loading={selectLoading}
+          title={`${
+            filteredCategories.length > 0
+              ? "Seçdiyiniz kateqoriyalardan..."
+              : "Bütün fikirlər"
+          }`}
+          items={
+            filteredCategories.length > 0 ? filteredCategories : sortedData
+          }
+          loading={loading}
         />
-      )}
-
-      <ThinkSection
-        title={`${
-          filteredCategories.length > 0
-            ? "Seçdiyiniz kateqoriyalardan..."
-            : "Bütün fikirlər"
-        }`}
-        items={filteredCategories.length > 0 ? filteredCategories : sortedData}
-        loading={loading}
-      />
+      </ErrorBoundary>
     </>
   );
 }
