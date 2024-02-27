@@ -14,9 +14,11 @@ import { useModalActions } from "../../../context/LoginModalProvider";
 import ThinkComments from "../../widget/Thinks/ThinkComment";
 import { Link } from "react-router-dom";
 import { usePostComments } from "../../../hooks/useFetch";
+import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 
 const AddCommentModal = ({
   postId,
+  commentLoading,
   allComments,
   comment,
   iscommentOpen,
@@ -70,7 +72,7 @@ const AddCommentModal = ({
           <BiMessageSquareDots className="size-[22px] hover:text-black text-[#636363] cursor-pointer" />
         </button>
         <span className="text-sm hover:text-black font-bold text-[#636363] ml-2">
-          {comment ? comment : 0}
+          {comment ?? 0}
         </span>
       </div>
       <Modal
@@ -147,11 +149,15 @@ const AddCommentModal = ({
                 </IconContext.Provider>
               </div>
 
-              <div className="space-y-3 ">
-                {allComments?.map((comment, index) => (
-                  <ThinkComments key={index} comment={comment} />
-                ))}
-              </div>
+              {commentLoading ? (
+                <LoadingSpin />
+              ) : (
+                <div className="space-y-3 ">
+                  {allComments?.map((comment, index) => (
+                    <ThinkComments key={index} comment={comment} />
+                  ))}
+                </div>
+              )}
             </div>
             <div className="space-y-3 py-1">
               <div className="border-t p-2 border-gray-300 border-b ">
@@ -172,7 +178,7 @@ const AddCommentModal = ({
                     variant="borderless"
                     placeholder={
                       token.length !== 0
-                        ? "Rəy bildir..."
+                        ? "Rəy bildir... (maximum 250 simvol)"
                         : "Rəy yazmaq üçün hesabınıza giriş edin"
                     }
                   />

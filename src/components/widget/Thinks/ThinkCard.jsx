@@ -120,7 +120,8 @@ function ThinkCard({ thinks, children, items }) {
         </p>
       </div>
       <ThinkCardActions
-        comment={thinks.commentsCount}
+        comment={thinks.commentCount}
+        commentLoading={commentLoading}
         allComments={allComments}
         likeCount={thinks.likeCount}
         postId={thinks.id}

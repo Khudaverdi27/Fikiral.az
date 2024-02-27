@@ -8,6 +8,7 @@ import { getStorage } from "../../../utils/helpers";
 function ThinkCardActions({
   disabled = true,
   allComments,
+  commentLoading,
   comment,
   likeCount,
   iscommentOpen,
@@ -102,6 +103,7 @@ function ThinkCardActions({
           <>
             <AddCommentModal
               postId={postId}
+              commentLoading={commentLoading}
               comment={comment}
               allComments={allComments}
               iscommentOpen={iscommentOpen}
