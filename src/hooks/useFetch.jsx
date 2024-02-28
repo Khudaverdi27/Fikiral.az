@@ -37,7 +37,7 @@ const useFetch = (state = false) => {
     setLoading(false);
   };
 
-  return [data, fetch, loading];
+  return [data, fetch, loading, setData];
 };
 
 export const useFetchThinksList = () => {
@@ -108,12 +108,12 @@ export const useFetchThinkByCategory = () => {
 };
 
 export const useFetchThinkBySearch = () => {
-  const [data, fetch, loading] = useFetch([]);
+  const [data, fetch, loading, setData] = useFetch([]);
 
   const searchFetch = async (params = {}) => {
     fetch(ServiceThinksBySearchFetchList, params);
   };
-  return [data || [], searchFetch, loading];
+  return [data || [], searchFetch, loading, setData];
 };
 
 export const useFetchThinkPopular = () => {

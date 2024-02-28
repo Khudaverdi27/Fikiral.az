@@ -11,7 +11,6 @@ import ErrorBoundary from "../../components/common/ErrorBoundary";
 function HomePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
   const [newCategories, setNewCategories] = useState([]);
-
   const [selectedCategories, fetchSelected, selectLoading] =
     useFetchSelectedCategories();
   const { isPosted, setIsPosted, selectCategory } = useModalActions();

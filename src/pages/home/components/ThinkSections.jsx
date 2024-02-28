@@ -5,14 +5,22 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useGetUserById } from "../../../hooks/useFetch";
 import { getStorage } from "../../../utils/helpers";
+import { useSearchActions } from "../../../context/FormSearchProvider";
 
 function ThinkSection({ items, loading, title }) {
   const [showAll, setShowAll] = useState(false);
-  const modifyItems = showAll ? items : items?.slice(0, 6);
+  const { searchResponse } = useSearchActions();
   const [userById, getUserFetch, userLoading] = useGetUserById();
-
   const user = getStorage("user");
   const token = getStorage("token");
+
+  let newItems =
+    searchResponse.length > 0
+      ? searchResponse
+      : showAll
+      ? items
+      : items?.slice(0, 6);
+
   const showAllItems = () => {
     setShowAll(!showAll);
   };
@@ -22,6 +30,9 @@ function ThinkSection({ items, loading, title }) {
       getUserFetch(user.userResponse.id);
     }
   }, []);
+
+
+
   return (
     <Section title={title} loading={loading}>
       <Helmet>
@@ -36,7 +47,7 @@ function ThinkSection({ items, loading, title }) {
           lg: 32,
         }}
       >
-        {modifyItems?.map((item) => (
+        {newItems?.map((item) => (
           <Col
             key={item.id}
             className="my-5"
@@ -50,11 +61,11 @@ function ThinkSection({ items, loading, title }) {
             sm={{ span: 24 }}
             xs={{ span: 24 }}
           >
-            <ThinkCard thinks={item} items={items} userById={userById} />
+            <ThinkCard thinks={item} items={newItems} userById={userById} />
           </Col>
         ))}
       </Row>
-      {items.length > 6 && (
+      {newItems.length > 3 && (
         <div className="flex justify-end text-primaryGray mt-2 text-sm ">
           <button
             onClick={showAllItems}

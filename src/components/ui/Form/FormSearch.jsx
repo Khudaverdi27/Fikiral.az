@@ -3,36 +3,21 @@ import { Input, Spin } from "antd";
 import { useEffect, useState } from "react";
 import { IoMdClose, IoMdSearch } from "react-icons/io";
 import AddCommentModal from "../Modals/AddCommentModal";
-import { useFetchThinkBySearch } from "../../../hooks/useFetch";
+import { useSearchActions } from "../../../context/FormSearchProvider";
 
 function FormSearch() {
   const [isHovered, setIsHovered] = useState(false);
-  const [text, setText] = useState("");
   const [showFull, setShowFull] = useState(false);
-  const [openSrch, setOpenSrch] = useState(false);
   const [iscommentOpen, setIsCommentOpen] = useState(false);
-  const [searchResponse, fetchSearchResponse, loadings] =
-    useFetchThinkBySearch();
   const [dataModal, setDataModal] = useState({});
+  const { onSearch, searchResponse, loadings, setOpenSrch, openSrch } =
+    useSearchActions();
 
   const searchItems = showFull ? searchResponse : searchResponse.slice(0, 5);
 
   const ref = useClickAway(() => {
-    setOpenSrch((searchResponse.length = []));
+    setOpenSrch(setOpenSrch(false));
   });
-
-  const onSearch = (e) => {
-    if (e.target.value.length > 2) {
-      setText(e.target.value);
-    }
-  };
-  useEffect(() => {
-    if (text !== "") {
-      fetchSearchResponse({ content: text.trim() });
-    } else {
-      setOpenSrch((searchResponse.length = []));
-    }
-  }, [text]);
 
   const showAllResults = () => {
     setShowFull(!showFull);
@@ -59,23 +44,25 @@ function FormSearch() {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         />
-        {searchResponse.length > 0 && (
+        {openSrch && (
           <div
             ref={ref}
             className="w-[320px] border px-1
           bg-white rounded-md mt-[2px] absolute text-black overflow-auto max-h-[387px]"
           >
             <div className="flex justify-between items-center py-5 px-1 font-[500]">
-              <span className="text-[15px]">Axtarış</span>
+              <span className="text-[15px]">
+                {loadings ? "Axtarılır..." : "Axtarış"}
+              </span>
               <button
-                onClick={() => setOpenSrch((searchResponse.length = []))}
+                onClick={() => setOpenSrch(false)}
                 className="cursor-pointer"
               >
                 <IoMdClose className="size-6" />
               </button>
             </div>
 
-            {searchResponse.length > 0 ? (
+            {searchResponse.length > 0 &&
               searchItems.map((res) => (
                 <div
                   key={res.id}
@@ -109,12 +96,7 @@ function FormSearch() {
                     </figure>
                   </div>
                 </div>
-              ))
-            ) : (
-              <span className="text-orange-500 text-sm">
-                Axtardığınız məlumat tapılmadı...
-              </span>
-            )}
+              ))}
 
             {searchResponse.length > 4 && (
               <div className="text-sm text-center p-3 text-primaryGray">

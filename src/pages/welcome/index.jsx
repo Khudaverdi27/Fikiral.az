@@ -5,6 +5,7 @@ import ThinkSection from "../home/components/ThinkSections";
 import { useFetchThinkPopular, useFetchThinksList } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import ErrorBoundary from "../../components/common/ErrorBoundary";
+import { useSearchActions } from "../../context/FormSearchProvider";
 
 function WelcomePage() {
   const { switcRegisterModal, selectCategory } = useModalActions();
@@ -12,7 +13,7 @@ function WelcomePage() {
   const [popular, fetchPopular, popularLoading] = useFetchThinkPopular();
   const [data, apiFetch, loading] = useFetchThinksList();
   const [newCategories, setNewCategories] = useState([]);
-
+  const { searchResponse } = useSearchActions();
   const sortedData = data?.sort((a, b) => b.id - a.id);
 
   useEffect(() => {
