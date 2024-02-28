@@ -44,28 +44,25 @@ const AddCommentModal = ({
   };
 
   const addNewComment = (e) => {
-    const prettyComment = findFuckingWords(value);
     e.preventDefault();
+    const prettyComment = findFuckingWords(value);
     const postData = {
       content: value,
       userId: user.userResponse.id,
       postId,
     };
+
     if (!prettyComment) {
       postComment(postData).then(() =>
-        setTimeout(() => {
-          setIsCommented(true);
-        }, 1500)
+        setTimeout(() => setIsCommented(true), 1500)
       );
-
       setValue("");
     } else {
       setValue("Qadağan olunmuş sözlərdən istifadə etməyin!");
-      setTimeout(() => {
-        setValue("");
-      }, 1000);
+      setTimeout(() => setValue(""), 1000);
     }
   };
+
   const closeMessageModal = () => {
     setIsCommentOpen(false);
   };

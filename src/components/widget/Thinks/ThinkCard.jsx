@@ -29,7 +29,6 @@ function ThinkCard({ thinks, children, items, userById }) {
       switcRegisterModal();
     } else {
       setBookmark(!bookmark);
-
       saveFetch({
         userId: user?.userResponse?.id,
         postId: thinks?.id,

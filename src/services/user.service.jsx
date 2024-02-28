@@ -15,3 +15,8 @@ export const ServiceGetUserById = async (id) => {
   const res = await get(userApi.getUserById.replace(":id", id));
   return res;
 };
+
+export const ServicePostLikeComments = async (params = {}) => {
+  const res = await post(userApi.likeComment, params);
+  return res;
+};

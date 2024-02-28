@@ -21,6 +21,7 @@ import {
 } from "../services/auth.service";
 import {
   ServiceGetUserById,
+  ServicePostLikeComments,
   ServicePutUserSavedPosts,
   ServiceUserLikeAndDislikesPost,
 } from "../services/user.service";
@@ -194,4 +195,14 @@ export const useGetUserById = () => {
     fetch(ServiceGetUserById, id);
   };
   return [data || {}, getUserFetch, loading];
+};
+
+export const usePostLikeComments = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const postCommentFetch = async (params = {}) => {
+    fetch(ServicePostLikeComments, params);
+  };
+
+  return [data, postCommentFetch, loading];
 };

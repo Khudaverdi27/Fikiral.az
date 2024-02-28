@@ -1,19 +1,27 @@
 import { useState } from "react";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
-import { useModalActions } from "../../../context/LoginModalProvider";
-import { changeTime } from "../../../utils/helpers";
+import { changeTime, getStorage } from "../../../utils/helpers";
+import { usePostLikeComments } from "../../../hooks/useFetch";
 
 function ThinkComments({ comment }) {
   const [like, setLike] = useState(false);
   const [commentLikeCount, setCommentLikeCount] = useState(comment.likeCount);
-  const { loginAuth } = useModalActions();
+  const [likeCommentRes, likeCommentFetch, loading] = usePostLikeComments();
+  const user = getStorage("user");
+  const token = getStorage("token");
   const giveLikeToComment = () => {
+    const dataForPost = {};
+    console.log(comment);
     setLike(!like);
     setCommentLikeCount(
       !like
         ? commentLikeCount + 1
         : commentLikeCount !== 0 && commentLikeCount - 1
     );
+    (dataForPost.userId = user.userResponse.id),
+      (dataForPost.commentId = comment.id),
+      (dataForPost.liked = !like),
+      likeCommentFetch(dataForPost);
   };
 
   return (
@@ -42,7 +50,11 @@ function ThinkComments({ comment }) {
                 </span>
               </div>
             </div>
-            <button className="mb-[-5px]" onClick={giveLikeToComment}>
+            <button
+              disabled={token.length == 0}
+              className="mb-[-5px] disabled:opacity-40 disabled:cursor-not-allowed"
+              onClick={giveLikeToComment}
+            >
               {like ? (
                 <BsHeartFill className="size-6 text-[#FF0000]" />
               ) : (
