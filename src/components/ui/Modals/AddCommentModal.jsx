@@ -13,7 +13,7 @@ import {
 import { useModalActions } from "../../../context/LoginModalProvider";
 import ThinkComments from "../../widget/Thinks/ThinkComment";
 import { Link } from "react-router-dom";
-import { usePostComments } from "../../../hooks/useFetch";
+import { usePostComments, usePutSavedPosts } from "../../../hooks/useFetch";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 
 const AddCommentModal = ({
@@ -30,6 +30,7 @@ const AddCommentModal = ({
   const [value, setValue] = useState("");
   const { switcRegisterModal, setIsCommented } = useModalActions();
   const [data, postComment, postLoading] = usePostComments();
+  const [savedResponse, saveFetch, saveLoading] = usePutSavedPosts();
 
   const token = getStorage("token");
   const user = getStorage("user");
@@ -40,6 +41,10 @@ const AddCommentModal = ({
       setIsCommentOpen(false);
     } else {
       setBookmark(!bookmark);
+      saveFetch({
+        userId: user?.userResponse?.id,
+        postId,
+      });
     }
   };
 

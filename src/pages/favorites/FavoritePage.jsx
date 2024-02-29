@@ -21,7 +21,11 @@ function FavoritePage() {
     <>
       <ErrorBoundary>
         <ThinkSection
-          title={"Yadda saxlanılanlar"}
+          title={
+            findSavedPosts.length <= 0
+              ? "Yadda saxladığınz fikir tapılmadı!"
+              : "Yadda saxlanılanlar"
+          }
           items={findSavedPosts}
           loading={loading}
         />

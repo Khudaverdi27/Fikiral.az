@@ -34,7 +34,7 @@ function WelcomePage() {
 
   return (
     <section>
-      {filteredCategories.length <= 0 && (
+      {filteredCategories.length <= 0 && searchResponse.length <= 0 && (
         <div className="h-[70vh] flex flex-col items-center space-y-8 mt-20">
           <h1 className="text-primaryGray text-[52px] font-bold">
             Yeni biznesə fikrini
@@ -57,32 +57,32 @@ function WelcomePage() {
         </div>
       )}
 
-      <>
-        <ErrorBoundary>
-          {!filteredCategories.length > 0 && (
-            <ThinkSection
-              title={<p className="text-center">Popluyar fikirlər</p>}
-              items={popular}
-              loading={popularLoading}
-            />
-          )}
-        </ErrorBoundary>
-        <ErrorBoundary>
+      <ErrorBoundary>
+        {!filteredCategories.length > 0 && searchResponse.length <= 0 && (
           <ThinkSection
-            title={
-              <p className="text-center">{`${
-                filteredCategories.length > 0
-                  ? "Seçdiyiniz kateqoriyalardan..."
-                  : "Bütün fikirlər"
-              }`}</p>
-            }
-            items={
-              filteredCategories.length > 0 ? filteredCategories : sortedData
-            }
-            loading={loading}
+            title={<p className="text-center">Popluyar fikirlər</p>}
+            items={popular}
+            loading={popularLoading}
           />
-        </ErrorBoundary>
-      </>
+        )}
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <ThinkSection
+          title={
+            <p className="text-center">{`${
+              filteredCategories.length > 0
+                ? "Seçdiyiniz kateqoriyalardan..."
+                : searchResponse.length > 0
+                ? "Axtarış nəticələri"
+                : "Bütün fikirlər"
+            }`}</p>
+          }
+          items={
+            filteredCategories.length > 0 ? filteredCategories : sortedData
+          }
+          loading={loading}
+        />
+      </ErrorBoundary>
     </section>
   );
 }

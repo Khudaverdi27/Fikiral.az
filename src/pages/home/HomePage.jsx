@@ -7,6 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import { getStorage } from "../../utils/helpers";
 import ErrorBoundary from "../../components/common/ErrorBoundary";
+import { useSearchActions } from "../../context/FormSearchProvider";
 
 function HomePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
@@ -14,7 +15,7 @@ function HomePage() {
   const [selectedCategories, fetchSelected, selectLoading] =
     useFetchSelectedCategories();
   const { isPosted, setIsPosted, selectCategory } = useModalActions();
-
+  const { searchResponse } = useSearchActions();
   const user = getStorage("user");
 
   useEffect(() => {
@@ -41,21 +42,26 @@ function HomePage() {
   return (
     <>
       <ErrorBoundary>
-        {[].concat(...selectedCategories).length > 0 && (
-          <ThinkSection
-            title={"Sizin üçün"}
-            items={[].concat(...selectedCategories)}
-            loading={selectLoading}
-          />
-        )}
+        {[].concat(...selectedCategories).length > 0 &&
+          searchResponse.length <= 0 && (
+            <ThinkSection
+              title={"Sizin üçün"}
+              items={[].concat(...selectedCategories)}
+              loading={selectLoading}
+            />
+          )}
       </ErrorBoundary>
       <ErrorBoundary>
         <ThinkSection
-          title={`${
-            filteredCategories.length > 0
-              ? "Seçdiyiniz kateqoriyalardan..."
-              : "Bütün fikirlər"
-          }`}
+          title={
+            <p className="text-center">{`${
+              filteredCategories.length > 0
+                ? "Seçdiyiniz kateqoriyalardan..."
+                : searchResponse.length > 0
+                ? "Axtarış nəticələri"
+                : "Bütün fikirlər"
+            }`}</p>
+          }
           items={
             filteredCategories.length > 0 ? filteredCategories : sortedData
           }
