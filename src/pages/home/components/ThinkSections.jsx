@@ -31,8 +31,6 @@ function ThinkSection({ items, loading, title }) {
     }
   }, []);
 
-
-
   return (
     <Section title={title} loading={loading}>
       <Helmet>

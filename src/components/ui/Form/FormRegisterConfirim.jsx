@@ -17,7 +17,6 @@ function FormRegisterConfrim() {
   const {
     handleSubmit,
     onSubmit,
-    switchLoginModal,
     setSubModel,
     resRegister,
     setLoginAuth,

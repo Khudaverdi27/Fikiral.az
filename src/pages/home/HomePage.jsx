@@ -3,6 +3,7 @@ import { useModalActions } from "../../context/LoginModalProvider";
 import {
   useFetchSelectedCategories,
   useFetchThinksList,
+  useGetUserById,
 } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { getStorage } from "../../utils/helpers";
@@ -15,8 +16,15 @@ function HomePage() {
   const [selectedCategories, fetchSelected, selectLoading] =
     useFetchSelectedCategories();
   const { isPosted, setIsPosted, selectCategory } = useModalActions();
+  const [userById, getUserFetch, userLoading] = useGetUserById();
   const { searchResponse } = useSearchActions();
   const user = getStorage("user");
+
+  // useEffect(() => {
+  //   if (token.length > 0) {
+  //     getUserFetch(user.userResponse.id).then(()=>fetchSelected({ categoryIds: userById.categoryIds }));
+  //   }
+  // }, []);
 
   useEffect(() => {
     fetchSelected({ categoryIds: user.categoryIds });
