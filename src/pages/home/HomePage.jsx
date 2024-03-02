@@ -20,15 +20,15 @@ function HomePage() {
   const { searchResponse } = useSearchActions();
   const user = getStorage("user");
 
-  // useEffect(() => {
-  //   if (token.length > 0) {
-  //     getUserFetch(user.userResponse.id).then(()=>fetchSelected({ categoryIds: userById.categoryIds }));
-  //   }
-  // }, []);
+  useEffect(() => {
+    getUserFetch(user.userResponse.id);
+  }, []);
 
   useEffect(() => {
-    fetchSelected({ categoryIds: user.categoryIds });
-  }, []);
+    if (Object.keys(userById).length !== 0) {
+      fetchSelected({ categoryIds: userById.categoryIds });
+    }
+  }, [userById]);
 
   useEffect(() => {
     const categoryFromStorage = getStorage("selectedCategories");

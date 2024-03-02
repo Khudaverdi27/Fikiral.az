@@ -3,7 +3,7 @@ import { IconContext } from "react-icons";
 import { useEffect, useState } from "react";
 import ThinkCardActions from "./ThinkCardActions";
 import { HiDotsVertical } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { changeTime, getStorage } from "../../../utils/helpers";
 import {
@@ -23,7 +23,7 @@ function ThinkCard({ thinks, children, items, userById }) {
 
   const token = getStorage("token");
   const user = getStorage("user");
-
+  const path = useLocation().pathname;
   const sendToSaveds = () => {
     if (token.length == 0) {
       switcRegisterModal();
@@ -32,7 +32,7 @@ function ThinkCard({ thinks, children, items, userById }) {
       saveFetch({
         userId: user?.userResponse?.id,
         postId: thinks?.id,
-      });
+      }).then(() => path === "/favorites" && location.reload());
     }
   };
 
