@@ -1,9 +1,7 @@
+import { useModalActions } from "../../../context/LoginModalProvider";
+
 export const DropNotifications = () => {
-  const arr = [
-    "postunuza rəy bildirdi. Baxmaq üçün toxunun.",
-    "postunuza rəy bildirdi. Baxmaq üçün toxunun.",
-    "postunuza rəy bildirdi. Baxmaq üçün toxunun.",
-  ];
+  const { notify } = useModalActions();
   const notifications = [
     {
       name: "Bildirşlər",
@@ -12,7 +10,7 @@ export const DropNotifications = () => {
     {
       title: (
         <>
-          {arr.map((item, index) => (
+          {notify?.map((item, index) => (
             <div
               key={index}
               className="flex justify-between items-center space-x-2 mb-5 pb-2  border-b  hover:border-primaryGray"
@@ -24,9 +22,10 @@ export const DropNotifications = () => {
                   alt=""
                 />
               </figure>
-              <span className="text-sm text-black line-clamp-1">
-                <span className="font-bold">Rüfət Ə.</span> {item}
-              </span>
+              <div className="text-sm text-black  flex justify-between">
+                <span className="font-bold whitespace-nowrap">Rüfət Ə.</span>
+                <p className="line-clamp-1"> {item}</p>
+              </div>
             </div>
           ))}
         </>
@@ -34,5 +33,5 @@ export const DropNotifications = () => {
     },
   ];
 
-  return [notifications, arr];
+  return [notifications, notify];
 };

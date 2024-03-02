@@ -125,6 +125,12 @@ function ModalProvider({ children }) {
     reset();
   };
 
+  const [notify, setNotify] = useState([
+    "postunuza rəy bildirdi. Baxmaq üçün toxunun.",
+    "postunuza rəy bildirdi. Baxmaq üçün toxunun.",
+    "postunuza rəy bildirdi. Baxmaq üçün toxunun.",
+  ]);
+
   const actions = {
     setSelectCategory,
     selectCategory,
@@ -160,6 +166,8 @@ function ModalProvider({ children }) {
     isPosted,
     isCommented,
     setIsCommented,
+    notify,
+    setNotify,
   };
 
   return <LoginModal.Provider value={actions}>{children}</LoginModal.Provider>;

@@ -28,7 +28,7 @@ const AddCommentModal = ({
 }) => {
   const [bookmark, setBookmark] = useState(false);
   const [value, setValue] = useState("");
-  const { switcRegisterModal, setIsCommented } = useModalActions();
+  const { switcRegisterModal, setIsCommented, setNotify } = useModalActions();
   const [data, postComment, postLoading] = usePostComments();
   const [savedResponse, saveFetch, saveLoading] = usePutSavedPosts();
 
@@ -66,6 +66,7 @@ const AddCommentModal = ({
       setValue("Qadağan olunmuş sözlərdən istifadə etməyin!");
       setTimeout(() => setValue(""), 1000);
     }
+    setNotify((prev) => [...prev, "salam"]);
   };
 
   const closeMessageModal = () => {

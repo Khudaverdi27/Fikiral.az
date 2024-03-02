@@ -1,6 +1,7 @@
 body {
-   background-image: linear-gradient(#ffff, #FFFAFA);
-
+   background-image: url("../img/bg.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
 }
 
 .img-cover{

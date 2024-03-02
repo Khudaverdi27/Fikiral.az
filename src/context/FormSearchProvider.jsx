@@ -1,8 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useFetchThinkBySearch } from "../hooks/useFetch";
-import { io } from "socket.io-client";
-
-const socket = io("/", { reconnection: true });
 
 const FormSearch = createContext();
 
@@ -29,10 +26,6 @@ function SearchProvider({ children }) {
       setData([]);
     }
   }, [text]);
-
-  useEffect(() => {
-    console.log(socket);
-  }, []);
 
   const actions = {
     onSearch,

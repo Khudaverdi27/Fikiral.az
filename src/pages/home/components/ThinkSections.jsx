@@ -63,7 +63,7 @@ function ThinkSection({ items, loading, title }) {
           </Col>
         ))}
       </Row>
-      {newItems.length > 3 && (
+      {newItems.length > 5 && (
         <div className="flex justify-end text-primaryGray mt-2 text-sm ">
           <button
             onClick={showAllItems}
