@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useFetchThinkBySearch } from "../hooks/useFetch";
+import { useDebounce } from "@uidotdev/usehooks";
 
 const FormSearch = createContext();
 
@@ -8,7 +9,7 @@ function SearchProvider({ children }) {
   const [openSrch, setOpenSrch] = useState(false);
   const [searchResponse, fetchSearchResponse, loadings, setData] =
     useFetchThinkBySearch();
-
+  const debouncedSearchTerm = useDebounce(text, 300);
   const onSearch = (e) => {
     if (e.target.value.length > 2) {
       setText(e.target.value);
@@ -18,14 +19,14 @@ function SearchProvider({ children }) {
     }
   };
   useEffect(() => {
-    if (text !== "") {
+    if (debouncedSearchTerm) {
       fetchSearchResponse({ content: text.trim() });
       setOpenSrch(true);
     } else {
       setOpenSrch(false);
       setData([]);
     }
-  }, [text]);
+  }, [debouncedSearchTerm]);
 
   const actions = {
     onSearch,
