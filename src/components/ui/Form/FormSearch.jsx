@@ -1,6 +1,6 @@
 import { useClickAway } from "@uidotdev/usehooks";
 import { Input, Spin } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoMdClose, IoMdSearch } from "react-icons/io";
 import AddCommentModal from "../Modals/AddCommentModal";
 import { useSearchActions } from "../../../context/FormSearchProvider";
@@ -28,10 +28,31 @@ function FormSearch() {
     setDataModal(data);
   };
 
+  // for clearing input fields
+  const inputRef = useRef(null);
+  let timeoutId = null;
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Backspace") {
+      timeoutId = setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.select();
+        }
+      }, 1000);
+    }
+  };
+
+  const handleKeyUp = () => {
+    clearTimeout(timeoutId);
+  };
+
   return (
     <>
       <div className="ml-12 mr-10 relative ">
         <Input
+          ref={inputRef}
+          onKeyDown={handleKeyDown}
+          onKeyUp={handleKeyUp}
           onChange={(e) => onSearch(e)}
           className={`max-h-[37px] focus-within:shadow-none focus-within:border focus-within:border-[#e0e0e0] bg-[#E8E8E8] rounded-[6px] border-0 outline-none w-[320px]
         ${isHovered && "hover:outline-[3px] hover:outline-[#E0E0E0]"}`}

@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 import { useGetUserById } from "../../../hooks/useFetch";
 import { getStorage } from "../../../utils/helpers";
 import { useSearchActions } from "../../../context/FormSearchProvider";
+import { useLocation } from "react-router-dom";
 
 function ThinkSection({ items, loading, title }) {
   const [showAll, setShowAll] = useState(false);
@@ -31,10 +32,12 @@ function ThinkSection({ items, loading, title }) {
     }
   }, []);
 
+  const path = useLocation().pathname;
+
   return (
     <Section title={title} loading={loading}>
       <Helmet>
-        <title>{`Fikir al ${title.length > 0 ? "/" + title : ""}`}</title>
+        <title>{`Fikir al ${path ? path : ""}`}</title>
       </Helmet>
       <Row
         className="gap-y-5  min-w-[352px] min-h-[280px]  overflow-hidden"

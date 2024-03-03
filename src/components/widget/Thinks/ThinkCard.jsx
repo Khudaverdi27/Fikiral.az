@@ -24,6 +24,7 @@ function ThinkCard({ thinks, children, items, userById }) {
   const token = getStorage("token");
   const user = getStorage("user");
   const path = useLocation().pathname;
+
   const sendToSaveds = () => {
     if (token.length == 0) {
       switcRegisterModal();
@@ -32,7 +33,7 @@ function ThinkCard({ thinks, children, items, userById }) {
       saveFetch({
         userId: user?.userResponse?.id,
         postId: thinks?.id,
-      }).then(() => path === "/favorites" && location.reload());
+      });
     }
   };
 
