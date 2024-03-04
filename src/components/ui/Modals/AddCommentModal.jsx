@@ -13,10 +13,13 @@ import {
 import { useModalActions } from "../../../context/LoginModalProvider";
 import ThinkComments from "../../widget/Thinks/ThinkComment";
 import { Link } from "react-router-dom";
-import { usePostComments, usePutSavedPosts } from "../../../hooks/useFetch";
+import { usePostComments } from "../../../hooks/useFetch";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 
 const AddCommentModal = ({
+  userById,
+  bookmark,
+  sendToSaveds,
   postId,
   commentLoading,
   allComments,
@@ -26,27 +29,12 @@ const AddCommentModal = ({
   modalData,
   openMessageModal,
 }) => {
-  const [bookmark, setBookmark] = useState(false);
   const [value, setValue] = useState("");
-  const { switcRegisterModal, setIsCommented, setNotify } = useModalActions();
+  const { setIsCommented, setNotify } = useModalActions();
   const [data, postComment, postLoading] = usePostComments();
-  const [savedResponse, saveFetch, saveLoading] = usePutSavedPosts();
 
   const token = getStorage("token");
   const user = getStorage("user");
-
-  const changeBookmark = () => {
-    if (token.length <= 0) {
-      switcRegisterModal();
-      setIsCommentOpen(false);
-    } else {
-      setBookmark(!bookmark);
-      saveFetch({
-        userId: user?.userResponse?.id,
-        postId,
-      });
-    }
-  };
 
   const addNewComment = (e) => {
     e.preventDefault();
@@ -122,7 +110,7 @@ const AddCommentModal = ({
                 >
                   {modalData?.category?.name}
                 </Link>
-                <span className="dotForTime">
+                <span className="dotForTime whitespace-nowrap">
                   {changeTime(modalData?.publishedAt)}
                 </span>
               </div>
@@ -151,7 +139,7 @@ const AddCommentModal = ({
                   }}
                 >
                   <HiOutlineBookmark
-                    onClick={changeBookmark}
+                    onClick={sendToSaveds}
                     className={`size-5  cursor-pointer absolute right-3 top-0 `}
                   />
                 </IconContext.Provider>
@@ -172,6 +160,7 @@ const AddCommentModal = ({
                 <ThinkCardActions
                   postId={postId}
                   likeCount={modalData.likeCount}
+                  userById={userById}
                   disabled={false}
                 />
               </div>

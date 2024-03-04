@@ -1,10 +1,6 @@
 import ThinkSection from "./components/ThinkSections";
 import { useModalActions } from "../../context/LoginModalProvider";
-import {
-  useFetchSelectedCategories,
-  useFetchThinksList,
-  useGetUserById,
-} from "../../hooks/useFetch";
+import { useFetchThinksList, useGetUserById } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { getStorage } from "../../utils/helpers";
 import ErrorBoundary from "../../components/common/ErrorBoundary";
@@ -13,8 +9,7 @@ import { useSearchActions } from "../../context/FormSearchProvider";
 function HomePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
   const [newCategories, setNewCategories] = useState([]);
-  const [selectedCategories, fetchSelected, selectLoading] =
-    useFetchSelectedCategories();
+  const [userSelectCateg, setUserSelectCateg] = useState([]);
   const { isPosted, setIsPosted, selectCategory } = useModalActions();
   const [userById, getUserFetch, userLoading] = useGetUserById();
   const { searchResponse } = useSearchActions();
@@ -26,9 +21,12 @@ function HomePage() {
 
   useEffect(() => {
     if (Object.keys(userById).length !== 0) {
-      fetchSelected({ categoryIds: userById.categoryIds });
+      const dataForUser = data.filter((d) =>
+        userById.categoryIds.includes(d.category.id)
+      );
+      setUserSelectCateg(dataForUser);
     }
-  }, [userById]);
+  }, [userById, loading]);
 
   useEffect(() => {
     const categoryFromStorage = getStorage("selectedCategories");
@@ -41,23 +39,24 @@ function HomePage() {
     });
   }, [isPosted]);
 
-  const sortedData = data?.sort((a, b) => b.id - a.id);
+  const sortedData = data
+    ?.sort((a, b) => b.id - a.id)
+    ?.filter((d) => !userById.categoryIds.includes(d.category.id));
 
-  const filteredCategories = sortedData.filter((item) =>
+  const filteredCategories = data.filter((item) =>
     newCategories?.includes(item.category.id)
   );
 
   return (
     <>
       <ErrorBoundary>
-        {[].concat(...selectedCategories).length > 0 &&
-          searchResponse.length <= 0 && (
-            <ThinkSection
-              title={"Sizin üçün"}
-              items={[].concat(...selectedCategories)}
-              loading={selectLoading}
-            />
-          )}
+        {userSelectCateg.length > 0 && searchResponse.length <= 0 && (
+          <ThinkSection
+            title={"Sizin üçün"}
+            items={userSelectCateg}
+            loading={loading}
+          />
+        )}
       </ErrorBoundary>
       <ErrorBoundary>
         <ThinkSection
@@ -65,8 +64,6 @@ function HomePage() {
             <p className="text-center">{`${
               filteredCategories.length > 0
                 ? "Seçdiyiniz kateqoriyalardan..."
-                : searchResponse.length > 0
-                ? "Axtarış nəticələri"
                 : "Bütün fikirlər"
             }`}</p>
           }

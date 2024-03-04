@@ -17,6 +17,8 @@ function ThinkCardActions({
   modalData,
   setModalData,
   openMessageModal,
+  sendToSaveds,
+  bookmark,
   changeTime,
   postId,
 }) {
@@ -58,14 +60,12 @@ function ThinkCardActions({
   useEffect(() => {
     if (token.length > 0) {
       const findLikeds = userById?.likedPostsIDs;
+      const findDislikeds = userById?.disLikedPostsIDs;
+
       if (findLikeds?.includes(postId)) {
         setLike(true);
       }
-    }
-  }, []);
-  useEffect(() => {
-    if (token.length > 0) {
-      const findDislikeds = userById?.disLikedPostsIDs;
+
       if (findDislikeds?.includes(postId)) {
         setDislike(true);
       }
@@ -106,6 +106,9 @@ function ThinkCardActions({
         {disabled && (
           <>
             <AddCommentModal
+              userById={userById}
+              bookmark={bookmark}
+              sendToSaveds={sendToSaveds}
               postId={postId}
               commentLoading={commentLoading}
               comment={comment}

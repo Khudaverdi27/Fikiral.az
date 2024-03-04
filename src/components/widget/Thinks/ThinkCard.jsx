@@ -23,11 +23,11 @@ function ThinkCard({ thinks, children, items, userById }) {
 
   const token = getStorage("token");
   const user = getStorage("user");
-  const path = useLocation().pathname;
 
   const sendToSaveds = () => {
     if (token.length == 0) {
       switcRegisterModal();
+      setIsCommentOpen(false);
     } else {
       setBookmark(!bookmark);
       saveFetch({
@@ -131,6 +131,8 @@ function ThinkCard({ thinks, children, items, userById }) {
         setModalData={setModalData}
         openMessageModal={openMessageModal}
         changeTime={changeTime(thinks.publishedAt)}
+        sendToSaveds={sendToSaveds}
+        bookmark={bookmark}
       />
       {children}
     </div>

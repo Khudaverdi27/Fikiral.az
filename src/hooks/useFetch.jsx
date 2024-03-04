@@ -9,10 +9,7 @@ import {
   ServiceThinksFetchList,
   ServiceThinksPost,
 } from "../services/think.service";
-import {
-  ServiceAllCategoryFetchList,
-  ServiceForUserCategoryFetchList,
-} from "../services/category.service";
+import { ServiceAllCategoryFetchList } from "../services/category.service";
 import {
   ServiceAuthCheckMail,
   ServiceAuthCheckUserName,
@@ -142,15 +139,6 @@ export const useDeleteThink = () => {
   };
 
   return [data || false, deleteThink, loading];
-};
-
-export const useFetchSelectedCategories = () => {
-  const [data, fetch, loading] = useFetch();
-
-  const fetchSelectedCategories = async (params = {}) => {
-    fetch(ServiceForUserCategoryFetchList, params);
-  };
-  return [data || [], fetchSelectedCategories, loading];
 };
 
 export const usePostLikeAndDislike = () => {
