@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { usePostLikeAndDislike } from "../../../hooks/useFetch";
 import { getStorage } from "../../../utils/helpers";
 function ThinkCardActions({
+  items,
   userById,
   disabled = true,
   allComments,
@@ -70,7 +71,7 @@ function ThinkCardActions({
         setDislike(true);
       }
     }
-  }, []);
+  }, [items]);
 
   return (
     <div className="flex items-center justify-between ">

@@ -61,7 +61,7 @@ function ThinkCard({ thinks, children, items, userById }) {
       const findSaved = userById.savedPostsIDs;
       setBookmark(findSaved?.includes(thinks.id));
     }
-  }, []);
+  }, [items]);
 
   return (
     <div className="gutter-row">
@@ -118,6 +118,7 @@ function ThinkCard({ thinks, children, items, userById }) {
         </p>
       </div>
       <ThinkCardActions
+        items={items}
         userById={userById}
         comment={thinks.commentCount}
         commentLoading={commentLoading}
