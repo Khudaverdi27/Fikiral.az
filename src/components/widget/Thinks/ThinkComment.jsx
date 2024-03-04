@@ -2,13 +2,16 @@ import { useState } from "react";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { changeTime, getStorage } from "../../../utils/helpers";
 import { usePostLikeComments } from "../../../hooks/useFetch";
+import ThinkReplyComment from "./ThinkReplyComment";
 
-function ThinkComments({ comment }) {
+function ThinkComments({ comment, inputRef }) {
   const [like, setLike] = useState(false);
+  const [showReply, setShowReply] = useState(false);
   const [commentLikeCount, setCommentLikeCount] = useState(comment.likeCount);
   const [likeCommentRes, likeCommentFetch, loading] = usePostLikeComments();
   const user = getStorage("user");
   const token = getStorage("token");
+
   const giveLikeToComment = () => {
     const dataForPost = {};
     console.log(comment);
@@ -22,6 +25,14 @@ function ThinkComments({ comment }) {
       (dataForPost.commentId = comment.id),
       (dataForPost.liked = !like),
       likeCommentFetch(dataForPost);
+  };
+
+  const focusInput = () => {
+    inputRef.current.focus();
+  };
+
+  const showCommentReply = () => {
+    setShowReply(!showReply);
   };
 
   return (
@@ -68,13 +79,16 @@ function ThinkComments({ comment }) {
         </div>
         <div className="py-1 pl-[50px] pr-10">
           <p className="text-wrap"> {comment.content}</p>
-          <button className="text-sm text-[#999999]">Cavabla</button>
+          <button onClick={focusInput} className="text-sm text-[#999999]">
+            Cavabla
+          </button>
         </div>
       </div>
 
-      <button className="commentLine ">
+      <button onClick={showCommentReply} className="commentLine ">
         Rəylərə bax<span className="ml-1">(0)</span>
       </button>
+      {showReply && <ThinkReplyComment />}
     </div>
   );
 }

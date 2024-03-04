@@ -31,7 +31,7 @@ body {
 
 }
 /* message modal */
-.commentLine{
+.commentLine,.commentLineReply{
   @apply w-full text-center relative text-sm text-[#999999]
 
 }
@@ -41,6 +41,12 @@ body {
 }
 .commentLine::after{
   @apply content-[''] block w-[62px] h-[2px] bg-[#999999] right-12 top-1/2 absolute
+}
+.commentLineReply ::after{
+  @apply content-[''] block w-[28px] h-[2px] bg-[#999999] right-[83px] top-1/2 absolute
+}
+.commentLineReply ::before{
+  @apply content-[''] block w-[28px] h-[2px] bg-[#999999] left-[83px] top-1/2 absolute
 }
 
 .dotForTime{

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Col, Input, Modal, Row, Space, Spin } from "antd";
 import { BiMessageSquareDots } from "react-icons/bi";
 import { IconContext } from "react-icons";
@@ -60,7 +60,7 @@ const AddCommentModal = ({
   const closeMessageModal = () => {
     setIsCommentOpen(false);
   };
-
+  const inputRef = useRef();
   return (
     <div className="commentModal">
       <div className="flex items-center justify-center ">
@@ -149,8 +149,12 @@ const AddCommentModal = ({
                 <LoadingSpin />
               ) : (
                 <div className="space-y-3 ">
-                  {allComments?.map((comment, index) => (
-                    <ThinkComments key={index} comment={comment} />
+                  {allComments?.map((comment) => (
+                    <ThinkComments
+                      key={comment.id}
+                      comment={comment}
+                      inputRef={inputRef}
+                    />
                   ))}
                 </div>
               )}
@@ -167,6 +171,7 @@ const AddCommentModal = ({
               <form onSubmit={addNewComment}>
                 <Space.Compact className="w-full">
                   <Input
+                    ref={inputRef}
                     maxLength={250}
                     disabled={token.length == 0}
                     value={value}
