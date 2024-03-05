@@ -21,9 +21,9 @@ function HomePage() {
 
   useEffect(() => {
     if (Object.keys(userById).length !== 0) {
-      const dataForUser = data.filter((d) =>
-        userById.categoryIds.includes(d.category.id)
-      );
+      const dataForUser = data
+        .filter((d) => userById.categoryIds.includes(d.category.id))
+        .sort((a, b) => b.likeCount - a.likeCount);
       setUserSelectCateg(dataForUser);
     }
   }, [userById, loading]);
@@ -50,13 +50,15 @@ function HomePage() {
   return (
     <>
       <ErrorBoundary>
-        {userSelectCateg.length > 0 && searchResponse.length <= 0 && (
-          <ThinkSection
-            title={"Sizin üçün"}
-            items={userSelectCateg}
-            loading={loading}
-          />
-        )}
+        {userSelectCateg.length > 0 &&
+          searchResponse.length <= 0 &&
+          filteredCategories.length <= 0 && (
+            <ThinkSection
+              title={"Sizin üçün"}
+              items={userSelectCateg}
+              loading={loading}
+            />
+          )}
       </ErrorBoundary>
       <ErrorBoundary>
         <ThinkSection

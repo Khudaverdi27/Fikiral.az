@@ -61,7 +61,7 @@ function WelcomePage() {
         {!filteredCategories.length > 0 && searchResponse.length <= 0 && (
           <ThinkSection
             title={<p className="text-center">Popluyar fikirlər</p>}
-            items={popular}
+            items={popular.sort((a, b) => b.likeCount - a.likeCount)}
             loading={popularLoading}
           />
         )}

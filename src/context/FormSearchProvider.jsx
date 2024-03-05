@@ -9,7 +9,7 @@ function SearchProvider({ children }) {
   const [openSrch, setOpenSrch] = useState(false);
   const [searchResponse, fetchSearchResponse, loadings, setData] =
     useFetchThinkBySearch();
-  const debouncedSearchTerm = useDebounce(text, 300);
+  const debouncedSearchTerm = useDebounce(text, 500);
   const onSearch = (e) => {
     if (e.target.value.length > 2) {
       setText(e.target.value);
