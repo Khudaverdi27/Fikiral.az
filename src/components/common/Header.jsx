@@ -63,9 +63,12 @@ function Header() {
               {
                 id: "editProfil",
                 title: (
-                  <span className="flex items-center  hover:px-1 text-[16px] hover:border hover:border-black">
+                  <Link
+                    to={"/edit-my-profile"}
+                    className="flex items-center  hover:px-1 text-[16px] hover:border hover:border-black"
+                  >
                     Dəyiş
-                  </span>
+                  </Link>
                 ),
               },
               {

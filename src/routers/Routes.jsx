@@ -1,5 +1,6 @@
 import AppLayout from "../layouts/AppLayout";
 import CategoryPage from "../pages/categories/CategoryPage";
+import EditProfile from "../pages/edit";
 import ErrorPage from "../pages/error/ErrorPage";
 import FavoritePage from "../pages/favorites/FavoritePage";
 import HomePage from "../pages/home/HomePage";
@@ -14,6 +15,7 @@ export const routes = [
     element: <CategoryPage />,
     layout: "AppLayout",
   },
+  { path: "/edit-my-profile", element: <EditProfile />, layout: "AppLayout" },
   { path: "*", element: <ErrorPage />, layout: "AppLayout" },
 ];
 
