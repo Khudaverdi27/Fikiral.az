@@ -48,7 +48,7 @@ function FormSearch() {
 
   return (
     <>
-      <div className="ml-12 mr-10 relative ">
+      <div className="ml-8 mr-10 relative ">
         <Input
           ref={inputRef}
           onKeyDown={handleKeyDown}

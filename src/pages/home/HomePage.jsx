@@ -41,7 +41,7 @@ function HomePage() {
 
   const sortedData = data
     ?.sort((a, b) => b.id - a.id)
-    ?.filter((d) => !userById.categoryIds.includes(d.category.id));
+    ?.filter((d) => !userById.categoryIds?.includes(d.category.id));
 
   const filteredCategories = data.filter((item) =>
     newCategories?.includes(item.category.id)

@@ -27,7 +27,9 @@ function Header() {
        token.length > 0 ? "justify-center " : "justify-evenly"
      } sticky text-white`}
     >
-      <div className=" flex items-center">
+      <div
+        className={`flex items-center ${token.length > 0 ? "ml-14" : "ml-4"}`}
+      >
         <Logo />
         <FormSearch />
       </div>
