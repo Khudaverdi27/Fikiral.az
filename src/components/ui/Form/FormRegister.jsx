@@ -1,21 +1,15 @@
-import { useEffect, useState } from "react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import FormContainer from "./FormContainer";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
-import { Spin } from "antd";
+import Input from "./input";
 
 const FormRegister = () => {
-  const [type, setType] = useState(false);
-
   const {
     handleSubmit,
-    register,
     accescLogin,
     setAccesLogin,
-    errors,
     onSubModel,
     reset,
     onSubmit,
@@ -28,10 +22,6 @@ const FormRegister = () => {
     watch,
   } = useModalActions();
 
-  useEffect(() => {
-    clearErrors();
-    reset();
-  }, [accescLogin]);
   const watchFields = watch();
 
   return (
@@ -39,108 +29,53 @@ const FormRegister = () => {
       <h3 className="text-center text-[16px]">Fikiral-a xoş gəlmisiz!</h3>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
         {accescLogin && (
-          <div>
-            <label className="outline-none block text-[#4C4B4E] mb-1">
-              İstifadəçi adı
-            </label>
-            <div className="flex items-center loginInput justify-between">
-              <input
-                autoComplete="off"
-                placeholder="İstifadəçi adı"
-                type="text"
-                maxLength={15}
-                className="w-full bg-[#F6F7FB] outline-none"
-                {...register("userName", {
-                  required: "Boş buraxıla bilməz",
-                  pattern: {
-                    value: /\s*/,
-                    message: "Zəhmət olmasa boşluqlardan istifadə etməyin",
-                  },
-                })}
-                aria-invalid={errors.userName ? "true" : "false"}
-                onBlur={(e) => checkUserName(e.target.value)}
-              />
-              {authCheckUserNameLoading && <Spin size="small" />}
-            </div>
-            {errors.userName && (
-              <span className="text-[#EA3829]" role="alert">
-                {errors.userName.message}
-              </span>
-            )}
-          </div>
+          <Input
+            label={"İstifadəçi adı"}
+            placeholder={"İstifadəçi adı"}
+            type={"text"}
+            maxLength={15}
+            registerName={"userName"}
+            patterns={{
+              value: /\s*/,
+              message: "Zəhmət olmasa boşluqlardan istifadə etməyin",
+            }}
+            onBlur={(e) => checkUserName(e.target.value)}
+            checkLoading={authCheckUserNameLoading}
+          />
         )}
         <>
           {userLoginAuthLoading ? (
             <LoadingSpin />
           ) : (
             <>
-              <div>
-                <label className="outline-none block text-[#4C4B4E] mb-1">
-                  Email
-                </label>
-                <div className="flex items-center loginInput justify-between">
-                  <input
-                    maxLength={45}
-                    autoComplete="off"
-                    placeholder="Email daxil edin"
-                    type="email"
-                    className="w-full bg-[#F6F7FB] outline-none"
-                    {...register("gmail", {
-                      required: "Boş buraxıla bilməz",
-                      pattern: {
-                        value:
-                          /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/,
-                        message: "Yazdığınız mail düzgün formatda deyil!",
-                      },
-                    })}
-                    aria-invalid={errors.gmail ? "true" : "false"}
-                    onBlur={
-                      accescLogin ? (e) => checkMail(e.target.value) : undefined
-                    }
-                  />
-                  {authCheckLoading && <Spin size="small" />}
-                </div>
-                {errors.gmail && (
-                  <span className="text-[#EA3829]" role="alert">
-                    {errors.gmail.message}
-                  </span>
-                )}
-              </div>
-              <label className="block text-[#4C4B4E] ">Şifrə</label>
+              <Input
+                label={"Email"}
+                placeholder={"Email daxil edin"}
+                type={"email"}
+                maxLength={45}
+                registerName={"gmail"}
+                patterns={{
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/,
+                  message: "Yazdığınız mail düzgün formatda deyil!",
+                }}
+                onBlur={
+                  accescLogin ? (e) => checkMail(e.target.value) : undefined
+                }
+                checkLoading={authCheckLoading}
+              />
               <div>
                 <div>
-                  <div className=" bg-[#F6F7FB] items-center border border-[#999999] flex rounded-[8px] ">
-                    <input
-                      maxLength={20}
-                      placeholder="Şifrəni daxil edin"
-                      {...register("password", {
-                        required: "Boş buraxıla bilməz",
-                        minLength: {
-                          value: 8,
-                          message: "Min 8 max 20 simvol",
-                        },
-                      })}
-                      type={!type ? "password" : "text"}
-                      className="loginInput !border-0"
-                    />
-
-                    <button
-                      type="button"
-                      onClick={() => setType(!type)}
-                      className="w-11 h-8 "
-                    >
-                      {type ? (
-                        <FiEye className="size-full px-2 text-[#BCBCBE]" />
-                      ) : (
-                        <FiEyeOff className="size-full px-2 text-[#BCBCBE]" />
-                      )}
-                    </button>
-                  </div>
-                  {errors.password && (
-                    <span className="text-[#EA3829]" role="alert">
-                      {errors.password.message}
-                    </span>
-                  )}
+                  <Input
+                    label={"Şifrə"}
+                    placeholder={"Şifrəni daxil edin"}
+                    type={"password"}
+                    maxLength={20}
+                    minLength={{
+                      value: 8,
+                      message: "Min 8 max 20 simvol",
+                    }}
+                    registerName={"password"}
+                  />
                 </div>
                 {!accescLogin && (
                   <button

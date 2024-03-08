@@ -1,9 +1,15 @@
 import { Col, Row } from "antd";
+import classNames from "classnames";
 import { useState } from "react";
 
 function EditProfile() {
   const [activeBtn, setActiveBtn] = useState(false);
-
+  const editBtns = [
+    { name: "Əsas", key: "main" },
+    { name: "Şifrə", key: "password" },
+    { name: "Hesabdan çıxış", key: "logout" },
+    { name: "Hesabı sil", key: "deleteAccount" },
+  ];
   const handleActiveBtn = (btn) => {
     setActiveBtn(btn);
   };
@@ -15,31 +21,21 @@ function EditProfile() {
       </Col>
       <Col span={10}>
         <div className=" editProfile">
-          <button
-            className={`${activeBtn === "Əsas" ? "text-black" : ""}`}
-            onClick={() => handleActiveBtn("Əsas")}
-          >
-            Əsas
-          </button>
-          <button
-            className={`${activeBtn === "Şifrə" ? "text-black" : ""}`}
-            onClick={() => handleActiveBtn("Şifrə")}
-          >
-            Şifrə
-          </button>
-          <button
-            className={`${activeBtn === "Hesabdan çıxış" ? "text-black" : ""}`}
-            onClick={() => handleActiveBtn("Hesabdan çıxış")}
-          >
-            Hesabdan çıxış
-          </button>
-          <hr className="w-[170px] mx-auto h-[2px] bg-[#9999]" />
-          <button
-            onClick={() => handleActiveBtn("Hesabı sil")}
-            className="text-[#FF0000]"
-          >
-            Hesabı sil
-          </button>
+          {editBtns.map((btn) => (
+            <button
+              className={classNames(
+                {
+                  "text-black":
+                    activeBtn === btn.key && activeBtn !== "deleteAccount",
+                },
+                btn.key === "deleteAccount" && ["text-[#FF0000]"]
+              )}
+              onClick={() => handleActiveBtn(btn.key)}
+              key={btn.key}
+            >
+              {btn.name}
+            </button>
+          ))}
         </div>
       </Col>
       <Col span={14}>col-12</Col>
