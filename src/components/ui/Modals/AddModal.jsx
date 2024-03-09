@@ -133,7 +133,7 @@ const AddModal = () => {
             <span className="text-red-500 ml-2 font-bold">*</span>
             <textarea
               {...register("content", { required: true })}
-              className="resize-none w-full text-[16px] outline-none p-2 rounded-md"
+              className="resize-none w-full text-base outline-none p-2 rounded-md"
               rows={9}
               placeholder="Minimum 5 maximum 250 simvol"
               minLength={5}
@@ -147,7 +147,7 @@ const AddModal = () => {
 
             <button
               disabled={(!errors.content && !content.category) || result}
-              className={`w-full mt-3 rounded-lg text-[16px]  text-white  px-6 py-[10px] disabled:opacity-40 disabled:cursor-not-allowed ${
+              className={`w-full mt-3 rounded-lg text-base  text-white  px-6 py-[10px] disabled:opacity-40 disabled:cursor-not-allowed ${
                 result ? "bg-red-500 " : "bg-indigo-500"
               }`}
               type="submit"

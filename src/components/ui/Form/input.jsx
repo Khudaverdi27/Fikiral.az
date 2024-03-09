@@ -25,7 +25,9 @@ function Input({
 
   return (
     <div>
-      <label className="outline-none block text-[#4C4B4E] mb-1">{label}</label>
+      <label className="outline-none block text-[#4C4B4E] text-base mb-1">
+        {label}
+      </label>
       <div
         className={`bg-[#F6F7FB] items-center loginInput  flex rounded-[8px] 
           
@@ -48,9 +50,9 @@ function Input({
         {label === "Şifrə" && (
           <button type="button" onClick={() => setChangeType(!changeType)}>
             {changeType ? (
-              <FiEye className="size-5  text-[#BCBCBE]" />
+              <FiEye className="size-6  text-[#BCBCBE]" />
             ) : (
-              <FiEyeOff className="size-5  text-[#BCBCBE]" />
+              <FiEyeOff className="size-6 text-[#BCBCBE]" />
             )}
           </button>
         )}

@@ -26,7 +26,7 @@ const FormRegister = () => {
 
   return (
     <FormContainer>
-      <h3 className="text-center text-[16px]">Fikiral-a xoş gəlmisiz!</h3>
+      <h3 className="text-center text-base">Fikiral-a xoş gəlmisiz!</h3>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
         {accescLogin && (
           <Input
@@ -80,7 +80,7 @@ const FormRegister = () => {
                 {!accescLogin && (
                   <button
                     type="button"
-                    className="text-indigo-500 text-[16px] mt-1"
+                    className="text-indigo-500 text-base mt-1"
                     onClick={onSubModel}
                   >
                     Şifrəni unutmusan?
@@ -101,7 +101,7 @@ const FormRegister = () => {
       <div
         className={`${userLoginAuthLoading && "invisible"} visible space-y-2`}
       >
-        <div className="text-center text-[16px]">Və ya</div>
+        <div className="text-center text-base">Və ya</div>
         <button className="flex items-center justify-center loginInput">
           <span className="mr-3 size-6">
             <FcGoogle className="size-full" />

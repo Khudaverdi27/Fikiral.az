@@ -112,7 +112,7 @@ function ThinkCard({ thinks, children, items, userById }) {
         </div>
         <p
           onClick={openMessageModal}
-          className="text-[16px] line-clamp-5 cursor-pointer"
+          className="text-base line-clamp-5 cursor-pointer"
         >
           {thinks.content}
         </p>

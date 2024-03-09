@@ -56,7 +56,7 @@ function FormResetPassword() {
   return (
     <form
       onSubmit={handleSubmit(newPassword)}
-      className="space-y-4 text-[16px] py-7"
+      className="space-y-4 text-base py-7"
     >
       {!resetPassword ? (
         <>

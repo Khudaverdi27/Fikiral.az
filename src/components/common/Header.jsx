@@ -67,7 +67,7 @@ function Header() {
                 title: (
                   <Link
                     to={"/edit-my-profile"}
-                    className="flex items-center  hover:px-1 text-[16px] hover:border hover:border-black"
+                    className="flex items-center  hover:px-1 text-base hover:border hover:border-black"
                   >
                     Dəyiş
                   </Link>
@@ -78,7 +78,7 @@ function Header() {
                 title: (
                   <button
                     onClick={logoutProfile}
-                    className="flex items-center  text-[16px] space-x-5 hover:border hover:border-black hover:px-1"
+                    className="flex items-center  text-base space-x-5 hover:border hover:border-black hover:px-1"
                   >
                     <span>Çıxış et</span>
                     <GrLogout className="w-[14px] h-[20] " />

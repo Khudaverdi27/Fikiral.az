@@ -5,7 +5,7 @@ body {
 }
 
 .img-cover{
-    @apply size-full object-cover overflow-hidden 
+    @apply size-full object-cover overflow-hidden rounded-full 
 }
 .gutter-row{
     @apply bg-[#F5F5F5] min-h-[296px] p-4 rounded-[16px] size-full flex flex-col justify-between
@@ -54,4 +54,12 @@ body {
 }
 .editProfile{
   @apply flex flex-col text-[16px] text-[#999999] font-[500] w-1/4 ml-5 items-start
+}
+
+ .editImage-overlay {
+  @apply bg-black/30 rounded-full size-24 flex justify-center items-center absolute top-2 opacity-0 transition ease-in-out delay-150 text-red-500 font-[500] text-2xl
+}
+
+.editImage:hover .editImage-overlay{
+  @apply opacity-100
 }

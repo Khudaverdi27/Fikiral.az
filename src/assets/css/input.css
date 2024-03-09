@@ -48,7 +48,7 @@
 
     .loginInput{
         @apply outline-none border w-full bg-[#F6F7FB] border-[#999999] rounded-[8px] 
-        py-[6px] px-4
+        py-[7px] px-4
     }
 
     .checkboxforRegister{
