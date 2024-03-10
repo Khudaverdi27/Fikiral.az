@@ -47,7 +47,7 @@ const DropdownMenu = ({
     <div className="flex items-center">
       <Dropdown
         trigger={["click"]}
-        overlayClassName={`${classes} bg-white rounded-md fixed !top-[85px]`}
+        overlayClassName={`${classes} bg-white rounded-md fixed `}
         placement={placement ? placement : "bottom"}
         menu={{
           items,

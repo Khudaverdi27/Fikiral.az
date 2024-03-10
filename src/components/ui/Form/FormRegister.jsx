@@ -31,6 +31,7 @@ const FormRegister = () => {
         {accescLogin && (
           <Input
             label={"İstifadəçi adı"}
+            required={true}
             placeholder={"İstifadəçi adı"}
             type={"text"}
             maxLength={15}
@@ -54,6 +55,7 @@ const FormRegister = () => {
                 type={"email"}
                 maxLength={45}
                 registerName={"gmail"}
+                required={true}
                 patterns={{
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/,
                   message: "Yazdığınız mail düzgün formatda deyil!",
@@ -68,6 +70,7 @@ const FormRegister = () => {
                   <Input
                     label={"Şifrə"}
                     placeholder={"Şifrəni daxil edin"}
+                    required={true}
                     type={"password"}
                     maxLength={20}
                     minLength={{

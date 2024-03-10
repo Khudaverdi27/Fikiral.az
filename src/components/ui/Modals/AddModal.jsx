@@ -127,7 +127,7 @@ const AddModal = () => {
               }
               dropDownItems={category}
               classes={
-                "w-[314px] max-h-[365px] overflow-x-hidden mt-[105px] ml-9 "
+                "w-[314px] max-h-[365px] overflow-x-hidden mt-[105px] ml-9 !top-[80px]"
               }
             />
             <span className="text-red-500 ml-2 font-bold">*</span>

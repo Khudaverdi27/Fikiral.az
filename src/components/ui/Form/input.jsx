@@ -11,6 +11,7 @@ function Input({
   minLength = {},
   registerName,
   patterns,
+  required = false,
   checkLoading = false,
   onBlur,
 }) {
@@ -39,11 +40,14 @@ function Input({
           type={!changeType ? type : changeType && "text"}
           maxLength={maxLength}
           className="w-full bg-[#F6F7FB] outline-none "
-          {...register(registerName, {
-            required: "Boş buraxıla bilməz",
-            minLength: minLength,
-            pattern: patterns,
-          })}
+          {...register(
+            registerName,
+            required && {
+              required: "Boş buraxıla bilməz",
+              minLength: minLength,
+              pattern: patterns,
+            }
+          )}
           aria-invalid={errors.registerName ? "true" : "false"}
           onBlur={onBlur}
         />

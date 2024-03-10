@@ -44,12 +44,12 @@ function Header() {
             </Link>
           }
           dropDownItems={category}
-          classes={"w-[314px] max-h-[424px] overflow-x-hidden "}
+          classes={"w-[314px] max-h-[424px] overflow-x-hidden !top-[85px]"}
         />
         <MenuActions />
         {token.length !== 0 ? (
           <DropdownMenu
-            classes={"w-[142px] max-h-[108px]"}
+            classes={"w-[142px] max-h-[108px] !top-[85px]"}
             loading={loading}
             dropName={
               <span className="text-primaryGray">

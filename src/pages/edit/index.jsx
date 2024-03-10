@@ -1,15 +1,30 @@
 import { Col, Row } from "antd";
 import classNames from "classnames";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Input from "../../components/ui/Form/input";
 import { getStorage } from "../../utils/helpers";
 import { useModalActions } from "../../context/LoginModalProvider";
+import DropdownMenu from "../../components/ui/Dropdown";
+import { useCategories } from "../../hooks/useCategories";
+import { FaAngleDown } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 function EditProfile() {
-  const [activeBtn, setActiveBtn] = useState(false);
+  const [activeBtn, setActiveBtn] = useState("main");
   const [selectedImage, setSelectedImage] = useState(null);
-  const { handleSubmit, onSubmit, checkUserName, authCheckUserNameLoading } =
-    useModalActions();
+  const { category, loading } = useCategories(true, "checkbox");
+  const {
+    handleSubmit,
+    onSubmit,
+    checkUserName,
+    authCheckUserNameLoading,
+    authCheckMail,
+    checkMail,
+    authCheckLoading,
+  } = useModalActions();
+  const user = getStorage("user");
+  const inputRef = useRef(null);
+
   const editBtns = [
     { name: "Əsas", key: "main" },
     { name: "Şifrə", key: "password" },
@@ -19,7 +34,18 @@ function EditProfile() {
   const handleActiveBtn = (btn) => {
     setActiveBtn(btn);
   };
-  const user = getStorage("user");
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+    const formData = new FormData();
+    formData.append("image", file);
+  };
+
+  const clearFileInput = () => {
+    setSelectedImage(null);
+    inputRef.current.value = "";
+  };
 
   return (
     <Row>
@@ -52,7 +78,7 @@ function EditProfile() {
               {selectedImage || user.image ? (
                 <img
                   src={URL.createObjectURL(selectedImage)}
-                  className="img-cover "
+                  className="img-cover rounded-full "
                   alt="user"
                 />
               ) : (
@@ -60,21 +86,22 @@ function EditProfile() {
                   U
                 </span>
               )}
-              <button
-                onClick={() => setSelectedImage(null)}
-                className="editImage-overlay "
-              >
-                Sil
-              </button>
+              {(selectedImage || user.image) && (
+                <button
+                  type="button"
+                  onClick={clearFileInput}
+                  className="editImage-overlay "
+                >
+                  Sil
+                </button>
+              )}
             </figure>
 
             <button className="relative  border font-[500] text-base border-indigo-500 text-indigo-500 py-2 px-4 rounded-xl">
               Şəkil yüklə
               <input
-                onChange={(event) => {
-                  console.log(event.target.files[0]);
-                  setSelectedImage(event.target.files[0]);
-                }}
+                ref={inputRef}
+                onChange={(e) => handleFileUpload(e)}
                 className=" right-1 opacity-0  rounded-xl  absolute w-full bg-slate-950"
                 type="file"
               />
@@ -82,6 +109,7 @@ function EditProfile() {
           </div>
 
           <Input
+            required={true}
             label={"İstifadəçi adı"}
             placeholder={"İstifadəçi adı"}
             type={"text"}
@@ -104,6 +132,8 @@ function EditProfile() {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/,
               message: "Yazdığınız mail düzgün formatda deyil!",
             }}
+            onBlur={(e) => checkMail(e.target.value)}
+            checkLoading={authCheckLoading}
           />
           <Input
             label={"Şifrə"}
@@ -116,14 +146,29 @@ function EditProfile() {
             }}
             registerName={"password"}
           />
+          <div className="mt-5">
+            <p className="mb-2 text-base text-[#4C4B4E]">Maraqlarınızı seçin</p>
+            <DropdownMenu
+              dropName={
+                <p className="text-[#4C4B4E] loginInput flex justify-between !font-normal !w-[434px] !py-[9px] ">
+                  <span> Kateqoriya</span>
+                  <FaAngleDown className="mt-1 text-gray-400" />
+                </p>
+              }
+              dropDownItems={category}
+              classes={
+                "w-[314px] !top-[155px] max-h-[424px] overflow-x-hidden "
+              }
+            />
+          </div>
           <div className=" !mt-16 flex justify-evenly">
-            <button
-              type="button"
+            <Link
+              to={"/home"}
               className=" whitespace-nowrap  text-indigo-500 py-2 px-4 rounded-xl 
         hover:outline outline-indigo-500 outline-[0.2px]"
             >
               Ləğv et
-            </button>
+            </Link>
             <button
               type="submit"
               className=" border   bg-indigo-500 text-white py-2 px-4 rounded-xl"
