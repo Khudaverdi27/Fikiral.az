@@ -17,10 +17,7 @@ function EditProfile() {
   const [userValue, setUserValue] = useState("");
   const { category, selectedIds, loading } = useCategories(false, "checkbox");
   const [editedData, setEditedData] = useState({});
-  // console.log(selectedIds);
-  // console.log(emailValue);
-  // console.log(userValue);
-  // console.log(selectedImage);
+
   const {
     handleSubmit,
     onSubmit,
@@ -212,6 +209,7 @@ function EditProfile() {
                 message: "Min 8 max 20 simvol",
               }}
               registerName={"password"}
+              showUnShow={true}
             />
           )}
 

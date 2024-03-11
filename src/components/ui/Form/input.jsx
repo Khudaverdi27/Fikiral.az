@@ -17,15 +17,25 @@ function Input({
   checkLoading = false,
   onBlur,
   validate = false,
+  onKeyDown = () => {},
 }) {
   const [changeType, setChangeType] = useState(false);
-  const { register, accescLogin, errors, reset, clearErrors } =
+  const [error, setError] = useState(false);
+  const { register, accescLogin, errors, reset, clearErrors, watch } =
     useModalActions();
 
   useEffect(() => {
     clearErrors();
     reset();
   }, [accescLogin]);
+
+  useEffect(() => {
+    if (validate) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [validate]);
 
   return (
     <div>
@@ -38,26 +48,27 @@ function Input({
         `}
       >
         <input
-          defaultValue={value ? value : ""}
+          onKeyDown={onKeyDown}
+          defaultValue={value || ""}
           autoComplete="off"
           placeholder={placeholder}
-          type={!changeType ? type : changeType && "text"}
+          type={changeType ? "text" : type}
           maxLength={maxLength}
           className="w-full bg-[#F6F7FB] outline-none "
           {...register(
             registerName,
+
             required && {
               required: "Boş buraxıla bilməz",
               minLength: minLength,
               pattern: patterns,
-            },
-            validate && {
-              validate: (value) => value === password || "Şifrə uyğunlaşmır",
+              validate: validate,
             }
           )}
           aria-invalid={errors.registerName ? "true" : "false"}
           onBlur={onBlur}
         />
+
         {showUnShow && (
           <button type="button" onClick={() => setChangeType(!changeType)}>
             {changeType ? (
@@ -74,6 +85,7 @@ function Input({
           {errors[registerName].message}
         </span>
       )}
+      {error && <p className="text-sm text-[#EA3829]">Şifrə uyğunlaşmır</p>}
     </div>
   );
 }

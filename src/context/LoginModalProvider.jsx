@@ -138,6 +138,7 @@ function ModalProvider({ children }) {
   ]);
 
   const actions = {
+    setError,
     setSelectCategory,
     selectCategory,
     isMainModel,

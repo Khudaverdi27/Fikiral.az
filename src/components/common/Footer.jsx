@@ -10,6 +10,7 @@ import { getStorage } from "../../utils/helpers";
 
 function Footer() {
   const token = getStorage("token");
+  const date = new Date().getFullYear();
   return (
     <footer className="  text-white  px-[150px] py-5 bg-[#E7E8F1]  mt-28">
       <div className="border-b border-primaryGray">
@@ -82,7 +83,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <span className="text-sm text-[#232323]">© 2024 Fikiral</span>
+      <span className="text-sm text-[#232323]">© {date} Fikiral</span>
     </footer>
   );
 }

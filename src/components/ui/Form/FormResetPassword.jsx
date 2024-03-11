@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import Input from "./input";
 
 function FormResetPassword() {
   const [resetPassword, setResetPassword] = useState(false);
-
+  const [pass, setPass] = useState("");
+  const [confrimPass, setConfrimPass] = useState("");
+  const [disabled, setDisabled] = useState(true);
   const {
     setMainModel,
     setSubModel,
@@ -17,7 +19,7 @@ function FormResetPassword() {
 
   const newPassword = (data) => {
     setResetPassword(true);
-    console.log(data);
+
     if (data.password) {
       setResetPassword(false);
       setSubModel(false);
@@ -25,6 +27,21 @@ function FormResetPassword() {
     }
   };
 
+  useEffect(() => {
+    if (authCheckMail == true && !resetPassword) {
+      setDisabled(false);
+    }
+  }, [authCheckMail]);
+
+  useEffect(() => {
+    if (resetPassword) {
+      if (!(pass === confrimPass && pass !== "" && confrimPass !== "")) {
+        setDisabled(true);
+      } else {
+        setDisabled(false);
+      }
+    }
+  }, [pass, confrimPass, resetPassword]);
   return (
     <form
       onSubmit={handleSubmit(newPassword)}
@@ -60,6 +77,7 @@ function FormResetPassword() {
           <div>
             <div className="space-y-3">
               <Input
+                onKeyDown={(e) => setPass(e.target.value)}
                 label={"Yeni şifrə"}
                 placeholder={"Şifrəni daxil edin"}
                 required={true}
@@ -71,8 +89,10 @@ function FormResetPassword() {
                 }}
                 registerName={"password"}
                 showUnShow={true}
+                validate={pass === confrimPass ? false : true}
               />
               <Input
+                onKeyDown={(e) => setConfrimPass(e.target.value)}
                 placeholder={"Şifrəni yenidən daxil edin"}
                 required={true}
                 type={"password"}
@@ -83,14 +103,14 @@ function FormResetPassword() {
                 }}
                 registerName={"confirmPassword"}
                 showUnShow={true}
-                validate={true}
+                validate={pass === confrimPass ? false : true}
               />
             </div>
           </div>
         </>
       )}
       <button
-        disabled={authCheckMail !== true}
+        disabled={disabled}
         type="submit"
         className="bg-indigo-500 disabled:opacity-50 text-white w-full py-[8px] rounded-[8px]"
       >
