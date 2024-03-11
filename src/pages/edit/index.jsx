@@ -1,8 +1,8 @@
 import { Col, Row } from "antd";
 import classNames from "classnames";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Input from "../../components/ui/Form/input";
-import { getStorage } from "../../utils/helpers";
+import { getStorage, removeStorage } from "../../utils/helpers";
 import { useModalActions } from "../../context/LoginModalProvider";
 import DropdownMenu from "../../components/ui/Dropdown";
 import { useCategories } from "../../hooks/useCategories";
@@ -13,25 +13,62 @@ import LogoutModal from "../../components/ui/Modals/LogoutModal";
 function EditProfile() {
   const [activeBtn, setActiveBtn] = useState("main");
   const [selectedImage, setSelectedImage] = useState(null);
-  const { category, loading } = useCategories(true, "checkbox");
+  const [emailValue, setEmailValue] = useState("");
+  const [userValue, setUserValue] = useState("");
+  const { category, selectedIds, loading } = useCategories(false, "checkbox");
+  const [editedData, setEditedData] = useState({});
+  // console.log(selectedIds);
+  // console.log(emailValue);
+  // console.log(userValue);
+  // console.log(selectedImage);
   const {
     handleSubmit,
     onSubmit,
     checkUserName,
     authCheckUserNameLoading,
-    authCheckMail,
     checkMail,
     authCheckLoading,
   } = useModalActions();
   const user = getStorage("user");
   const inputRef = useRef(null);
+
+  const logoutProfile = () => {
+    removeStorage("token");
+    removeStorage("user");
+    removeStorage("selectedCategories");
+    location.reload();
+    location.href = "/";
+  };
+
   const deleteProfile = () => {
     console.log("Delete");
   };
+
+  const getEmailValue = (e) => {
+    checkMail(e);
+    setEmailValue(e);
+  };
+
+  const getUserName = (e) => {
+    checkUserName(e);
+    setUserValue(e);
+  };
+
   const editBtns = [
     { name: "Əsas", key: "main" },
     { name: "Şifrə", key: "password" },
-    { name: "Hesabdan çıxış", key: "logout" },
+    {
+      name: (
+        <LogoutModal
+          title={"Hesabdan çıxmaq istəyirsiz?"}
+          dangerBtn={"Hesabdan çıxış"}
+          destroyBtn={"Çıxış"}
+          destroyProfile={logoutProfile}
+          dangerBtnClass={true}
+        />
+      ),
+      key: "logout",
+    },
     {
       name: (
         <LogoutModal
@@ -59,6 +96,16 @@ function EditProfile() {
     setSelectedImage(null);
     inputRef.current.value = "";
   };
+
+  useEffect(() => {
+    setEditedData({
+      userName: userValue,
+      gmail: emailValue,
+      categoryIds: selectedIds,
+      image: selectedImage,
+    });
+    console.log(editedData);
+  }, [userValue, selectedIds, emailValue, selectedImage]);
 
   return (
     <Row>
@@ -136,10 +183,11 @@ function EditProfile() {
               value: /\s*/,
               message: "Zəhmət olmasa boşluqlardan istifadə etməyin",
             }}
-            onBlur={(e) => checkUserName(e.target.value)}
+            onBlur={(e) => getUserName(e.target.value)}
             checkLoading={authCheckUserNameLoading}
           />
           <Input
+            value={emailValue}
             label={"E-poçt"}
             placeholder={"E-poçt daxil edin"}
             type={"email"}
@@ -149,23 +197,28 @@ function EditProfile() {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/,
               message: "Yazdığınız mail düzgün formatda deyil!",
             }}
-            onBlur={(e) => checkMail(e.target.value)}
+            onBlur={(e) => getEmailValue(e.target.value)}
             checkLoading={authCheckLoading}
           />
-          <Input
-            label={"Şifrə"}
-            placeholder={"Şifrəni daxil edin"}
-            type={"password"}
-            maxLength={20}
-            minLength={{
-              value: 8,
-              message: "Min 8 max 20 simvol",
-            }}
-            registerName={"password"}
-          />
+          {emailValue && (
+            <Input
+              required={true}
+              label={"Şifrə"}
+              placeholder={"Şifrəni daxil edin"}
+              type={"password"}
+              maxLength={20}
+              minLength={{
+                value: 8,
+                message: "Min 8 max 20 simvol",
+              }}
+              registerName={"password"}
+            />
+          )}
+
           <div className="mt-5">
             <p className="mb-2 text-base text-[#4C4B4E]">Maraqlarınızı seçin</p>
             <DropdownMenu
+              loading={loading}
               dropName={
                 <p className="text-[#4C4B4E] loginInput flex justify-between !font-normal !w-[434px] !py-[9px] ">
                   <span> Kateqoriya</span>

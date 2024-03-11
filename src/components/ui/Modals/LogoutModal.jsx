@@ -1,8 +1,14 @@
 import { Modal } from "antd";
-import { removeStorage } from "../../../utils/helpers";
+import classNames from "classnames";
 import { useState } from "react";
 
-function LogoutModal({ title, dangerBtn, destroyBtn, destroyProfile }) {
+function LogoutModal({
+  title,
+  dangerBtn,
+  destroyBtn,
+  destroyProfile,
+  dangerBtnClass = false,
+}) {
   const [isOpenModal, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -13,7 +19,21 @@ function LogoutModal({ title, dangerBtn, destroyBtn, destroyProfile }) {
 
   return (
     <>
-      <button className="text-[#FF0000]" type="button" onClick={showModal}>
+      {dangerBtn === "Hesabı sil" && (
+        <div className="bg-[#9999] w-36 ml-[-12px] h-[1px]"></div>
+      )}
+      <button
+        className={classNames(
+          { "text-[#9F9999] ": isOpenModal ? false : false },
+          { "text-[#FF0000]": isOpenModal ? true : false },
+          { "text-[#FF0000] text-base": !dangerBtnClass },
+          {
+            "text-black": isOpenModal,
+          }
+        )}
+        type="button"
+        onClick={showModal}
+      >
         {dangerBtn}
       </button>
       <Modal

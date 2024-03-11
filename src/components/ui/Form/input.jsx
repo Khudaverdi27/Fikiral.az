@@ -5,6 +5,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function Input({
   showUnShow = false,
+  value = false,
   placeholder,
   label,
   type,
@@ -37,6 +38,7 @@ function Input({
         `}
       >
         <input
+          defaultValue={value ? value : ""}
           autoComplete="off"
           placeholder={placeholder}
           type={!changeType ? type : changeType && "text"}
