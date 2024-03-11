@@ -78,6 +78,7 @@ const FormRegister = () => {
                       message: "Min 8 max 20 simvol",
                     }}
                     registerName={"password"}
+                    showUnShow={true}
                   />
                 </div>
                 {!accescLogin && (

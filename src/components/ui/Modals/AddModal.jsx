@@ -83,7 +83,7 @@ const AddModal = () => {
 
       <Modal
         title={
-          <div className="flex items-center space-x-2 bg-[#999999]">
+          <div className="flex items-center space-x-2 bg-neutral-100">
             <figure className="size-11 rounded-full shrink-0 ">
               {user?.userResponse?.image ? (
                 <img
@@ -92,12 +92,12 @@ const AddModal = () => {
                   alt="user"
                 />
               ) : (
-                <span className="size-full text-3xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex justify-center">
+                <span className="size-full text-3xl bg-gray-300  rounded-full border text-indigo-500 flex justify-center">
                   {user?.userResponse?.userName?.charAt(0).toLowerCase()}
                 </span>
               )}
             </figure>
-            <span className="text-zinc-50">{user?.userResponse?.userName}</span>
+            <span className="text-black">{user?.userResponse?.userName}</span>
           </div>
         }
         centered
@@ -106,12 +106,12 @@ const AddModal = () => {
         onCancel={() => setOpen(false)}
         width={603}
         closable={true}
-        className="bg-[#999999] rounded-md"
+        className="bg-neutral-100 rounded-md"
         style={{
           top: 50,
         }}
         footer={false}
-        closeIcon={<IoMdClose className="text-zinc-50 text-2xl" />}
+        closeIcon={<IoMdClose className="text-black " />}
       >
         {loading ? (
           <LoadingSpin />
@@ -120,7 +120,10 @@ const AddModal = () => {
             <DropdownMenu
               placement={"bottomLeft"}
               dropName={
-                <button className="rounded md hover:text-white px-2 py-[5px] mb-2 bg-zinc-50 hover:bg-indigo-500">
+                <button
+                  type="button"
+                  className="rounded text-[#636363] md hover:text-white px-2 py-[5px] mb-2 bg-zinc-50 hover:bg-indigo-500"
+                >
                   <span className="text-red-500 mr-1 font-bold">*</span>
                   Kateqoriya seç
                 </button>

@@ -31,7 +31,7 @@
    
    /* Style the checkmark/indicator */
    .container .checkmark:after {
-    @apply left-[9px] w-[14px] h-[25px] border-t-[0px] border-l-[0px] border-r-[3px] border-b-[3px] border-solid border-black rotate-35;
+    @apply left-[9px] top-1 w-[10px] h-[20px] border-t-[0px] border-l-[0px] border-r-[2px] border-b-[2px] border-solid border-black rotate-35;
    
    }
     .checkboxGroup{

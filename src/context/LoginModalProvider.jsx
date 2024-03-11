@@ -86,9 +86,15 @@ function ModalProvider({ children }) {
         message: "Bu maildə istifadəçi mövcuddur.",
       });
     } else {
-      clearErrors();
+      setError("gmailReset", {
+        type: "manual",
+        message: "Bu mail-də istifadəçi tapılmadı!",
+      });
+      setTimeout(() => {
+        clearErrors();
+      }, 2000);
     }
-  }, [authCheckLoading]);
+  }, [authCheckMail]);
 
   useEffect(() => {
     if (authCheckUsername === true) {

@@ -71,7 +71,7 @@ function WelcomePage() {
           title={
             <p className="text-center">{`${
               filteredCategories.length > 0
-                ? "Seçdiyiniz kateqoriyalardan..."
+                ? "Seçdiyiniz kateqoriyalardan"
                 : searchResponse.length > 0
                 ? "Axtarış nəticələri"
                 : "Bütün fikirlər"

@@ -1,12 +1,12 @@
 import DropdownMenu from "../ui/Dropdown";
 import FormSearch from "../ui/Form/FormSearch";
 import MenuActions from "../ui/MenuActions";
-import { GrLogout } from "react-icons/gr";
 import Logo from "./Logo";
 import { useCategories } from "../../hooks/useCategories";
 import FormRegister from "../ui/Form/FormRegister";
 import { getStorage, removeStorage } from "../../utils/helpers";
 import { Link } from "react-router-dom";
+import LogoutModal from "../ui/Modals/LogoutModal";
 
 function Header() {
   const { category, loading } = useCategories(true, "checkbox");
@@ -19,7 +19,6 @@ function Header() {
     location.reload();
     location.href = "/";
   };
-
   return (
     <header
       className={`flex items-center w-full py-[25px]   
@@ -35,6 +34,7 @@ function Header() {
       </div>
       <div className="flex space-x-[15px]  cursor-pointer items-center">
         <DropdownMenu
+          loading={loading}
           dropName={
             <Link
               to={token.length !== 0 ? "/home" : "/"}
@@ -50,7 +50,6 @@ function Header() {
         {token.length !== 0 ? (
           <DropdownMenu
             classes={"w-[142px] max-h-[108px] !top-[85px]"}
-            loading={loading}
             dropName={
               <span className="text-primaryGray">
                 {user?.userResponse?.userName}
@@ -67,22 +66,21 @@ function Header() {
                 title: (
                   <Link
                     to={"/edit-my-profile"}
-                    className="flex items-center  hover:px-1 text-base hover:border hover:border-black"
+                    className="flex items-center   text-base "
                   >
-                    Dəyiş
+                    Redaktə et
                   </Link>
                 ),
               },
               {
                 id: "logoutProfile",
                 title: (
-                  <button
-                    onClick={logoutProfile}
-                    className="flex items-center  text-base space-x-5 hover:border hover:border-black hover:px-1"
-                  >
-                    <span>Çıxış et</span>
-                    <GrLogout className="w-[14px] h-[20] " />
-                  </button>
+                  <LogoutModal
+                    title={"Hesabdan çıxmaq istəyirsiz?"}
+                    dangerBtn={"Çıxış"}
+                    destroyBtn={"Çıxış"}
+                    destroyProfile={logoutProfile}
+                  />
                 ),
               },
             ]}

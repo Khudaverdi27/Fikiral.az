@@ -95,7 +95,7 @@ const AddCommentModal = ({
                         alt="user"
                       />
                     ) : (
-                      <span className="size-full text-4xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex justify-center">
+                      <span className="size-full text-4xl bg-gray-300  rounded-full border text-indigo-500 flex justify-center">
                         {modalData?.user?.userName?.charAt(0).toLowerCase()}
                       </span>
                     )}

@@ -65,7 +65,7 @@ function HomePage() {
           title={
             <p className="text-center">{`${
               filteredCategories.length > 0
-                ? "Seçdiyiniz kateqoriyalardan..."
+                ? "Seçdiyiniz kateqoriyalardan"
                 : "Bütün fikirlər"
             }`}</p>
           }

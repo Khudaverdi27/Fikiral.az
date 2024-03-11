@@ -4,6 +4,7 @@ import { Spin } from "antd";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function Input({
+  showUnShow = false,
   placeholder,
   label,
   type,
@@ -14,6 +15,7 @@ function Input({
   required = false,
   checkLoading = false,
   onBlur,
+  validate = false,
 }) {
   const [changeType, setChangeType] = useState(false);
   const { register, accescLogin, errors, reset, clearErrors } =
@@ -46,12 +48,15 @@ function Input({
               required: "Boş buraxıla bilməz",
               minLength: minLength,
               pattern: patterns,
+            },
+            validate && {
+              validate: (value) => value === password || "Şifrə uyğunlaşmır",
             }
           )}
           aria-invalid={errors.registerName ? "true" : "false"}
           onBlur={onBlur}
         />
-        {label === "Şifrə" && (
+        {showUnShow && (
           <button type="button" onClick={() => setChangeType(!changeType)}>
             {changeType ? (
               <FiEye className="size-6  text-[#BCBCBE]" />

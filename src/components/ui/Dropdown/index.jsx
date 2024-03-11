@@ -32,7 +32,10 @@ const DropdownMenu = ({
           {!item.id && index === 0 && (
             <div className="flex items-center justify-between pt-2 pb-5  text-[15px] font-[500] ">
               <h1 className="cursor-auto">{item.name}</h1>
-              <button onClick={() => setOpen(false)}>
+              <button
+                className="bg-gray-300 rounded-full p-1"
+                onClick={() => setOpen(false)}
+              >
                 <GrClose className="!text-black" />
               </button>
             </div>
@@ -60,7 +63,7 @@ const DropdownMenu = ({
             {profilImg && (
               <figure className="size-11">
                 {typeof profilImg === "string" ? (
-                  <span className="size-full text-2xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex items-center justify-center">
+                  <span className="size-full text-2xl bg-gray-300  rounded-full border text-indigo-500 flex items-center justify-center">
                     {profilImg}
                   </span>
                 ) : (

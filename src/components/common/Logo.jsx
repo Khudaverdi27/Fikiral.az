@@ -6,7 +6,7 @@ function Logo() {
 
   return (
     <Link
-      className="w-[131px] h-[53px] "
+      className="w-[131px] h-[43px] "
       to={`${token.length !== 0 ? "/home" : "/"}`}
     >
       <img src={logo} alt="logo" className="img-cover" />

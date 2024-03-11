@@ -33,6 +33,10 @@
     @apply !bg-indigo-500;
   }
 
+  .ant-modal-close{
+    @apply !bg-gray-200 !rounded-full
+  }
+
   
 
 

@@ -8,6 +8,7 @@ import DropdownMenu from "../../components/ui/Dropdown";
 import { useCategories } from "../../hooks/useCategories";
 import { FaAngleDown } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import LogoutModal from "../../components/ui/Modals/LogoutModal";
 
 function EditProfile() {
   const [activeBtn, setActiveBtn] = useState("main");
@@ -24,12 +25,24 @@ function EditProfile() {
   } = useModalActions();
   const user = getStorage("user");
   const inputRef = useRef(null);
-
+  const deleteProfile = () => {
+    console.log("Delete");
+  };
   const editBtns = [
     { name: "Əsas", key: "main" },
     { name: "Şifrə", key: "password" },
     { name: "Hesabdan çıxış", key: "logout" },
-    { name: "Hesabı sil", key: "deleteAccount" },
+    {
+      name: (
+        <LogoutModal
+          title={"Hesabı silmək istədiyinizə əminsiz?"}
+          dangerBtn={"Hesabı sil"}
+          destroyBtn={"Silin"}
+          destroyProfile={deleteProfile}
+        />
+      ),
+      key: "deleteAccount",
+    },
   ];
   const handleActiveBtn = (btn) => {
     setActiveBtn(btn);
@@ -55,9 +68,10 @@ function EditProfile() {
       <Col span={10}>
         <div className=" editProfile">
           {editBtns.map((btn) => (
-            <button
+            <span
               className={classNames(
                 {
+                  "cursor-pointer": true,
                   "text-black":
                     activeBtn === btn.key && activeBtn !== "deleteAccount",
                 },
@@ -67,7 +81,7 @@ function EditProfile() {
               key={btn.key}
             >
               {btn.name}
-            </button>
+            </span>
           ))}
         </div>
       </Col>
@@ -82,8 +96,8 @@ function EditProfile() {
                   alt="user"
                 />
               ) : (
-                <span className="size-full text-3xl bg-gray-300 border-gray-500 rounded-full border text-indigo-500 flex  justify-center items-center">
-                  U
+                <span className="size-full text-5xl bg-gray-300  rounded-full border text-indigo-500 flex  justify-center items-center pb-2">
+                  {user?.userResponse?.userName?.charAt(0).toLowerCase()}
                 </span>
               )}
               {(selectedImage || user.image) && (
@@ -97,7 +111,10 @@ function EditProfile() {
               )}
             </figure>
 
-            <button className="relative  border font-[500] text-base border-indigo-500 text-indigo-500 py-2 px-4 rounded-xl">
+            <button
+              type="button"
+              className="relative  border font-[500] text-base border-indigo-500 text-indigo-500 py-2 px-4 rounded-xl"
+            >
               Şəkil yüklə
               <input
                 ref={inputRef}
