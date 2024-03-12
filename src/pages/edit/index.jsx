@@ -1,13 +1,17 @@
 import { Col, Row } from "antd";
+import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { useState } from "react";
 import { removeStorage } from "../../utils/helpers";
 import LogoutModal from "../../components/ui/Modals/LogoutModal";
 import EditWithPhoto from "./editWithPhoto";
+import EditPassword from "./editPassword";
+import { useModalActions } from "../../context/LoginModalProvider";
 
 function EditProfile() {
   const [activeBtn, setActiveBtn] = useState("main");
-
+  const [showEditPassword, setShowEditPassword] = useState(false);
+  const { handleSubmit, onSubmit } = useModalActions();
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("user");
@@ -49,6 +53,11 @@ function EditProfile() {
   ];
   const handleActiveBtn = (btn) => {
     setActiveBtn(btn);
+    if (btn === "password") {
+      setShowEditPassword(true);
+    } else if (btn === "main") {
+      setShowEditPassword(false);
+    }
   };
 
   return (
@@ -76,7 +85,26 @@ function EditProfile() {
           ))}
         </div>
       </Col>
-      <EditWithPhoto />
+      <Col span={10}>
+        <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+          {showEditPassword ? <EditPassword /> : <EditWithPhoto />}
+          <div className=" !mt-16 flex justify-evenly">
+            <Link
+              to={"/home"}
+              className=" whitespace-nowrap  text-indigo-500 py-2 px-4 rounded-xl 
+    hover:outline outline-indigo-500 outline-[0.2px]"
+            >
+              Ləğv et
+            </Link>
+            <button
+              type="submit"
+              className=" border   bg-indigo-500 text-white py-2 px-4 rounded-xl"
+            >
+              Yadda saxla
+            </button>
+          </div>
+        </form>
+      </Col>
     </Row>
   );
 }
