@@ -1,10 +1,13 @@
-import { AiOutlineClose } from "react-icons/ai";
-import { BsFillHeartFill } from "react-icons/bs";
+import { AiOutlineDislike } from "react-icons/ai";
 import { VscLink } from "react-icons/vsc";
 import AddCommentModal from "../../ui/Modals/AddCommentModal";
 import { useEffect, useState } from "react";
 import { usePostLikeAndDislike } from "../../../hooks/useFetch";
 import { getStorage } from "../../../utils/helpers";
+import { AiOutlineLike } from "react-icons/ai";
+import { AiFillLike } from "react-icons/ai";
+import { AiFillDislike } from "react-icons/ai";
+
 function ThinkCardActions({
   items,
   userById,
@@ -81,13 +84,20 @@ function ThinkCardActions({
           onClick={() => dislikeActions(postId)}
           className="disabled:opacity-30 disabled:cursor-not-allowed"
         >
-          <AiOutlineClose
-            className={`${
-              dislike && "size-7 "
-            } size-6 group-hover:opacity-60  hover:!opacity-100 ${
-              !dislike && "hover:ml-[-4px]"
-            }   text-[#292D32] hover:text-black hover:size-7`}
-          />
+          {!dislike ? (
+            <AiOutlineDislike
+              className={`${
+                !dislike && "hover:ml-[-4px]"
+              } size-7 group-hover:opacity-60 hover:!opacity-100 
+              text-gray-500 hover:size-8`}
+            />
+          ) : (
+            <AiFillDislike
+              className={`${
+                dislike && "hover:ml-[-4px]"
+              } size-7 group-hover:opacity-60 hover:!opacity-100 text-gray-500 hover:size-8`}
+            />
+          )}
         </button>
         <span className="text-sm font-[500] ">{count}</span>
         <button
@@ -95,11 +105,15 @@ function ThinkCardActions({
           onClick={() => likeActions(postId)}
           className="disabled:opacity-30 disabled:cursor-not-allowed"
         >
-          <BsFillHeartFill
-            className={`${
-              like && "size-7"
-            } size-6 group-hover:opacity-60 hover:!opacity-100 text-[#FF0000]   hover:size-7`}
-          />
+          {!like ? (
+            <AiOutlineLike
+              className={`size-7 group-hover:opacity-60 hover:!opacity-100 text-gray-500  hover:size-8`}
+            />
+          ) : (
+            <AiFillLike
+              className={` size-7 group-hover:opacity-60 hover:!opacity-100 text-indigo-500  hover:size-8`}
+            />
+          )}
         </button>
       </div>
 

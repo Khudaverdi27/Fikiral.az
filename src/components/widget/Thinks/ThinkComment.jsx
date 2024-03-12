@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { changeTime, getStorage } from "../../../utils/helpers";
 import { usePostLikeComments } from "../../../hooks/useFetch";
 import ThinkReplyComment from "./ThinkReplyComment";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 
 function ThinkComments({ comment, inputRef }) {
   const [like, setLike] = useState(false);
@@ -67,9 +67,9 @@ function ThinkComments({ comment, inputRef }) {
               onClick={giveLikeToComment}
             >
               {like ? (
-                <BsHeartFill className="size-6 text-[#FF0000]" />
+                <AiFillLike className="size-7 text-indigo-500" />
               ) : (
-                <BsHeart className="size-6 " />
+                <AiOutlineLike className="size-7 text-gray-500" />
               )}
               <span className={`${commentLikeCount == 0 && "invisible"}`}>
                 {commentLikeCount}

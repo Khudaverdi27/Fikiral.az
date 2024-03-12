@@ -1,4 +1,4 @@
-import { BsHeart } from "react-icons/bs";
+import { AiFillLike } from "react-icons/ai";
 
 function ThinkReplyComment() {
   return (
@@ -40,7 +40,7 @@ function ThinkReplyComment() {
         </div>
         <div>
           <button className="mb-[-5px] disabled:opacity-40 disabled:cursor-not-allowed">
-            <BsHeart className="size-6 " />
+            <AiFillLike className="size-7 text-indigo-500" />
 
             <span>0</span>
           </button>
