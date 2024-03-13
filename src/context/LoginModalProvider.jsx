@@ -60,6 +60,11 @@ function ModalProvider({ children }) {
       setLoginAuth(userLoginAuth);
       navigate("/home");
       removeStorage("selectedCategories");
+    } else if (withGoogle) {
+      setError("gmail", {
+        type: "manual",
+        message: "Google-a bağlı istifadəçi yoxdur.Hesab yaradın!",
+      });
     } else {
       setError("gmail", {
         type: "manual",
