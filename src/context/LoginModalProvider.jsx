@@ -7,6 +7,7 @@ import {
   useFetchAuthCheckUserName,
   useFetchAuthLogin,
 } from "../hooks/useFetch";
+import { loginGoogle } from "../utils/firebase";
 
 const LoginModal = createContext();
 
@@ -25,7 +26,7 @@ function ModalProvider({ children }) {
   const [isPosted, setIsPosted] = useState(false); //post think and refresh state
   const [isCommented, setIsCommented] = useState(false); //post comment and refresh state
   const [selectCategory, setSelectCategory] = useState(false);
-
+  const [withGoogle, setWithGoogle] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -42,7 +43,7 @@ function ModalProvider({ children }) {
       setConfrimRegister(false);
       data["categories"] = [];
       setResRegister(data);
-      if (!authCheckMail && !authCheckUsername) {
+      if ((!authCheckMail && !authCheckUsername) || withGoogle) {
         setMainModel(false);
         setSubModel(true);
       }
@@ -103,7 +104,9 @@ function ModalProvider({ children }) {
         message: "Bu adda istifadəçi mövcuddur.",
       });
     } else {
-      clearErrors();
+      setTimeout(() => {
+        clearErrors();
+      }, 3000);
     }
   }, [authCheckUserNameLoading]);
 
@@ -138,6 +141,7 @@ function ModalProvider({ children }) {
   ]);
 
   const actions = {
+    setWithGoogle,
     setError,
     setSelectCategory,
     selectCategory,

@@ -1,7 +1,6 @@
 import Input from "../../components/ui/Form/input";
 import { getStorage } from "../../utils/helpers";
 import { FaAngleDown } from "react-icons/fa6";
-import { Link } from "react-router-dom";
 import DropdownMenu from "../../components/ui/Dropdown";
 import { useCategories } from "../../hooks/useCategories";
 import { useModalActions } from "../../context/LoginModalProvider";
@@ -9,6 +8,8 @@ import { useEffect, useRef, useState } from "react";
 
 function EditWithPhoto({}) {
   const user = getStorage("user");
+  const userImgGoogle = getStorage("userImgGoogle");
+  const img = userImgGoogle ? userImgGoogle : user?.userResponse?.image;
   const inputRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [emailValue, setEmailValue] = useState("");
@@ -59,9 +60,9 @@ function EditWithPhoto({}) {
     <>
       <div className="flex relative space-x-7 mb-10 items-center ">
         <figure className="size-24 mt-2 rounded-full editImage">
-          {selectedImage || user.image ? (
+          {selectedImage || img.length > 0 ? (
             <img
-              src={URL.createObjectURL(selectedImage)}
+              src={selectedImage ? URL.createObjectURL(selectedImage) : img}
               className="img-cover rounded-full "
               alt="user"
             />

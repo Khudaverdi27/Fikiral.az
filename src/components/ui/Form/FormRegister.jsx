@@ -4,9 +4,12 @@ import FormContainer from "./FormContainer";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import Input from "./input";
+import { loginGoogle } from "../../../utils/firebase";
+import { saveStorage } from "../../../utils/helpers";
 
 const FormRegister = () => {
   const {
+    setWithGoogle,
     handleSubmit,
     accescLogin,
     setAccesLogin,
@@ -23,6 +26,25 @@ const FormRegister = () => {
   } = useModalActions();
 
   const watchFields = watch();
+
+  const compeleteLoginGoogle = async () => {
+    const dataGoogle = await loginGoogle();
+    saveStorage("userImgGoogle", dataGoogle.user.photoURL);
+    if (accescLogin) {
+      checkMail(dataGoogle.user.email);
+      checkUserName(dataGoogle.user.displayName);
+      await onSubmit({
+        userName: dataGoogle.user.displayName,
+        gmail: dataGoogle.user.email,
+        password: dataGoogle.user.uid,
+      });
+    } else {
+      await onSubmit({
+        gmail: dataGoogle.user.email,
+        password: dataGoogle.user.uid,
+      });
+    }
+  };
 
   return (
     <FormContainer>
@@ -106,7 +128,11 @@ const FormRegister = () => {
         className={`${userLoginAuthLoading && "invisible"} visible space-y-2`}
       >
         <div className="text-center text-base">Və ya</div>
-        <button className="flex items-center justify-center loginInput">
+        <button
+          onMouseDown={() => setWithGoogle(true)}
+          onClick={compeleteLoginGoogle}
+          className="flex items-center justify-center loginInput"
+        >
           <span className="mr-3 size-6">
             <FcGoogle className="size-full" />
           </span>
