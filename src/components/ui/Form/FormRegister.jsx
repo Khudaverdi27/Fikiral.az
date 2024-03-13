@@ -4,11 +4,12 @@ import FormContainer from "./FormContainer";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import Input from "./input";
-import { loginGoogle } from "../../../utils/firebase";
+import { loginFacebook, loginGoogle } from "../../../utils/firebase";
 import { saveStorage } from "../../../utils/helpers";
 
 const FormRegister = () => {
   const {
+    setWithFb,
     setWithGoogle,
     handleSubmit,
     accescLogin,
@@ -27,24 +28,32 @@ const FormRegister = () => {
 
   const watchFields = watch();
 
-  const compeleteLoginGoogle = async () => {
-    const dataGoogle = await loginGoogle();
+  const compeleteLoginSocial = async (social) => {
+    const dataSocial = await (social === "fb"
+      ? loginFacebook()
+      : loginGoogle());
+    const mail =
+      social !== "fb"
+        ? dataSocial.user.email
+        : `${dataSocial.user.displayName}@gmail.com`;
+
+    const formData = {
+      gmail: mail,
+      password: dataSocial.user.uid,
+      ...(accescLogin
+        ? {
+            userName: dataSocial.user.displayName,
+            image: dataSocial.user.photoURL,
+          }
+        : {}),
+    };
+
     if (accescLogin) {
-      checkMail(dataGoogle.user.email);
-      checkUserName(dataGoogle.user.displayName);
-      await onSubmit({
-        userName: dataGoogle.user.displayName,
-        gmail: dataGoogle.user.email,
-        password: dataGoogle.user.uid,
-        image: dataGoogle.user.photoURL,
-      });
-    } else {
-      await onSubmit({
-        gmail: dataGoogle.user.email,
-        password: dataGoogle.user.uid,
-        image: dataGoogle.user.photoURL,
-      });
+      checkMail(mail);
+      checkUserName(dataSocial.user.displayName);
     }
+
+    await onSubmit(formData);
   };
 
   return (
@@ -131,7 +140,7 @@ const FormRegister = () => {
         <div className="text-center text-base">Və ya</div>
         <button
           onMouseDown={() => setWithGoogle(true)}
-          onClick={compeleteLoginGoogle}
+          onClick={() => compeleteLoginSocial("google")}
           className="flex items-center justify-center loginInput"
         >
           <span className="mr-3 size-6">
@@ -139,7 +148,11 @@ const FormRegister = () => {
           </span>
           Google hesabı ilə davam et
         </button>
-        <button className="flex items-center justify-center loginInput">
+        <button
+          onMouseDown={() => setWithFb(true)}
+          onClick={() => compeleteLoginSocial("fb")}
+          className="flex items-center justify-center loginInput"
+        >
           <span className="mx-2 size-6">
             <FaFacebook className="size-full text-[#1977F3]" />
           </span>

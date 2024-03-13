@@ -57,6 +57,8 @@ function FormRegisterConfrim() {
       setLoginAuth(registerAuth);
       setSubModel(false);
       navigate("/home");
+    } else {
+      registerAuth.status === 409 ? setDisabled(true) : setDisabled(false);
     }
   }, [registerAuth]);
 
@@ -91,6 +93,11 @@ function FormRegisterConfrim() {
               ))}
             </>
           )}
+          {registerAuth.status === 409 && (
+            <span className="text-red-500">
+              Bu hesaba bağlı istifadəçi mövcuddur
+            </span>
+          )}
           <button
             onClick={withCategory}
             disabled={disabled}
@@ -99,9 +106,10 @@ function FormRegisterConfrim() {
             Maraqlandığınız sahələri seçin
           </button>
           <button
+            disabled={registerAuth.status === 409}
             onClick={skipCategory}
             type="button"
-            className=" w-full py-[8px] font-[500] rounded-[8px] border border-[#262626]"
+            className="disabled:opacity-20 disabled:cursor-not-allowed w-full py-[8px] font-[500] rounded-[8px] border border-[#262626]"
           >
             Keçin
           </button>

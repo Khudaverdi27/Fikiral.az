@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  FacebookAuthProvider,
+  OAuthCredential,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB0xMAV8-6jE7jXV0MBEsFktX72a3R14x8",
@@ -13,15 +19,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-const provider = new GoogleAuthProvider();
+// with google
 
 export const loginGoogle = async () => {
-  const newProvider = provider;
-  const newAuth = auth;
   try {
-    const data = await signInWithPopup(newAuth, newProvider);
-    const credential = GoogleAuthProvider.credentialFromResult(data);
-    const token = credential.accessToken;
+    const provider = new GoogleAuthProvider();
+    const data = await signInWithPopup(auth, provider);
     const user = data.user;
     if (user) {
       return { user };
@@ -29,5 +32,22 @@ export const loginGoogle = async () => {
   } catch (error) {
     const credential = GoogleAuthProvider.credentialFromError(error);
     console.log(credential);
+  }
+};
+
+// with facebook
+
+export const loginFacebook = async () => {
+  try {
+    const providerFB = new FacebookAuthProvider();
+    const data = await signInWithPopup(auth, providerFB);
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    if (error.code === "auth/account-exists-with-different-credential") {
+      const credential = FacebookAuthProvider.credentialFromError(error);
+      console.log(credential);
+    }
   }
 };

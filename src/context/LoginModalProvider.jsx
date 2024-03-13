@@ -27,6 +27,7 @@ function ModalProvider({ children }) {
   const [isCommented, setIsCommented] = useState(false); //post comment and refresh state
   const [selectCategory, setSelectCategory] = useState(false);
   const [withGoogle, setWithGoogle] = useState(false);
+  const [withFb, setWithFb] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -43,7 +44,7 @@ function ModalProvider({ children }) {
       setConfrimRegister(false);
       data["categories"] = [];
       setResRegister(data);
-      if ((!authCheckMail && !authCheckUsername) || withGoogle) {
+      if ((!authCheckMail && !authCheckUsername) || withGoogle || withFb) {
         setMainModel(false);
         setSubModel(true);
       }
@@ -54,27 +55,29 @@ function ModalProvider({ children }) {
 
   useEffect(() => {
     if (userLoginAuth.tokenResponse) {
-      saveStorage("token", userLoginAuth.tokenResponse.accessToken);
+      const { accessToken } = userLoginAuth.tokenResponse;
+      saveStorage("token", accessToken);
       saveStorage("user", userLoginAuth);
-
       setLoginAuth(userLoginAuth);
       navigate("/home");
       removeStorage("selectedCategories");
-    } else if (withGoogle) {
-      setError("gmail", {
-        type: "manual",
-        message: "Google-a bağlı istifadəçi yoxdur.Hesab yaradın!",
-      });
     } else {
+      let errorMessage = "";
+      if (withGoogle) {
+        errorMessage = "Google'a bağlı istifadəçi yoxdur. Hesab yaradın!";
+      } else if (withFb) {
+        errorMessage = "Facebook'a bağlı istifadəçi yoxdur. Hesab yarat!";
+      } else {
+        errorMessage = "Mail vəya parol yanlışdır";
+        setError("password", {
+          type: "manual",
+          message: errorMessage,
+        });
+      }
       setError("gmail", {
         type: "manual",
-        message: "Mail vəya parol yanlışdır",
+        message: errorMessage,
       });
-      setError("password", {
-        type: "manual",
-        message: "Mail vəya parol yanlışdır",
-      });
-      return;
     }
   }, [userLoginAuth]);
 
@@ -86,19 +89,18 @@ function ModalProvider({ children }) {
   };
 
   useEffect(() => {
-    if (authCheckMail === true) {
-      setError("gmail", {
-        type: "manual",
-        message: "Bu maildə istifadəçi mövcuddur.",
-      });
-    } else {
-      setError("gmailReset", {
-        type: "manual",
-        message: "Bu mail-də istifadəçi tapılmadı!",
-      });
-      setTimeout(() => {
-        clearErrors();
-      }, 2000);
+    const errorMessage = authCheckMail
+      ? "Bu mailde istifadəçi mövcuddur."
+      : "Bu mail-də istifadəçi tapılmadı!";
+    const errorField = authCheckMail ? "gmail" : "gmailReset";
+
+    setError(errorField, {
+      type: "manual",
+      message: errorMessage,
+    });
+
+    if (!authCheckMail) {
+      setTimeout(clearErrors, 2000);
     }
   }, [authCheckMail]);
 
@@ -146,6 +148,7 @@ function ModalProvider({ children }) {
   ]);
 
   const actions = {
+    setWithFb,
     setWithGoogle,
     setError,
     setSelectCategory,
