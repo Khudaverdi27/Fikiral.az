@@ -29,7 +29,6 @@ const FormRegister = () => {
 
   const compeleteLoginGoogle = async () => {
     const dataGoogle = await loginGoogle();
-    saveStorage("userImgGoogle", dataGoogle.user.photoURL);
     if (accescLogin) {
       checkMail(dataGoogle.user.email);
       checkUserName(dataGoogle.user.displayName);
@@ -37,11 +36,13 @@ const FormRegister = () => {
         userName: dataGoogle.user.displayName,
         gmail: dataGoogle.user.email,
         password: dataGoogle.user.uid,
+        image: dataGoogle.user.photoURL,
       });
     } else {
       await onSubmit({
         gmail: dataGoogle.user.email,
         password: dataGoogle.user.uid,
+        image: dataGoogle.user.photoURL,
       });
     }
   };

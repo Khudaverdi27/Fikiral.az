@@ -8,8 +8,6 @@ import { useEffect, useRef, useState } from "react";
 
 function EditWithPhoto({}) {
   const user = getStorage("user");
-  const userImgGoogle = getStorage("userImgGoogle");
-  const img = userImgGoogle ? userImgGoogle : user?.userResponse?.image;
   const inputRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [emailValue, setEmailValue] = useState("");
@@ -60,9 +58,13 @@ function EditWithPhoto({}) {
     <>
       <div className="flex relative space-x-7 mb-10 items-center ">
         <figure className="size-24 mt-2 rounded-full editImage">
-          {selectedImage || img.length > 0 ? (
+          {selectedImage || user?.userResponse?.image ? (
             <img
-              src={selectedImage ? URL.createObjectURL(selectedImage) : img}
+              src={
+                selectedImage
+                  ? URL.createObjectURL(selectedImage)
+                  : user?.userResponse?.image
+              }
               className="img-cover rounded-full "
               alt="user"
             />
@@ -71,7 +73,7 @@ function EditWithPhoto({}) {
               {user?.userResponse?.userName?.charAt(0).toLowerCase()}
             </span>
           )}
-          {(selectedImage || user.image) && (
+          {(selectedImage || user?.userResponse?.image) && (
             <button
               type="button"
               onClick={clearFileInput}

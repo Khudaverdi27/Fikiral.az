@@ -71,7 +71,7 @@ function ThinkCard({ thinks, children, items, userById }) {
             <figure className="size-11 ">
               {thinks?.user?.image ? (
                 <img
-                  className="img-cover"
+                  className="img-cover rounded-full"
                   src={`${thinks?.user?.image}`}
                   alt="user"
                 />
@@ -81,7 +81,7 @@ function ThinkCard({ thinks, children, items, userById }) {
                 </span>
               )}
             </figure>
-            <h6>{thinks?.user?.userName}</h6>
+            <h6>{thinks?.user?.userName.split(" ")[0].toLowerCase()}</h6>
           </div>
           <div className="flex items-center cursor-pointer">
             <IconContext.Provider

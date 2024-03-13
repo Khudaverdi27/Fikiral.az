@@ -29,8 +29,6 @@ const AddModal = () => {
 
   const { setIsPosted } = useModalActions();
   const user = getStorage("user");
-  const userImgGoogle = getStorage("userImgGoogle");
-  const img = userImgGoogle ? userImgGoogle : user?.userResponse?.image;
   useEffect(() => {
     const updatedContent = checkboxStates.reduce((acc, state, i) => {
       if (state === true) {
@@ -86,10 +84,10 @@ const AddModal = () => {
         title={
           <div className="flex items-center space-x-2 bg-neutral-100">
             <figure className="size-11 rounded-full shrink-0 ">
-              {img.length > 0 ? (
+              {user?.userResponse?.image ? (
                 <img
                   className="img-cover rounded-full"
-                  src={`${img}`}
+                  src={`${user?.userResponse?.image}`}
                   alt="user"
                 />
               ) : (

@@ -44,7 +44,7 @@ function ThinkComments({ comment, inputRef }) {
               <figure className="size-11 ">
                 {comment?.user?.image ? (
                   <img
-                    className="img-cover"
+                    className="img-cover rounded-full"
                     src={`${comment?.user?.image}`}
                     alt="user"
                   />
@@ -55,7 +55,9 @@ function ThinkComments({ comment, inputRef }) {
                 )}
               </figure>
               <div className="mb-[-5px]">
-                <h6 className="font-bold">{comment?.user?.userName}</h6>
+                <h6 className="font-bold">
+                  {comment?.user?.userName.split(" ")[0].toLowerCase()}
+                </h6>
                 <span className="text-xs text-[#999999]">
                   {changeTime(comment.publishedAt)}
                 </span>

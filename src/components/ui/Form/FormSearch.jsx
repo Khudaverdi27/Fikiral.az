@@ -105,7 +105,7 @@ function FormSearch() {
                     <figure className="size-9">
                       {res?.user?.image ? (
                         <img
-                          className="img-cover"
+                          className="img-cover rounded-full"
                           src={`${res?.res?.image}`}
                           alt="user"
                         />

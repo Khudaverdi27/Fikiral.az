@@ -12,13 +12,11 @@ function Header() {
   const { category, loading } = useCategories(true, "checkbox");
   const token = getStorage("token");
   const user = getStorage("user");
-  const userImgGoogle = getStorage("userImgGoogle");
-  const img = userImgGoogle ? userImgGoogle : user?.userResponse?.image;
+
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("user");
     removeStorage("selectedCategories");
-    removeStorage("userImgGoogle");
     location.reload();
     location.href = "/";
   };
@@ -59,8 +57,8 @@ function Header() {
               </span>
             }
             profilImg={
-              img.length > 0
-                ? img
+              user?.userResponse?.image
+                ? user?.userResponse?.image
                 : user?.userResponse?.userName?.charAt(0).toLowerCase()
             }
             dropDownItems={[

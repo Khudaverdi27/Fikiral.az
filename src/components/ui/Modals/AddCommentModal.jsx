@@ -90,7 +90,7 @@ const AddCommentModal = ({
                   <figure className="size-[52px] ">
                     {modalData?.user?.image ? (
                       <img
-                        className="img-cover"
+                        className="img-cover rounded-full"
                         src={`${modalData?.user?.image}`}
                         alt="user"
                       />
@@ -100,7 +100,9 @@ const AddCommentModal = ({
                       </span>
                     )}
                   </figure>
-                  <h6 className="text-[20px]">{modalData?.user?.userName}</h6>
+                  <h6 className="text-[20px]">
+                    {modalData?.user?.userName.split(" ")[0].toLowerCase()}
+                  </h6>
                 </div>
               </div>
               <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">

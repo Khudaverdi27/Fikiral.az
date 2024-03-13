@@ -16,7 +16,6 @@ function EditProfile() {
     removeStorage("token");
     removeStorage("user");
     removeStorage("selectedCategories");
-    removeStorage("userImgGoogle");
     location.reload();
     location.href = "/";
   };
