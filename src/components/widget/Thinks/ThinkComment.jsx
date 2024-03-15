@@ -79,18 +79,22 @@ function ThinkComments({ comment, inputRef }) {
             </button>
           </div>
         </div>
+
         <div className="py-1 pl-[50px] pr-10">
           <p className="text-wrap"> {comment.content}</p>
-          <button onClick={focusInput} className="text-sm text-[#999999]">
+          {/* reply comment section will be active in the future */}
+
+          {/* <button onClick={focusInput} className="text-sm text-[#999999]">
             Cavabla
-          </button>
+          </button> */}
         </div>
+        <hr />
       </div>
 
-      <button onClick={showCommentReply} className="commentLine ">
+      {/* <button onClick={showCommentReply} className="commentLine ">
         Rəylərə bax<span className="ml-1">(0)</span>
       </button>
-      {showReply && <ThinkReplyComment />}
+      {showReply && <ThinkReplyComment />} */}
     </div>
   );
 }

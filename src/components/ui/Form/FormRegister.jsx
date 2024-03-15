@@ -123,7 +123,7 @@ const FormRegister = () => {
                 )}
               </div>
               <button
-                disabled={!watchFields.gmail && !watchFields.password}
+                disabled={watchFields.password?.length < 8}
                 className="bg-indigo-500 text-white w-full disabled:opacity-40 py-[8px] rounded-[8px]"
               >
                 {accescLogin ? "Qeydiyyat" : "Daxil ol"}
