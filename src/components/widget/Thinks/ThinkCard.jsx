@@ -79,9 +79,10 @@ function ThinkCard({ thinks, children, items, userById }) {
   };
 
   const sendMessageResponse = async () => {
+    setReportRes("Bildirilir...");
     const res = await sendMessage(reportContent);
     if (res.status === 200) {
-      setReportRes(true);
+      setReportRes("Bildirildi");
     }
   };
 
@@ -112,15 +113,13 @@ function ThinkCard({ thinks, children, items, userById }) {
         onClick={sendMessageResponse}
         className="flex items-center space-x-1"
       >
-        {reportRes ? (
+        {reportRes === "Bildirildi" ? (
           <IoMdCheckmarkCircle className="size-5 text-green-500" />
         ) : (
           <MdOutlineReport className="size-5" />
         )}
 
-        <span className="font-semibold">
-          {reportRes ? "Bildirildi" : "Bildir"}
-        </span>
+        <span className="font-semibold">{reportRes || "Bildir"}</span>
       </button>
     </div>
   );
@@ -168,7 +167,7 @@ function ThinkCard({ thinks, children, items, userById }) {
           <Link
             onClick={() => setIsCommentOpen(false)}
             to={`/categories/${thinks.category.slug}`}
-            className="hover:bg-[#6C58BB] hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px]"
+            className="hover:bg-indigo-500 hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px]"
           >
             {thinks.category.name.split(" ").slice(0, 3).join(" ")}
           </Link>
