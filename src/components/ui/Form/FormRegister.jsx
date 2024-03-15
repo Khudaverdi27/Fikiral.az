@@ -29,13 +29,12 @@ const FormRegister = () => {
   const watchFields = watch();
 
   const compeleteLoginSocial = async (social) => {
-    const dataSocial = await (social === "fb"
-      ? loginFacebook()
-      : loginGoogle());
+    const dataSocial =
+      social === "fb" ? await loginFacebook() : await loginGoogle();
+    console.log(dataSocial);
     const mail =
-      social !== "fb"
-        ? dataSocial.user.email
-        : `${dataSocial.user.displayName}@gmail.com`;
+      dataSocial.user.email ||
+      `${dataSocial.user.displayName.split(" ")[0]}@gmail.com`;
 
     const formData = {
       gmail: mail,

@@ -37,6 +37,10 @@
     @apply !bg-gray-200 !rounded-full
   }
 
+  .ant-popover{
+    z-index: 10 !important;
+  }
+
   
 
 

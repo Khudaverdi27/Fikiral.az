@@ -29,7 +29,7 @@ function ThinkCard({ thinks, children, items, userById }) {
   const [reportRes, setReportRes] = useState(false);
   const token = getStorage("token");
   const user = getStorage("user");
-  console.log(token.length == 0);
+
   const sendToSaveds = () => {
     if (token.length == 0) {
       switcRegisterModal();

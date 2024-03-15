@@ -73,7 +73,7 @@ function EditWithPhoto({}) {
               {user?.userResponse?.userName?.charAt(0).toLowerCase()}
             </span>
           )}
-          {(selectedImage || user?.userResponse?.image) && (
+          {selectedImage && (
             <button
               type="button"
               onClick={clearFileInput}
