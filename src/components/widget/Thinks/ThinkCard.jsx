@@ -29,7 +29,7 @@ function ThinkCard({ thinks, children, items, userById }) {
   const [reportRes, setReportRes] = useState(false);
   const token = getStorage("token");
   const user = getStorage("user");
-
+  console.log(token.length == 0);
   const sendToSaveds = () => {
     if (token.length == 0) {
       switcRegisterModal();
@@ -110,8 +110,9 @@ function ThinkCard({ thinks, children, items, userById }) {
       </div>
 
       <button
+        disabled={token.length === 0}
         onClick={sendMessageResponse}
-        className="flex items-center space-x-1"
+        className="flex items-center space-x-1 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {reportRes === "Bildirildi" ? (
           <IoMdCheckmarkCircle className="size-5 text-green-500" />
