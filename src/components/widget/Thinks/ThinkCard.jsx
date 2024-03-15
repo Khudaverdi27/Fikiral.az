@@ -15,6 +15,8 @@ import {
 } from "../../../hooks/useFetch";
 import { AiOutlineDelete } from "react-icons/ai";
 import IsConfirmModal from "../../ui/Modals/IsConfirmModal";
+import { sendMessage } from "../../../utils/emailJs";
+import { IoMdCheckmarkCircle } from "react-icons/io";
 
 function ThinkCard({ thinks, children, items, userById }) {
   const [bookmark, setBookmark] = useState(false);
@@ -24,7 +26,7 @@ function ThinkCard({ thinks, children, items, userById }) {
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
   const [deletedThink, fetcDelete, deleteLoading] = useDeleteThink();
   const [savedResponse, saveFetch, saveLoading] = usePutSavedPosts();
-  console.log(deletedThink);
+  const [reportRes, setReportRes] = useState(false);
   const token = getStorage("token");
   const user = getStorage("user");
 
@@ -67,6 +69,23 @@ function ThinkCard({ thinks, children, items, userById }) {
     }
   }, [items]);
 
+  const reportContent = {
+    from_name: user?.userResponse?.userName,
+    from_email: user?.userResponse?.gmail,
+    to_name: "Fikiral komandası",
+    userMail: thinks?.user.gmail,
+    userName: thinks?.user.userName,
+    content: thinks?.content,
+  };
+
+  const sendMessageResponse = async () => {
+    const res = await sendMessage(reportContent);
+    if (res.status === 200) {
+      setReportRes(true);
+    }
+  };
+
+  // think card popover
   const popupContent = (
     <div>
       <div
@@ -89,9 +108,19 @@ function ThinkCard({ thinks, children, items, userById }) {
         />
       </div>
 
-      <button className="flex items-center space-x-1">
-        <MdOutlineReport className="size-5" />
-        <span className="font-semibold">Şikayət et</span>
+      <button
+        onClick={sendMessageResponse}
+        className="flex items-center space-x-1"
+      >
+        {reportRes ? (
+          <IoMdCheckmarkCircle className="size-5 text-green-500" />
+        ) : (
+          <MdOutlineReport className="size-5" />
+        )}
+
+        <span className="font-semibold">
+          {reportRes ? "Bildirildi" : "Bildir"}
+        </span>
       </button>
     </div>
   );
