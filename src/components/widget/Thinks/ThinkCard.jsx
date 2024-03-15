@@ -86,6 +86,13 @@ function ThinkCard({ thinks, children, items, userById }) {
     }
   };
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (reportRes) setReportRes(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, [reportRes]);
+
   // think card popover
   const popupContent = (
     <div>
@@ -115,7 +122,7 @@ function ThinkCard({ thinks, children, items, userById }) {
         className="flex items-center space-x-1 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {reportRes === "Bildirildi" ? (
-          <IoMdCheckmarkCircle className="size-5 text-green-500" />
+          <IoMdCheckmarkCircle className="size-5 text-green-700" />
         ) : (
           <MdOutlineReport className="size-5" />
         )}
@@ -185,6 +192,7 @@ function ThinkCard({ thinks, children, items, userById }) {
         items={items}
         userById={userById}
         comment={thinks.commentCount}
+        thinksContent={thinks.content}
         commentLoading={commentLoading}
         allComments={allComments}
         likeCount={thinks.likeCount}

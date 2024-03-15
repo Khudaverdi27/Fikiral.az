@@ -1,6 +1,6 @@
 import { useClickAway } from "@uidotdev/usehooks";
 import { Input, Spin } from "antd";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { IoMdClose, IoMdSearch } from "react-icons/io";
 import AddCommentModal from "../Modals/AddCommentModal";
 import { useSearchActions } from "../../../context/FormSearchProvider";

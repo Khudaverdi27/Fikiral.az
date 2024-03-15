@@ -1,14 +1,16 @@
 import { AiOutlineDislike } from "react-icons/ai";
 import { VscLink } from "react-icons/vsc";
+import { MdOutlineLibraryAddCheck } from "react-icons/md";
 import AddCommentModal from "../../ui/Modals/AddCommentModal";
 import { useEffect, useState } from "react";
 import { usePostLikeAndDislike } from "../../../hooks/useFetch";
-import { getStorage } from "../../../utils/helpers";
+import { getStorage, objectToQueryString } from "../../../utils/helpers";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiFillLike } from "react-icons/ai";
 import { AiFillDislike } from "react-icons/ai";
 
 function ThinkCardActions({
+  thinksContent,
   items,
   userById,
   disabled = true,
@@ -30,6 +32,7 @@ function ThinkCardActions({
   const [dislike, setDislike] = useState(false);
   const [count, setCount] = useState(likeCount);
   const [fetchLikeCount, loading] = usePostLikeAndDislike();
+  const [copied, setCopied] = useState(false);
   const token = getStorage("token");
   const user = getStorage("user");
 
@@ -75,6 +78,22 @@ function ThinkCardActions({
       }
     }
   }, [items]);
+
+  const handleCopy = (text) => {
+    setCopied(true);
+    const obj = { content: text };
+    const params = objectToQueryString(obj);
+    const path = location.href.split("/").slice(0, -1).join("/");
+
+    navigator.clipboard.writeText(`${path}/think/${params}`);
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (copied) setCopied(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, [copied]);
 
   return (
     <div className="flex items-center justify-between ">
@@ -137,9 +156,13 @@ function ThinkCardActions({
             />
           </>
         )}
-        <span>
-          <VscLink className="size-[22px] text-[#636363] hover:text-black cursor-pointer" />
-        </span>
+        <button onClick={() => handleCopy(thinksContent)}>
+          {copied ? (
+            <MdOutlineLibraryAddCheck className="size-[22px] text-green-500 " />
+          ) : (
+            <VscLink className="size-[22px] text-[#636363] hover:text-black" />
+          )}
+        </button>
       </div>
     </div>
   );
