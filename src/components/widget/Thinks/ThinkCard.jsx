@@ -1,9 +1,11 @@
 import { HiOutlineBookmark } from "react-icons/hi2";
+import { MdOutlineReport } from "react-icons/md";
 import { IconContext } from "react-icons";
+import { Popover } from "antd";
 import { useEffect, useState } from "react";
 import ThinkCardActions from "./ThinkCardActions";
 import { HiDotsVertical } from "react-icons/hi";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { changeTime, getStorage } from "../../../utils/helpers";
 import {
@@ -11,6 +13,8 @@ import {
   useFetchCommentLists,
   usePutSavedPosts,
 } from "../../../hooks/useFetch";
+import { AiOutlineDelete } from "react-icons/ai";
+import IsConfirmModal from "../../ui/Modals/IsConfirmModal";
 
 function ThinkCard({ thinks, children, items, userById }) {
   const [bookmark, setBookmark] = useState(false);
@@ -20,7 +24,7 @@ function ThinkCard({ thinks, children, items, userById }) {
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
   const [deletedThink, fetcDelete, deleteLoading] = useDeleteThink();
   const [savedResponse, saveFetch, saveLoading] = usePutSavedPosts();
-
+  console.log(deletedThink);
   const token = getStorage("token");
   const user = getStorage("user");
 
@@ -63,6 +67,35 @@ function ThinkCard({ thinks, children, items, userById }) {
     }
   }, [items]);
 
+  const popupContent = (
+    <div>
+      <div
+        className={`${
+          thinks?.user?.id === user?.userResponse?.id
+            ? "visible text-red-500 "
+            : "hidden"
+        }`}
+      >
+        <IsConfirmModal
+          title={"Bu paylaşımı silmək istəyirsinizmi?"}
+          dangerBtn={
+            <div className="flex items-center space-x-1">
+              <AiOutlineDelete className="size-5" />
+              <span> Sil</span>
+            </div>
+          }
+          destroyProfile={destroyThink}
+          destroyBtn={deletedThink ? "Silindi" : "Sil"}
+        />
+      </div>
+
+      <button className="flex items-center space-x-1">
+        <MdOutlineReport className="size-5" />
+        <span className="font-semibold">Şikayət et</span>
+      </button>
+    </div>
+  );
+
   return (
     <div className="gutter-row">
       <div className="space-y-2 mb-2">
@@ -94,9 +127,11 @@ function ThinkCard({ thinks, children, items, userById }) {
                 <HiOutlineBookmark className={`size-5  `} />
               </button>
             </IconContext.Provider>
-            <button onClick={destroyThink}>
-              <HiDotsVertical className="ml-2 size-5 " />
-            </button>
+            <Popover placement="bottom" content={popupContent} trigger="click">
+              <button disabled={token.length < 0 ? true : false}>
+                <HiDotsVertical className="ml-2 size-5 disabled:opacity-20 disabled:cursor-not-allowed" />
+              </button>
+            </Popover>
           </div>
         </div>
 

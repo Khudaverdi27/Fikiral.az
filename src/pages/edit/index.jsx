@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { useState } from "react";
 import { removeStorage } from "../../utils/helpers";
-import LogoutModal from "../../components/ui/Modals/LogoutModal";
+import IsConfirmModal from "../../components/ui/Modals/IsConfirmModal";
 import EditWithPhoto from "./editWithPhoto";
 import EditPassword from "./editPassword";
 import { useModalActions } from "../../context/LoginModalProvider";
@@ -29,7 +29,7 @@ function EditProfile() {
     { name: "Şifrə", key: "password" },
     {
       name: (
-        <LogoutModal
+        <IsConfirmModal
           title={"Hesabdan çıxmaq istəyirsiz?"}
           dangerBtn={"Hesabdan çıxış"}
           destroyBtn={"Çıxış"}
@@ -41,7 +41,7 @@ function EditProfile() {
     },
     {
       name: (
-        <LogoutModal
+        <IsConfirmModal
           title={"Hesabı silmək istədiyinizə əminsiz?"}
           dangerBtn={"Hesabı sil"}
           destroyBtn={"Silin"}

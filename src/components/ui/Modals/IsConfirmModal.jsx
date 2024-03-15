@@ -2,7 +2,7 @@ import { Modal } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
 
-function LogoutModal({
+function IsConfirmModal({
   title,
   dangerBtn,
   destroyBtn,
@@ -65,4 +65,4 @@ function LogoutModal({
   );
 }
 
-export default LogoutModal;
+export default IsConfirmModal;

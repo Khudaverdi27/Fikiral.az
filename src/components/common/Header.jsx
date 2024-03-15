@@ -6,7 +6,7 @@ import { useCategories } from "../../hooks/useCategories";
 import FormRegister from "../ui/Form/FormRegister";
 import { getStorage, removeStorage } from "../../utils/helpers";
 import { Link } from "react-router-dom";
-import LogoutModal from "../ui/Modals/LogoutModal";
+import IsConfirmModal from "../ui/Modals/IsConfirmModal";
 
 function Header() {
   const { category, loading } = useCategories(true, "checkbox");
@@ -76,7 +76,7 @@ function Header() {
               {
                 id: "logoutProfile",
                 title: (
-                  <LogoutModal
+                  <IsConfirmModal
                     title={"Hesabdan çıxmaq istəyirsiz?"}
                     dangerBtn={"Çıxış"}
                     destroyBtn={"Çıxış"}
