@@ -31,7 +31,7 @@ const FormRegister = () => {
   const compeleteLoginSocial = async (social) => {
     const dataSocial =
       social === "fb" ? await loginFacebook() : await loginGoogle();
-    console.log(dataSocial);
+
     const mail =
       dataSocial.user.email ||
       `${dataSocial.user.displayName.split(" ")[0]}@gmail.com`;

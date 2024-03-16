@@ -24,6 +24,7 @@ function IsConfirmModal({
       )}
       <button
         className={classNames(
+          { "whitespace-nowrap": true },
           { "text-[#9F9999] ": isOpenModal ? false : false },
           { "text-[#FF0000]": isOpenModal ? true : false },
           { "text-[#FF0000] text-base": !dangerBtnClass },
