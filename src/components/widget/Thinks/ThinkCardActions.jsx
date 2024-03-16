@@ -83,8 +83,7 @@ function ThinkCardActions({
     setCopied(true);
     const obj = { content: text };
     const params = objectToQueryString(obj);
-    const path = location.href.split("/").slice(0, -1).join("/");
-
+    const path = location.href.split("/").slice(0, 3).join("/");
     navigator.clipboard.writeText(`${path}/think/${params}`);
   };
 

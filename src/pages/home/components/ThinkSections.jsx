@@ -32,12 +32,12 @@ function ThinkSection({ items, loading, title }) {
     }
   }, []);
 
-  const path = useLocation().pathname;
+  const path = useLocation().pathname.split("/").at(-1);
 
   return (
     <Section title={title} loading={loading}>
       <Helmet>
-        <title>{`Fikir al ${path ? path : ""}`}</title>
+        <title>{`Fikir al ${path ? "/" + path : ""}`}</title>
       </Helmet>
       <Row
         className="gap-y-5  min-w-[352px] min-h-[280px]  overflow-hidden"
