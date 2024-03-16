@@ -164,6 +164,7 @@ const AddCommentModal = ({
             <div className="space-y-3 py-1">
               <div className="border-t p-2 border-gray-300 border-b ">
                 <ThinkCardActions
+                  thinksContent={modalData.content}
                   postId={postId}
                   likeCount={modalData.likeCount}
                   userById={userById}
