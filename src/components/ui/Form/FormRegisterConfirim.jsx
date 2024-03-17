@@ -95,7 +95,7 @@ function FormRegisterConfrim() {
           )}
           {registerAuth.status === 409 && (
             <span className="text-red-500">
-              Bu hesaba bağlı istifadəçi mövcuddur
+              Bu mail ilə başqa istifadəçi artıq fərdi hesab açmışdır!
             </span>
           )}
           <button

@@ -5,10 +5,10 @@ import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import Input from "./input";
 import { loginFacebook, loginGoogle } from "../../../utils/firebase";
-import { saveStorage } from "../../../utils/helpers";
 
 const FormRegister = () => {
   const {
+    userLoading,
     setWithFb,
     setWithGoogle,
     handleSubmit,
@@ -22,7 +22,7 @@ const FormRegister = () => {
     clearErrors,
     authCheckLoading,
     authCheckUserNameLoading,
-    userLoginAuthLoading,
+
     watch,
   } = useModalActions();
 
@@ -76,7 +76,7 @@ const FormRegister = () => {
           />
         )}
         <>
-          {userLoginAuthLoading ? (
+          {userLoading ? (
             <LoadingSpin />
           ) : (
             <>
@@ -135,9 +135,7 @@ const FormRegister = () => {
         </>
       </form>
 
-      <div
-        className={`${userLoginAuthLoading && "invisible"} visible space-y-2`}
-      >
+      <div className={`${userLoading && "invisible"} visible space-y-2`}>
         <div className="text-center text-base">Və ya</div>
         <button
           onMouseDown={() => setWithGoogle(true)}

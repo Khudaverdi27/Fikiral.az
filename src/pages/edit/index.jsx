@@ -2,17 +2,21 @@ import { Col, Row } from "antd";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { useState } from "react";
-import { removeStorage } from "../../utils/helpers";
+import { removeStorage, getStorage } from "../../utils/helpers";
 import IsConfirmModal from "../../components/ui/Modals/IsConfirmModal";
 import EditWithPhoto from "./editWithPhoto";
 import EditPassword from "./editPassword";
+import { postImage } from "../../utils/request";
+import { useModalActions } from "../../context/LoginModalProvider";
+import { useGetUserById } from "../../hooks/useFetch";
 
 function EditProfile() {
   const [activeBtn, setActiveBtn] = useState("main");
   const [showEditPassword, setShowEditPassword] = useState(false);
   const [compeleteEdit, setCompeleteEdit] = useState(false);
+  const [userImg, setUserImg] = useState(false);
   const [editDisable, setEditDisable] = useState(true);
-
+  const { userById } = useModalActions();
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("user");
@@ -62,6 +66,10 @@ function EditProfile() {
   };
 
   const handleSaveEdit = (e) => {
+    if (userImg) {
+      postImage(userImg, userById.id);
+    }
+
     e.preventDefault();
     console.log(compeleteEdit);
   };
@@ -94,11 +102,16 @@ function EditProfile() {
       <Col span={10}>
         <form className="space-y-5" onSubmit={(e) => handleSaveEdit(e)}>
           {showEditPassword ? (
-            <EditPassword setCompeleteEdit={setCompeleteEdit} />
-          ) : (
-            <EditWithPhoto
+            <EditPassword
               setCompeleteEdit={setCompeleteEdit}
               setEditDisable={setEditDisable}
+            />
+          ) : (
+            <EditWithPhoto
+              setUserImg={setUserImg}
+              setCompeleteEdit={setCompeleteEdit}
+              setEditDisable={setEditDisable}
+              editDisable={editDisable}
             />
           )}
           <div className=" !mt-16 flex justify-evenly items-center">

@@ -3,13 +3,14 @@ import { changeTime, getStorage } from "../../../utils/helpers";
 import { usePostLikeComments } from "../../../hooks/useFetch";
 import ThinkReplyComment from "./ThinkReplyComment";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
+import { useModalActions } from "../../../context/LoginModalProvider";
 
 function ThinkComments({ comment, inputRef }) {
   const [like, setLike] = useState(false);
-  const [showReply, setShowReply] = useState(false);
+  // const [showReply, setShowReply] = useState(false);
   const [commentLikeCount, setCommentLikeCount] = useState(comment.likeCount);
   const [likeCommentRes, likeCommentFetch, loading] = usePostLikeComments();
-  const user = getStorage("user");
+  const { userById } = useModalActions();
   const token = getStorage("token");
 
   const giveLikeToComment = () => {
@@ -20,19 +21,19 @@ function ThinkComments({ comment, inputRef }) {
         ? commentLikeCount + 1
         : commentLikeCount !== 0 && commentLikeCount - 1
     );
-    (dataForPost.userId = user.userResponse.id),
+    (dataForPost.userId = userById.id),
       (dataForPost.commentId = comment.id),
       (dataForPost.liked = !like),
       likeCommentFetch(dataForPost);
   };
 
-  const focusInput = () => {
-    inputRef.current.focus();
-  };
+  // const focusInput = () => {
+  //   inputRef.current.focus();
+  // };
 
-  const showCommentReply = () => {
-    setShowReply(!showReply);
-  };
+  // const showCommentReply = () => {
+  //   setShowReply(!showReply);
+  // };
 
   return (
     <div>

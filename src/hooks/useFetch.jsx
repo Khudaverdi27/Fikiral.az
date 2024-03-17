@@ -182,7 +182,7 @@ export const useGetUserById = () => {
   const getUserFetch = async (id) => {
     fetch(ServiceGetUserById, id);
   };
-  return [data || {}, getUserFetch, loading];
+  return [data || [], getUserFetch, loading];
 };
 
 export const usePostLikeComments = () => {

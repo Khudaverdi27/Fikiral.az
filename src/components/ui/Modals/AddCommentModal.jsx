@@ -34,14 +34,13 @@ const AddCommentModal = ({
   const [data, postComment, postLoading] = usePostComments();
 
   const token = getStorage("token");
-  const user = getStorage("user");
 
   const addNewComment = (e) => {
     e.preventDefault();
     const prettyComment = findFuckingWords(value);
     const postData = {
       content: value,
-      userId: user.userResponse.id,
+      userId: userById.id,
       postId,
     };
 
@@ -60,7 +59,7 @@ const AddCommentModal = ({
   const closeMessageModal = () => {
     setIsCommentOpen(false);
   };
-  const inputRef = useRef();
+  // const inputRef = useRef();
   return (
     <div className="commentModal">
       <div className="flex items-center justify-center ">
@@ -155,7 +154,7 @@ const AddCommentModal = ({
                     <ThinkComments
                       key={comment.id}
                       comment={comment}
-                      inputRef={inputRef}
+                      // inputRef={inputRef}
                     />
                   ))}
                 </div>
@@ -174,7 +173,7 @@ const AddCommentModal = ({
               <form onSubmit={addNewComment}>
                 <Space.Compact className="w-full">
                   <Input
-                    ref={inputRef}
+                    // ref={inputRef}
                     maxLength={250}
                     disabled={token.length == 0}
                     value={value}

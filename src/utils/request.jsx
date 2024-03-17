@@ -1,3 +1,4 @@
+import { userApi } from "../api/user.api";
 import { getStorage, objectToQueryString, removeStorage } from "./helpers";
 
 const base_URL = "https://fikiral-app.onrender.com/fikiral/v1";
@@ -49,6 +50,25 @@ const request = async (baseURL, url, method, params = false) => {
   }
 };
 
+// post image request
+export const postImage = async (formData, userId) => {
+  try {
+    const response = await fetch(base_URL + userApi.addImage + userId, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    } else {
+      location.href = "/home";
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+// other data for request
 export const get = (url, params = false) =>
   request(
     base_URL,

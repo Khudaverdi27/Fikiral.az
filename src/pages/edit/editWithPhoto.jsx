@@ -6,8 +6,12 @@ import { useCategories } from "../../hooks/useCategories";
 import { useModalActions } from "../../context/LoginModalProvider";
 import { useEffect, useRef, useState } from "react";
 
-function EditWithPhoto({ setCompeleteEdit, setEditDisable }) {
-  const user = getStorage("user");
+function EditWithPhoto({
+  setCompeleteEdit,
+  setEditDisable,
+  editDisable,
+  setUserImg,
+}) {
   const inputRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [emailValue, setEmailValue] = useState("");
@@ -16,6 +20,7 @@ function EditWithPhoto({ setCompeleteEdit, setEditDisable }) {
   const {
     authCheckUserNameLoading,
     authCheckLoading,
+    userById,
     authCheckMail,
     errors,
     checkUserName,
@@ -27,7 +32,7 @@ function EditWithPhoto({ setCompeleteEdit, setEditDisable }) {
   const watchGmail = watch("gmail");
   const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/;
   useEffect(() => {
-    if (watchPass?.length > 8) {
+    if (watchPass?.length > 7) {
       setEditDisable(false);
     } else {
       setEditDisable(true);
@@ -39,7 +44,6 @@ function EditWithPhoto({ setCompeleteEdit, setEditDisable }) {
       userName: userValue,
       gmail: emailValue,
       categoryIds: selectedIds,
-      // image: selectedImage,
     });
     if (selectedImage) {
       setEditDisable(false);
@@ -60,7 +64,7 @@ function EditWithPhoto({ setCompeleteEdit, setEditDisable }) {
     if (
       !errors.userName &&
       watchName?.length > 3 &&
-      user.userResponse.userName !== watchName
+      userById.userName !== watchName
     ) {
       setEditDisable(false);
     } else {
@@ -72,7 +76,7 @@ function EditWithPhoto({ setCompeleteEdit, setEditDisable }) {
     if (
       !errors.gmail &&
       mailRegex.test(watchGmail) &&
-      user.userResponse.gmail !== watchGmail
+      userById.gmail !== watchGmail
     ) {
       setEditDisable(false);
     } else {
@@ -83,7 +87,7 @@ function EditWithPhoto({ setCompeleteEdit, setEditDisable }) {
   useEffect(() => {
     if (selectedIds.length > 0) {
       setEditDisable(false);
-    } else {
+    } else if (!editDisable && selectedIds.length < 0) {
       setEditDisable(true);
     }
   }, [selectedIds.length]);
@@ -93,6 +97,7 @@ function EditWithPhoto({ setCompeleteEdit, setEditDisable }) {
     setSelectedImage(file);
     const formData = new FormData();
     formData.append("image", file);
+    setUserImg(formData);
   };
 
   const clearFileInput = () => {
@@ -105,19 +110,19 @@ function EditWithPhoto({ setCompeleteEdit, setEditDisable }) {
     <>
       <div className="flex relative space-x-7 mb-10 items-center ">
         <figure className="size-24 mt-2 rounded-full editImage">
-          {selectedImage || user?.userResponse?.image ? (
+          {selectedImage || userById?.image ? (
             <img
               src={
                 selectedImage
                   ? URL.createObjectURL(selectedImage)
-                  : user?.userResponse?.image
+                  : userById?.image
               }
               className="img-cover rounded-full "
               alt="user"
             />
           ) : (
             <span className="size-full text-5xl bg-gray-300  rounded-full border text-indigo-500 flex  justify-center items-center pb-2">
-              {user?.userResponse?.userName?.charAt(0).toLowerCase()}
+              {userById?.userName?.charAt(0).toLowerCase()}
             </span>
           )}
           {selectedImage && (

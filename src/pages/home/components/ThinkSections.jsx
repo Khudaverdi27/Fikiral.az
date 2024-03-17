@@ -1,19 +1,16 @@
 import { Col, Row } from "antd";
 import ThinkCard from "../../../components/widget/Thinks/ThinkCard";
 import Section from "../../../components/ui/Section";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet";
-import { useGetUserById } from "../../../hooks/useFetch";
-import { getStorage } from "../../../utils/helpers";
 import { useSearchActions } from "../../../context/FormSearchProvider";
 import { useLocation } from "react-router-dom";
+import { useModalActions } from "../../../context/LoginModalProvider";
 
 function ThinkSection({ items, loading, title }) {
   const [showAll, setShowAll] = useState(false);
   const { searchResponse } = useSearchActions();
-  const [userById, getUserFetch, userLoading] = useGetUserById();
-  const user = getStorage("user");
-  const token = getStorage("token");
+  const { userById } = useModalActions();
 
   let newItems =
     searchResponse.length > 0
@@ -25,12 +22,6 @@ function ThinkSection({ items, loading, title }) {
   const showAllItems = () => {
     setShowAll(!showAll);
   };
-
-  useEffect(() => {
-    if (token.length > 0) {
-      getUserFetch(user.userResponse.id);
-    }
-  }, []);
 
   const path = useLocation().pathname.split("/").at(-1);
 

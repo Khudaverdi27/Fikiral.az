@@ -7,11 +7,12 @@ import FormRegister from "../ui/Form/FormRegister";
 import { getStorage, removeStorage } from "../../utils/helpers";
 import { Link } from "react-router-dom";
 import IsConfirmModal from "../ui/Modals/IsConfirmModal";
+import { useModalActions } from "../../context/LoginModalProvider";
 
 function Header() {
   const { category, loading } = useCategories(true, "checkbox");
+  const { userById } = useModalActions();
   const token = getStorage("token");
-  const user = getStorage("user");
 
   const logoutProfile = () => {
     removeStorage("token");
@@ -53,13 +54,11 @@ function Header() {
             classes={"w-[142px] max-h-[108px] !top-[85px]"}
             dropName={
               <span className="text-primaryGray">
-                {user?.userResponse?.userName.split(" ")[0].toLowerCase()}
+                {userById?.userName?.split(" ")[0].toLowerCase()}
               </span>
             }
             profilImg={
-              user?.userResponse?.image
-                ? user?.userResponse?.image
-                : user?.userResponse?.userName?.charAt(0).toLowerCase()
+              userById?.image || userById?.userName?.charAt(0).toLowerCase()
             }
             dropDownItems={[
               {

@@ -28,7 +28,6 @@ function ThinkCard({ thinks, children, items, userById }) {
   const [savedResponse, saveFetch, saveLoading] = usePutSavedPosts();
   const [reportRes, setReportRes] = useState(false);
   const token = getStorage("token");
-  const user = getStorage("user");
 
   const sendToSaveds = () => {
     if (token.length == 0) {
@@ -37,7 +36,7 @@ function ThinkCard({ thinks, children, items, userById }) {
     } else {
       setBookmark(!bookmark);
       saveFetch({
-        userId: user?.userResponse?.id,
+        userId: userById?.id,
         postId: thinks?.id,
       });
     }
@@ -70,8 +69,8 @@ function ThinkCard({ thinks, children, items, userById }) {
   }, [items]);
 
   const reportContent = {
-    from_name: user?.userResponse?.userName,
-    from_email: user?.userResponse?.gmail,
+    from_name: userById?.userName,
+    from_email: userById?.gmail,
     to_name: "Fikiral komandası",
     userMail: thinks?.user.gmail,
     userName: thinks?.user.userName,
@@ -98,9 +97,7 @@ function ThinkCard({ thinks, children, items, userById }) {
     <div>
       <div
         className={`${
-          thinks?.user?.id === user?.userResponse?.id
-            ? "visible text-red-500 "
-            : "hidden"
+          thinks?.user?.id === userById?.id ? "visible text-red-500 " : "hidden"
         }`}
       >
         <IsConfirmModal

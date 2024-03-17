@@ -3,18 +3,18 @@ import { useFetchThinksList, useGetUserById } from "../../hooks/useFetch";
 import ThinkSection from "../home/components/ThinkSections";
 import { getStorage } from "../../utils/helpers";
 import ErrorBoundary from "../../components/common/ErrorBoundary";
+import { useModalActions } from "../../context/LoginModalProvider";
 
 function FavoritePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
-  const [userById, getUserFetch, userLoading] = useGetUserById();
-  const user = getStorage("user");
+  const { userById } = useModalActions();
 
   const findSavedPosts = data?.filter((d) =>
     userById.savedPostsIDs?.includes(d.id)
   );
 
   useEffect(() => {
-    apiFetch().then(() => getUserFetch(user.userResponse.id));
+    apiFetch();
   }, []);
 
   return (

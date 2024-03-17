@@ -6,5 +6,5 @@ export const userApi = {
   userSavedPosts: "/think/save/",
   updateUserById: "/user/:id",
   deleteUserById: "/user/:id",
-  addImage: "/user/image",
+  addImage: "/user/image?id=",
 };

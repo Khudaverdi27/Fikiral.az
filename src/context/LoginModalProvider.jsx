@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { removeStorage, saveStorage } from "../utils/helpers";
+import { getStorage, removeStorage, saveStorage } from "../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import {
   useFetchAuthCheckMail,
   useFetchAuthCheckUserName,
   useFetchAuthLogin,
+  useGetUserById,
 } from "../hooks/useFetch";
 
 const LoginModal = createContext();
@@ -27,7 +28,10 @@ function ModalProvider({ children }) {
   const [selectCategory, setSelectCategory] = useState(false);
   const [withGoogle, setWithGoogle] = useState(false);
   const [withFb, setWithFb] = useState(false);
+  const [userById, getUserFetch, userLoading] = useGetUserById();
+
   const navigate = useNavigate();
+  const token = getStorage("token");
   const {
     register,
     formState: { errors },
@@ -55,11 +59,8 @@ function ModalProvider({ children }) {
 
   useEffect(() => {
     if (userLoginAuth.tokenResponse) {
-      const { accessToken } = userLoginAuth.tokenResponse;
-      saveStorage("token", accessToken);
-      saveStorage("user", userLoginAuth);
       setLoginAuth(userLoginAuth);
-      navigate("/home");
+
       removeStorage("selectedCategories");
     } else {
       let errorMessage = "";
@@ -80,6 +81,20 @@ function ModalProvider({ children }) {
       });
     }
   }, [userLoginAuth]);
+
+  useEffect(() => {
+    if (userLoginAuth?.userResponse?.id) {
+      getUserFetch(userLoginAuth.userResponse.id);
+    }
+  }, [userLoginAuth]);
+
+  useEffect(() => {
+    if (userById.id) {
+      saveStorage("token", userLoginAuth?.tokenResponse?.accessToken || token);
+      saveStorage("userId", userById.id);
+      navigate("/home");
+    }
+  }, [userById]);
 
   const checkMail = (inputMail) => {
     authCheckFetch(inputMail);
@@ -116,8 +131,7 @@ function ModalProvider({ children }) {
     }
   }, [authCheckUserNameLoading]);
 
-  const onSubModel = (e, stateSub = true, stateMain = false) => {
-    e.preventDefault();
+  const onSubModel = (stateSub = true, stateMain = false) => {
     setMainModel(stateMain);
     setSubModel(stateSub);
     setConfrimRegister(true);
@@ -147,6 +161,9 @@ function ModalProvider({ children }) {
   ]);
 
   const actions = {
+    getUserFetch,
+    userById,
+    userLoading,
     setWithFb,
     setWithGoogle,
     setError,
@@ -173,7 +190,6 @@ function ModalProvider({ children }) {
     checkMail,
     authCheckLoading,
     authCheckUserNameLoading,
-    userLoginAuthLoading,
     authCheckMail,
     checkUserName,
     loginAuth,

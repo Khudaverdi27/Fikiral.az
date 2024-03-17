@@ -34,7 +34,6 @@ function ThinkCardActions({
   const [fetchLikeCount, loading] = usePostLikeAndDislike();
   const [copied, setCopied] = useState(false);
   const token = getStorage("token");
-  const user = getStorage("user");
 
   const likeActions = () => {
     if (!like) {
@@ -58,7 +57,7 @@ function ThinkCardActions({
 
   const updateLikeCount = (isLiked) => {
     fetchLikeCount({
-      userId: user.userResponse.id,
+      userId: userById.id,
       postId,
       liked: isLiked,
     });
