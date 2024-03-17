@@ -5,6 +5,7 @@ import { useCategories } from "../../hooks/useCategories";
 import { useModalActions } from "../../context/LoginModalProvider";
 import { useEffect, useRef, useState } from "react";
 import { useFetchAuthLogin } from "../../hooks/useFetch";
+import { saveStorage } from "../../utils/helpers";
 
 function EditWithPhoto({
   setCompeleteEdit,
@@ -15,6 +16,7 @@ function EditWithPhoto({
   const inputRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [emailValue, setEmailValue] = useState("");
+  const [passValue, setPassValue] = useState(false);
   const [userValue, setUserValue] = useState("");
   const { category, loading, selectedIds } = useCategories(false, "checkbox");
   const {
@@ -42,15 +44,16 @@ function EditWithPhoto({
   }, [watchPass]);
 
   useEffect(() => {
+    saveStorage("selectedCategories", []);
     setCompeleteEdit({
       userName: userValue,
-      gmail: emailValue,
+      gmail: passValue ? emailValue : "",
       categories: selectedIds,
     });
     if (selectedImage) {
       setEditDisable(false);
     }
-  }, [userValue, selectedIds, emailValue, selectedImage]);
+  }, [userValue, selectedIds, emailValue, selectedImage, passValue]);
 
   const getEmailValue = (e) => {
     checkMail(e);
@@ -193,6 +196,7 @@ function EditWithPhoto({
             }}
             registerName={"password"}
             showUnShow={true}
+            onBlur={(e) => setPassValue(e.target.value)}
           />
           {watchPass?.length < 8 && (
             <span className="text-red-500">Min 8 max 20 simvol</span>

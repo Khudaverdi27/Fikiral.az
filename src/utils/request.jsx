@@ -60,8 +60,6 @@ export const postImage = async (formData, userId) => {
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
-    } else {
-      location.href = "/home";
     }
   } catch (error) {
     throw error;

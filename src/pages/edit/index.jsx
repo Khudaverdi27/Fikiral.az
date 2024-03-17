@@ -1,7 +1,7 @@
 import { Col, Row } from "antd";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { removeStorage, getStorage } from "../../utils/helpers";
 import IsConfirmModal from "../../components/ui/Modals/IsConfirmModal";
 import EditWithPhoto from "./editWithPhoto";
@@ -69,16 +69,38 @@ function EditProfile() {
   };
 
   const handleSaveEdit = (e) => {
-    if (userImg) {
+    if (
+      userImg &&
+      compeleteEdit.userName &&
+      compeleteEdit.gmail &&
+      compeleteEdit.categories.length > 0
+    ) {
+      postImage(userImg, userByIdData.id).then(() =>
+        fetchUpdateUser(userId, compeleteEdit)
+      );
       setEditDisable(true);
-      postImage(userImg, userByIdData.id);
+    } else if (userImg) {
+      setEditDisable(true);
+      postImage(userImg, userByIdData.id).then(() => {
+        location.href = "/home";
+      });
     } else if (compeleteEdit.userName) {
+      setEditDisable(true);
       fetchUpdateUser(userId, { userName: compeleteEdit.userName });
+    } else if (compeleteEdit.gmail) {
+      fetchUpdateUser(userId, { gmail: compeleteEdit.gmail });
+    } else if (compeleteEdit.categories.length > 0) {
+      fetchUpdateUser(userId, { categories: compeleteEdit.categories });
     }
 
     e.preventDefault();
-    // console.log(compeleteEdit);
   };
+
+  useEffect(() => {
+    if (updatedRes.status === 200) {
+      location.href = "/home";
+    }
+  }, [updatedRes]);
 
   return (
     <Row>
