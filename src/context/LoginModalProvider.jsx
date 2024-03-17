@@ -29,6 +29,7 @@ function ModalProvider({ children }) {
   const [withGoogle, setWithGoogle] = useState(false);
   const [withFb, setWithFb] = useState(false);
   const [userById, getUserFetch, userLoading] = useGetUserById();
+  const [userByIdData, setUserById] = useState([]);
 
   const navigate = useNavigate();
   const token = getStorage("token");
@@ -90,6 +91,7 @@ function ModalProvider({ children }) {
 
   useEffect(() => {
     if (userById.id) {
+      setUserById(userById);
       saveStorage("token", userLoginAuth?.tokenResponse?.accessToken || token);
       saveStorage("userId", userById.id);
       navigate("/home");
@@ -161,7 +163,10 @@ function ModalProvider({ children }) {
   ]);
 
   const actions = {
+    userLoginAuthLoading,
     getUserFetch,
+    setUserById,
+    userByIdData,
     userById,
     userLoading,
     setWithFb,

@@ -7,10 +7,10 @@ import { useModalActions } from "../../context/LoginModalProvider";
 
 function FavoritePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
-  const { userById } = useModalActions();
+  const { userByIdData } = useModalActions();
 
   const findSavedPosts = data?.filter((d) =>
-    userById.savedPostsIDs?.includes(d.id)
+    userByIdData.savedPostsIDs?.includes(d.id)
   );
 
   useEffect(() => {

@@ -5,6 +5,7 @@ import DropdownMenu from "../../components/ui/Dropdown";
 import { useCategories } from "../../hooks/useCategories";
 import { useModalActions } from "../../context/LoginModalProvider";
 import { useEffect, useRef, useState } from "react";
+import { useFetchAuthLogin } from "../../hooks/useFetch";
 
 function EditWithPhoto({
   setCompeleteEdit,
@@ -20,13 +21,14 @@ function EditWithPhoto({
   const {
     authCheckUserNameLoading,
     authCheckLoading,
-    userById,
+    userByIdData,
     authCheckMail,
     errors,
     checkUserName,
     checkMail,
     watch,
   } = useModalActions();
+  const [userLoginAuth, loginFetch, userLoginAuthLoading] = useFetchAuthLogin();
   const watchPass = watch("password");
   const watchName = watch("userName");
   const watchGmail = watch("gmail");
@@ -64,7 +66,7 @@ function EditWithPhoto({
     if (
       !errors.userName &&
       watchName?.length > 3 &&
-      userById.userName !== watchName
+      userByIdData.userName !== watchName
     ) {
       setEditDisable(false);
     } else {
@@ -76,7 +78,7 @@ function EditWithPhoto({
     if (
       !errors.gmail &&
       mailRegex.test(watchGmail) &&
-      userById.gmail !== watchGmail
+      userByIdData.gmail !== watchGmail
     ) {
       setEditDisable(false);
     } else {
@@ -110,19 +112,19 @@ function EditWithPhoto({
     <>
       <div className="flex relative space-x-7 mb-10 items-center ">
         <figure className="size-24 mt-2 rounded-full editImage">
-          {selectedImage || userById?.image ? (
+          {selectedImage || userByIdData?.image ? (
             <img
               src={
                 selectedImage
                   ? URL.createObjectURL(selectedImage)
-                  : userById?.image
+                  : userByIdData?.image
               }
               className="img-cover rounded-full "
               alt="user"
             />
           ) : (
             <span className="size-full text-5xl bg-gray-300  rounded-full border text-indigo-500 flex  justify-center items-center pb-2">
-              {userById?.userName?.charAt(0).toLowerCase()}
+              {userByIdData?.userName?.charAt(0).toLowerCase()}
             </span>
           )}
           {selectedImage && (

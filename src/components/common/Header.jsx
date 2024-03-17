@@ -11,12 +11,12 @@ import { useModalActions } from "../../context/LoginModalProvider";
 
 function Header() {
   const { category, loading } = useCategories(true, "checkbox");
-  const { userById } = useModalActions();
+  const { userByIdData } = useModalActions();
   const token = getStorage("token");
 
   const logoutProfile = () => {
     removeStorage("token");
-    removeStorage("user");
+    removeStorage("userId");
     removeStorage("selectedCategories");
     location.reload();
     location.href = "/";
@@ -54,11 +54,12 @@ function Header() {
             classes={"w-[142px] max-h-[108px] !top-[85px]"}
             dropName={
               <span className="text-primaryGray">
-                {userById?.userName?.split(" ")[0].toLowerCase()}
+                {userByIdData?.userName?.split(" ")[0].toLowerCase()}
               </span>
             }
             profilImg={
-              userById?.image || userById?.userName?.charAt(0).toLowerCase()
+              userByIdData?.image ||
+              userByIdData?.userName?.charAt(0).toLowerCase()
             }
             dropDownItems={[
               {

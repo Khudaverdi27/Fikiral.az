@@ -16,10 +16,10 @@ function EditProfile() {
   const [compeleteEdit, setCompeleteEdit] = useState(false);
   const [userImg, setUserImg] = useState(false);
   const [editDisable, setEditDisable] = useState(true);
-  const { userById } = useModalActions();
+  const { userByIdData } = useModalActions();
   const logoutProfile = () => {
     removeStorage("token");
-    removeStorage("user");
+    removeStorage("userId");
     removeStorage("selectedCategories");
     location.reload();
     location.href = "/";
@@ -67,7 +67,8 @@ function EditProfile() {
 
   const handleSaveEdit = (e) => {
     if (userImg) {
-      postImage(userImg, userById.id);
+      setEditDisable(true);
+      postImage(userImg, userByIdData.id);
     }
 
     e.preventDefault();

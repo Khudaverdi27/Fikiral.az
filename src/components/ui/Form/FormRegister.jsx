@@ -22,7 +22,7 @@ const FormRegister = () => {
     clearErrors,
     authCheckLoading,
     authCheckUserNameLoading,
-
+    userLoginAuthLoading,
     watch,
   } = useModalActions();
 
@@ -33,8 +33,8 @@ const FormRegister = () => {
       social === "fb" ? await loginFacebook() : await loginGoogle();
 
     const mail =
-      dataSocial.user.email ||
-      `${dataSocial.user.displayName.split(" ")[0]}@gmail.com`;
+      dataSocial?.user?.email ||
+      `${dataSocial?.user?.displayName.split(" ")[0]}@gmail.com`;
 
     const formData = {
       gmail: mail,
@@ -76,7 +76,7 @@ const FormRegister = () => {
           />
         )}
         <>
-          {userLoading ? (
+          {userLoading || userLoginAuthLoading ? (
             <LoadingSpin />
           ) : (
             <>
@@ -130,49 +130,55 @@ const FormRegister = () => {
               >
                 {accescLogin ? "Qeydiyyat" : "Daxil ol"}
               </button>
+
+              <div
+                className={`${userLoading && "invisible"} visible space-y-2`}
+              >
+                <div className="text-center text-base">Və ya</div>
+                <button
+                  type="button"
+                  onMouseDown={() => setWithGoogle(true)}
+                  onClick={() => compeleteLoginSocial("google")}
+                  className="flex items-center justify-center loginInput"
+                >
+                  <span className="mr-3 size-6">
+                    <FcGoogle className="size-full" />
+                  </span>
+                  Google hesabı ilə davam et
+                </button>
+                <button
+                  type="button"
+                  onMouseDown={() => setWithFb(true)}
+                  onClick={() => compeleteLoginSocial("fb")}
+                  className="flex items-center justify-center loginInput"
+                >
+                  <span className="mx-2 size-6">
+                    <FaFacebook className="size-full text-[#1977F3]" />
+                  </span>
+                  Facebook hesabı ilə davam et
+                </button>
+                <div className="text-center space-x-2">
+                  <span>
+                    {accescLogin ? "Artıq hesabın var?" : "Hesabın yoxdur?"}
+                  </span>
+                  <span className="text-indigo-500">
+                    <button
+                      onClick={() => {
+                        setAccesLogin(!accescLogin);
+
+                        reset();
+                        clearErrors();
+                      }}
+                    >
+                      {accescLogin ? "Daxil ol" : "Qeydiyyatdan keç"}
+                    </button>
+                  </span>
+                </div>
+              </div>
             </>
           )}
         </>
       </form>
-
-      <div className={`${userLoading && "invisible"} visible space-y-2`}>
-        <div className="text-center text-base">Və ya</div>
-        <button
-          onMouseDown={() => setWithGoogle(true)}
-          onClick={() => compeleteLoginSocial("google")}
-          className="flex items-center justify-center loginInput"
-        >
-          <span className="mr-3 size-6">
-            <FcGoogle className="size-full" />
-          </span>
-          Google hesabı ilə davam et
-        </button>
-        <button
-          onMouseDown={() => setWithFb(true)}
-          onClick={() => compeleteLoginSocial("fb")}
-          className="flex items-center justify-center loginInput"
-        >
-          <span className="mx-2 size-6">
-            <FaFacebook className="size-full text-[#1977F3]" />
-          </span>
-          Facebook hesabı ilə davam et
-        </button>
-        <div className="text-center space-x-2">
-          <span>{accescLogin ? "Artıq hesabın var?" : "Hesabın yoxdur?"}</span>
-          <span className="text-indigo-500">
-            <button
-              onClick={() => {
-                setAccesLogin(!accescLogin);
-
-                reset();
-                clearErrors();
-              }}
-            >
-              {accescLogin ? "Daxil ol" : "Qeydiyyatdan keç"}
-            </button>
-          </span>
-        </div>
-      </div>
     </FormContainer>
   );
 };

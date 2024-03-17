@@ -10,7 +10,7 @@ function ThinkComments({ comment, inputRef }) {
   // const [showReply, setShowReply] = useState(false);
   const [commentLikeCount, setCommentLikeCount] = useState(comment.likeCount);
   const [likeCommentRes, likeCommentFetch, loading] = usePostLikeComments();
-  const { userById } = useModalActions();
+  const { userByIdData } = useModalActions();
   const token = getStorage("token");
 
   const giveLikeToComment = () => {
@@ -21,7 +21,7 @@ function ThinkComments({ comment, inputRef }) {
         ? commentLikeCount + 1
         : commentLikeCount !== 0 && commentLikeCount - 1
     );
-    (dataForPost.userId = userById.id),
+    (dataForPost.userId = userByIdData.id),
       (dataForPost.commentId = comment.id),
       (dataForPost.liked = !like),
       likeCommentFetch(dataForPost);

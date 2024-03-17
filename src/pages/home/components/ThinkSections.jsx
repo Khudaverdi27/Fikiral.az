@@ -10,7 +10,7 @@ import { useModalActions } from "../../../context/LoginModalProvider";
 function ThinkSection({ items, loading, title }) {
   const [showAll, setShowAll] = useState(false);
   const { searchResponse } = useSearchActions();
-  const { userById } = useModalActions();
+  const { userByIdData } = useModalActions();
 
   let newItems =
     searchResponse.length > 0
@@ -53,7 +53,11 @@ function ThinkSection({ items, loading, title }) {
             sm={{ span: 24 }}
             xs={{ span: 24 }}
           >
-            <ThinkCard thinks={item} items={newItems} userById={userById} />
+            <ThinkCard
+              thinks={item}
+              items={newItems}
+              userByIdData={userByIdData}
+            />
           </Col>
         ))}
       </Row>

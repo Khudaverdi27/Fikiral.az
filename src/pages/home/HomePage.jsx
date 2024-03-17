@@ -10,15 +10,15 @@ function HomePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
   const [newCategories, setNewCategories] = useState([]);
   const [userSelectCateg, setUserSelectCateg] = useState([]);
-  const { isPosted, setIsPosted, selectCategory, userById, getUserFetch } =
+  const { isPosted, setIsPosted, selectCategory, userByIdData, getUserFetch } =
     useModalActions();
 
   const { searchResponse } = useSearchActions();
   const userId = getStorage("userId");
   useEffect(() => {
-    if (userById.id) {
+    if (userByIdData.id) {
       const dataForUser = data
-        .filter((d) => userById.categoryIds.includes(d.category.id))
+        .filter((d) => userByIdData?.categoryIds?.includes(d.category.id))
         .sort((a, b) => b.likeCount - a.likeCount);
       setUserSelectCateg(dataForUser);
     }
@@ -42,10 +42,10 @@ function HomePage() {
 
   const sortedData = data
     ?.sort((a, b) => b.id - a.id)
-    ?.filter((d) => !userById.categoryIds?.includes(d.category.id));
+    ?.filter((d) => !userByIdData?.categoryIds?.includes(d?.category?.id));
 
-  const filteredCategories = data.filter((item) =>
-    newCategories?.includes(item.category.id)
+  const filteredCategories = data?.filter((item) =>
+    newCategories?.includes(item?.category?.id)
   );
 
   return (

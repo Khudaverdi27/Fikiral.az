@@ -20,6 +20,7 @@ function FormRegisterConfrim() {
     setSubModel,
     resRegister,
     setLoginAuth,
+    setUserById,
     reset,
   } = useModalActions();
 
@@ -53,7 +54,8 @@ function FormRegisterConfrim() {
   useEffect(() => {
     if (registerAuth.tokenResponse) {
       saveStorage("token", registerAuth.tokenResponse.accessToken);
-      saveStorage("user", registerAuth);
+      saveStorage("userId", registerAuth.userResponse.id);
+      setUserById(registerAuth.userResponse);
       setLoginAuth(registerAuth);
       setSubModel(false);
       navigate("/home");

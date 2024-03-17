@@ -36,7 +36,7 @@ const request = async (baseURL, url, method, params = false) => {
     return { status: 404 };
   } else if (res.status === 401) {
     removeStorage("token");
-    removeStorage("user");
+    removeStorage("userId");
     location.reload();
     return false;
   } else if (res.status === 422) {

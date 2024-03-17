@@ -17,7 +17,7 @@ import { usePostComments } from "../../../hooks/useFetch";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 
 const AddCommentModal = ({
-  userById,
+  userByIdData,
   bookmark,
   sendToSaveds,
   postId,
@@ -40,7 +40,7 @@ const AddCommentModal = ({
     const prettyComment = findFuckingWords(value);
     const postData = {
       content: value,
-      userId: userById.id,
+      userId: userByIdData.id,
       postId,
     };
 
@@ -166,7 +166,7 @@ const AddCommentModal = ({
                   thinksContent={modalData.content}
                   postId={postId}
                   likeCount={modalData.likeCount}
-                  userById={userById}
+                  userByIdData={userByIdData}
                   disabled={false}
                 />
               </div>

@@ -27,7 +27,7 @@ const AddModal = () => {
 
   const [postedThink, fetchPost, loading] = usePostThink();
 
-  const { setIsPosted, userById } = useModalActions();
+  const { setIsPosted, userByIdData } = useModalActions();
 
   useEffect(() => {
     const updatedContent = checkboxStates.reduce((acc, state, i) => {
@@ -50,7 +50,7 @@ const AddModal = () => {
       const requestData = {
         content: updatedContent.comment,
         categoryId: updatedContent.category.id,
-        userId: userById.id,
+        userId: userByIdData.id,
       };
 
       fetchPost(requestData).then(() => {
@@ -84,20 +84,20 @@ const AddModal = () => {
         title={
           <div className="flex items-center space-x-2 bg-neutral-100">
             <figure className="size-11 rounded-full shrink-0 ">
-              {userById?.image ? (
+              {userByIdData?.image ? (
                 <img
                   className="img-cover rounded-full"
-                  src={`${userById?.image}`}
+                  src={`${userByIdData?.image}`}
                   alt="user"
                 />
               ) : (
                 <span className="size-full text-3xl bg-gray-300  rounded-full border text-indigo-500 flex justify-center">
-                  {userById?.userName?.charAt(0).toLowerCase()}
+                  {userByIdData?.userName?.charAt(0).toLowerCase()}
                 </span>
               )}
             </figure>
             <span className="text-black">
-              {userById?.userName?.split(" ")[0].toLowerCase()}
+              {userByIdData?.userName?.split(" ")[0].toLowerCase()}
             </span>
           </div>
         }

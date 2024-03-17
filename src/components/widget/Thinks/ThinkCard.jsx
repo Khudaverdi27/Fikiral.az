@@ -18,7 +18,7 @@ import IsConfirmModal from "../../ui/Modals/IsConfirmModal";
 import { sendMessage } from "../../../utils/emailJs";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 
-function ThinkCard({ thinks, children, items, userById }) {
+function ThinkCard({ thinks, children, items, userByIdData }) {
   const [bookmark, setBookmark] = useState(false);
   const { switcRegisterModal, isCommented, setIsCommented } = useModalActions();
   const [iscommentOpen, setIsCommentOpen] = useState(false);
@@ -36,7 +36,7 @@ function ThinkCard({ thinks, children, items, userById }) {
     } else {
       setBookmark(!bookmark);
       saveFetch({
-        userId: userById?.id,
+        userId: userByIdData?.id,
         postId: thinks?.id,
       });
     }
@@ -63,14 +63,14 @@ function ThinkCard({ thinks, children, items, userById }) {
 
   useEffect(() => {
     if (token.length > 0) {
-      const findSaved = userById.savedPostsIDs;
+      const findSaved = userByIdData.savedPostsIDs;
       setBookmark(findSaved?.includes(thinks.id));
     }
   }, [items]);
 
   const reportContent = {
-    from_name: userById?.userName,
-    from_email: userById?.gmail,
+    from_name: userByIdData?.userName,
+    from_email: userByIdData?.gmail,
     to_name: "Fikiral komandası",
     userMail: thinks?.user.gmail,
     userName: thinks?.user.userName,
@@ -97,7 +97,9 @@ function ThinkCard({ thinks, children, items, userById }) {
     <div>
       <div
         className={`${
-          thinks?.user?.id === userById?.id ? "visible text-red-500 " : "hidden"
+          thinks?.user?.id === userByIdData?.id
+            ? "visible text-red-500 "
+            : "hidden"
         }`}
       >
         <IsConfirmModal
@@ -187,7 +189,7 @@ function ThinkCard({ thinks, children, items, userById }) {
       </div>
       <ThinkCardActions
         items={items}
-        userById={userById}
+        userByIdData={userByIdData}
         comment={thinks.commentCount}
         thinksContent={thinks.content}
         commentLoading={commentLoading}

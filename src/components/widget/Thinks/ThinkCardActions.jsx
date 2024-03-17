@@ -12,7 +12,7 @@ import { AiFillDislike } from "react-icons/ai";
 function ThinkCardActions({
   thinksContent,
   items,
-  userById,
+  userByIdData,
   disabled = true,
   allComments,
   commentLoading,
@@ -57,7 +57,7 @@ function ThinkCardActions({
 
   const updateLikeCount = (isLiked) => {
     fetchLikeCount({
-      userId: userById.id,
+      userId: userByIdData.id,
       postId,
       liked: isLiked,
     });
@@ -65,8 +65,8 @@ function ThinkCardActions({
 
   useEffect(() => {
     if (token.length > 0) {
-      const findLikeds = userById?.likedPostsIDs;
-      const findDislikeds = userById?.disLikedPostsIDs;
+      const findLikeds = userByIdData?.likedPostsIDs;
+      const findDislikeds = userByIdData?.disLikedPostsIDs;
 
       if (findLikeds?.includes(postId)) {
         setLike(true);
@@ -138,7 +138,7 @@ function ThinkCardActions({
         {disabled && (
           <>
             <AddCommentModal
-              userById={userById}
+              userByIdData={userByIdData}
               bookmark={bookmark}
               sendToSaveds={sendToSaveds}
               postId={postId}
