@@ -98,6 +98,16 @@ function ModalProvider({ children }) {
     }
   }, [userById]);
 
+  const [href, setHref] = useState("/");
+  useEffect(() => {
+    const path = location.pathname;
+    setHref(path);
+    const userId = getStorage("userId");
+    if (userId) {
+      getUserFetch(userId);
+    }
+  }, [href]);
+
   const checkMail = (inputMail) => {
     authCheckFetch(inputMail);
   };

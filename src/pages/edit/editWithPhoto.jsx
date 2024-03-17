@@ -1,5 +1,4 @@
 import Input from "../../components/ui/Form/input";
-import { getStorage } from "../../utils/helpers";
 import { FaAngleDown } from "react-icons/fa6";
 import DropdownMenu from "../../components/ui/Dropdown";
 import { useCategories } from "../../hooks/useCategories";
@@ -28,6 +27,7 @@ function EditWithPhoto({
     checkMail,
     watch,
   } = useModalActions();
+
   const [userLoginAuth, loginFetch, userLoginAuthLoading] = useFetchAuthLogin();
   const watchPass = watch("password");
   const watchName = watch("userName");
@@ -45,7 +45,7 @@ function EditWithPhoto({
     setCompeleteEdit({
       userName: userValue,
       gmail: emailValue,
-      categoryIds: selectedIds,
+      categories: selectedIds,
     });
     if (selectedImage) {
       setEditDisable(false);

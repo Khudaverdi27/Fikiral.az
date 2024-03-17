@@ -82,6 +82,8 @@ export const put = (url, params = false) =>
     url + (params ? "?" + objectToQueryString(params) : ""),
     "PUT"
   );
+export const putForEdit = (url, params) =>
+  request(base_URL, url, "PUT", params);
 
 export const post = (url, params) => request(base_URL, url, "POST", params);
 export const destroy = (url) => request(base_URL, url, "DELETE");

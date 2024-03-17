@@ -8,7 +8,7 @@ import EditWithPhoto from "./editWithPhoto";
 import EditPassword from "./editPassword";
 import { postImage } from "../../utils/request";
 import { useModalActions } from "../../context/LoginModalProvider";
-import { useGetUserById } from "../../hooks/useFetch";
+import { useUpdateUserById } from "../../hooks/useFetch";
 
 function EditProfile() {
   const [activeBtn, setActiveBtn] = useState("main");
@@ -17,6 +17,7 @@ function EditProfile() {
   const [userImg, setUserImg] = useState(false);
   const [editDisable, setEditDisable] = useState(true);
   const { userByIdData } = useModalActions();
+  const [updatedRes, fetchUpdateUser, updateLoading] = useUpdateUserById();
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("userId");
@@ -24,6 +25,8 @@ function EditProfile() {
     location.reload();
     location.href = "/";
   };
+
+  const userId = getStorage("userId");
 
   const deleteProfile = () => {
     // console.log("Delete");
@@ -69,10 +72,12 @@ function EditProfile() {
     if (userImg) {
       setEditDisable(true);
       postImage(userImg, userByIdData.id);
+    } else if (compeleteEdit.userName) {
+      fetchUpdateUser(userId, { userName: compeleteEdit.userName });
     }
 
     e.preventDefault();
-    console.log(compeleteEdit);
+    // console.log(compeleteEdit);
   };
 
   return (

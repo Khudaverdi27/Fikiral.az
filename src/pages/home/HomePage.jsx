@@ -10,11 +10,11 @@ function HomePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
   const [newCategories, setNewCategories] = useState([]);
   const [userSelectCateg, setUserSelectCateg] = useState([]);
-  const { isPosted, setIsPosted, selectCategory, userByIdData, getUserFetch } =
+  const { isPosted, setIsPosted, selectCategory, userByIdData } =
     useModalActions();
 
   const { searchResponse } = useSearchActions();
-  const userId = getStorage("userId");
+
   useEffect(() => {
     if (userByIdData.id) {
       const dataForUser = data
@@ -34,11 +34,6 @@ function HomePage() {
       setIsPosted(false);
     });
   }, [isPosted]);
-
-  const href = location.href;
-  useEffect(() => {
-    getUserFetch(userId);
-  }, [href]);
 
   const sortedData = data
     ?.sort((a, b) => b.id - a.id)
