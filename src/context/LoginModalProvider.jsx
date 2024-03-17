@@ -7,7 +7,6 @@ import {
   useFetchAuthCheckUserName,
   useFetchAuthLogin,
 } from "../hooks/useFetch";
-import { loginGoogle } from "../utils/firebase";
 
 const LoginModal = createContext();
 
@@ -37,6 +36,7 @@ function ModalProvider({ children }) {
     setError,
     clearErrors,
     watch,
+    setValue,
   } = useForm();
 
   const onSubmit = async (data) => {
@@ -98,6 +98,7 @@ function ModalProvider({ children }) {
         type: "manual",
         message: errorMessage,
       });
+      setValue("gmail", "");
     } else {
       clearErrors();
     }
@@ -109,6 +110,7 @@ function ModalProvider({ children }) {
         type: "manual",
         message: "Bu adda istifadəçi mövcuddur.",
       });
+      setValue("userName", "");
     } else {
       clearErrors();
     }
