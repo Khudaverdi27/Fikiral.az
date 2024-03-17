@@ -93,14 +93,13 @@ function ModalProvider({ children }) {
       ? "Bu mailde istifadəçi mövcuddur."
       : "Bu mail-də istifadəçi tapılmadı!";
     const errorField = authCheckMail ? "gmail" : "gmailReset";
-
-    setError(errorField, {
-      type: "manual",
-      message: errorMessage,
-    });
-
-    if (!authCheckMail) {
-      setTimeout(clearErrors, 2000);
+    if (authCheckMail) {
+      setError(errorField, {
+        type: "manual",
+        message: errorMessage,
+      });
+    } else {
+      clearErrors();
     }
   }, [authCheckMail]);
 
@@ -111,9 +110,7 @@ function ModalProvider({ children }) {
         message: "Bu adda istifadəçi mövcuddur.",
       });
     } else {
-      setTimeout(() => {
-        clearErrors();
-      }, 3000);
+      clearErrors();
     }
   }, [authCheckUserNameLoading]);
 

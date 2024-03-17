@@ -6,12 +6,13 @@ import { removeStorage } from "../../utils/helpers";
 import IsConfirmModal from "../../components/ui/Modals/IsConfirmModal";
 import EditWithPhoto from "./editWithPhoto";
 import EditPassword from "./editPassword";
-import { useModalActions } from "../../context/LoginModalProvider";
 
 function EditProfile() {
   const [activeBtn, setActiveBtn] = useState("main");
   const [showEditPassword, setShowEditPassword] = useState(false);
-  const { handleSubmit, onSubmit } = useModalActions();
+  const [compeleteEdit, setCompeleteEdit] = useState(false);
+  const [editDisable, setEditDisable] = useState(true);
+
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("user");
@@ -60,6 +61,11 @@ function EditProfile() {
     }
   };
 
+  const handleSaveEdit = (e) => {
+    e.preventDefault();
+    console.log(compeleteEdit);
+  };
+
   return (
     <Row>
       <Col span={24}>
@@ -86,19 +92,28 @@ function EditProfile() {
         </div>
       </Col>
       <Col span={10}>
-        <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
-          {showEditPassword ? <EditPassword /> : <EditWithPhoto />}
-          <div className=" !mt-16 flex justify-evenly">
-            <Link
-              to={"/home"}
-              className=" whitespace-nowrap  text-indigo-500 py-2 px-4 rounded-xl 
+        <form className="space-y-5" onSubmit={(e) => handleSaveEdit(e)}>
+          {showEditPassword ? (
+            <EditPassword setCompeleteEdit={setCompeleteEdit} />
+          ) : (
+            <EditWithPhoto
+              setCompeleteEdit={setCompeleteEdit}
+              setEditDisable={setEditDisable}
+            />
+          )}
+          <div className=" !mt-16 flex justify-evenly items-center">
+            <Link to={"/home"}>
+              <span
+                className=" whitespace-nowrap  text-indigo-500 py-2 px-4 rounded-xl 
     hover:outline outline-indigo-500 outline-[0.2px]"
-            >
-              Ləğv et
+              >
+                Ləğv et
+              </span>
             </Link>
             <button
+              disabled={editDisable}
               type="submit"
-              className=" border   bg-indigo-500 text-white py-2 px-4 rounded-xl"
+              className=" border disabled:opacity-35  bg-indigo-500 text-white py-2 px-4 rounded-xl"
             >
               Yadda saxla
             </button>

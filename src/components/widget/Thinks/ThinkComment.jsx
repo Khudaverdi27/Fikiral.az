@@ -14,7 +14,6 @@ function ThinkComments({ comment, inputRef }) {
 
   const giveLikeToComment = () => {
     const dataForPost = {};
-    console.log(comment);
     setLike(!like);
     setCommentLikeCount(
       !like

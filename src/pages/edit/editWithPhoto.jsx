@@ -6,30 +6,44 @@ import { useCategories } from "../../hooks/useCategories";
 import { useModalActions } from "../../context/LoginModalProvider";
 import { useEffect, useRef, useState } from "react";
 
-function EditWithPhoto({}) {
+function EditWithPhoto({ setCompeleteEdit, setEditDisable }) {
   const user = getStorage("user");
   const inputRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [emailValue, setEmailValue] = useState("");
   const [userValue, setUserValue] = useState("");
-  const { selectedIds } = useCategories(false, "checkbox");
-  const [editedData, setEditedData] = useState({});
-  const { category, loading } = useCategories(false, "checkbox");
+  const { category, loading, selectedIds } = useCategories(false, "checkbox");
   const {
     authCheckUserNameLoading,
     authCheckLoading,
+    authCheckMail,
+    errors,
     checkUserName,
     checkMail,
+    watch,
   } = useModalActions();
+  const watchPass = watch("password");
+  const watchName = watch("userName");
+  const watchGmail = watch("gmail");
+  const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/;
+  useEffect(() => {
+    if (watchPass?.length > 8) {
+      setEditDisable(false);
+    } else {
+      setEditDisable(true);
+    }
+  }, [watchPass]);
 
   useEffect(() => {
-    setEditedData({
+    setCompeleteEdit({
       userName: userValue,
       gmail: emailValue,
       categoryIds: selectedIds,
-      image: selectedImage,
+      // image: selectedImage,
     });
-    // console.log(editedData);
+    if (selectedImage) {
+      setEditDisable(false);
+    }
   }, [userValue, selectedIds, emailValue, selectedImage]);
 
   const getEmailValue = (e) => {
@@ -42,6 +56,38 @@ function EditWithPhoto({}) {
     setUserValue(e);
   };
 
+  useEffect(() => {
+    if (
+      !errors.userName &&
+      watchName?.length > 3 &&
+      user.userResponse.userName !== watchName
+    ) {
+      setEditDisable(false);
+    } else {
+      setEditDisable(true);
+    }
+  }, [errors.userName, watchName]);
+
+  useEffect(() => {
+    if (
+      !errors.gmail &&
+      mailRegex.test(watchGmail) &&
+      user.userResponse.gmail !== watchGmail
+    ) {
+      setEditDisable(false);
+    } else {
+      setEditDisable(true);
+    }
+  }, [errors.gmail, watchGmail]);
+
+  useEffect(() => {
+    if (selectedIds.length > 0) {
+      setEditDisable(false);
+    } else {
+      setEditDisable(true);
+    }
+  }, [selectedIds.length]);
+
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     setSelectedImage(file);
@@ -50,6 +96,7 @@ function EditWithPhoto({}) {
   };
 
   const clearFileInput = () => {
+    setEditDisable(true);
     setSelectedImage(null);
     inputRef.current.value = "";
   };
@@ -99,9 +146,8 @@ function EditWithPhoto({}) {
       </div>
 
       <Input
-        required={true}
-        label={"İstifadəçi adı"}
-        placeholder={"İstifadəçi adı"}
+        label={"Yeni istifadəçi adı"}
+        placeholder={"Yeni İstifadəçi adı"}
         type={"text"}
         maxLength={15}
         registerName={"userName"}
@@ -114,8 +160,8 @@ function EditWithPhoto({}) {
       />
       <Input
         value={emailValue}
-        label={"E-poçt"}
-        placeholder={"E-poçt daxil edin"}
+        label={"Yeni e-poçt"}
+        placeholder={"Yeni e-poçt daxil edin"}
         type={"email"}
         maxLength={45}
         registerName={"gmail"}
@@ -126,35 +172,44 @@ function EditWithPhoto({}) {
         onBlur={(e) => getEmailValue(e.target.value)}
         checkLoading={authCheckLoading}
       />
-      {emailValue && (
-        <Input
-          required={true}
-          label={"Şifrə"}
-          placeholder={"Şifrəni daxil edin"}
-          type={"password"}
-          maxLength={20}
-          minLength={{
-            value: 8,
-            message: "Min 8 max 20 simvol",
-          }}
-          registerName={"password"}
-          showUnShow={true}
-        />
+      {!authCheckMail && emailValue.length > 0 && (
+        <>
+          <Input
+            required={true}
+            label={"Şifrə"}
+            placeholder={"Şifrənizi daxil edin"}
+            type={"password"}
+            maxLength={20}
+            minLength={{
+              value: 8,
+              message: "Min 8 max 20 simvol",
+            }}
+            registerName={"password"}
+            showUnShow={true}
+          />
+          {watchPass?.length < 8 && (
+            <span className="text-red-500">Min 8 max 20 simvol</span>
+          )}
+        </>
       )}
 
       <div className="mt-5">
         <p className="mb-2 text-base text-[#4C4B4E]">Maraqlarınızı seçin</p>
-        <DropdownMenu
-          loading={loading}
-          dropName={
-            <p className="text-[#4C4B4E] loginInput flex justify-between !font-normal !w-[434px] !py-[9px] ">
-              <span> Kateqoriya</span>
-              <FaAngleDown className="mt-1 text-gray-400" />
-            </p>
-          }
-          dropDownItems={category}
-          classes={"w-[314px] !top-[155px] max-h-[424px] overflow-x-hidden "}
-        />
+        <div className="loginInput flex justify-between items-center">
+          <DropdownMenu
+            loading={loading}
+            dropName={
+              <p className="text-[#4C4B4E] !font-normal w-[300px]">
+                Kateqoriya
+              </p>
+            }
+            dropDownItems={category}
+            classes={
+              "w-[434px] !left-[590px] !top-[157px] max-h-[424px] overflow-x-hidden "
+            }
+          />
+          <FaAngleDown className="text-[#4C4B4E]" />
+        </div>
       </div>
     </>
   );

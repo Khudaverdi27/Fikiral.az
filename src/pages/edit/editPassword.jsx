@@ -2,7 +2,7 @@ import Input from "../../components/ui/Form/input";
 import { useState } from "react";
 import { useModalActions } from "../../context/LoginModalProvider";
 
-function EditPassword() {
+function EditPassword({ setCompeleteEdit }) {
   const [pass, setPass] = useState("");
   const [confrimPass, setConfrimPass] = useState("");
   const { onSubModel } = useModalActions();

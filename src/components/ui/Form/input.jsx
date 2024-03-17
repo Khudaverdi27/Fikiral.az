@@ -21,11 +21,9 @@ function Input({
 }) {
   const [changeType, setChangeType] = useState(false);
   const [error, setError] = useState(false);
-  const { register, accescLogin, errors, reset, clearErrors, watch } =
-    useModalActions();
+  const { register, accescLogin, errors, reset } = useModalActions();
 
   useEffect(() => {
-    clearErrors();
     reset();
   }, [accescLogin]);
 

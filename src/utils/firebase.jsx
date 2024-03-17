@@ -4,7 +4,6 @@ import {
   getAuth,
   signInWithPopup,
   FacebookAuthProvider,
-  OAuthCredential,
 } from "firebase/auth";
 
 const firebaseConfig = {
