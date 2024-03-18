@@ -29,7 +29,7 @@ function ModalProvider({ children }) {
   const [withGoogle, setWithGoogle] = useState(false);
   const [withFb, setWithFb] = useState(false);
   const [userById, getUserFetch, userLoading] = useGetUserById();
-  const [userByIdData, setUserById] = useState([]);
+  const [userByIdData, setUserById] = useState([]); //for use all pages
 
   const navigate = useNavigate();
   const token = getStorage("token");
@@ -103,16 +103,20 @@ function ModalProvider({ children }) {
     const path = location.pathname;
     setHref(path);
     const userId = getStorage("userId");
-    if (userId) {
+    if (!Array.isArray(userId)) {
       getUserFetch(userId);
     }
   }, [href]);
 
   const checkMail = (inputMail) => {
-    authCheckFetch(inputMail);
+    if (inputMail) {
+      authCheckFetch(inputMail);
+    }
   };
   const checkUserName = (inputUsername) => {
-    authCheckUsernameFetch(inputUsername);
+    if (inputUsername) {
+      authCheckUsernameFetch(inputUsername);
+    }
   };
 
   useEffect(() => {
@@ -143,7 +147,8 @@ function ModalProvider({ children }) {
     }
   }, [authCheckUserNameLoading]);
 
-  const onSubModel = (stateSub = true, stateMain = false) => {
+  const onSubModel = (e, stateSub = true, stateMain = false) => {
+    e.preventDefault();
     setMainModel(stateMain);
     setSubModel(stateSub);
     setConfrimRegister(true);
@@ -174,7 +179,6 @@ function ModalProvider({ children }) {
 
   const actions = {
     userLoginAuthLoading,
-    getUserFetch,
     setUserById,
     userByIdData,
     userById,

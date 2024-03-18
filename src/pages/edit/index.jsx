@@ -8,7 +8,7 @@ import EditWithPhoto from "./editWithPhoto";
 import EditPassword from "./editPassword";
 import { postImage } from "../../utils/request";
 import { useModalActions } from "../../context/LoginModalProvider";
-import { useUpdateUserById } from "../../hooks/useFetch";
+import { useUpdateUserById, useDeleteUserById } from "../../hooks/useFetch";
 
 function EditProfile() {
   const [activeBtn, setActiveBtn] = useState("main");
@@ -18,6 +18,8 @@ function EditProfile() {
   const [editDisable, setEditDisable] = useState(true);
   const { userByIdData } = useModalActions();
   const [updatedRes, fetchUpdateUser, updateLoading] = useUpdateUserById();
+  const [deletedUser, deletedUserFetch, deletedLoading] = useDeleteUserById();
+
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("userId");
@@ -29,8 +31,14 @@ function EditProfile() {
   const userId = getStorage("userId");
 
   const deleteProfile = () => {
-    // console.log("Delete");
+    deletedUserFetch(userId);
   };
+
+  useEffect(() => {
+    if (deletedUser.status === 200) {
+      logoutProfile();
+    }
+  }, [deletedUser]);
 
   const editBtns = [
     { name: "Əsas", key: "main" },

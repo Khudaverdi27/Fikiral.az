@@ -17,6 +17,7 @@ import {
   ServiceAuthRegistration,
 } from "../services/auth.service";
 import {
+  ServiceDeleteUserById,
   ServiceGetUserById,
   ServicePostLikeComments,
   ServicePutUserSavedPosts,
@@ -136,7 +137,7 @@ export const useDeleteThink = () => {
   const [data, fetch, loading] = useFetch();
 
   const deleteThink = async (id) => {
-    fetch(ServiceDeleteThinks, id);
+    await fetch(ServiceDeleteThinks, id);
   };
 
   return [data || false, deleteThink, loading];
@@ -184,6 +185,14 @@ export const useGetUserById = () => {
     fetch(ServiceGetUserById, id);
   };
   return [data || [], getUserFetch, loading];
+};
+export const useDeleteUserById = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const deleteUserFetch = async (id) => {
+    fetch(ServiceDeleteUserById, id);
+  };
+  return [data || [], deleteUserFetch, loading];
 };
 
 export const useUpdateUserById = () => {

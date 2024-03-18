@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Spin } from "antd";
+import { Modal } from "antd";
 import DropdownMenu from "../Dropdown";
 import { IoMdClose } from "react-icons/io";
 import { useForm } from "react-hook-form";
@@ -134,7 +134,7 @@ const AddModal = () => {
                 "w-[314px] max-h-[365px] overflow-x-hidden mt-[105px] ml-9 !top-[80px]"
               }
             />
-            <span className="text-red-500 ml-2 font-bold">*</span>
+            <span className="text-red-500 ml-2 font-bold block">*</span>
             <textarea
               {...register("content", { required: true })}
               className="resize-none w-full text-base outline-none p-2 rounded-md"

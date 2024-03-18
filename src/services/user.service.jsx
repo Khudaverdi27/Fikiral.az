@@ -1,5 +1,5 @@
 import { userApi } from "../api/user.api";
-import { get, post, put, putForEdit } from "../utils/request";
+import { destroy, get, post, put, putForEdit } from "../utils/request";
 
 export const ServiceUserLikeAndDislikesPost = async (params = {}) => {
   const res = await post(userApi.likeAndDislikeThink, params);
@@ -13,6 +13,10 @@ export const ServicePutUserSavedPosts = async (params = {}) => {
 
 export const ServiceGetUserById = async (id) => {
   const res = await get(userApi.userById.replace(":id", id));
+  return res;
+};
+export const ServiceDeleteUserById = async (id) => {
+  const res = await destroy(userApi.userById.replace(":id", id));
   return res;
 };
 export const ServiceUpdateUserById = async (id, params = {}) => {

@@ -163,6 +163,7 @@ const FormRegister = () => {
                   </span>
                   <span className="text-indigo-500">
                     <button
+                      type="button"
                       onClick={() => {
                         setAccesLogin(!accescLogin);
 

@@ -1,6 +1,6 @@
-import { Modal } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
+import { Modal, Spin } from "antd";
 
 function IsConfirmModal({
   title,
@@ -10,11 +10,21 @@ function IsConfirmModal({
   dangerBtnClass = false,
 }) {
   const [isOpenModal, setIsModalOpen] = useState(false);
+  const [onOkLoading, setOnOkLoading] = useState(false);
+
   const showModal = () => {
     setIsModalOpen(true);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+  const handleOk = () => {
+    setOnOkLoading(true);
+    destroyProfile();
+    setTimeout(() => {
+      setOnOkLoading(false);
+      handleCancel();
+    }, [3000]);
   };
 
   return (
@@ -54,11 +64,11 @@ function IsConfirmModal({
             Ləğv et
           </button>
           <button
-            onClick={destroyProfile}
+            onClick={handleOk}
             type="button"
             className=" border block w-full border-primaryGray py-2 px-4 rounded-xl "
           >
-            {destroyBtn}
+            {onOkLoading ? <Spin /> : destroyBtn}
           </button>
         </div>
       </Modal>

@@ -20,7 +20,8 @@ import { IoMdCheckmarkCircle } from "react-icons/io";
 
 function ThinkCard({ thinks, children, items, userByIdData }) {
   const [bookmark, setBookmark] = useState(false);
-  const { switcRegisterModal, isCommented, setIsCommented } = useModalActions();
+  const { switcRegisterModal, isCommented, setIsCommented, setIsPosted } =
+    useModalActions();
   const [iscommentOpen, setIsCommentOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
@@ -60,6 +61,12 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
   const destroyThink = () => {
     fetcDelete(thinks.id);
   };
+
+  useEffect(() => {
+    if (deletedThink.status === 200) {
+      setIsPosted(true);
+    }
+  }, [deletedThink]);
 
   useEffect(() => {
     if (token.length > 0) {
@@ -111,7 +118,7 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
             </div>
           }
           destroyProfile={destroyThink}
-          destroyBtn={deletedThink ? "Silindi" : "Sil"}
+          destroyBtn={"Sil"}
         />
       </div>
 

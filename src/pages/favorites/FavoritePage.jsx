@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import { useFetchThinksList, useGetUserById } from "../../hooks/useFetch";
+import { useFetchThinksList } from "../../hooks/useFetch";
 import ThinkSection from "../home/components/ThinkSections";
-import { getStorage } from "../../utils/helpers";
 import ErrorBoundary from "../../components/common/ErrorBoundary";
 import { useModalActions } from "../../context/LoginModalProvider";
 
