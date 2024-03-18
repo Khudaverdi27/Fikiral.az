@@ -18,6 +18,7 @@ function Input({
   onBlur,
   validate = false,
   onKeyDown = () => {},
+  onFocus = () => {},
 }) {
   const [changeType, setChangeType] = useState(false);
   const [error, setError] = useState(false);
@@ -46,6 +47,7 @@ function Input({
         `}
       >
         <input
+          onFocus={onFocus}
           onKeyDown={onKeyDown}
           defaultValue={value || ""}
           autoComplete="off"
@@ -67,7 +69,7 @@ function Input({
           onBlur={onBlur}
         />
 
-        {showUnShow && (
+        {showUnShow && !checkLoading && (
           <button type="button" onClick={() => setChangeType(!changeType)}>
             {changeType ? (
               <FiEye className="size-6  text-[#BCBCBE]" />

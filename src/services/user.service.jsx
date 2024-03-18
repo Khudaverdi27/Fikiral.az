@@ -24,6 +24,11 @@ export const ServiceUpdateUserById = async (id, params = {}) => {
   return res;
 };
 
+export const ServiceUpdateUserPassword = async (params = {}) => {
+  const res = await putForEdit(userApi.changeUserPass, params);
+  return res;
+};
+
 export const ServicePostLikeComments = async (params = {}) => {
   const res = await post(userApi.likeComment, params);
   return res;

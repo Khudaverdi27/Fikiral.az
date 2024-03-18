@@ -5,4 +5,5 @@ export const userApi = {
   likeComment: "/like/comment/",
   userSavedPosts: "/think/save/",
   addImage: "/user/image?id=",
+  changeUserPass: "/auth/change-password",
 };

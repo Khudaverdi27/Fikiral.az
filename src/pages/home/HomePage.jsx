@@ -10,7 +10,7 @@ function HomePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
   const [newCategories, setNewCategories] = useState([]);
   const [userSelectCateg, setUserSelectCateg] = useState([]);
-  const { isPosted, setIsPosted, selectCategory, userByIdData } =
+  const { isPosted, setIsPosted, selectCategory, userByIdData, getUserFetch } =
     useModalActions();
 
   const { searchResponse } = useSearchActions();
@@ -42,6 +42,11 @@ function HomePage() {
   const filteredCategories = data?.filter((item) =>
     newCategories?.includes(item?.category?.id)
   );
+
+  useEffect(() => {
+    const userId = getStorage("userId");
+    getUserFetch(userId);
+  }, [loading]);
 
   return (
     <>

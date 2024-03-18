@@ -22,6 +22,7 @@ import {
   ServicePostLikeComments,
   ServicePutUserSavedPosts,
   ServiceUpdateUserById,
+  ServiceUpdateUserPassword,
   ServiceUserLikeAndDislikesPost,
 } from "../services/user.service";
 
@@ -202,6 +203,14 @@ export const useUpdateUserById = () => {
     fetch(ServiceUpdateUserById, id, params);
   };
   return [data || [], updateUserFetch, loading];
+};
+
+export const useChangeUserPassword = () => {
+  const [data, fetch, loading] = useFetch();
+  const newPasswordFetch = async (params = {}) => {
+    fetch(ServiceUpdateUserPassword, params);
+  };
+  return [data, newPasswordFetch, loading];
 };
 
 export const usePostLikeComments = () => {

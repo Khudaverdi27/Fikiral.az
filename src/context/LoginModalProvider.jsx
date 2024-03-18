@@ -49,6 +49,7 @@ function ModalProvider({ children }) {
       setConfrimRegister(false);
       data["categories"] = [];
       setResRegister(data);
+
       if ((!authCheckMail && !authCheckUsername) || withGoogle || withFb) {
         setMainModel(false);
         setSubModel(true);
@@ -61,7 +62,7 @@ function ModalProvider({ children }) {
   useEffect(() => {
     if (userLoginAuth.tokenResponse) {
       setLoginAuth(userLoginAuth);
-
+      navigate("/home");
       removeStorage("selectedCategories");
     } else {
       let errorMessage = "";
@@ -94,19 +95,8 @@ function ModalProvider({ children }) {
       setUserById(userById);
       saveStorage("token", userLoginAuth?.tokenResponse?.accessToken || token);
       saveStorage("userId", userById.id);
-      navigate("/home");
     }
   }, [userById]);
-
-  const [href, setHref] = useState("/");
-  useEffect(() => {
-    const path = location.pathname;
-    setHref(path);
-    const userId = getStorage("userId");
-    if (!Array.isArray(userId)) {
-      getUserFetch(userId);
-    }
-  }, [href]);
 
   const checkMail = (inputMail) => {
     if (inputMail) {
@@ -178,6 +168,7 @@ function ModalProvider({ children }) {
   ]);
 
   const actions = {
+    getUserFetch,
     userLoginAuthLoading,
     setUserById,
     userByIdData,

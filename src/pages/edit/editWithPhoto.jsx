@@ -4,7 +4,6 @@ import DropdownMenu from "../../components/ui/Dropdown";
 import { useCategories } from "../../hooks/useCategories";
 import { useModalActions } from "../../context/LoginModalProvider";
 import { useEffect, useRef, useState } from "react";
-import { useFetchAuthLogin } from "../../hooks/useFetch";
 import { saveStorage } from "../../utils/helpers";
 
 function EditWithPhoto({
@@ -12,42 +11,37 @@ function EditWithPhoto({
   setEditDisable,
   editDisable,
   setUserImg,
+  passValue,
+  setPassValue,
+  userLoginAuth,
+  userLoginAuthLoading,
+  errMsg,
 }) {
   const inputRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [emailValue, setEmailValue] = useState("");
-  const [passValue, setPassValue] = useState(false);
   const [userValue, setUserValue] = useState("");
   const { category, loading, selectedIds } = useCategories(false, "checkbox");
   const {
     authCheckUserNameLoading,
     authCheckLoading,
     userByIdData,
-    authCheckMail,
     errors,
     checkUserName,
     checkMail,
     watch,
   } = useModalActions();
 
-  const [userLoginAuth, loginFetch, userLoginAuthLoading] = useFetchAuthLogin();
-  const watchPass = watch("password");
+  const [focus, setFocus] = useState(false);
   const watchName = watch("userName");
   const watchGmail = watch("gmail");
   const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}(?:\.[a-zA-Z]{2,})?$/;
-  useEffect(() => {
-    if (watchPass?.length > 7) {
-      setEditDisable(false);
-    } else {
-      setEditDisable(true);
-    }
-  }, [watchPass]);
 
   useEffect(() => {
     saveStorage("selectedCategories", []);
     setCompeleteEdit({
-      userName: userValue,
-      gmail: passValue ? emailValue : "",
+      userName: userValue || userByIdData.userName,
+      gmail: emailValue || userByIdData.gmail,
       categories: selectedIds,
     });
     if (selectedImage) {
@@ -78,16 +72,12 @@ function EditWithPhoto({
   }, [errors.userName, watchName]);
 
   useEffect(() => {
-    if (
-      !errors.gmail &&
-      mailRegex.test(watchGmail) &&
-      userByIdData.gmail !== watchGmail
-    ) {
+    if (mailRegex.test(watchGmail) && userByIdData.gmail !== watchGmail) {
       setEditDisable(false);
     } else {
       setEditDisable(true);
     }
-  }, [errors.gmail, watchGmail]);
+  }, [watchGmail]);
 
   useEffect(() => {
     if (selectedIds.length > 0) {
@@ -156,8 +146,9 @@ function EditWithPhoto({
       </div>
 
       <Input
-        label={"Yeni istifadəçi adı"}
-        placeholder={"Yeni İstifadəçi adı"}
+        label={"İstifadəçi adı"}
+        placeholder={"İstifadəçi adı"}
+        value={userByIdData.userName}
         type={"text"}
         maxLength={15}
         registerName={"userName"}
@@ -167,11 +158,13 @@ function EditWithPhoto({
         }}
         onBlur={(e) => getUserName(e.target.value)}
         checkLoading={authCheckUserNameLoading}
+        onFocus={() => setFocus(false)}
       />
       <Input
-        value={emailValue}
-        label={"Yeni e-poçt"}
-        placeholder={"Yeni e-poçt daxil edin"}
+        onFocus={() => setFocus(true)}
+        value={userByIdData.gmail}
+        label={"E-poçt"}
+        placeholder={"e-poçt daxil edin"}
         type={"email"}
         maxLength={45}
         registerName={"gmail"}
@@ -182,7 +175,7 @@ function EditWithPhoto({
         onBlur={(e) => getEmailValue(e.target.value)}
         checkLoading={authCheckLoading}
       />
-      {!authCheckMail && emailValue.length > 0 && (
+      {focus && (
         <>
           <Input
             required={true}
@@ -197,10 +190,10 @@ function EditWithPhoto({
             registerName={"password"}
             showUnShow={true}
             onBlur={(e) => setPassValue(e.target.value)}
+            checkLoading={userLoginAuthLoading}
           />
-          {watchPass?.length < 8 && (
-            <span className="text-red-500">Min 8 max 20 simvol</span>
-          )}
+
+          <span className="text-red-500">{errMsg}</span>
         </>
       )}
 
