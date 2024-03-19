@@ -70,9 +70,9 @@ function Input({
         {showUnShow && !checkLoading && (
           <button type="button" onClick={() => setChangeType(!changeType)}>
             {changeType ? (
-              <FiEye className="size-6  text-[#BCBCBE]" />
+              <FiEye className="size-6 dark:text-gray-500 text-[#BCBCBE]" />
             ) : (
-              <FiEyeOff className="size-6 text-[#BCBCBE]" />
+              <FiEyeOff className="size-6 dark:text-gray-500 text-[#BCBCBE]" />
             )}
           </button>
         )}
