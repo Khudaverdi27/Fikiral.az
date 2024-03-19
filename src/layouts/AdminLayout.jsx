@@ -1,7 +1,7 @@
 function AdminLayout({ children }) {
   return (
     <main>
-      <section className="h-full max-w-[1340px] ">{children}</section>
+      <section className="h-full w-full ">{children}</section>
     </main>
   );
 }

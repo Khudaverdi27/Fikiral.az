@@ -1,5 +1,5 @@
 import LeftSide from "./leftSide";
-import RighSide from "./rightSide";
+import RighSide from "./RightSide/rightSide";
 
 function AdminPage() {
   return (

@@ -58,7 +58,7 @@ const DropdownMenu = ({
       open={open}
     >
       <span>
-        <Space className="whitespace-nowrap font-[500] ">
+        <Space className="whitespace-nowrap font-[500] cursor-pointer">
           {profilImg && (
             <figure className="size-11">
               {profilImg.length < 15 ? (
