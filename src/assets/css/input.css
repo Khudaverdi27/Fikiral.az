@@ -52,7 +52,7 @@
     }
 
     .checkboxforRegister{
-        @apply  relative m-1 rounded-xl text-center bg-[#F5F5F5] text-sm p-[6px] font-[500] 
+        @apply  relative m-1 rounded-xl text-center dark:bg-gray-700 bg-[#F5F5F5] text-sm p-[6px] font-[500] 
     }
 
     .checkboxforRegister input {

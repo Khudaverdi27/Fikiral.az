@@ -73,7 +73,11 @@ function ThinkComments({ comment, inputRef }) {
               ) : (
                 <AiOutlineLike className="size-7 text-gray-500" />
               )}
-              <span className={`${commentLikeCount == 0 && "invisible"}`}>
+              <span
+                className={`dark:text-white ${
+                  commentLikeCount == 0 && "invisible"
+                }`}
+              >
                 {commentLikeCount}
               </span>
             </button>

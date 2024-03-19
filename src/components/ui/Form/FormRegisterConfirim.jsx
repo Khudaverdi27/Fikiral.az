@@ -79,8 +79,10 @@ function FormRegisterConfrim() {
       ) : (
         <>
           <div className="text-center font-[500]">
-            <h3 className="text-[27px] ">Sizi nələr maraqlandırır?</h3>
-            <h4 className="text-[15px] text-[#4D4D4D]">
+            <h3 className="text-[27px] dark:text-white">
+              Sizi nələr maraqlandırır?
+            </h3>
+            <h4 className="text-[15px] text-[#4D4D4D] dark:text-gray-500">
               Bu ana səhifənizi fərdiləşdirəcək
             </h4>
           </div>
@@ -111,7 +113,7 @@ function FormRegisterConfrim() {
             disabled={registerAuth.status === 409}
             onClick={skipCategory}
             type="button"
-            className="disabled:opacity-20 disabled:cursor-not-allowed w-full py-[8px] font-[500] rounded-[8px] border border-[#262626]"
+            className="disabled:opacity-20 disabled:cursor-not-allowed w-full py-[8px] font-[500] rounded-[8px] border border-[#262626] dark:border-white dark:text-white"
           >
             Keçin
           </button>
