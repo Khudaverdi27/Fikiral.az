@@ -1,4 +1,6 @@
+import AdminLayout from "../layouts/AdminLayout";
 import AppLayout from "../layouts/AppLayout";
+import AdminPage from "../pages/admin/container";
 import CategoryPage from "../pages/categories/CategoryPage";
 import ThinkFromClipboard from "../pages/clipboardResult/ThinkFromClipBoard";
 import EditProfile from "../pages/edit";
@@ -22,12 +24,19 @@ export const routes = [
     element: <ThinkFromClipboard />,
     layout: "AppLayout",
   },
+  {
+    path: "/dashboard",
+    element: <AdminPage />,
+    layout: "AdminLayout",
+  },
   { path: "*", element: <ErrorPage />, layout: "AppLayout" },
 ];
 
 routes.map((route) => {
   if (route.layout === "AppLayout") {
     route.element = <AppLayout>{route.element}</AppLayout>;
+  } else if (route.layout === "AdminLayout") {
+    route.element = <AdminLayout>{route.element}</AdminLayout>;
   }
   return route;
 });
