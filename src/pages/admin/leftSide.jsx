@@ -17,13 +17,14 @@ function LeftSide() {
       <div className="bg-[#332862] h-[76px] flex items-center justify-center">
         <Logo />
       </div>
-      <div className="bg-indigo-500 space-y-8 pt-8 px-4 h-[calc(100vh_-_84px)]">
+      <div className="bg-indigo-500 space-y-8 pt-8 px-4 h-[calc(100vh_-_76px)]">
         {menus.map((menu) => (
           <button
+            key={menu.key}
             onClick={() => handleActiveMenu(menu.key)}
-            className={`block w-full text-left px-9 ${
+            className={`block w-full text-left px-9 py-2 ${
               activeMenu === menu.key
-                ? "text-indigo-500 bg-white  py-2 rounded-lg"
+                ? "text-indigo-500 bg-white   rounded-lg"
                 : "text-white"
             } `}
           >
