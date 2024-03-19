@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AdminNavbar from "./navbar";
 import CalendarPicker from "./calendar";
+import StatisticsCard from "./statisticCards";
 
 function RighSide() {
   const [activeMenu, setActiveMenu] = useState(false);
@@ -13,6 +14,12 @@ function RighSide() {
   const handleActiveMenu = (key) => {
     setActiveMenu(key);
   };
+
+  const cardData = [
+    { name: "İstifadəçilər", key: "users", count: 10 },
+    { name: "Kateqoriya", key: "category", count: 14 },
+    { name: "Post", key: "post", count: 20 },
+  ];
 
   return (
     <section className="w-full">
@@ -34,6 +41,11 @@ function RighSide() {
           ))}
         </div>
         <CalendarPicker />
+      </div>
+      <div className="flex ">
+        {cardData.map((data) => (
+          <StatisticsCard name={data.name} count={data.count} />
+        ))}
       </div>
     </section>
   );

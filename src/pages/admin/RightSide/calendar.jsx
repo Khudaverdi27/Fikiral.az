@@ -35,7 +35,7 @@ function CalendarPicker() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative shadow-sm rounded-md p-1">
       <div className="flex items-center space-x-4">
         {endDate && (
           <>

@@ -17,7 +17,7 @@ function LeftSide() {
       <div className="bg-[#332862] h-[76px] flex items-center justify-center">
         <Logo />
       </div>
-      <div className="bg-indigo-500 space-y-8 pt-8 px-4 h-[calc(100vh_-_76px)]">
+      <div className="bg-indigo-500 space-y-8 pt-8 px-4 min-h-[calc(100vh_-_76px)]">
         {menus.map((menu) => (
           <button
             key={menu.key}
