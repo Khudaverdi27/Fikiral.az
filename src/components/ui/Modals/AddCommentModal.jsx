@@ -66,7 +66,7 @@ const AddCommentModal = ({
         <button onClick={openMessageModal}>
           <BiMessageSquareDots className="size-[22px] hover:text-black text-[#636363] cursor-pointer" />
         </button>
-        <span className="text-sm hover:text-black font-bold text-[#636363] ml-2">
+        <span className="text-sm hover:text-black dark:text-white font-bold text-[#636363] ml-2">
           {comment ?? 0}
         </span>
       </div>
@@ -99,7 +99,7 @@ const AddCommentModal = ({
                       </span>
                     )}
                   </figure>
-                  <h6 className="text-[20px]">
+                  <h6 className="text-[20px] dark:text-white">
                     {modalData?.user?.userName.split(" ")[0].toLowerCase()}
                   </h6>
                 </div>
@@ -107,7 +107,7 @@ const AddCommentModal = ({
               <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
                 <Link
                   to={`/categories/${modalData?.category?.slug}`}
-                  className="hover:bg-[#6C58BB] hover:text-white py-[2px] px-2 rounded-[4px] cursor-pointer"
+                  className="hover:bg-[#6C58BB] hover:text-white py-[2px] px-2 rounded-[4px] cursor-pointer text-[#808080]"
                 >
                   {modalData?.category?.name}
                 </Link>
@@ -115,7 +115,9 @@ const AddCommentModal = ({
                   {changeTime(modalData?.publishedAt)}
                 </span>
               </div>
-              <p className="font-Manrope text-sm ">{modalData.content}</p>
+              <p className="font-Manrope text-sm dark:text-white">
+                {modalData.content}
+              </p>
             </div>
           </Col>
 
@@ -125,23 +127,14 @@ const AddCommentModal = ({
                 <IconContext.Provider
                   value={{
                     color: "#636363",
-                    className: `hover:stroke-black  ${
-                      bookmark && "fill-[#FFA524]"
-                    } `,
-                  }}
-                ></IconContext.Provider>
-
-                <IconContext.Provider
-                  value={{
-                    color: "#636363",
-                    className: `hover:stroke-black  ${
-                      bookmark && "fill-primaryGray"
+                    className: `hover:stroke-black dark:hover:stroke-gray-300 ${
+                      bookmark && "fill-primaryGray dark:fill-white"
                     } `,
                   }}
                 >
                   <HiOutlineBookmark
                     onClick={sendToSaveds}
-                    className={`size-5  cursor-pointer absolute right-3 top-0 `}
+                    className={`size-5 dark:!text-white cursor-pointer absolute right-3 top-0 `}
                   />
                 </IconContext.Provider>
               </div>
@@ -178,7 +171,7 @@ const AddCommentModal = ({
                     disabled={token.length == 0}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
-                    className="placeholder:font-[500] disabled:cursor-not-allowed"
+                    className="placeholder:font-[500] disabled:cursor-not-allowed placeholder:dark:text-white placeholder:dark:font-normal dark:text-white"
                     variant="borderless"
                     placeholder={
                       token.length !== 0
@@ -189,7 +182,7 @@ const AddCommentModal = ({
                   <button
                     disabled={!value || value.includes("Qadağan")}
                     type="submit"
-                    className={`text-primaryGray text-sm disabled:opacity-20 disabled:cursor-not-allowed ${
+                    className={`text-primaryGray dark:text-white text-sm disabled:opacity-20 disabled:cursor-not-allowed ${
                       postLoading && "disabled:opacity-100"
                     }`}
                   >

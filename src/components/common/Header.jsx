@@ -13,7 +13,6 @@ function Header() {
   const { category, loading } = useCategories(true, "checkbox");
   const { userByIdData } = useModalActions();
   const token = getStorage("token");
-
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("userId");
@@ -23,10 +22,10 @@ function Header() {
   };
   return (
     <header
-      className={`flex items-center w-full py-[25px]   
+      className={`flex items-center w-full py-[25px] dark:bg-[#22303c]  
      top-0 z-40  bg-[#FDFDFF] ${
        token.length > 0 ? "justify-center " : "justify-evenly"
-     } sticky text-white`}
+     } sticky `}
     >
       <div
         className={`flex items-center ${token.length > 0 ? "ml-14" : "ml-4"}`}
@@ -38,7 +37,7 @@ function Header() {
         <DropdownMenu
           loading={loading}
           dropName={
-            <span className="text-primaryGray hover:text-indigo-500 ">
+            <span className="text-primaryGray hover:text-indigo-500 dark:text-white">
               Kateqoriya
             </span>
           }
@@ -49,9 +48,9 @@ function Header() {
 
         {token.length !== 0 ? (
           <DropdownMenu
-            classes={"w-[142px] max-h-[108px] !top-[85px]"}
+            classes={"w-[142px] max-h-[108px] !top-[85px] "}
             dropName={
-              <span className="text-primaryGray">
+              <span className="text-primaryGray dark:text-white ">
                 {userByIdData?.userName?.split(" ")[0].toLowerCase()}
               </span>
             }
@@ -65,7 +64,7 @@ function Header() {
                 title: (
                   <Link
                     to={"/edit-my-profile"}
-                    className="flex items-center   text-base "
+                    className="flex items-center dark:text-white  text-base "
                   >
                     Redaktə et
                   </Link>

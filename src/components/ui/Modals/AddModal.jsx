@@ -82,7 +82,7 @@ const AddModal = () => {
 
       <Modal
         title={
-          <div className="flex items-center space-x-2 bg-neutral-100">
+          <div className="flex items-center space-x-2 bg-neutral-100 dark:bg-[#22303c]">
             <figure className="size-11 rounded-full shrink-0 ">
               {userByIdData?.image ? (
                 <img
@@ -91,12 +91,12 @@ const AddModal = () => {
                   alt="user"
                 />
               ) : (
-                <span className="size-full text-3xl bg-gray-300  rounded-full border text-indigo-500 flex justify-center">
+                <span className="size-full text-3xl bg-gray-300  rounded-full border text-indigo-500 flex justify-center ">
                   {userByIdData?.userName?.charAt(0).toLowerCase()}
                 </span>
               )}
             </figure>
-            <span className="text-black">
+            <span className="text-black dark:text-white">
               {userByIdData?.userName?.split(" ")[0].toLowerCase()}
             </span>
           </div>
@@ -137,7 +137,7 @@ const AddModal = () => {
             <span className="text-red-500 ml-2 font-bold block">*</span>
             <textarea
               {...register("content", { required: true })}
-              className="resize-none w-full text-base outline-none p-2 rounded-md"
+              className="resize-none w-full text-base outline-none p-2 rounded-md dark:bg-gray-300"
               rows={9}
               placeholder="Minimum 5 maximum 250 simvol"
               minLength={5}

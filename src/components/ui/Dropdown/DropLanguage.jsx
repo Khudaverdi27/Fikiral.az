@@ -46,7 +46,7 @@ function DropLanguage() {
       placement="bottom"
     >
       <a className="w-12" onClick={(e) => e.preventDefault()}>
-        <Space>
+        <Space className="dark:text-white">
           {lang}
           {visible ? <FaAngleUp /> : <FaAngleDown />}
         </Space>

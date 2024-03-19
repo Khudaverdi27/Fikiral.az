@@ -38,13 +38,11 @@ function Input({
 
   return (
     <div>
-      <label className="outline-none block text-[#4C4B4E] text-base mb-1">
+      <label className="outline-none block dark:text-white text-[#4C4B4E] text-base mb-1">
         {label}
       </label>
       <div
-        className={`bg-[#F6F7FB] items-center loginInput  flex rounded-[8px] 
-          
-        `}
+        className={`bg-[#F6F7FB] items-center loginInput  flex rounded-[8px] `}
       >
         <input
           onFocus={onFocus}
@@ -54,7 +52,7 @@ function Input({
           placeholder={placeholder}
           type={changeType ? "text" : type}
           maxLength={maxLength}
-          className="w-full bg-[#F6F7FB] outline-none "
+          className="w-full bg-[#F6F7FB] outline-none dark:text-black dark:bg-gray-300"
           {...register(
             registerName,
 

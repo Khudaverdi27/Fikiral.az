@@ -116,7 +116,7 @@ function ThinkCardActions({
             />
           )}
         </button>
-        <span className="text-sm font-[500] ">{count}</span>
+        <span className="text-sm font-[500] dark:text-white">{count}</span>
         <button
           disabled={token.length == 0}
           onClick={() => likeActions(postId)}

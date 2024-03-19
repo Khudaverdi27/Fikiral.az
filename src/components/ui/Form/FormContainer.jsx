@@ -26,7 +26,7 @@ const FormContainer = ({ children }) => {
       </button>
       <button
         onClick={switcRegisterModal}
-        className=" border   bg-indigo-500 text-white py-2 px-4 rounded-xl"
+        className=" border dark:border-[#22303c]  bg-indigo-500 text-white py-2 px-4 rounded-xl"
       >
         Qeydiyyat
       </button>

@@ -9,7 +9,7 @@ function Section({ title, children, loading }) {
         <LoadingSpin />
       ) : (
         <>
-          <h4 className="text-2xl text-primaryGray font-semibold mt-5 mb-6">
+          <h4 className="text-2xl text-primaryGray font-semibold mt-5 mb-6 dark:text-white">
             {searchResponse.length > 0 ? "Axtarış nəticələri" : title}
           </h4>
 

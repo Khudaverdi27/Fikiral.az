@@ -36,7 +36,7 @@ function WelcomePage() {
     <section>
       {filteredCategories.length <= 0 && searchResponse.length <= 0 && (
         <div className="h-[70vh] flex flex-col items-center space-y-8 mt-20">
-          <h1 className="text-primaryGray text-[52px] font-bold">
+          <h1 className="text-primaryGray text-[52px] font-bold dark:text-white">
             Yeni biznesə fikrini
             <span className="text-indigo-500 ml-2">doğruldaraq</span> başla!
           </h1>
@@ -60,7 +60,7 @@ function WelcomePage() {
       <ErrorBoundary>
         {!filteredCategories.length > 0 && searchResponse.length <= 0 && (
           <ThinkSection
-            title={<p className="text-center">Popluyar fikirlər</p>}
+            title={<p className="text-center ">Popluyar fikirlər</p>}
             items={popular.sort((a, b) => b.likeCount - a.likeCount)}
             loading={popularLoading}
           />

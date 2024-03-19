@@ -22,9 +22,9 @@ export const DropNotifications = () => {
                   alt=""
                 />
               </figure>
-              <div className="text-sm text-black space-x-5 flex justify-between">
-                <span className=" whitespace-nowrap">rüfət_16</span>
-                <p className="line-clamp-1"> {item}</p>
+              <div className="text-sm text-black dark:text-white space-x-5 flex justify-between">
+                <span className=" whitespace-nowrap ">rüfət_16</span>
+                <p className="line-clamp-1 "> {item}</p>
               </div>
             </div>
           ))}

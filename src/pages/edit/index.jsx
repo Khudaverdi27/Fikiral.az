@@ -177,7 +177,7 @@ function EditProfile() {
                   className={classNames(
                     {
                       "cursor-pointer": true,
-                      "text-black":
+                      "text-black dark:text-white":
                         activeBtn === btn.key && activeBtn !== "deleteAccount",
                     },
                     btn.key === "deleteAccount" && ["text-[#FF0000]"]
@@ -225,7 +225,7 @@ function EditProfile() {
                 <button
                   disabled={editDisable}
                   type="submit"
-                  className=" border disabled:opacity-35  bg-indigo-500 text-white py-2 px-4 rounded-xl"
+                  className=" border disabled:opacity-35 dark:border-none  bg-indigo-500 text-white py-2 px-4 rounded-xl"
                 >
                   Yadda saxla
                 </button>

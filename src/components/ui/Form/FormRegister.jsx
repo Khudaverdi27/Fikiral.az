@@ -57,7 +57,9 @@ const FormRegister = () => {
 
   return (
     <FormContainer>
-      <h3 className="text-center text-base">Fikiral-a xoş gəlmisiz!</h3>
+      <h3 className="text-center text-base dark:text-white">
+        Fikiral-a xoş gəlmisiz!
+      </h3>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
         {accescLogin && (
           <Input
@@ -115,7 +117,7 @@ const FormRegister = () => {
                 {!accescLogin && (
                   <button
                     type="button"
-                    className="text-indigo-500 text-base mt-1"
+                    className="text-indigo-500 text-base mt-1 "
                     onClick={onSubModel}
                   >
                     Şifrəni unutmusan?
@@ -126,7 +128,7 @@ const FormRegister = () => {
                 disabled={
                   !watchFields.password || watchFields.password?.length < 8
                 }
-                className="bg-indigo-500 text-white w-full disabled:opacity-40 py-[8px] rounded-[8px]"
+                className="bg-indigo-500  text-white w-full disabled:opacity-40 py-[8px] rounded-[8px]"
               >
                 {accescLogin ? "Qeydiyyat" : "Daxil ol"}
               </button>
@@ -134,7 +136,9 @@ const FormRegister = () => {
               <div
                 className={`${userLoading && "invisible"} visible space-y-2`}
               >
-                <div className="text-center text-base">Və ya</div>
+                <div className="text-center text-base dark:text-white">
+                  Və ya
+                </div>
                 <button
                   type="button"
                   onMouseDown={() => setWithGoogle(true)}
@@ -158,7 +162,7 @@ const FormRegister = () => {
                   Facebook hesabı ilə davam et
                 </button>
                 <div className="text-center space-x-2">
-                  <span>
+                  <span className="dark:text-white">
                     {accescLogin ? "Artıq hesabın var?" : "Hesabın yoxdur?"}
                   </span>
                   <span className="text-indigo-500">

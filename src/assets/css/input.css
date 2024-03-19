@@ -14,7 +14,7 @@
    }
   
    .container input ~ .checkmark {
-    @apply bg-[#D9D9D9]
+    @apply bg-[#D9D9D9] dark:bg-gray-500 
    }
    
   
@@ -35,7 +35,7 @@
    
    }
     .checkboxGroup{
-    @apply flex items-center   mb-3 text-primaryGray px-2 py-1 justify-between hover:bg-[#D9D9D9] rounded-[6px]  w-full 
+    @apply flex items-center hover:dark:bg-gray-500  mb-3 text-primaryGray px-2 py-1 justify-between hover:bg-[#D9D9D9] rounded-[6px]  w-full 
    }
 
     .checkboxGroup:hover .checkmark:after,
@@ -44,11 +44,11 @@
    }
 
     .categoryTitle{
-    @apply flex items-center  text-primaryGray px-2 py-1 justify-between hover:bg-[#D9D9D9] rounded-[6px]  w-full}
+    @apply flex items-center  text-primaryGray px-2 py-1 justify-between hover:bg-[#D9D9D9] rounded-[6px]  w-full hover:dark:bg-gray-500 }
 
     .loginInput{
         @apply outline-none border w-full bg-[#F6F7FB] border-[#999999] rounded-[8px] 
-        py-[7px] px-4
+        py-[7px] px-4 dark:bg-gray-300
     }
 
     .checkboxforRegister{

@@ -39,7 +39,7 @@ function IsConfirmModal({
           { "text-[#FF0000]": isOpenModal ? true : false },
           { "text-[#FF0000] text-base": !dangerBtnClass },
           {
-            "text-black": isOpenModal,
+            "text-black dark:text-white": isOpenModal,
           }
         )}
         type="button"
@@ -52,21 +52,21 @@ function IsConfirmModal({
         footer={false}
         centered
         className="bg-white rounded-[20px]"
-        title={title}
+        title={<div className="dark:bg-[#22303c] dark:text-white">{title}</div>}
         open={isOpenModal}
       >
         <div className="space-y-3 mt-10 text-base font-[500]">
           <button
             onClick={handleCancel}
             type="button"
-            className=" border block w-full bg-indigo-500 text-white py-2 px-4 rounded-xl"
+            className=" border block w-full dark:border-none bg-indigo-500 text-white py-2 px-4 rounded-xl"
           >
             Ləğv et
           </button>
           <button
             onClick={handleOk}
             type="button"
-            className=" border block w-full border-primaryGray py-2 px-4 rounded-xl "
+            className=" border dark:border-white dark:text-white block w-full border-primaryGray py-2 px-4 rounded-xl "
           >
             {onOkLoading ? <Spin /> : destroyBtn}
           </button>

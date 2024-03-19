@@ -198,7 +198,9 @@ function EditWithPhoto({
       )}
 
       <div className="mt-5">
-        <p className="mb-2 text-base text-[#4C4B4E]">Maraqlarınızı seçin</p>
+        <p className="mb-2 text-base text-[#4C4B4E] dark:text-white">
+          Maraqlarınızı seçin
+        </p>
         <div className="loginInput flex justify-between items-center">
           <DropdownMenu
             loading={loading}

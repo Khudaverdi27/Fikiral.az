@@ -55,7 +55,7 @@ function ThinkComments({ comment, inputRef }) {
                 )}
               </figure>
               <div className="mb-[-5px]">
-                <h6 className="font-bold">
+                <h6 className="font-bold dark:text-white">
                   {comment?.user?.userName.split(" ")[0].toLowerCase()}
                 </h6>
                 <span className="text-xs text-[#999999]">
@@ -81,7 +81,7 @@ function ThinkComments({ comment, inputRef }) {
         </div>
 
         <div className="py-1 pl-[50px] pr-10">
-          <p className="text-wrap"> {comment.content}</p>
+          <p className="text-wrap dark:text-white"> {comment.content}</p>
           {/* reply comment section will be active in the future */}
 
           {/* <button onClick={focusInput} className="text-sm text-[#999999]">

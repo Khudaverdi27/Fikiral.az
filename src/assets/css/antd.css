@@ -6,7 +6,7 @@
     @apply hidden
   }
   .ant-dropdown-menu{
-    @apply w-full  bg-white  !mr-14 !px-[8px] !py-[10px] 
+    @apply w-full dark:bg-[#22303c] dark:border dark:border-gray-600 !mr-14 !px-[8px] !py-[10px] 
   }
   
   .ant-dropdown-menu-item{
@@ -16,10 +16,10 @@
     @apply fixed
   }
  .dropLanguage  .ant-dropdown-menu-item{
-  @apply   hover:!bg-[#D9D9D9] 
+  @apply   hover:!bg-[#D9D9D9] dark:text-white dark:hover:!bg-gray-500
  }
  .dropLanguage  .ant-dropdown-menu-item-selected{
-  @apply !bg-[#D9D9D9]
+  @apply !bg-[#D9D9D9] dark:!bg-gray-500
  }
   .ant-dropdown-menu-item a{
     @apply hover:!text-black
@@ -27,6 +27,9 @@
 
   .ant-modal-content{
     @apply !bg-transparent 
+  }
+  .ant-modal{
+    @apply dark:bg-[#22303c]
   }
 
   .ant-spin-dot-item {
@@ -38,9 +41,12 @@
   }
 
   .ant-popover{
-    z-index: 10 !important;
+    @apply !z-10 
   }
-
+  .ant-popover-inner{
+    @apply dark:bg-[#22303c]
+  }
+  
   
 
 

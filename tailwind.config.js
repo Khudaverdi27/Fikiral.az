@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -22,7 +23,10 @@ export default {
       rotate: {
         '35': '35deg',
       },
-      
+      backgroundImage: {
+        'heroBg': "url('./src/assets/img/bg.jpg')",
+        
+      }
     
     },
   },

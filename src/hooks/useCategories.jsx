@@ -72,7 +72,10 @@ export const useCategories = (allSelect = true, type, classes = false) => {
       name: "Kateqoriyalar",
       title: allSelect && (
         <div className="categoryTitle">
-          <label className="cursor-pointer w-full" htmlFor="check">
+          <label
+            className="cursor-pointer w-full dark:text-white"
+            htmlFor="check"
+          >
             Hamısı
           </label>
           <span className="container">
@@ -103,7 +106,10 @@ export const useCategories = (allSelect = true, type, classes = false) => {
                 )}
                 key={item.id}
               >
-                <label className="cursor-pointer" htmlFor={`check-${item.id}`}>
+                <label
+                  className="cursor-pointer dark:text-white"
+                  htmlFor={`check-${item.id}`}
+                >
                   {item.name}
                 </label>
                 <span className={`${classes ? "" : "container"} `}>

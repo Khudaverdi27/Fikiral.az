@@ -31,7 +31,7 @@ const DropdownMenu = ({
         <span key={index}>
           {!item.id && index === 0 && (
             <div className="flex items-center justify-between pt-2 pb-5  text-[15px] font-[500] ">
-              <h1 className="cursor-auto">{item.name}</h1>
+              <h1 className="cursor-auto dark:text-white">{item.name}</h1>
               <button
                 className="bg-gray-300 rounded-full p-1"
                 onClick={() => setOpen(false)}
@@ -49,7 +49,7 @@ const DropdownMenu = ({
   return (
     <Dropdown
       trigger={["click"]}
-      overlayClassName={`${classes} bg-white rounded-md fixed `}
+      overlayClassName={`${classes}  rounded-md fixed `}
       placement={placement ? placement : "bottom"}
       menu={{
         items,
@@ -58,7 +58,7 @@ const DropdownMenu = ({
       open={open}
     >
       <span>
-        <Space className="whitespace-nowrap font-[500]">
+        <Space className="whitespace-nowrap font-[500] ">
           {profilImg && (
             <figure className="size-11">
               {profilImg.length < 15 ? (
@@ -74,6 +74,7 @@ const DropdownMenu = ({
               )}
             </figure>
           )}
+          <span className="dark:text-white"></span>
           {dropName}
         </Space>
       </span>

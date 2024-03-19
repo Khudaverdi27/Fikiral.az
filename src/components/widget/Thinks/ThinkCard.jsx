@@ -125,10 +125,10 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
       <button
         disabled={token.length === 0}
         onClick={sendMessageResponse}
-        className="flex items-center space-x-1 disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex items-center space-x-1 disabled:cursor-not-allowed disabled:opacity-50 dark:text-white"
       >
         {reportRes === "Bildirildi" ? (
-          <IoMdCheckmarkCircle className="size-5 text-green-700" />
+          <IoMdCheckmarkCircle className="size-5 text-green-600" />
         ) : (
           <MdOutlineReport className="size-5" />
         )}
@@ -139,8 +139,8 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
   );
 
   return (
-    <div className="gutter-row">
-      <div className="space-y-2 mb-2">
+    <div className="gutter-row ">
+      <div className="space-y-2 mb-2 ">
         <div className="flex items-center justify-between">
           <div className="flex space-x-1 items-center">
             <figure className="size-11 ">
@@ -162,11 +162,11 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
             <IconContext.Provider
               value={{
                 color: "#262626",
-                className: ` ${bookmark && "fill-[#262626]"} `,
+                className: ` ${bookmark && "fill-[#262626] dark:fill-white"} `,
               }}
             >
               <button onClick={sendToSaveds}>
-                <HiOutlineBookmark className={`size-5  `} />
+                <HiOutlineBookmark className={`size-5  dark:!text-white`} />
               </button>
             </IconContext.Provider>
             <Popover placement="bottom" content={popupContent} trigger="click">
@@ -177,7 +177,7 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
           </div>
         </div>
 
-        <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
+        <div className="text-xs border-b-[1px] dark:border-gray-500 pb-2 space-x-4 border-[#DBDBDB] flex items-center">
           <Link
             onClick={() => setIsCommentOpen(false)}
             to={`/categories/${thinks.category.slug}`}
