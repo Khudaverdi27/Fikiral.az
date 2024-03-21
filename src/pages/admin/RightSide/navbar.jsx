@@ -25,7 +25,7 @@ function AdminNavbar() {
           <button>
             <DropdownMenu
               dropName={<HiOutlineBell className="size-6" />}
-              dropDownItems={notifications}
+              // dropDownItems={notifications}
               classes={"w-[359px] max-h-[424px] !top-[80px] overflow-x-hidden"}
             />
           </button>

@@ -34,8 +34,7 @@ function FullCategories({ categories, categoryLoad, getCategories }) {
     if (res.status === 500) {
       notifyError("Bu kateqoriyada postlar olduğu üçün silmək mümükün deyil!");
     } else if (res.status === 200) {
-      notifySuccess("Uğurla silindi!");
-      getCategories();
+      getCategories().then(() => notifySuccess("Uğurla silindi!"));
     }
   }, [loadingById]);
 
@@ -53,8 +52,7 @@ function FullCategories({ categories, categoryLoad, getCategories }) {
     if (addRes.status === 500) {
       notifyError("Bir şeylər tərs getdi, yenidən yoxlayın!");
     } else if (addRes.status === 200) {
-      notifySuccess("Uğurla əlavə olundu!");
-      getCategories();
+      getCategories().then(() => notifySuccess("Uğurla əlavə olundu!"));
     }
   }, [loadingAdd]);
 
@@ -93,7 +91,7 @@ function FullCategories({ categories, categoryLoad, getCategories }) {
                 <span> {category.name}</span>
               </Col>
               <Col className="text-center text-base " span={8}>
-                <span>22</span>
+                <span>{category.postCount}</span>
               </Col>
               <Col className="flex justify-end " span={8}>
                 <IsConfirmModal

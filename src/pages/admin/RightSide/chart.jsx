@@ -3,26 +3,18 @@ import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
 
-function ChartGraphic({ chartLabels, thinkbYcategory, byLoad }) {
+function ChartGraphic({ chartLabels, byLoad }) {
   const [categoryNames, setCategoryNames] = useState([]);
   const [postByCategoryCount, setPostByCategoryCount] = useState([]);
 
   useEffect(() => {
     if (chartLabels) {
       const names = chartLabels.map((label) => label.name);
-      names.sort((a, b) => a.localeCompare(b, "az"));
+      const postCount = chartLabels.map((count) => count.postCount);
       setCategoryNames(names);
+      setPostByCategoryCount(postCount);
     }
   }, [chartLabels]);
-
-  useEffect(() => {
-    if (thinkbYcategory) {
-      setPostByCategoryCount(() => [
-        ...postByCategoryCount,
-        thinkbYcategory.length,
-      ]);
-    }
-  }, [thinkbYcategory]);
 
   const data = {
     labels: categoryNames,

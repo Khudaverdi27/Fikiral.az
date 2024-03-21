@@ -8,7 +8,6 @@ import FullUsers from "./fullUsers";
 import AllPosts from "./allPosts";
 
 function RighSide({
-  thinkbYcategory,
   allUsers,
   allUserLoading,
   categories,
@@ -80,11 +79,7 @@ function RighSide({
               loading={thinksLoading}
             />
           </div>
-          <LineChart
-            chartLabels={categories}
-            thinkbYcategory={thinkbYcategory}
-            byLoad={thinksLoading}
-          />
+          <LineChart chartLabels={categories} byLoad={thinksLoading} />
         </>
       )}
     </section>
