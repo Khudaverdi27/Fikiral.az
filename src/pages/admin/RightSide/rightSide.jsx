@@ -57,7 +57,7 @@ function RighSide({
           getCategories={getCategories}
         />
       ) : activeMenuLeft === "users" ? (
-        <FullUsers />
+        <FullUsers allUsers={allUsers} allUserLoading={allUserLoading} />
       ) : activeMenuLeft === "post" ? (
         <AllPosts />
       ) : (
