@@ -3,6 +3,9 @@ import AdminNavbar from "./navbar";
 import CalendarPicker from "./calendar";
 import StatisticsCard from "./statisticCards";
 import LineChart from "./chart";
+import FullCategories from "./fullCategories";
+import FullUsers from "./fullUsers";
+import AllPosts from "./allPosts";
 
 function RighSide({
   thinkbYcategory,
@@ -12,6 +15,8 @@ function RighSide({
   categoryLoad,
   thinks,
   thinksLoading,
+  activeMenuLeft,
+  getCategories,
 }) {
   const [activeMenu, setActiveMenu] = useState(false);
 
@@ -46,28 +51,42 @@ function RighSide({
         </div>
         <CalendarPicker />
       </div>
-      <div className="flex ">
-        <StatisticsCard
-          name={"İstifadəçilər"}
-          count={allUsers.length}
-          loading={allUserLoading}
+      {activeMenuLeft === "category" ? (
+        <FullCategories
+          categories={categories}
+          categoryLoad={categoryLoad}
+          getCategories={getCategories}
         />
-        <StatisticsCard
-          name={"Kateqoriyalar"}
-          count={categories.length}
-          loading={categoryLoad}
-        />
-        <StatisticsCard
-          name={"Postlar"}
-          count={thinks.length}
-          loading={thinksLoading}
-        />
-      </div>
-      <LineChart
-        chartLabels={categories}
-        thinkbYcategory={thinkbYcategory}
-        byLoad={thinksLoading}
-      />
+      ) : activeMenuLeft === "users" ? (
+        <FullUsers />
+      ) : activeMenuLeft === "post" ? (
+        <AllPosts />
+      ) : (
+        <>
+          <div className="flex w-full  justify-center">
+            <StatisticsCard
+              name={"İstifadəçilər"}
+              count={allUsers.length}
+              loading={allUserLoading}
+            />
+            <StatisticsCard
+              name={"Kateqoriyalar"}
+              count={categories.length}
+              loading={categoryLoad}
+            />
+            <StatisticsCard
+              name={"Postlar"}
+              count={thinks.length}
+              loading={thinksLoading}
+            />
+          </div>
+          <LineChart
+            chartLabels={categories}
+            thinkbYcategory={thinkbYcategory}
+            byLoad={thinksLoading}
+          />
+        </>
+      )}
     </section>
   );
 }

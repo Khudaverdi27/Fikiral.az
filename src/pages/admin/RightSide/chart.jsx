@@ -17,7 +17,6 @@ function ChartGraphic({ chartLabels, thinkbYcategory, byLoad }) {
 
   useEffect(() => {
     if (thinkbYcategory) {
-      console.log(thinkbYcategory);
       setPostByCategoryCount(() => [
         ...postByCategoryCount,
         thinkbYcategory.length,

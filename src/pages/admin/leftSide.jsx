@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import Logo from "../../components/common/Logo";
 
-function LeftSide() {
-  const [activeMenu, setActiveMenu] = useState(false);
+function LeftSide({ activeMenuLeft, setActiveMenu }) {
   const menus = [
     { name: "Dashboard", key: "main" },
     { name: "Kateqoriya", key: "category" },
@@ -12,8 +11,9 @@ function LeftSide() {
   const handleActiveMenu = (key) => {
     setActiveMenu(key);
   };
+
   return (
-    <aside className="w-[305px] ">
+    <aside className="min-w-[250px] min-h-screen ">
       <div className="bg-[#332862] h-[76px] flex items-center justify-center">
         <Logo />
       </div>
@@ -23,7 +23,7 @@ function LeftSide() {
             key={menu.key}
             onClick={() => handleActiveMenu(menu.key)}
             className={`block w-full text-left px-9 py-2 ${
-              activeMenu === menu.key
+              activeMenuLeft === menu.key
                 ? "text-indigo-500 bg-white   rounded-lg"
                 : "text-white"
             } `}

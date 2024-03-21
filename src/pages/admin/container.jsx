@@ -13,7 +13,7 @@ function AdminPage() {
   const [categories, getCategories, categoryLoad] = useFetchAllCategoryList();
   const [thinks, getThinkFetch, thinksLoading] = useFetchThinksList();
   const [thinkbYcategory, getThinkBy, byLoad] = useFetchThinkByCategory();
-
+  const [activeMenuLeft, setActiveMenu] = useState("main");
   useEffect(() => {
     getAllUserFetch();
     getCategories();
@@ -27,10 +27,12 @@ function AdminPage() {
   }, [categoryLoad]);
 
   return (
-    <div className="flex w-full overflow-hidden">
-      <LeftSide />
+    <div className="flex flex-1 overflow-hidden">
+      <LeftSide activeMenuLeft={activeMenuLeft} setActiveMenu={setActiveMenu} />
       <RighSide
+        activeMenuLeft={activeMenuLeft}
         thinkbYcategory={thinkbYcategory}
+        getCategories={getCategories}
         allUsers={allUsers}
         allUserLoading={allUserLoading}
         categories={categories}
