@@ -3,13 +3,14 @@ import { VscLink } from "react-icons/vsc";
 import { MdOutlineLibraryAddCheck } from "react-icons/md";
 import AddCommentModal from "../../ui/Modals/AddCommentModal";
 import { useEffect, useState } from "react";
-import { usePostLikeAndDislike } from "../../../hooks/useFetch";
+import { usePostLikeAndDislike, usePostNotify } from "../../../hooks/useFetch";
 import { getStorage, objectToQueryString } from "../../../utils/helpers";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiFillLike } from "react-icons/ai";
 import { AiFillDislike } from "react-icons/ai";
 
 function ThinkCardActions({
+  thkinksUserId,
   thinksContent,
   items,
   userByIdData,
@@ -32,26 +33,39 @@ function ThinkCardActions({
   const [dislike, setDislike] = useState(false);
   const [count, setCount] = useState(likeCount);
   const [fetchLikeCount, loading] = usePostLikeAndDislike();
+  const [postNotifyFetch] = usePostNotify();
   const [copied, setCopied] = useState(false);
   const token = getStorage("token");
 
-  const likeActions = () => {
+  const likeActions = (postIds) => {
     if (!like) {
       const updatedCount = dislike ? count + 2 : count + 1;
       setCount(updatedCount);
       setLike(true);
       setDislike(false);
       updateLikeCount(true);
+      postNotifyFetch({
+        postId: postIds,
+        postOwnerId: thkinksUserId,
+        actionOwnerId: userByIdData.id,
+        action: "like",
+      });
     }
   };
 
-  const dislikeActions = () => {
+  const dislikeActions = (postIds) => {
     if (!dislike) {
       const updatedCount = like ? count - 2 : count - 1;
       setCount(updatedCount);
       setDislike(true);
       setLike(false);
       updateLikeCount(false);
+      postNotifyFetch({
+        postId: postIds,
+        postOwnerId: thkinksUserId,
+        actionOwnerId: userByIdData.id,
+        action: "dislike",
+      });
     }
   };
 
@@ -138,6 +152,7 @@ function ThinkCardActions({
         {disabled && (
           <>
             <AddCommentModal
+              postNotifyFetch={postNotifyFetch}
               userByIdData={userByIdData}
               bookmark={bookmark}
               sendToSaveds={sendToSaveds}

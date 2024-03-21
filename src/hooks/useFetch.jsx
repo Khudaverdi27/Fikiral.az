@@ -30,6 +30,10 @@ import {
   ServiceUpdateUserPassword,
   ServiceUserLikeAndDislikesPost,
 } from "../services/user.service";
+import {
+  ServiceGetNotify,
+  ServicePostNotify,
+} from "../services/notify.service";
 
 const useFetch = (state = false) => {
   const [data, setData] = useState(state);
@@ -252,4 +256,22 @@ export const usePostLikeComments = () => {
   };
 
   return [data, postCommentFetch, loading];
+};
+export const usePostNotify = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const postNotifyFetch = async (params = {}) => {
+    fetch(ServicePostNotify, params);
+  };
+
+  return [postNotifyFetch];
+};
+
+export const useGetNotifyUserById = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const getUserNotify = async (id) => {
+    fetch(ServiceGetNotify, id);
+  };
+  return [data || [], getUserNotify, loading];
 };

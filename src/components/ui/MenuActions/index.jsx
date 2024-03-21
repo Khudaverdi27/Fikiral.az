@@ -12,7 +12,7 @@ import { useDarkMode } from "../../../context/DarkMode";
 import { useEffect, useState } from "react";
 
 function MenuActions() {
-  const [notifications, arr] = DropNotifications();
+  const [notifications, notifyRes] = DropNotifications();
   const [dark, setDark] = useState(false);
   const token = getStorage("token");
   const theme = getStorage("theme");
@@ -44,7 +44,11 @@ function MenuActions() {
               <HiOutlineBookmark className="size-6 dark:!text-white" />
             </Link>
           </IconContext.Provider>
-          <Badge className="dark:text-white" size={"small"} count={arr.length}>
+          <Badge
+            className="dark:text-white"
+            size={"small"}
+            count={notifyRes.length}
+          >
             <button>
               <DropdownMenu
                 dropName={<HiOutlineBell className="size-6" />}

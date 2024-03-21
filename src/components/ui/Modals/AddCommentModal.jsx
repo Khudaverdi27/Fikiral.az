@@ -17,6 +17,7 @@ import { usePostComments } from "../../../hooks/useFetch";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 
 const AddCommentModal = ({
+  postNotifyFetch,
   userByIdData,
   bookmark,
   sendToSaveds,
@@ -30,7 +31,7 @@ const AddCommentModal = ({
   openMessageModal,
 }) => {
   const [value, setValue] = useState("");
-  const { setIsCommented, setNotify } = useModalActions();
+  const { setIsCommented } = useModalActions();
   const [data, postComment, postLoading] = usePostComments();
 
   const token = getStorage("token");
@@ -49,11 +50,16 @@ const AddCommentModal = ({
         setTimeout(() => setIsCommented(true), 1500)
       );
       setValue("");
+      postNotifyFetch({
+        postId,
+        postOwnerId: modalData?.user?.id,
+        actionOwnerId: userByIdData.id,
+        action: "comment",
+      });
     } else {
       setValue("Qadağan olunmuş sözlərdən istifadə etməyin!");
       setTimeout(() => setValue(""), 1000);
     }
-    setNotify((prev) => [...prev, "salam"]);
   };
 
   const closeMessageModal = () => {
@@ -145,8 +151,11 @@ const AddCommentModal = ({
                 <div className="space-y-3 ">
                   {allComments?.map((comment) => (
                     <ThinkComments
+                      postNotifyFetch={postNotifyFetch}
                       key={comment.id}
                       comment={comment}
+                      postId={postId}
+                      postOwnerId={modalData?.user?.id}
                       // inputRef={inputRef}
                     />
                   ))}

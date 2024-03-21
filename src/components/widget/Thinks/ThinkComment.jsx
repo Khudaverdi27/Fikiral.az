@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { changeTime, getStorage } from "../../../utils/helpers";
 import { usePostLikeComments } from "../../../hooks/useFetch";
-import ThinkReplyComment from "./ThinkReplyComment";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { useModalActions } from "../../../context/LoginModalProvider";
 
-function ThinkComments({ comment, inputRef }) {
+function ThinkComments({ comment, postNotifyFetch, postId, postOwnerId }) {
   const [like, setLike] = useState(false);
   // const [showReply, setShowReply] = useState(false);
   const [commentLikeCount, setCommentLikeCount] = useState(comment.likeCount);
@@ -26,6 +25,16 @@ function ThinkComments({ comment, inputRef }) {
       (dataForPost.liked = !like),
       likeCommentFetch(dataForPost);
   };
+  useEffect(() => {
+    if (like) {
+      postNotifyFetch({
+        postId,
+        postOwnerId,
+        actionOwnerId: userByIdData.id,
+        action: "commentlike",
+      });
+    }
+  }, [like]);
 
   // const focusInput = () => {
   //   inputRef.current.focus();

@@ -9,7 +9,7 @@ import { Badge } from "antd";
 import { HiOutlineBell } from "react-icons/hi2";
 function AdminNavbar() {
   const { userByIdData } = useModalActions();
-  const [notifications, arr] = DropNotifications();
+  // const [notifications, notifyRes] = DropNotifications();
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("userId");
@@ -21,7 +21,7 @@ function AdminNavbar() {
     <nav className="bg-white flex justify-between w-full py-4 pr-12">
       <FormSearch />
       <div className=" flex items-center space-x-6">
-        <Badge className="dark:text-white" size={"small"} count={arr.length}>
+        <Badge className="dark:text-white" size={"small"} count={0}>
           <button>
             <DropdownMenu
               dropName={<HiOutlineBell className="size-6" />}

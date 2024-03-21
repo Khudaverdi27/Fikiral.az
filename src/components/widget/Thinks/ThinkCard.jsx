@@ -203,6 +203,7 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
         allComments={allComments}
         likeCount={thinks.likeCount}
         postId={thinks.id}
+        thkinksUserId={thinks.user.id}
         disabled={true}
         iscommentOpen={iscommentOpen}
         setIsCommentOpen={setIsCommentOpen}

@@ -6,6 +6,7 @@ import {
   useFetchAuthCheckMail,
   useFetchAuthCheckUserName,
   useFetchAuthLogin,
+  useGetNotifyUserById,
   useGetUserById,
 } from "../hooks/useFetch";
 
@@ -30,7 +31,7 @@ function ModalProvider({ children }) {
   const [withFb, setWithFb] = useState(false);
   const [userById, getUserFetch, userLoading] = useGetUserById();
   const [userByIdData, setUserById] = useState([]); //for use all pages
-
+  const [notifyRes, getUserNotify, notifyResloading] = useGetNotifyUserById();
   const navigate = useNavigate();
   const token = getStorage("token");
   const {
@@ -93,6 +94,7 @@ function ModalProvider({ children }) {
   useEffect(() => {
     if (userById.id) {
       setUserById(userById);
+      getUserNotify(userById.id);
       saveStorage("token", userLoginAuth?.tokenResponse?.accessToken || token);
       saveStorage("userId", userById.id);
     }
@@ -161,12 +163,6 @@ function ModalProvider({ children }) {
     reset();
   };
 
-  const [notify, setNotify] = useState([
-    "postunuza rəy bildirdi. Baxmaq üçün toxunun.",
-    "postunuza rəy bildirdi. Baxmaq üçün toxunun.",
-    "postunuza rəy bildirdi. Baxmaq üçün toxunun.",
-  ]);
-
   const actions = {
     getUserFetch,
     userLoginAuthLoading,
@@ -210,8 +206,8 @@ function ModalProvider({ children }) {
     isPosted,
     isCommented,
     setIsCommented,
-    notify,
-    setNotify,
+    notifyRes,
+    notifyResloading,
   };
 
   return <LoginModal.Provider value={actions}>{children}</LoginModal.Provider>;
