@@ -18,6 +18,7 @@ import {
 } from "../services/auth.service";
 import {
   ServiceDeleteUserById,
+  ServiceGetAllUsers,
   ServiceGetUserById,
   ServicePostLikeComments,
   ServicePutUserSavedPosts,
@@ -186,6 +187,14 @@ export const useGetUserById = () => {
     fetch(ServiceGetUserById, id);
   };
   return [data || [], getUserFetch, loading];
+};
+export const useGetAllUsers = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const getAllUserFetch = async () => {
+    fetch(ServiceGetAllUsers);
+  };
+  return [data || [], getAllUserFetch, loading];
 };
 export const useDeleteUserById = () => {
   const [data, fetch, loading] = useFetch();

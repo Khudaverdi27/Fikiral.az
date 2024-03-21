@@ -11,6 +11,10 @@ export const ServicePutUserSavedPosts = async (params = {}) => {
   return res;
 };
 
+export const ServiceGetAllUsers = async (id) => {
+  const res = await get(userApi.allUser);
+  return res;
+};
 export const ServiceGetUserById = async (id) => {
   const res = await get(userApi.userById.replace(":id", id));
   return res;

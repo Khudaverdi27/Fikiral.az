@@ -2,9 +2,19 @@ import { useState } from "react";
 import AdminNavbar from "./navbar";
 import CalendarPicker from "./calendar";
 import StatisticsCard from "./statisticCards";
+import LineChart from "./chart";
 
-function RighSide() {
+function RighSide({
+  thinkbYcategory,
+  allUsers,
+  allUserLoading,
+  categories,
+  categoryLoad,
+  thinks,
+  thinksLoading,
+}) {
   const [activeMenu, setActiveMenu] = useState(false);
+
   const dates = [
     { name: "Bu gün", key: "today" },
     { name: "Bu həftə", key: "week" },
@@ -14,12 +24,6 @@ function RighSide() {
   const handleActiveMenu = (key) => {
     setActiveMenu(key);
   };
-
-  const cardData = [
-    { name: "İstifadəçilər", key: "users", count: 10 },
-    { name: "Kateqoriya", key: "category", count: 14 },
-    { name: "Post", key: "post", count: 20 },
-  ];
 
   return (
     <section className="w-full">
@@ -43,10 +47,27 @@ function RighSide() {
         <CalendarPicker />
       </div>
       <div className="flex ">
-        {cardData.map((data) => (
-          <StatisticsCard name={data.name} count={data.count} />
-        ))}
+        <StatisticsCard
+          name={"İstifadəçilər"}
+          count={allUsers.length}
+          loading={allUserLoading}
+        />
+        <StatisticsCard
+          name={"Kateqoriyalar"}
+          count={categories.length}
+          loading={categoryLoad}
+        />
+        <StatisticsCard
+          name={"Postlar"}
+          count={thinks.length}
+          loading={thinksLoading}
+        />
       </div>
+      <LineChart
+        chartLabels={categories}
+        thinkbYcategory={thinkbYcategory}
+        byLoad={thinksLoading}
+      />
     </section>
   );
 }
