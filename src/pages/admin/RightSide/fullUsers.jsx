@@ -3,19 +3,19 @@ import { CgUnblock } from "react-icons/cg";
 import { Col, Row } from "antd";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
 import moment from "moment";
-import { useDeleteUserById } from "../../../hooks/useFetch";
+import { useBlockUserById } from "../../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
 import { ToastContainer, toast } from "react-toastify";
 function FullUsers({ allUsers, allUserLoading }) {
-  const [blockedUser, blockedUserFetch] = useDeleteUserById();
+  const [blockedUser, blockedUserFetch] = useBlockUserById();
   const [blockedId, setBlockedId] = useState([]);
 
   const blockProfile = (userId) => {
+    blockedUserFetch(userId);
     if (blockedId.includes(userId)) {
       setBlockedId(blockedId.filter((id) => id !== userId));
     } else {
-      blockedUserFetch(userId);
       setBlockedId(() => [...blockedId, userId]);
     }
   };
@@ -25,7 +25,7 @@ function FullUsers({ allUsers, allUserLoading }) {
 
   useEffect(() => {
     if (blockedUser.status === 200) {
-      notifySuccess("Uğurla bloklandı!");
+      notifySuccess("Əməliyyat uğurludur!");
     } else if (blockedUser.status === 500) {
       notifyError("Bir şeylər tərs getdi, yenidən yoxlayın!");
     }

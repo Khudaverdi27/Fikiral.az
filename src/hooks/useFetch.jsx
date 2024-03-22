@@ -21,6 +21,7 @@ import {
   ServiceAuthRegistration,
 } from "../services/auth.service";
 import {
+  ServiceBlockUserById,
   ServiceDeleteUserById,
   ServiceGetAllUsers,
   ServiceGetUserById,
@@ -231,6 +232,14 @@ export const useDeleteUserById = () => {
   };
   return [data || [], deleteUserFetch, loading];
 };
+export const useBlockUserById = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const blockUserFetch = async (id) => {
+    fetch(ServiceBlockUserById, id);
+  };
+  return [data, blockUserFetch, loading];
+};
 
 export const useUpdateUserById = () => {
   const [data, fetch, loading] = useFetch();
@@ -279,8 +288,8 @@ export const useGetNotifyUserById = () => {
 export const useVerifyMail = () => {
   const [data, fetch, loading] = useFetch();
 
-  const getUserVerifyRes = async (id) => {
-    fetch(ServiceVerifyMail, id);
+  const getUserVerifyRes = async (params) => {
+    fetch(ServiceVerifyMail, params);
   };
   return [data || false, getUserVerifyRes, loading];
 };

@@ -58,7 +58,7 @@ function ModalProvider({ children }) {
       //   setSubModel(true);
       // }
       if (!authCheckMail && !authCheckUsername) {
-        verifyFetch({ gmail: data.gmail });
+        verifyFetch(data.gmail);
         // setMainModel(false);
         // setSubModel(true);
       }

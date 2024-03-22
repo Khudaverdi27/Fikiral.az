@@ -10,8 +10,8 @@ export const ServicePutUserSavedPosts = async (params = {}) => {
   const res = await put(userApi.userSavedPosts, params);
   return res;
 };
-export const ServiceVerifyMail = async (params = {}) => {
-  const res = await put(userApi.verifyMail, params);
+export const ServiceVerifyMail = async (params) => {
+  const res = await put(userApi.verifyMail.replace("params", params));
   return res;
 };
 
@@ -25,6 +25,10 @@ export const ServiceGetUserById = async (id) => {
 };
 export const ServiceDeleteUserById = async (id) => {
   const res = await destroy(userApi.userById.replace(":id", id));
+  return res;
+};
+export const ServiceBlockUserById = async (id) => {
+  const res = await put(userApi.blockUser.replace(":id", id));
   return res;
 };
 export const ServiceUpdateUserById = async (id, params = {}) => {
