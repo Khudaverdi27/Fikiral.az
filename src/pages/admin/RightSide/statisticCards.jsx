@@ -2,7 +2,7 @@ import { MdShowChart } from "react-icons/md";
 import { Skeleton } from "antd";
 function StatisticsCard({ name, count, loading }) {
   return (
-    <div className="w-[330px]  bg-white p-9 space-y-7 rounded-xl mx-5 mt-5 shadow-sm border-gray-100 border">
+    <div className="w-[330px]  bg-white p-9 space-y-7 rounded-xl mx-5 mt-5 border-gray-100 border">
       {loading ? (
         <Skeleton active />
       ) : (

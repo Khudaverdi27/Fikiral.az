@@ -97,8 +97,9 @@ export const useCategories = (allSelect = true, type, classes = false) => {
             return (
               <div
                 className={classNames(
-                  classes && "checkboxforRegister cursor-pointer",
-                  !classes && "checkboxGroup ",
+                  classes &&
+                    "checkboxforRegister cursor-pointer font-fransisco",
+                  !classes && "checkboxGroup font-fransisco",
                   {
                     "!bg-[#373994] text-white":
                       classes && checkboxStates[index],

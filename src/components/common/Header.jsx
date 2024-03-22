@@ -24,7 +24,7 @@ function Header() {
     <header
       className={`flex items-center w-full py-[25px] dark:bg-[#22303c]  
      top-0 z-40  bg-[#FDFDFF] ${
-       token.length > 0 ? "justify-center " : "justify-evenly"
+       token.length > 0 ? "justify-center " : "justify-evenly px-10"
      } sticky `}
     >
       <div

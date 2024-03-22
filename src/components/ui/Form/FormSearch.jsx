@@ -18,7 +18,7 @@ function FormSearch() {
   const searchItems = showFull ? searchResponse : searchResponse.slice(0, 5);
 
   const ref = useClickAway(() => {
-    setOpenSrch(setOpenSrch(false));
+    setOpenSrch(false);
   });
 
   const showAllResults = () => {

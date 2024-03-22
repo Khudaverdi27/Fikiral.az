@@ -4,13 +4,18 @@ import { TbCalendarEvent } from "react-icons/tb";
 import DatePicker from "react-datepicker";
 import az from "date-fns/locale/az";
 import "react-datepicker/dist/react-datepicker.css";
+import { useClickAway } from "@uidotdev/usehooks";
 
 function CalendarPicker() {
   const [isOpen, setIsOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
-  const [selectedStart, setSelectedStart] = useState("");
-  const [selectedEnd, setSelectedEnd] = useState("");
+  const [selectedStart, setSelectedStart] = useState("22.03.2024");
+  const [selectedEnd, setSelectedEnd] = useState("23.03.2024");
+
+  const calendarRef = useClickAway(() => {
+    setIsOpen(false);
+  });
   const onChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
@@ -35,30 +40,29 @@ function CalendarPicker() {
   };
 
   return (
-    <div className="relative shadow-sm rounded-md p-1">
+    <div className="relative bg-white rounded-md p-1">
       <div className="flex items-center space-x-4">
-        {endDate && (
-          <>
-            <span>{selectedStart}</span>
-            <FaArrowRightLong />
-            <span>{selectedEnd}</span>
-          </>
-        )}
+        <span>{selectedStart}</span>
+        <FaArrowRightLong />
+        <span>{selectedEnd}</span>
+
         <button onClick={() => setIsOpen(!isOpen)}>
           <TbCalendarEvent className="size-6" />
         </button>
       </div>
 
       {isOpen && (
-        <DatePicker
-          locale={az}
-          selected={startDate}
-          onChange={onChange}
-          startDate={startDate}
-          endDate={endDate}
-          selectsRange
-          inline
-        />
+        <div ref={calendarRef}>
+          <DatePicker
+            locale={az}
+            selected={startDate}
+            onChange={onChange}
+            startDate={startDate}
+            endDate={endDate}
+            selectsRange
+            inline
+          />
+        </div>
       )}
     </div>
   );

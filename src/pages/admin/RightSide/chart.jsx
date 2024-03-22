@@ -39,10 +39,19 @@ function ChartGraphic({ chartLabels, byLoad }) {
           color: "#00000",
           font: { weight: "600" },
         },
+        grid: {
+          display: false,
+        },
       },
       y: {
         max: 10,
         min: 0,
+        border: {
+          dash: [2, 4],
+        },
+        grid: {
+          color: "grey",
+        },
       },
     },
     barThickness: 15,
@@ -51,7 +60,8 @@ function ChartGraphic({ chartLabels, byLoad }) {
         display: false,
       },
       title: {
-        font: { weight: "bold", size: "28px" },
+        font: { weight: "500", size: "28px" },
+        padding: 20,
         display: true,
         color: "#00000",
         align: "start",
@@ -62,7 +72,7 @@ function ChartGraphic({ chartLabels, byLoad }) {
   };
 
   return (
-    <div className="mt-10 w-11/12 px-24">
+    <div className="mt-10 w-11/12 px-24 bg-white mx-auto rounded-lg mb-4">
       {byLoad ? <LoadingSpin /> : <Bar data={data} options={options} />}
     </div>
   );

@@ -105,7 +105,7 @@ const AddCommentModal = ({
                       </span>
                     )}
                   </figure>
-                  <h6 className="text-[20px] dark:text-white">
+                  <h6 className="text-[20px] dark:text-white font-fransisco">
                     {modalData?.user?.userName.split(" ")[0].toLowerCase()}
                   </h6>
                 </div>
@@ -113,15 +113,15 @@ const AddCommentModal = ({
               <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
                 <Link
                   to={`/categories/${modalData?.category?.slug}`}
-                  className="hover:bg-[#6C58BB] hover:text-white py-[2px] px-2 rounded-[4px] cursor-pointer text-[#808080]"
+                  className="hover:bg-[#6C58BB] hover:text-white py-[2px] px-2 rounded-[4px] cursor-pointer text-[#808080] font-fransisco"
                 >
                   {modalData?.category?.name}
                 </Link>
-                <span className="dotForTime whitespace-nowrap">
+                <span className="dotForTime whitespace-nowrap font-fransisco">
                   {changeTime(modalData?.publishedAt)}
                 </span>
               </div>
-              <p className="font-Manrope text-sm dark:text-white">
+              <p className="font-Manrope text-sm dark:text-white font-fransisco">
                 {modalData.content}
               </p>
             </div>

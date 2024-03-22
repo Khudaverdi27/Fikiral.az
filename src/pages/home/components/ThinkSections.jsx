@@ -65,7 +65,7 @@ function ThinkSection({ items, loading, title }) {
         <div className="flex justify-end text-primaryGray mt-2 text-sm ">
           <button
             onClick={showAllItems}
-            className={`hover:bg-indigo-500 dark:text-white space-x-2 hover:text-white rounded-[4px] py-2 px-4 ${
+            className={`hover:bg-indigo-500  dark:text-white space-x-2 hover:text-white rounded-[4px] py-2 px-4 ${
               loading ? "text-white" : ""
             }`}
           >

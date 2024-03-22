@@ -22,7 +22,6 @@ function AdminPage() {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm();
 
   const onSubmit = (data) => loginFetch(data);
@@ -38,10 +37,6 @@ function AdminPage() {
       setLoginAdmin(true);
     } else {
       setLoginAdmin(false);
-      setError("gmail", {
-        type: "manual",
-        message: "Zəhəmət olmasa yenidən yoxlayın",
-      });
     }
   }, [userLoginAuthLoading]);
 

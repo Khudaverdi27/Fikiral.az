@@ -4,8 +4,8 @@
     font-family: 'San Francisco';
     src: url('../Font/SFUIText-Regular.otf') format('truetype'); 
   }
-body{
-    font-family: 'San Francisco', sans-serif;
+body, .gutter-row, html{
+    @apply font-fransisco
 }
  
  

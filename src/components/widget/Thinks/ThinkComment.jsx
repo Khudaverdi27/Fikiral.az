@@ -94,7 +94,9 @@ function ThinkComments({ comment, postNotifyFetch, postId, postOwnerId }) {
         </div>
 
         <div className="py-1 pl-[50px] pr-10">
-          <p className="text-wrap dark:text-white"> {comment.content}</p>
+          <p className="text-wrap dark:text-white font-fransisco">
+            {comment.content}
+          </p>
           {/* reply comment section will be active in the future */}
 
           {/* <button onClick={focusInput} className="text-sm text-[#999999]">

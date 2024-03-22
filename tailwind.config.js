@@ -26,6 +26,10 @@ export default {
       backgroundImage: {
         'heroBg': "url('./src/assets/img/bg.jpg')",
         
+      },
+      fontFamily: {
+        'fransisco': ['San Francisco',"sans-serif"]
+       
       }
     
     },

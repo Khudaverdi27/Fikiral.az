@@ -34,7 +34,7 @@ function RighSide({
     <section className="w-full">
       <AdminNavbar userLoginAuth={userLoginAuth} />
       <div className="mt-6 flex justify-between pl-7 pr-10">
-        <div className="space-x-5 ">
+        <div className="space-x-5 bg-white rounded-lg">
           {dates.map((date) => (
             <button
               key={date.key}
