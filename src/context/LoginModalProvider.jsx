@@ -8,6 +8,7 @@ import {
   useFetchAuthLogin,
   useGetNotifyUserById,
   useGetUserById,
+  useVerifyMail,
 } from "../hooks/useFetch";
 
 const LoginModal = createContext();
@@ -32,6 +33,7 @@ function ModalProvider({ children }) {
   const [userById, getUserFetch, userLoading] = useGetUserById();
   const [userByIdData, setUserById] = useState([]); //for use all pages
   const [notifyRes, getUserNotify, notifyResloading] = useGetNotifyUserById();
+  const [verifyRes, verifyFetch, verifyLoading] = useVerifyMail();
   const navigate = useNavigate();
   const token = getStorage("token");
   const {
@@ -51,9 +53,14 @@ function ModalProvider({ children }) {
       data["categories"] = [];
       setResRegister(data);
 
-      if ((!authCheckMail && !authCheckUsername) || withGoogle || withFb) {
-        setMainModel(false);
-        setSubModel(true);
+      // if ((!authCheckMail && !authCheckUsername) || withGoogle || withFb) {
+      //   setMainModel(false);
+      //   setSubModel(true);
+      // }
+      if (!authCheckMail && !authCheckUsername) {
+        verifyFetch({ gmail: data.gmail });
+        // setMainModel(false);
+        // setSubModel(true);
       }
     } else {
       loginFetch(data);

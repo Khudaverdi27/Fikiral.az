@@ -29,6 +29,7 @@ import {
   ServiceUpdateUserById,
   ServiceUpdateUserPassword,
   ServiceUserLikeAndDislikesPost,
+  ServiceVerifyMail,
 } from "../services/user.service";
 import {
   ServiceGetNotify,
@@ -274,4 +275,12 @@ export const useGetNotifyUserById = () => {
     fetch(ServiceGetNotify, id);
   };
   return [data || [], getUserNotify, loading];
+};
+export const useVerifyMail = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const getUserVerifyRes = async (id) => {
+    fetch(ServiceVerifyMail, id);
+  };
+  return [data || false, getUserVerifyRes, loading];
 };

@@ -19,7 +19,7 @@ function ThinkCardActions({
   commentLoading,
   comment,
   likeCount,
-  iscommentOpen,
+  isCommentOpen,
   setIsCommentOpen,
   modalData,
   setModalData,
@@ -160,7 +160,7 @@ function ThinkCardActions({
               commentLoading={commentLoading}
               comment={comment}
               allComments={allComments}
-              iscommentOpen={iscommentOpen}
+              isCommentOpen={isCommentOpen}
               setIsCommentOpen={setIsCommentOpen}
               modalData={modalData}
               setModalData={setModalData}

@@ -22,7 +22,7 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
   const [bookmark, setBookmark] = useState(false);
   const { switcRegisterModal, isCommented, setIsCommented, setIsPosted } =
     useModalActions();
-  const [iscommentOpen, setIsCommentOpen] = useState(false);
+  const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
   const [deletedThink, fetcDelete, deleteLoading] = useDeleteThink();
@@ -51,7 +51,7 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
   };
 
   useEffect(() => {
-    if (isCommented && iscommentOpen) {
+    if (isCommented && isCommentOpen) {
       fetchComments(thinks.id).then(() => {
         setIsCommented(false);
       });
@@ -205,7 +205,7 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
         postId={thinks.id}
         thkinksUserId={thinks.user.id}
         disabled={true}
-        iscommentOpen={iscommentOpen}
+        isCommentOpen={isCommentOpen}
         setIsCommentOpen={setIsCommentOpen}
         modalData={modalData}
         setModalData={setModalData}

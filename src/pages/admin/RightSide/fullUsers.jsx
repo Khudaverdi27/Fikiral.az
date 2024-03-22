@@ -4,15 +4,22 @@ import { Col, Row } from "antd";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
 import moment from "moment";
 import { useDeleteUserById } from "../../../hooks/useFetch";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
 import { ToastContainer, toast } from "react-toastify";
 function FullUsers({ allUsers, allUserLoading }) {
   const [blockedUser, blockedUserFetch] = useDeleteUserById();
+  const [blockedId, setBlockedId] = useState([]);
 
   const blockProfile = (userId) => {
-    blockedUserFetch(userId);
+    if (blockedId.includes(userId)) {
+      setBlockedId(blockedId.filter((id) => id !== userId));
+    } else {
+      blockedUserFetch(userId);
+      setBlockedId(() => [...blockedId, userId]);
+    }
   };
+
   const notifyError = (message) => toast.error(message);
   const notifySuccess = (message) => toast.success(message);
 
@@ -61,22 +68,37 @@ function FullUsers({ allUsers, allUserLoading }) {
                 </Col>
                 <Col className="text-base text-center" span={5}>
                   <span>
-                    {moment(user.registeredAt, "DD.MM.YYYY").format(
-                      "YYYY-MM-DD"
+                    {user.registeredAt ? (
+                      <>
+                        {moment(user.registeredAt, "DD.MM.YYYY").format(
+                          "YYYY-MM-DD"
+                        )}
+                      </>
+                    ) : (
+                      "Tarix bilinmir"
                     )}
                   </span>
                 </Col>
                 <Col className="text-center text-base " span={4}>
                   <span>{user.postCount || 0}</span>
                 </Col>
-                <Col className="flex justify-end " span={5}>
-                  <IsConfirmModal
-                    title={"Bu istifadəçini bloklamaq istəyirsinizmi?"}
-                    dangerBtn={<MdBlockFlipped className="size-5" />}
-                    destroyProfile={() => blockProfile(user.id)}
-                    destroyBtn={"Blokla"}
-                  />
-                </Col>
+                {blockedId.includes(user.id) ? (
+                  <Col className="flex justify-end " span={5}>
+                    <CgUnblock
+                      onClick={() => blockProfile(user.id)}
+                      className="size-6 !text-green-500"
+                    />
+                  </Col>
+                ) : (
+                  <Col className="flex justify-end " span={5}>
+                    <IsConfirmModal
+                      title={"Bu istifadəçini bloklamaq istəyirsinizmi?"}
+                      dangerBtn={<MdBlockFlipped className="size-5" />}
+                      destroyProfile={() => blockProfile(user.id)}
+                      destroyBtn={"Blokla"}
+                    />
+                  </Col>
+                )}
               </Row>
             ))}
           </div>

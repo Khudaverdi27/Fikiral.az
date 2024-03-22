@@ -2,15 +2,18 @@ import { useState } from "react";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import AddCommentModal from "../Modals/AddCommentModal";
+import { useFetchCommentLists } from "../../../hooks/useFetch";
 
 export const DropNotifications = () => {
   const { notifyRes, notifyResloading } = useModalActions();
   const [dataModal, setDataModal] = useState({});
-  const [iscommentOpen, setIsCommentOpen] = useState(false);
+  const [isCommentOpen, setIsCommentOpen] = useState(false);
+  const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
 
   const openMessageModal = (data) => {
     setIsCommentOpen(true);
     setDataModal(data);
+    fetchComments(data.id);
   };
 
   const notifications = [
@@ -50,23 +53,25 @@ export const DropNotifications = () => {
                   className="line-clamp-1 shrink-0 "
                 >
                   {item.action === "like"
-                    ? "postunuzu bəyəndi baxmaq üçün toxun"
+                    ? "postunuzu bəyəndi baxmaq..."
                     : item.action === "dislike"
-                    ? "postunuzu bəyənmədi baxmaq üçün toxun"
+                    ? "postunuzu bəyənmədi baxmaq ..."
                     : item.action === "comment"
-                    ? "postunuza fikir bildirdi baxmaq üçün toxun"
+                    ? "postunuza fikir bildirdi baxmaq..."
                     : item.action === "commentlike"
-                    ? "rəyinizi bəyəndi baxmaq üçün toxun"
+                    ? "rəyinizi bəyəndi baxmaq..."
                     : ""}
                 </button>
               </div>
             </div>
           ))}
-          {iscommentOpen && (
+          {isCommentOpen && (
             <AddCommentModal
-              iscommentOpen={iscommentOpen}
+              isCommentOpen={isCommentOpen}
               setIsCommentOpen={setIsCommentOpen}
               modalData={dataModal}
+              allComments={allComments}
+              commentLoading={commentLoading}
             />
           )}
         </>

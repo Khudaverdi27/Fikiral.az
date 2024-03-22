@@ -25,7 +25,7 @@ const AddCommentModal = ({
   commentLoading,
   allComments,
   comment,
-  iscommentOpen,
+  isCommentOpen,
   setIsCommentOpen,
   modalData,
   openMessageModal,
@@ -83,7 +83,7 @@ const AddCommentModal = ({
         className="bg-zinc-50 rounded-[8px]"
         closable={true}
         closeIcon={<IoMdClose className=" text-2xl text-[#232323] " />}
-        open={iscommentOpen}
+        open={isCommentOpen}
         onOk={closeMessageModal}
         onCancel={closeMessageModal}
       >

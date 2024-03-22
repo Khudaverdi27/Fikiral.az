@@ -6,4 +6,5 @@ export const userApi = {
   userSavedPosts: "/think/save/",
   addImage: "/user/image?id=",
   changeUserPass: "/auth/change-password",
+  verifyMail: "/verify/activated/",
 };

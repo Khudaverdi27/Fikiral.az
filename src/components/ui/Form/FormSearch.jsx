@@ -4,14 +4,16 @@ import { useState } from "react";
 import { IoMdClose, IoMdSearch } from "react-icons/io";
 import AddCommentModal from "../Modals/AddCommentModal";
 import { useSearchActions } from "../../../context/FormSearchProvider";
+import { useFetchCommentLists } from "../../../hooks/useFetch";
 
 function FormSearch() {
   const [isHovered, setIsHovered] = useState(false);
   const [showFull, setShowFull] = useState(false);
-  const [iscommentOpen, setIsCommentOpen] = useState(false);
+  const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [dataModal, setDataModal] = useState({});
   const { onSearch, searchResponse, loadings, setOpenSrch, openSrch } =
     useSearchActions();
+  const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
 
   const searchItems = showFull ? searchResponse : searchResponse.slice(0, 5);
 
@@ -26,6 +28,7 @@ function FormSearch() {
   const openMessageModal = (data) => {
     setIsCommentOpen(true);
     setDataModal(data);
+    fetchComments(data.id);
   };
 
   return (
@@ -108,11 +111,13 @@ function FormSearch() {
           </div>
         )}
       </div>
-      {iscommentOpen && (
+      {isCommentOpen && (
         <AddCommentModal
-          iscommentOpen={iscommentOpen}
+          isCommentOpen={isCommentOpen}
           setIsCommentOpen={setIsCommentOpen}
           modalData={dataModal}
+          allComments={allComments}
+          commentLoading={commentLoading}
         />
       )}
     </>

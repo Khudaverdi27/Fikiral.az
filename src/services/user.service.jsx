@@ -10,6 +10,10 @@ export const ServicePutUserSavedPosts = async (params = {}) => {
   const res = await put(userApi.userSavedPosts, params);
   return res;
 };
+export const ServiceVerifyMail = async (params = {}) => {
+  const res = await put(userApi.verifyMail, params);
+  return res;
+};
 
 export const ServiceGetAllUsers = async (id) => {
   const res = await get(userApi.allUser);
