@@ -64,23 +64,22 @@ const FormRegister = () => {
           : " Fikiral-a xoş gəlmisiz!"}
       </h3>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-        {accescLogin ||
-          (!verifyConfrim && (
-            <Input
-              label={"İstifadəçi adı"}
-              required={true}
-              placeholder={"İstifadəçi adı"}
-              type={"text"}
-              maxLength={15}
-              registerName={"userName"}
-              patterns={{
-                value: /\s*/,
-                message: "Zəhmət olmasa boşluqlardan istifadə etməyin",
-              }}
-              onBlur={(e) => checkUserName(e.target.value)}
-              checkLoading={authCheckUserNameLoading}
-            />
-          ))}
+        {accescLogin && !verifyConfrim && (
+          <Input
+            label={"İstifadəçi adı"}
+            required={true}
+            placeholder={"İstifadəçi adı"}
+            type={"text"}
+            maxLength={15}
+            registerName={"userName"}
+            patterns={{
+              value: /\s*/,
+              message: "Zəhmət olmasa boşluqlardan istifadə etməyin",
+            }}
+            onBlur={(e) => checkUserName(e.target.value)}
+            checkLoading={authCheckUserNameLoading}
+          />
+        )}
         <>
           {userLoading || userLoginAuthLoading || verifyConfrim ? (
             <LoadingSpin />
