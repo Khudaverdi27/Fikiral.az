@@ -1,9 +1,11 @@
 import AdminLayout from "../layouts/AdminLayout";
 import AppLayout from "../layouts/AppLayout";
+import PendingLayout from "../layouts/PendingLayout";
 import AdminPage from "../pages/admin/container";
 import CategoryPage from "../pages/categories/CategoryPage";
 import ThinkFromClipboard from "../pages/clipboardResult/ThinkFromClipBoard";
 import EditProfile from "../pages/edit";
+import AuthWait from "../pages/error/authWait";
 import ErrorPage from "../pages/error/ErrorPage";
 import FavoritePage from "../pages/favorites/FavoritePage";
 import HomePage from "../pages/home/HomePage";
@@ -29,6 +31,11 @@ export const routes = [
     element: <AdminPage />,
     layout: "AdminLayout",
   },
+  {
+    path: "/auth",
+    element: <AuthWait />,
+    layout: "authWaiting",
+  },
   { path: "*", element: <ErrorPage />, layout: "AppLayout" },
 ];
 
@@ -37,6 +44,8 @@ routes.map((route) => {
     route.element = <AppLayout>{route.element}</AppLayout>;
   } else if (route.layout === "AdminLayout") {
     route.element = <AdminLayout>{route.element}</AdminLayout>;
+  } else {
+    route.element = <PendingLayout>{route.element}</PendingLayout>;
   }
   return route;
 });

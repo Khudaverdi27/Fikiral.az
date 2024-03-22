@@ -11,7 +11,7 @@ export const ServicePutUserSavedPosts = async (params = {}) => {
   return res;
 };
 export const ServiceVerifyMail = async (params) => {
-  const res = await put(userApi.verifyMail.replace("params", params));
+  const res = await put(userApi.verifyMail.replace(":params", params));
   return res;
 };
 

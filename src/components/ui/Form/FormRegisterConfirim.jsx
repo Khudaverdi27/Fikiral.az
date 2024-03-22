@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { useCategories } from "../../../hooks/useCategories";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
-import { useFetchAuthResgistration } from "../../../hooks/useFetch";
-import { saveStorage } from "../../../utils/helpers";
+import {
+  useFetchAuthResgistration,
+  useVerifyMail,
+} from "../../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 
 function FormRegisterConfrim() {
@@ -13,21 +15,15 @@ function FormRegisterConfrim() {
     true
   );
   const [registerAuth, authFetch, authLoading] = useFetchAuthResgistration();
+  const [verifyRes, verifyFetch, verifyLoading] = useVerifyMail();
   const [disabled, setDisabled] = useState(true);
-  const {
-    handleSubmit,
-    onSubmit,
-    setSubModel,
-    resRegister,
-    setLoginAuth,
-    setUserById,
-    reset,
-  } = useModalActions();
+  const [verifyConfrim, setVerifyConfrim] = useState(true);
+  const { handleSubmit, onSubmit, setSubModel, resRegister, reset } =
+    useModalActions();
 
   const navigate = useNavigate();
-
   const skipCategory = () => {
-    authFetch(resRegister);
+    authFetch(resRegister).then(() => setVerifyConfrim(false));
     reset();
   };
 
@@ -48,21 +44,25 @@ function FormRegisterConfrim() {
     // find element id
     const categories = elementsWithCategory.map((element) => element.id);
     resRegister["categories"] = categories;
-    authFetch(resRegister);
+    authFetch(resRegister).then(() => setVerifyConfrim(false));
   };
 
   useEffect(() => {
-    if (registerAuth.tokenResponse) {
-      saveStorage("token", registerAuth.tokenResponse.accessToken);
-      saveStorage("userId", registerAuth.userResponse.id);
-      setUserById(registerAuth.userResponse);
-      setLoginAuth(registerAuth);
-      setSubModel(false);
-      navigate("/home");
-    } else {
-      registerAuth.status === 409 ? setDisabled(true) : setDisabled(false);
-    }
+    registerAuth.status === 409 ? setDisabled(true) : setDisabled(false);
   }, [registerAuth]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      verifyFetch(resRegister.gmail);
+    }, [2000]);
+
+    if (verifyRes === true) {
+      setVerifyConfrim(true);
+      setSubModel(false);
+      navigate("/auth");
+      return () => clearInterval(interval);
+    }
+  }, [verifyRes]);
 
   useEffect(() => {
     if (checkboxStates.some((c) => c === true)) {
@@ -74,11 +74,16 @@ function FormRegisterConfrim() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-      {authLoading ? (
+      {!verifyConfrim && (
+        <div className="text-center text-base">
+          E-mailinizdəki linkə klik edin və gözləyin zəhmət olmasa
+        </div>
+      )}
+      {authLoading || !verifyConfrim ? (
         <LoadingSpin />
       ) : (
         <>
-          <div className="text-center font-[500]">
+          <div className="text-center font-[500] font-fransisco">
             <h3 className="text-[27px] dark:text-white">
               Sizi nələr maraqlandırır?
             </h3>

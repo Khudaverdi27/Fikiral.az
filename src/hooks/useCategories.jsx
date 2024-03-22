@@ -13,7 +13,7 @@ export const useCategories = (allSelect = true, type, classes = false) => {
   const { setSelectCategory, selectCategory } = useModalActions();
   const [allChecked, setAllChecked] = useState(false);
   const [checkboxStates, setCheckboxStates] = useState(
-    Array.from({ length: 26 }, () => false) // 26 beacuse all categories is empty at beginning
+    Array.from({ length: 27 }, () => false) // 26 beacuse all categories is empty at beginning
   );
 
   const selectAll = () => {
@@ -73,7 +73,7 @@ export const useCategories = (allSelect = true, type, classes = false) => {
       title: allSelect && (
         <div className="categoryTitle">
           <label
-            className="cursor-pointer w-full dark:text-white"
+            className="cursor-pointer w-full dark:text-white font-fransisco"
             htmlFor="check"
           >
             Hamısı
@@ -97,9 +97,8 @@ export const useCategories = (allSelect = true, type, classes = false) => {
             return (
               <div
                 className={classNames(
-                  classes &&
-                    "checkboxforRegister cursor-pointer font-fransisco",
-                  !classes && "checkboxGroup font-fransisco",
+                  classes && "checkboxforRegister cursor-pointer ",
+                  !classes && "checkboxGroup",
                   {
                     "!bg-[#373994] text-white":
                       classes && checkboxStates[index],
@@ -108,7 +107,7 @@ export const useCategories = (allSelect = true, type, classes = false) => {
                 key={item.id}
               >
                 <label
-                  className="cursor-pointer dark:text-white"
+                  className="cursor-pointer dark:text-white font-fransisco"
                   htmlFor={`check-${item.id}`}
                 >
                   {item.name}
