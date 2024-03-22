@@ -24,7 +24,6 @@ const FormRegister = () => {
     authCheckUserNameLoading,
     userLoginAuthLoading,
     watch,
-    verifyConfrim,
   } = useModalActions();
 
   const watchFields = watch();
@@ -58,13 +57,11 @@ const FormRegister = () => {
 
   return (
     <FormContainer>
-      <h3 className="text-center text-base dark:text-white whitespace-nowrap">
-        {verifyConfrim
-          ? "Zəhmət olmasa mailinizə keçid edib təsdiqləyin!"
-          : " Fikiral-a xoş gəlmisiz!"}
+      <h3 className="text-center text-base dark:text-white">
+        Fikiral-a xoş gəlmisiz!
       </h3>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-        {accescLogin && !verifyConfrim && (
+        {accescLogin && (
           <Input
             label={"İstifadəçi adı"}
             required={true}
@@ -81,7 +78,7 @@ const FormRegister = () => {
           />
         )}
         <>
-          {userLoading || userLoginAuthLoading || verifyConfrim ? (
+          {userLoading || userLoginAuthLoading ? (
             <LoadingSpin />
           ) : (
             <>

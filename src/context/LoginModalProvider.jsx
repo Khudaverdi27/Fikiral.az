@@ -33,8 +33,6 @@ function ModalProvider({ children }) {
   const [userById, getUserFetch, userLoading] = useGetUserById();
   const [userByIdData, setUserById] = useState([]); //for use all pages
   const [notifyRes, getUserNotify, notifyResloading] = useGetNotifyUserById();
-  const [verifyRes, verifyFetch, verifyLoading] = useVerifyMail();
-  const [verifyConfrim, setVerifyConfrim] = useState(false);
   const navigate = useNavigate();
   const token = getStorage("token");
   const {
@@ -50,16 +48,11 @@ function ModalProvider({ children }) {
 
   const onSubmit = async (data) => {
     if (data.userName) {
-      setVerifyConfrim(true);
       setConfrimRegister(false);
       data["categories"] = [];
       setResRegister(data);
 
-      if (
-        (!authCheckMail && !authCheckUsername && verifyConfrim) ||
-        withGoogle ||
-        withFb
-      ) {
+      if ((!authCheckMail && !authCheckUsername) || withGoogle || withFb) {
         setMainModel(false);
         setSubModel(true);
       }
@@ -67,21 +60,6 @@ function ModalProvider({ children }) {
       loginFetch(data);
     }
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (accescLogin && resRegister.gmail) {
-        verifyFetch(resRegister.gmail);
-      }
-    }, 2000);
-
-    if (verifyRes === true) {
-      setVerifyConfrim(false);
-      setMainModel(false);
-      setSubModel(true);
-      clearInterval(interval);
-    }
-  }, [verifyRes, resRegister]);
 
   useEffect(() => {
     if (userLoginAuth.tokenResponse) {
@@ -187,7 +165,6 @@ function ModalProvider({ children }) {
   };
 
   const actions = {
-    verifyConfrim,
     getUserFetch,
     userLoginAuthLoading,
     setUserById,
