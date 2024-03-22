@@ -25,7 +25,7 @@ function PendingLayout({ children }) {
     }
   }, [userLoginAuth]);
   return (
-    <main className="bg-[#F9F9F9]">
+    <main>
       <section className="h-full w-full ">{children}</section>
     </main>
   );

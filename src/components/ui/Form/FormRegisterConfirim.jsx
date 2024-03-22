@@ -7,6 +7,7 @@ import {
   useVerifyMail,
 } from "../../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import { getStorage } from "../../../utils/helpers";
 
 function FormRegisterConfrim() {
   const { category, checkboxStates, allCategories, loading } = useCategories(
@@ -20,7 +21,7 @@ function FormRegisterConfrim() {
   const [verifyConfrim, setVerifyConfrim] = useState(true);
   const { handleSubmit, onSubmit, setSubModel, resRegister, reset } =
     useModalActions();
-
+  const token = getStorage("token");
   const navigate = useNavigate();
   const skipCategory = () => {
     authFetch(resRegister).then(() => setVerifyConfrim(false));
@@ -52,15 +53,17 @@ function FormRegisterConfrim() {
   }, [registerAuth]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      verifyFetch(resRegister.gmail);
-    }, [2000]);
+    if (token.length == 0) {
+      const interval = setInterval(() => {
+        verifyFetch(resRegister.gmail);
+      }, [2000]);
 
-    if (verifyRes === true) {
-      setVerifyConfrim(true);
-      setSubModel(false);
-      navigate("/auth");
-      return () => clearInterval(interval);
+      if (verifyRes === true) {
+        setVerifyConfrim(true);
+        setSubModel(false);
+        navigate("/auth");
+        return () => clearInterval(interval);
+      }
     }
   }, [verifyRes]);
 

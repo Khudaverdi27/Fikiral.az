@@ -1,5 +1,5 @@
 function AllPosts() {
-  return <div>all post</div>;
+  return <div>d</div>;
 }
 
 export default AllPosts;

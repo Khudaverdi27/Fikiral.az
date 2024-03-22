@@ -5,7 +5,7 @@ function AdminLayout({ children }) {
     document.body.classList.remove("bg-heroBg");
   }, []);
   return (
-    <main className="bg-[#F9F9F9]">
+    <main className="bg-[#F9F9F9] font-fransisco">
       <section className="h-full w-full ">{children}</section>
     </main>
   );

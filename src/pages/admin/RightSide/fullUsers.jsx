@@ -4,20 +4,14 @@ import { Col, Row } from "antd";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
 import moment from "moment";
 import { useBlockUserById } from "../../../hooks/useFetch";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
 import { ToastContainer, toast } from "react-toastify";
-function FullUsers({ allUsers, allUserLoading }) {
+function FullUsers({ allUsers, allUserLoading, getAllUserFetch }) {
   const [blockedUser, blockedUserFetch] = useBlockUserById();
-  const [blockedId, setBlockedId] = useState([]);
 
   const blockProfile = (userId) => {
     blockedUserFetch(userId);
-    if (blockedId.includes(userId)) {
-      setBlockedId(blockedId.filter((id) => id !== userId));
-    } else {
-      setBlockedId(() => [...blockedId, userId]);
-    }
   };
 
   const notifyError = (message) => toast.error(message);
@@ -26,6 +20,9 @@ function FullUsers({ allUsers, allUserLoading }) {
   useEffect(() => {
     if (blockedUser.status === 200) {
       notifySuccess("Əməliyyat uğurludur!");
+      setTimeout(() => {
+        getAllUserFetch();
+      }, 2000);
     } else if (blockedUser.status === 500) {
       notifyError("Bir şeylər tərs getdi, yenidən yoxlayın!");
     }
@@ -69,11 +66,7 @@ function FullUsers({ allUsers, allUserLoading }) {
                 <Col className="text-base text-center" span={5}>
                   <span>
                     {user.registeredAt ? (
-                      <>
-                        {moment(user.registeredAt, "DD.MM.YYYY").format(
-                          "YYYY-MM-DD"
-                        )}
-                      </>
+                      <>{moment(user.registeredAt).format("DD.MM.YYYY")}</>
                     ) : (
                       "Tarix bilinmir"
                     )}
@@ -82,7 +75,7 @@ function FullUsers({ allUsers, allUserLoading }) {
                 <Col className="text-center text-base " span={4}>
                   <span>{user.postCount || 0}</span>
                 </Col>
-                {blockedId.includes(user.id) ? (
+                {!user.activated ? (
                   <Col className="flex justify-end " span={5}>
                     <CgUnblock
                       onClick={() => blockProfile(user.id)}

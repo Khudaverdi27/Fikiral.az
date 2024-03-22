@@ -18,6 +18,7 @@ function AdminPage() {
   const [activeMenuLeft, setActiveMenu] = useState("main");
   const [loginAdmin, setLoginAdmin] = useState(false);
   const [userLoginAuth, loginFetch, userLoginAuthLoading] = useFetchAuthLogin();
+  const [authError, setAuthError] = useState(false);
   const {
     register,
     handleSubmit,
@@ -35,6 +36,8 @@ function AdminPage() {
   useEffect(() => {
     if (userLoginAuth?.userResponse?.userName === "yenifikir") {
       setLoginAdmin(true);
+    } else if (userLoginAuth.status) {
+      setAuthError(true);
     } else {
       setLoginAdmin(false);
     }
@@ -60,6 +63,7 @@ function AdminPage() {
             thinkbYcategory={thinkbYcategory}
             getCategories={getCategories}
             allUsers={allUsers}
+            getAllUserFetch={getAllUserFetch}
             allUserLoading={allUserLoading}
             categories={categories}
             categoryLoad={categoryLoad}
@@ -78,7 +82,7 @@ function AdminPage() {
             </h3>
             <div>
               <input
-                placeholder="ad"
+                placeholder="admin mail"
                 className="loginInput"
                 type="text"
                 {...register("gmail", { required: true })}
@@ -92,7 +96,7 @@ function AdminPage() {
             </div>
             <div>
               <input
-                placeholder="şifrə"
+                placeholder="admin şifrə"
                 className="loginInput"
                 type="password"
                 {...register("password", {
@@ -110,6 +114,9 @@ function AdminPage() {
             <button className=" border  w-full dark:border-[#22303c]  bg-indigo-500 text-white py-2 px-4 rounded-xl">
               {userLoginAuthLoading ? "Gözləyin..." : "Daxil ol"}
             </button>
+            {authError && (
+              <span className="text-red-500 text-sm">Yenidən yoxlayın!</span>
+            )}
           </div>
         </form>
       )}

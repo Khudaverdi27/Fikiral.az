@@ -20,7 +20,7 @@ function AdminNavbar({ userLoginAuth }) {
           <button>
             <DropdownMenu
               dropName={<HiOutlineBell className="size-6" />}
-              // dropDownItems={notifications}
+              dropDownItems={[{ name: "boşdur" }]}
               classes={"w-[359px] max-h-[424px] !top-[80px] overflow-x-hidden"}
             />
           </button>
