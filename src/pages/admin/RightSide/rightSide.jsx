@@ -8,6 +8,7 @@ import FullUsers from "./fullUsers";
 import AllPosts from "./allPosts";
 
 function RighSide({
+  userLoginAuth,
   allUsers,
   allUserLoading,
   categories,
@@ -31,7 +32,7 @@ function RighSide({
 
   return (
     <section className="w-full">
-      <AdminNavbar />
+      <AdminNavbar userLoginAuth={userLoginAuth} />
       <div className="mt-6 flex justify-between pl-7 pr-10">
         <div className="space-x-5 ">
           {dates.map((date) => (

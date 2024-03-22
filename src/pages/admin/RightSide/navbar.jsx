@@ -1,15 +1,12 @@
 import { Link } from "react-router-dom";
 import FormSearch from "../../../components/ui/Form/FormSearch";
-import { useModalActions } from "../../../context/LoginModalProvider";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
 import { removeStorage } from "../../../utils/helpers";
 import DropdownMenu from "../../../components/ui/Dropdown";
 import { DropNotifications } from "../../../components/ui/Dropdown/DropNotifications";
 import { Badge } from "antd";
 import { HiOutlineBell } from "react-icons/hi2";
-function AdminNavbar() {
-  const { userByIdData } = useModalActions();
-  // const [notifications, notifyRes] = DropNotifications();
+function AdminNavbar({ userLoginAuth }) {
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("userId");
@@ -34,27 +31,15 @@ function AdminNavbar() {
           classes={"w-[142px] max-h-[108px] !top-[70px] "}
           dropName={
             <span className="text-primaryGray dark:text-white">
-              Pərvin Sucayeva{/* {userByIdData?.userName? */}
+              {userLoginAuth?.userResponse?.userName}
               <small className="block">Adminka</small>
             </span>
           }
           profilImg={
-            userByIdData?.image ||
-            userByIdData?.userName?.charAt(0).toLowerCase() ||
-            "P"
+            userLoginAuth?.userResponse?.image ||
+            userLoginAuth?.userResponse?.userName?.charAt(0).toLowerCase()
           }
           dropDownItems={[
-            {
-              id: "editProfil",
-              title: (
-                <Link
-                  to={"/edit-my-profile"}
-                  className="flex items-center dark:text-white  text-base "
-                >
-                  Redaktə et
-                </Link>
-              ),
-            },
             {
               id: "logoutProfile",
               title: (
