@@ -79,21 +79,24 @@ function RighSide({
         />
       ) : (
         <>
-          <div className="flex w-full  justify-center">
+          <div className="flex space-x-5 mt-10 justify-center">
             <StatisticsCard
               name={"İstifadəçilər"}
               count={allUsers.length}
               loading={allUserLoading}
+              increase={"2,5"}
             />
             <StatisticsCard
               name={"Kateqoriyalar"}
               count={categories.length}
               loading={categoryLoad}
+              increase={"0"}
             />
             <StatisticsCard
               name={"Postlar"}
               count={thinks.length}
               loading={thinksLoading}
+              increase={"5"}
             />
           </div>
           <LineChart chartLabels={categories} byLoad={thinksLoading} />

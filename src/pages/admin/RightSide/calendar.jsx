@@ -40,7 +40,7 @@ function CalendarPicker() {
   };
 
   return (
-    <div className="relative bg-white rounded-md p-1">
+    <div ref={calendarRef} className="relative bg-white rounded-md p-1 ">
       <div className="flex items-center space-x-4">
         <span>{selectedStart}</span>
         <FaArrowRightLong />
@@ -52,7 +52,7 @@ function CalendarPicker() {
       </div>
 
       {isOpen && (
-        <div ref={calendarRef}>
+        <div className="absolute z-50 right-0 top-2">
           <DatePicker
             locale={az}
             selected={startDate}
