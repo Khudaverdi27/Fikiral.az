@@ -43,9 +43,11 @@ function FormResetPassword() {
         setSubModel(false);
         setMainModel(true);
         setResData({});
+        setResetPassword(false);
       } else if (changedPassRes.status == 500) {
         errorNotify();
         setResData({});
+        setResetPassword(false);
       }
     }
   }, [changedPassRes, resData]);
