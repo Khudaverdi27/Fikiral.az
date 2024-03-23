@@ -6,7 +6,7 @@ import { useFetchThinkPopular, useFetchThinksList } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import ErrorBoundary from "../../components/common/ErrorBoundary";
 import { useSearchActions } from "../../context/FormSearchProvider";
-
+import { ToastContainer } from "react-toastify";
 function WelcomePage() {
   const { switcRegisterModal, selectCategory } = useModalActions();
   const token = getStorage("token");
@@ -34,6 +34,7 @@ function WelcomePage() {
 
   return (
     <section>
+      <ToastContainer autoClose={2000} />
       {filteredCategories.length <= 0 && searchResponse.length <= 0 && (
         <div className="h-[70vh] flex flex-col items-center space-y-8 mt-20">
           <h1 className="text-primaryGray text-[52px] font-bold dark:text-white">
