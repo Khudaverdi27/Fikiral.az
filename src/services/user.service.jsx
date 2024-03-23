@@ -14,6 +14,10 @@ export const ServiceVerifyMail = async (params) => {
   const res = await put(userApi.verifyMail.replace(":params", params));
   return res;
 };
+export const ServiceVerifyPassword = async (params) => {
+  const res = await put(userApi.forgotPassVerify.replace(":params", params));
+  return res;
+};
 
 export const ServiceGetAllUsers = async (id) => {
   const res = await get(userApi.allUser);

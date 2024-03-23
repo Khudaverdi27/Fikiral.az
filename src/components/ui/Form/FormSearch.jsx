@@ -4,7 +4,7 @@ import { useState } from "react";
 import { IoMdClose, IoMdSearch } from "react-icons/io";
 import AddCommentModal from "../Modals/AddCommentModal";
 import { useSearchActions } from "../../../context/FormSearchProvider";
-import { useFetchCommentLists } from "../../../hooks/useFetch";
+import { useFetchCommentLists, usePostNotify } from "../../../hooks/useFetch";
 
 function FormSearch() {
   const [isHovered, setIsHovered] = useState(false);
@@ -13,6 +13,7 @@ function FormSearch() {
   const [dataModal, setDataModal] = useState({});
   const { onSearch, searchResponse, loadings, setOpenSrch, openSrch } =
     useSearchActions();
+  const [postNotifyFetch] = usePostNotify();
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
 
   const searchItems = showFull ? searchResponse : searchResponse.slice(0, 5);
@@ -118,6 +119,7 @@ function FormSearch() {
           modalData={dataModal}
           allComments={allComments}
           commentLoading={commentLoading}
+          postNotifyFetch={postNotifyFetch}
         />
       )}
     </>

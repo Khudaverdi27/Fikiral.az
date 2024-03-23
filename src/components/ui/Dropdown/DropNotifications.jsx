@@ -1,20 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import AddCommentModal from "../Modals/AddCommentModal";
-import { useFetchCommentLists } from "../../../hooks/useFetch";
+import { useFetchCommentLists, usePostNotify } from "../../../hooks/useFetch";
 
 export const DropNotifications = () => {
   const { notifyRes, notifyResloading } = useModalActions();
   const [dataModal, setDataModal] = useState({});
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
+  const [postNotifyFetch] = usePostNotify();
   const [read, setRead] = useState([]);
 
-  const openMessageModal = (data) => {
+  const openMessageModal = (data, notifyId) => {
     setIsCommentOpen(true);
     setDataModal(data);
     fetchComments(data.id);
+    markAsRead(notifyId);
   };
 
   const markAsRead = (key) => {
@@ -34,45 +36,44 @@ export const DropNotifications = () => {
           {notifyRes?.map((item, index) => (
             <div
               key={index}
-              className="flex  items-center space-x-2 mb-5 pb-2   "
+              className="flex justify-between items-center pb-2  w-full "
             >
-              <figure className="size-11 shrink-0">
-                {item?.actionOwnerImage ? (
-                  <img
-                    className="img-cover rounded-full"
-                    src={`${item?.actionOwnerImage}`}
-                    alt="user"
-                  />
-                ) : (
-                  <span className="size-full text-2xl bg-gray-300  rounded-full border text-indigo-500 flex justify-center">
-                    {item?.actionOwnerName?.charAt(0).toLowerCase()}
+              <div className="flex items-center space-x-2 w-4/12 ">
+                <figure className="size-11 shrink-0">
+                  {item?.actionOwnerImage ? (
+                    <img
+                      className="img-cover rounded-full"
+                      src={`${item?.actionOwnerImage}`}
+                      alt="user"
+                    />
+                  ) : (
+                    <span className="size-full text-2xl bg-gray-300  rounded-full border text-indigo-500 flex justify-center">
+                      {item?.actionOwnerName?.charAt(0).toLowerCase()}
+                    </span>
+                  )}
+                </figure>
+                <div className="text-[15px]  dark:text-white space-x-5 flex justify-between">
+                  <span className=" whitespace-nowrap ">
+                    {item.actionOwnerName.split(" ")[0].toLowerCase()}
                   </span>
-                )}
-              </figure>
-              <div
-                onClick={() => markAsRead(item.id)}
-                className={`text-[15px] ${
-                  read.includes(item.id) ? "text-gray-500" : "text-black"
-                } dark:text-white space-x-5 flex justify-between `}
-              >
-                <span className=" whitespace-nowrap ">
-                  {item.actionOwnerName}
-                </span>
-                <button
-                  onClick={() => openMessageModal(item?.post)}
-                  className="line-clamp-1 shrink-0 "
-                >
-                  {item.action === "like"
-                    ? "postunuzu bəyəndi baxmaq..."
-                    : item.action === "dislike"
-                    ? "postunuzu bəyənmədi bax..."
-                    : item.action === "comment"
-                    ? "postunuza fikir bildirdi bax..."
-                    : item.action === "commentlike"
-                    ? "rəyinizi bəyəndi baxmaq..."
-                    : ""}
-                </button>
+                </div>
               </div>
+              <button
+                onClick={() => openMessageModal(item?.post, item.id)}
+                className={`"line-clamp-1 shrink-0 text-left w-7/12 " ${
+                  read.includes(item.id) ? "text-gray-500" : "text-black"
+                }`}
+              >
+                {item.action === "like"
+                  ? "postunuzu bəyəndi bax..."
+                  : item.action === "dislike"
+                  ? "postunuzu bəyənmədi bax..."
+                  : item.action === "comment"
+                  ? "postunuza fikir bildirdi bax..."
+                  : item.action === "commentlike"
+                  ? "rəyinizi bəyəndi bax..."
+                  : ""}
+              </button>
             </div>
           ))}
           {isCommentOpen && (
@@ -82,6 +83,7 @@ export const DropNotifications = () => {
               modalData={dataModal}
               allComments={allComments}
               commentLoading={commentLoading}
+              postNotifyFetch={postNotifyFetch}
             />
           )}
         </>

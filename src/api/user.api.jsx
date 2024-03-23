@@ -8,4 +8,5 @@ export const userApi = {
   addImage: "/user/image?id=",
   changeUserPass: "/auth/change-password",
   verifyMail: "/verify/activated?gmail=:params",
+  forgotPassVerify: "/auth/forgot-password?email=:params",
 };

@@ -4,10 +4,12 @@ import { useModalActions } from "../../../context/LoginModalProvider";
 import Input from "./input";
 import { toast } from "react-toastify";
 import { saveStorage } from "../../../utils/helpers";
+import { useVerifyPassword } from "../../../hooks/useFetch";
 
 function FormResetPassword() {
   const [disabled, setDisabled] = useState(true);
   const [gmail, setGmail] = useState("");
+  const [resetPassResponse, fetchReset, loading] = useVerifyPassword();
 
   const { checkMail, authCheckMail, authCheckLoading, watch, setSubModel } =
     useModalActions();
@@ -17,17 +19,22 @@ function FormResetPassword() {
 
   const notify = () => toast.success("Zəhmət olmasa mailiniz yoxlayın!");
   const errorNotify = () => toast.error("Mail tapılmadı");
+
   const newPassword = () => {
     saveStorage("gmail", gmail);
     if (authCheckMail == true) {
       setSubModel(false);
-
+      fetchReset(gmail);
       notify();
     } else {
       errorNotify();
     }
     reset();
   };
+
+  useEffect(() => {
+    console.log(resetPassResponse);
+  }, [resetPassResponse]);
 
   useEffect(() => {
     if (authCheckMail == true && wathGmail) {
@@ -71,7 +78,7 @@ function FormResetPassword() {
         type="submit"
         className="bg-indigo-500 disabled:opacity-50 text-white w-full py-[8px] rounded-[8px]"
       >
-        Bərpa e-maili göndərin
+        {loading ? "Gözləyin..." : "Bərpa e-maili göndərin"}
       </button>
     </form>
   );
