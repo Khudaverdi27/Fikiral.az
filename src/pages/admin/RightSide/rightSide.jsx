@@ -19,6 +19,7 @@ function RighSide({
   thinksLoading,
   activeMenuLeft,
   getCategories,
+  getThinkFetch,
 }) {
   const [activeMenu, setActiveMenu] = useState(false);
 
@@ -71,7 +72,11 @@ function RighSide({
       ) : activeMenuLeft === "post" ? (
         <AllPostsPending />
       ) : activeMenuLeft === "allpost" ? (
-        <AllPosts />
+        <AllPosts
+          thinks={thinks}
+          thinksLoading={thinksLoading}
+          getThinkFetch={getThinkFetch}
+        />
       ) : (
         <>
           <div className="flex w-full  justify-center">

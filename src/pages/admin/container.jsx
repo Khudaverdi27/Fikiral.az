@@ -69,6 +69,7 @@ function AdminPage() {
             categoryLoad={categoryLoad}
             thinks={thinks}
             thinksLoading={thinksLoading}
+            getThinkFetch={getThinkFetch}
           />
         </div>
       ) : (

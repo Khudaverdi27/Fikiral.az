@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Logo from "../../components/common/Logo";
 
 function LeftSide({ activeMenuLeft, setActiveMenu }) {
@@ -6,8 +5,8 @@ function LeftSide({ activeMenuLeft, setActiveMenu }) {
     { name: "Dashboard", key: "main" },
     { name: "Kateqoriya", key: "category" },
     { name: "İstifadəçilər", key: "users" },
-    { name: "Post istəkləri", key: "post" },
     { name: "Bütün postlar", key: "allpost" },
+    { name: "Post istəkləri", key: "post" },
   ];
   const handleActiveMenu = (key) => {
     setActiveMenu(key);
