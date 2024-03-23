@@ -6,7 +6,7 @@
     @apply hidden
   }
   .ant-dropdown-menu{
-    @apply w-full dark:bg-[#22303c] dark:border dark:border-gray-600 !mr-14 !px-[8px] !py-[10px] 
+    @apply w-full border border-gray-100 dark:bg-[#22303c] dark:border dark:border-gray-600 !mr-14 !px-[8px] !py-[10px] 
   }
   
   .ant-dropdown-menu-item{

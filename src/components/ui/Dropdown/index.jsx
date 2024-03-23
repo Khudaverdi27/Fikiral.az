@@ -30,7 +30,7 @@ const DropdownMenu = ({
       ) : (
         <span key={index}>
           {!item.id && index === 0 && (
-            <div className="flex items-center justify-between pt-2 pb-5  text-[15px] font-[500] ">
+            <div className="flex items-center  justify-between pt-2 pb-5  text-[15px] font-[500] ">
               <h1 className="cursor-auto dark:text-white">{item.name}</h1>
               <button
                 className="bg-gray-300 rounded-full p-1"

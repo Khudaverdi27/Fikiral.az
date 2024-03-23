@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Col, Input, Modal, Row, Space, Spin } from "antd";
 import { BiMessageSquareDots } from "react-icons/bi";
 import { IconContext } from "react-icons";
@@ -33,7 +33,7 @@ const AddCommentModal = ({
   const [value, setValue] = useState("");
   const { setIsCommented } = useModalActions();
   const [data, postComment, postLoading] = usePostComments();
-
+  const [helpClose, setHelpClose] = useState(false);
   const token = getStorage("token");
 
   const addNewComment = (e) => {
@@ -63,9 +63,10 @@ const AddCommentModal = ({
   };
 
   const closeMessageModal = () => {
+    setHelpClose(true);
     setIsCommentOpen(false);
   };
-  // const inputRef = useRef();
+
   return (
     <div className="commentModal">
       <div className="flex items-center justify-center ">

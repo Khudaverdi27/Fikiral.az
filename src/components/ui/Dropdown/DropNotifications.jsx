@@ -9,11 +9,16 @@ export const DropNotifications = () => {
   const [dataModal, setDataModal] = useState({});
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
+  const [read, setRead] = useState([]);
 
   const openMessageModal = (data) => {
     setIsCommentOpen(true);
     setDataModal(data);
     fetchComments(data.id);
+  };
+
+  const markAsRead = (key) => {
+    setRead(() => [...read, key]);
   };
 
   const notifications = [
@@ -44,7 +49,12 @@ export const DropNotifications = () => {
                   </span>
                 )}
               </figure>
-              <div className="text-sm text-black dark:text-white space-x-5 flex justify-between">
+              <div
+                onClick={() => markAsRead(item.id)}
+                className={`text-[15px] ${
+                  read.includes(item.id) ? "text-gray-500" : "text-black"
+                } dark:text-white space-x-5 flex justify-between `}
+              >
                 <span className=" whitespace-nowrap ">
                   {item.actionOwnerName}
                 </span>
@@ -55,9 +65,9 @@ export const DropNotifications = () => {
                   {item.action === "like"
                     ? "postunuzu bəyəndi baxmaq..."
                     : item.action === "dislike"
-                    ? "postunuzu bəyənmədi baxmaq ..."
+                    ? "postunuzu bəyənmədi bax..."
                     : item.action === "comment"
-                    ? "postunuza fikir bildirdi baxmaq..."
+                    ? "postunuza fikir bildirdi bax..."
                     : item.action === "commentlike"
                     ? "rəyinizi bəyəndi baxmaq..."
                     : ""}
