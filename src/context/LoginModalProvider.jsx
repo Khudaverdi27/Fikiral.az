@@ -57,6 +57,7 @@ function ModalProvider({ children }) {
         setSubModel(true);
       }
     } else {
+      setResRegister(data);
       loginFetch(data);
     }
   };
@@ -69,7 +70,10 @@ function ModalProvider({ children }) {
     } else {
       let errorMessage = "";
       if (withGoogle) {
-        errorMessage = "Google'a bağlı istifadəçi yoxdur. Hesab yaradın!";
+        authCheckFetch(resRegister.gmail);
+        if (userLoginAuth.status === 404) {
+          errorMessage = "Google'a bağlı istifadəçi yoxdur. Hesab yaradın!";
+        }
       } else if (withFb) {
         errorMessage = "Facebook'a bağlı istifadəçi yoxdur. Hesab yarat!";
       } else {
@@ -84,7 +88,7 @@ function ModalProvider({ children }) {
         message: errorMessage,
       });
     }
-  }, [userLoginAuth]);
+  }, [userLoginAuth, authCheckMail]);
 
   useEffect(() => {
     if (userLoginAuth?.userResponse?.id) {
@@ -114,7 +118,7 @@ function ModalProvider({ children }) {
 
   useEffect(() => {
     const errorMessage = authCheckMail
-      ? "Bu mailde istifadəçi mövcuddur."
+      ? "Bu mail-də istifadəçi mövcuddur."
       : "Bu mail-də istifadəçi tapılmadı!";
     const errorField = authCheckMail ? "gmail" : "gmailReset";
     if (authCheckMail) {

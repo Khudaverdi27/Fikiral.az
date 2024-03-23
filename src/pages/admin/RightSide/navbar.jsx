@@ -9,6 +9,7 @@ function AdminNavbar({ userLoginAuth }) {
     removeStorage("token");
     removeStorage("userId");
     removeStorage("selectedCategories");
+    removeStorage("social");
     location.reload();
     location.href = "/";
   };

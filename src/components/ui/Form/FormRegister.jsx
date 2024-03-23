@@ -5,6 +5,7 @@ import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import Input from "./input";
 import { loginFacebook, loginGoogle } from "../../../utils/firebase";
+import { saveStorage } from "../../../utils/helpers";
 
 const FormRegister = () => {
   const {
@@ -29,6 +30,7 @@ const FormRegister = () => {
   const watchFields = watch();
 
   const compeleteLoginSocial = async (social) => {
+    saveStorage("social", social);
     const dataSocial =
       social === "fb" ? await loginFacebook() : await loginGoogle();
 

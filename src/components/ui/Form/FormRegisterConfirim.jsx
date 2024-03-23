@@ -7,8 +7,8 @@ import {
   useVerifyMail,
 } from "../../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import { getStorage } from "../../../utils/helpers";
-
+import { getStorage, removeStorage } from "../../../utils/helpers";
+import { toast } from "react-toastify";
 function FormRegisterConfrim() {
   const { category, checkboxStates, allCategories, loading } = useCategories(
     false,
@@ -21,14 +21,19 @@ function FormRegisterConfrim() {
   const [verifyConfrim, setVerifyConfrim] = useState(true);
   const { handleSubmit, onSubmit, setSubModel, resRegister, reset } =
     useModalActions();
+  const social = getStorage("social");
   const token = getStorage("token");
   const navigate = useNavigate();
+
+  const notify = () => toast.success("Bu istifadəçi mövcuddur!");
   const skipCategory = () => {
+    removeStorage("social");
     authFetch(resRegister).then(() => setVerifyConfrim(false));
     reset();
   };
 
   const withCategory = () => {
+    removeStorage("social");
     reset();
 
     const trueIndexes = checkboxStates.reduce((acc, state, index) => {
@@ -49,11 +54,21 @@ function FormRegisterConfrim() {
   };
 
   useEffect(() => {
-    registerAuth.status === 409 ? setDisabled(true) : setDisabled(false);
+    if (registerAuth.status === 409) {
+      setDisabled(true);
+      notify();
+      setSubModel(false);
+    } else {
+      setDisabled(false);
+    }
   }, [registerAuth]);
 
   useEffect(() => {
-    if (token.length == 0) {
+    if (
+      token.length == 0 &&
+      social.length == 0 &&
+      registerAuth.status !== 409
+    ) {
       const interval = setInterval(() => {
         verifyFetch(resRegister.gmail);
       }, [2000]);
