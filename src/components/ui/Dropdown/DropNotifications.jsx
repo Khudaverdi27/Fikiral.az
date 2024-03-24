@@ -54,7 +54,11 @@ export const DropNotifications = () => {
                     </span>
                   )}
                 </figure>
-                <div className="text-[15px]  dark:text-white space-x-5 flex justify-between">
+                <div
+                  className={`text-[15px]  dark:text-white space-x-5 flex justify-between ${
+                    read.includes(item.id) ? "text-gray-500" : "text-black"
+                  }`}
+                >
                   <span className=" whitespace-nowrap ">
                     {item.actionOwnerName.split(" ")[0].toLowerCase() ===
                     "yenifikir"
@@ -65,7 +69,7 @@ export const DropNotifications = () => {
               </div>
               <button
                 onClick={() => openMessageModal(item?.post, item.id)}
-                className={`"line-clamp-1 shrink-0 text-left w-7/12 " ${
+                className={`line-clamp-1 shrink-0 text-left w-7/12  ${
                   read.includes(item.id) ? "text-gray-500" : "text-black"
                 }`}
               >

@@ -67,7 +67,9 @@ const AddCommentModal = ({
   };
 
   // const inputRef = useRef();
-  const refModal = useClickAway();
+  const refModal = useClickAway(() => {
+    setIsCommentOpen(false);
+  });
 
   return (
     <div className="commentModal">
