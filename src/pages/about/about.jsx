@@ -4,7 +4,7 @@ function AboutPage() {
       <div className="sm:w-1/2 ">
         <h2 className="my-4 font-bold text-xl  sm:text-2xl">Haqqımızda</h2>
         <article className="bg-white rounded-xl p-2 dark:text-black">
-          Insanların biznes ideyalarını paylaşdığı vebsayt haqqında Fikirala xoş
+          Insanların biznes ideyalarını paylaşdığı vebsayt, Fikirala xoş
           gəlmisiniz! Mən, innovativ ideyaları inkişaf etdirmək və biznesin
           inkişafı üçün əməkdaşlıq mühitlərini inkişaf etdirməyə həvəsi olan bir
           sahibkaram. Təcrübəmizə əsasən kreativ düşüncənin gücünün və ideya

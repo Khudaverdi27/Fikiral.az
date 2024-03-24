@@ -41,7 +41,7 @@ function CalendarPicker() {
 
   return (
     <div ref={calendarRef} className="relative bg-white rounded-md p-1 ">
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 text-black">
         <span>{selectedStart}</span>
         <FaArrowRightLong />
         <span>{selectedEnd}</span>

@@ -29,6 +29,7 @@ function WelcomePage() {
     fetchPopular();
     removeStorage("gmail");
   }, []);
+
   useEffect(() => {
     apiFetch();
   }, []);
@@ -44,9 +45,9 @@ function WelcomePage() {
           </h1>
           <div className="w-[770px]">
             <p className="text-2xl text-center leading-10">
-              Lorem Ipsum-un keçidlərinin bir çox variantı mövcuddur, lakin
-              onların əksəriyyəti inyeksiya edilmiş yumor və ya bir qədər
-              inandırıcı görünməyən təsadüfi sözlər vasitəsilə müəyyən formada{" "}
+              Bizim missiyamız biznes ideyalarının mübadiləsi prosesini
+              cəmiyyətimizin bütün üzvləri üçün mümkün qədər rahat, effektiv və
+              ruhlandırıcı etməkdir.
             </p>
           </div>
           <Link
@@ -63,7 +64,7 @@ function WelcomePage() {
         {!filteredCategories.length > 0 && searchResponse.length <= 0 && (
           <ThinkSection
             title={<p className="text-center ">Popluyar fikirlər</p>}
-            items={popular.sort((a, b) => b.likeCount - a.likeCount)}
+            items={popular?.sort((a, b) => b.likeCount - a.likeCount)}
             loading={popularLoading}
           />
         )}

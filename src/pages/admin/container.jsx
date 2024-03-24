@@ -78,13 +78,13 @@ function AdminPage() {
           className="flex items-center justify-center h-screen"
         >
           <div className="space-y-3">
-            <h3 className="text-center text-2xl font-semibold mb-4">
+            <h3 className="text-center text-2xl font-semibold mb-4 dark:text-black">
               Admin panelə xoş gəlmişsiniz!
             </h3>
             <div>
               <input
                 placeholder="admin mail"
-                className="loginInput"
+                className="loginInput dark:text-black"
                 type="text"
                 {...register("gmail", { required: true })}
                 aria-invalid={errors.gmail ? "true" : "false"}
@@ -98,7 +98,7 @@ function AdminPage() {
             <div>
               <input
                 placeholder="admin şifrə"
-                className="loginInput"
+                className="loginInput dark:text-black"
                 type="password"
                 {...register("password", {
                   required: "Şifrə boş buraxıla bilməz",

@@ -20,7 +20,7 @@ function FavoritePage() {
   useEffect(() => {
     const userId = getStorage("userId");
     getUserFetch(userId);
-  }, [loading]);
+  }, []);
 
   return (
     <>

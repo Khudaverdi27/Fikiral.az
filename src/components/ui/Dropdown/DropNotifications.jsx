@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import AddCommentModal from "../Modals/AddCommentModal";
@@ -48,13 +48,18 @@ export const DropNotifications = () => {
                     />
                   ) : (
                     <span className="size-full text-2xl bg-gray-300  rounded-full border text-indigo-500 flex justify-center">
-                      {item?.actionOwnerName?.charAt(0).toLowerCase()}
+                      {item?.actionOwnerName?.charAt(0).toLowerCase() === "y"
+                        ? "a"
+                        : item?.actionOwnerName?.charAt(0).toLowerCase()}
                     </span>
                   )}
                 </figure>
                 <div className="text-[15px]  dark:text-white space-x-5 flex justify-between">
                   <span className=" whitespace-nowrap ">
-                    {item.actionOwnerName.split(" ")[0].toLowerCase()}
+                    {item.actionOwnerName.split(" ")[0].toLowerCase() ===
+                    "yenifikir"
+                      ? "admin"
+                      : item.actionOwnerName.split(" ")[0].toLowerCase()}
                   </span>
                 </div>
               </div>
@@ -72,6 +77,8 @@ export const DropNotifications = () => {
                   ? "postunuza fikir bildirdi bax..."
                   : item.action === "commentlike"
                   ? "rəyinizi bəyəndi bax..."
+                  : item.action === "accept"
+                  ? "postunuzu təsdiqlədi bax..."
                   : ""}
               </button>
             </div>

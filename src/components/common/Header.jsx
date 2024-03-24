@@ -8,7 +8,7 @@ import { getStorage, removeStorage } from "../../utils/helpers";
 import { Link } from "react-router-dom";
 import IsConfirmModal from "../ui/Modals/IsConfirmModal";
 import { useModalActions } from "../../context/LoginModalProvider";
-
+import { ToastContainer } from "react-toastify";
 function Header() {
   const { category, loading } = useCategories(true, "checkbox");
   const { userByIdData } = useModalActions();
@@ -28,6 +28,7 @@ function Header() {
        token.length > 0 ? "justify-center " : "justify-evenly px-10"
      } sticky `}
     >
+      <ToastContainer />
       <div
         className={`flex items-center ${token.length > 0 ? "ml-14" : "ml-4"}`}
       >

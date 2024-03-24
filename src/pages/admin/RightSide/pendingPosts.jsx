@@ -1,13 +1,23 @@
 import { useEffect } from "react";
-import { useDeleteThink, useFetchAcceptThink } from "../../../hooks/useFetch";
+import {
+  useDeleteThink,
+  useFetchAcceptThink,
+  usePostNotify,
+} from "../../../hooks/useFetch";
 import { changeTime } from "../../../utils/helpers";
 import { Col, Row } from "antd";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
 import { toast } from "react-toastify";
-function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
+function AllPostsPending({
+  inAcceptedPosts,
+  fetchInAccepted,
+  loading,
+  userLoginAuth,
+}) {
   const [deletedRes, deleteFetch, deleteLoading] = useDeleteThink();
   const [res, acceptFetch, acceptLoading] = useFetchAcceptThink();
+  const [postNotifyFetch] = usePostNotify();
 
   const notifyError = (message) => toast.error(message);
 
@@ -15,8 +25,14 @@ function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
     deleteFetch(id);
   };
 
-  const accetPost = (id) => {
+  const accetPost = (id, userId) => {
     acceptFetch(id);
+    postNotifyFetch({
+      postId: id,
+      postOwnerId: userId,
+      actionOwnerId: userLoginAuth.userResponse.id,
+      action: "accept",
+    });
   };
 
   useEffect(() => {
@@ -38,7 +54,7 @@ function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
           {inAcceptedPosts?.map((inAccepted) => (
             <Col
               key={inAccepted.id}
-              className="m-4 min-w-[300px] min-h-[300px]"
+              className="m-4 min-w-[300px] max-h-[300px]"
               xl={{
                 span: 6,
               }}
@@ -104,7 +120,7 @@ function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
                   />
 
                   <button
-                    onClick={() => accetPost(inAccepted.id)}
+                    onClick={() => accetPost(inAccepted.id, inAccepted.user.id)}
                     className=" text-base bg-indigo-500 text-white py-[6px] px-4 rounded-xl font-sans"
                   >
                     {acceptLoading ? "Qəbul edilir..." : " Qəbul et"}

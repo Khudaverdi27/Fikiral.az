@@ -74,6 +74,7 @@ function RighSide({
         <FullUsers />
       ) : activeMenuLeft === "post" ? (
         <AllPostsPending
+          userLoginAuth={userLoginAuth}
           inAcceptedPosts={inAcceptedPosts}
           fetchInAccepted={fetchInAccepted}
           loading={loading}

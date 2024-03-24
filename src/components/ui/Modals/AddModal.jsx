@@ -6,8 +6,9 @@ import { useForm } from "react-hook-form";
 import { useCategories } from "../../../hooks/useCategories";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { usePostThink } from "../../../hooks/useFetch";
-import { findFuckingWords, getStorage } from "../../../utils/helpers";
+import { findFuckingWords } from "../../../utils/helpers";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
+import { toast } from "react-toastify";
 
 const AddModal = () => {
   const [open, setOpen] = useState(false);
@@ -26,6 +27,8 @@ const AddModal = () => {
   } = useForm();
 
   const [postedThink, fetchPost, loading] = usePostThink();
+  const notifyError = (message) => toast.error(message);
+  const notifySuccess = (message) => toast.success(message);
 
   const { userByIdData } = useModalActions();
 
@@ -62,6 +65,14 @@ const AddModal = () => {
   };
   const textArea = watch("content");
   const result = findFuckingWords(textArea);
+
+  useEffect(() => {
+    if (postedThink.status === 200) {
+      notifySuccess("Postunuz təsdiq üçün göndərildi");
+    } else if (postedThink.status === 500) {
+      notifyError("Paylaşımınız uğursuz oldu");
+    }
+  }, [postedThink]);
 
   useEffect(() => {
     if (!loading) {

@@ -1,4 +1,5 @@
 export const thinkApi = {
+  postThink: "/think/",
   list: "/think/accepted/",
   listInAccepted: "/think/in-accepted/",
   acceptPost: "/think/accept/:id",

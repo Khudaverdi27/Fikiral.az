@@ -25,7 +25,7 @@ export const ServiceThinksByPopularFetchList = async (params = {}) => {
 };
 
 export const ServiceThinksPost = async (params = {}) => {
-  const res = await post(thinkApi.list, params);
+  const res = await post(thinkApi.postThink, params);
   return res;
 };
 

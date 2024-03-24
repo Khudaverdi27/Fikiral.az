@@ -5,9 +5,9 @@ import { getStorage, saveStorage } from "../utils/helpers";
 import { useModalActions } from "../context/LoginModalProvider";
 
 export const useCategories = (allSelect = true, type, classes = false) => {
-  const [allCategories, apiFetch, loading] = useFetchAllCategoryList();
+  const [allCategories, apiCategoryFetch, loading] = useFetchAllCategoryList();
   useEffect(() => {
-    apiFetch();
+    apiCategoryFetch();
   }, []);
 
   const { setSelectCategory, selectCategory } = useModalActions();
