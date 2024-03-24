@@ -1,5 +1,5 @@
 import { Spin } from "antd";
-import { getStorage } from "../../utils/helpers";
+import { getStorage, removeStorage } from "../../utils/helpers";
 import Input from "../../components/ui/Form/input";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -34,7 +34,7 @@ function AuthWait() {
   }, [pass, confrimPass]);
 
   const newPassword = () => {
-    setResData({ gmail: storageData, newPassword: confrimPass });
+    setResData({ email: storageData, newPassword: confrimPass });
   };
 
   useEffect(() => {
@@ -45,6 +45,7 @@ function AuthWait() {
         setResData({});
         setTimeout(() => {
           setStorageData("");
+          removeStorage("gmail");
           location.href = "/";
         }, [2000]);
       } else if (changedPassRes.status == 500) {

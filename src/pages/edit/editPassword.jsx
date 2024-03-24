@@ -19,7 +19,7 @@ function EditPassword({
 
   useEffect(() => {
     setCompeleteEdit({
-      gmail: userByIdData.gmail,
+      email: userByIdData.gmail,
       newPassword: confrimPassValue,
     });
   }, [confrimPassValue]);
