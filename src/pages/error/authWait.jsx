@@ -52,7 +52,6 @@ function AuthWait() {
       setResData({});
       setTimeout(() => {
         setStorageData("");
-        removeStorage("gmail");
         navigate("/");
       }, [2000]);
     } else if (changedPassRes.status == 500) {
