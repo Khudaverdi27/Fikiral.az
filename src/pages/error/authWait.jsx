@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useChangeUserPassword } from "../../hooks/useFetch";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 function AuthWait() {
   const [pass, setPass] = useState("");
   const [confrimPass, setConfrimPass] = useState("");
@@ -43,6 +44,8 @@ function AuthWait() {
     }
   }, [resData]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (changedPassRes.satus == 200) {
       notify();
@@ -50,7 +53,7 @@ function AuthWait() {
       setTimeout(() => {
         setStorageData("");
         removeStorage("gmail");
-        location.href = "/";
+        navigate("/");
       }, [2000]);
     } else if (changedPassRes.status == 500) {
       errorNotify();
