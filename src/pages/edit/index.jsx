@@ -2,7 +2,11 @@ import { Col, Row } from "antd";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-import { removeStorage, getStorage } from "../../utils/helpers";
+import {
+  removeStorage,
+  getStorage,
+  removeLocaleStorage,
+} from "../../utils/helpers";
 import IsConfirmModal from "../../components/ui/Modals/IsConfirmModal";
 import EditWithPhoto from "./editWithPhoto";
 import EditPassword from "./editPassword";
@@ -37,6 +41,7 @@ function EditProfile() {
     removeStorage("userId");
     removeStorage("selectedCategories");
     removeStorage("social");
+    removeLocaleStorage("gmail");
     location.reload();
     location.href = "/";
   };

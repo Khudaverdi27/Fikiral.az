@@ -4,7 +4,11 @@ import MenuActions from "../ui/MenuActions";
 import Logo from "./Logo";
 import { useCategories } from "../../hooks/useCategories";
 import FormRegister from "../ui/Form/FormRegister";
-import { getStorage, removeStorage } from "../../utils/helpers";
+import {
+  getStorage,
+  removeLocaleStorage,
+  removeStorage,
+} from "../../utils/helpers";
 import { Link } from "react-router-dom";
 import IsConfirmModal from "../ui/Modals/IsConfirmModal";
 import { useModalActions } from "../../context/LoginModalProvider";
@@ -18,6 +22,7 @@ function Header() {
     removeStorage("userId");
     removeStorage("selectedCategories");
     removeStorage("social");
+    removeLocaleStorage("gmail");
     location.reload();
     location.href = "/";
   };

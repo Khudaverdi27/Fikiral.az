@@ -1,5 +1,5 @@
 import { Spin } from "antd";
-import { getStorage, removeStorage } from "../../utils/helpers";
+import { getLocaleStorage } from "../../utils/helpers";
 import Input from "../../components/ui/Form/input";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,7 +16,7 @@ function AuthWait() {
   const { handleSubmit } = useForm();
 
   useEffect(() => {
-    const auth = getStorage("gmail");
+    const auth = getLocaleStorage("gmail");
     if (auth.length > 0) {
       setStorageData(auth);
     }

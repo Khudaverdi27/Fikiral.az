@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useModalActions } from "../../context/LoginModalProvider";
-import { getStorage, removeStorage } from "../../utils/helpers";
+import { getStorage, removeLocaleStorage } from "../../utils/helpers";
 import ThinkSection from "../home/components/ThinkSections";
 import { useFetchThinkPopular, useFetchThinksList } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
@@ -27,7 +27,7 @@ function WelcomePage() {
 
   useEffect(() => {
     fetchPopular();
-    removeStorage("gmail");
+    removeLocaleStorage("gmail");
   }, []);
 
   useEffect(() => {

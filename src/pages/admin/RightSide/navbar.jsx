@@ -1,6 +1,6 @@
 import FormSearch from "../../../components/ui/Form/FormSearch";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
-import { removeStorage } from "../../../utils/helpers";
+import { removeLocaleStorage, removeStorage } from "../../../utils/helpers";
 import DropdownMenu from "../../../components/ui/Dropdown";
 import { Badge } from "antd";
 import { HiOutlineBell } from "react-icons/hi2";
@@ -11,6 +11,7 @@ function AdminNavbar({ userLoginAuth, inAcceptedPosts }) {
     removeStorage("userId");
     removeStorage("selectedCategories");
     removeStorage("social");
+    removeLocaleStorage("gmail");
     location.reload();
     location.href = "/";
   };

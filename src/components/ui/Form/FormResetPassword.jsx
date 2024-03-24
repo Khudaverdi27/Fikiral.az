@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import Input from "./input";
 import { toast } from "react-toastify";
-import { saveStorage } from "../../../utils/helpers";
+import { saveLocaleStorage } from "../../../utils/helpers";
 import { useVerifyPassword } from "../../../hooks/useFetch";
 
 function FormResetPassword() {
@@ -21,7 +21,7 @@ function FormResetPassword() {
   const errorNotify = () => toast.error("Mail tapılmadı");
 
   const newPassword = () => {
-    saveStorage("gmail", gmail);
+    saveLocaleStorage("gmail", gmail);
     if (authCheckMail == true) {
       setSubModel(false);
       fetchReset(gmail);
