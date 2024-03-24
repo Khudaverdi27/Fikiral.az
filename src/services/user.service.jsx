@@ -23,6 +23,10 @@ export const ServiceGetAllUsers = async (id) => {
   const res = await get(userApi.allUser);
   return res;
 };
+export const ServiceGetActiveUsers = async (id) => {
+  const res = await get(userApi.allActiveUser);
+  return res;
+};
 export const ServiceGetUserById = async (id) => {
   const res = await get(userApi.userById.replace(":id", id));
   return res;

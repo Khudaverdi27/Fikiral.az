@@ -1,5 +1,6 @@
 export const userApi = {
-  allUser: "/user/",
+  allUser: "/user/all/",
+  allActiveUser: "/user/",
   userById: "/user/:id",
   blockUser: "/user/restore/:id",
   likeAndDislikeThink: "/like/post/",

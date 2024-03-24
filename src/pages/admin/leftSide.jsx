@@ -4,7 +4,7 @@ function LeftSide({ activeMenuLeft, setActiveMenu }) {
   const menus = [
     { name: "Dashboard", key: "main" },
     { name: "Kateqoriya", key: "category" },
-    { name: "İstifadəçilər", key: "users" },
+    { name: "Bütün istifadəçilər", key: "users" },
     { name: "Bütün postlar", key: "allpost" },
     { name: "Post istəkləri", key: "post" },
   ];

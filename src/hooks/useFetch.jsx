@@ -23,6 +23,7 @@ import {
 import {
   ServiceBlockUserById,
   ServiceDeleteUserById,
+  ServiceGetActiveUsers,
   ServiceGetAllUsers,
   ServiceGetUserById,
   ServicePostLikeComments,
@@ -225,6 +226,15 @@ export const useGetAllUsers = () => {
   };
   return [data || [], getAllUserFetch, loading];
 };
+export const useGetActiveUsers = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const getActiveUserFetch = async () => {
+    fetch(ServiceGetActiveUsers);
+  };
+  return [data || [], getActiveUserFetch, loading];
+};
+
 export const useDeleteUserById = () => {
   const [data, fetch, loading] = useFetch();
 

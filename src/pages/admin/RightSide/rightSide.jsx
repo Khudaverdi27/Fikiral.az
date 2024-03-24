@@ -10,9 +10,8 @@ import AllPosts from "./allPosts";
 
 function RighSide({
   userLoginAuth,
-  allUsers,
-  allUserLoading,
-  getAllUserFetch,
+  allActiveUsers,
+  allActiveLoading,
   categories,
   categoryLoad,
   thinks,
@@ -64,11 +63,7 @@ function RighSide({
           getCategories={getCategories}
         />
       ) : activeMenuLeft === "users" ? (
-        <FullUsers
-          allUsers={allUsers}
-          allUserLoading={allUserLoading}
-          getAllUserFetch={getAllUserFetch}
-        />
+        <FullUsers />
       ) : activeMenuLeft === "post" ? (
         <AllPostsPending />
       ) : activeMenuLeft === "allpost" ? (
@@ -81,9 +76,9 @@ function RighSide({
         <>
           <div className="flex space-x-5 mt-10 justify-center">
             <StatisticsCard
-              name={"İstifadəçilər"}
-              count={allUsers.length}
-              loading={allUserLoading}
+              name={"Aktiv istifadəçilər"}
+              count={allActiveUsers.length}
+              loading={allActiveLoading}
               increase={"2,5"}
             />
             <StatisticsCard

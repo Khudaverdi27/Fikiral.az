@@ -3,16 +3,21 @@ import { CgUnblock } from "react-icons/cg";
 import { Col, Row } from "antd";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
 import moment from "moment";
-import { useBlockUserById } from "../../../hooks/useFetch";
+import { useBlockUserById, useGetAllUsers } from "../../../hooks/useFetch";
 import { useEffect } from "react";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
 import { ToastContainer, toast } from "react-toastify";
-function FullUsers({ allUsers, allUserLoading, getAllUserFetch }) {
+function FullUsers() {
   const [blockedUser, blockedUserFetch] = useBlockUserById();
+  const [allUsers, getAllUserFetch, allUserLoading] = useGetAllUsers();
 
   const blockProfile = (userId) => {
     blockedUserFetch(userId);
   };
+
+  useEffect(() => {
+    getAllUserFetch();
+  }, []);
 
   const notifyError = (message) => toast.error(message);
   const notifySuccess = (message) => toast.success(message);
@@ -34,6 +39,14 @@ function FullUsers({ allUsers, allUserLoading, getAllUserFetch }) {
       ) : (
         <section className="px-20 mt-10 ">
           <ToastContainer autoClose={2000} />
+          <Row className="p-3">
+            <Col
+              className="text-base text-end font-[500] bg-white p-2 rounded-lg"
+              span={24}
+            >
+              {`Toplam:${allUsers.length}`}
+            </Col>
+          </Row>
           <Row className="p-3">
             <Col className="text-[20px] font-[500]" span={5}>
               İstifadəçi adı
@@ -75,20 +88,26 @@ function FullUsers({ allUsers, allUserLoading, getAllUserFetch }) {
                 <Col className="text-center text-base " span={4}>
                   <span>{user.postCount || 0}</span>
                 </Col>
-                {!user.activated ? (
+                {user.activated ? (
                   <Col className="flex justify-end " span={5}>
-                    <CgUnblock
-                      onClick={() => blockProfile(user.id)}
-                      className="size-6 !text-green-500"
-                    />
+                    <Col className="flex justify-end " span={5}>
+                      <IsConfirmModal
+                        title={"Bu istifadəçini bloklamaq istəyirsinizmi?"}
+                        dangerBtn={
+                          <CgUnblock className="size-6 !text-green-500" />
+                        }
+                        destroyProfile={() => blockProfile(user.id)}
+                        destroyBtn={"Blokla"}
+                      />
+                    </Col>
                   </Col>
                 ) : (
                   <Col className="flex justify-end " span={5}>
                     <IsConfirmModal
-                      title={"Bu istifadəçini bloklamaq istəyirsinizmi?"}
+                      title={"Bu istifadəçini blokdan çıxarmaq istəyirsinizmi?"}
                       dangerBtn={<MdBlockFlipped className="size-5" />}
                       destroyProfile={() => blockProfile(user.id)}
-                      destroyBtn={"Blokla"}
+                      destroyBtn={"Blokdan çıxar"}
                     />
                   </Col>
                 )}

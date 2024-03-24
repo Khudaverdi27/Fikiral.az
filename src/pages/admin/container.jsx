@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import {
-  useGetAllUsers,
   useFetchAllCategoryList,
   useFetchThinksList,
   useFetchThinkByCategory,
   useFetchAuthLogin,
+  useGetActiveUsers,
 } from "../../hooks/useFetch";
 import LeftSide from "./leftSide";
 import RighSide from "./RightSide/rightSide";
 import { useForm } from "react-hook-form";
 
 function AdminPage() {
-  const [allUsers, getAllUserFetch, allUserLoading] = useGetAllUsers();
+  const [allActiveUsers, getActiveUserFetch, allActiveLoading] =
+    useGetActiveUsers();
   const [categories, getCategories, categoryLoad] = useFetchAllCategoryList();
   const [thinks, getThinkFetch, thinksLoading] = useFetchThinksList();
   const [thinkbYcategory, getThinkBy, byLoad] = useFetchThinkByCategory();
@@ -28,7 +29,7 @@ function AdminPage() {
   const onSubmit = (data) => loginFetch(data);
 
   useEffect(() => {
-    getAllUserFetch();
+    getActiveUserFetch();
     getCategories();
     getThinkFetch();
   }, []);
@@ -62,9 +63,8 @@ function AdminPage() {
             activeMenuLeft={activeMenuLeft}
             thinkbYcategory={thinkbYcategory}
             getCategories={getCategories}
-            allUsers={allUsers}
-            getAllUserFetch={getAllUserFetch}
-            allUserLoading={allUserLoading}
+            allActiveUsers={allActiveUsers}
+            allActiveLoading={allActiveLoading}
             categories={categories}
             categoryLoad={categoryLoad}
             thinks={thinks}
