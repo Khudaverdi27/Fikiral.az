@@ -37,6 +37,7 @@ import {
   ServiceVerifyPassword,
 } from "../services/user.service";
 import {
+  ServiceDeleteNotify,
   ServiceGetNotify,
   ServicePostNotify,
 } from "../services/notify.service";
@@ -313,6 +314,14 @@ export const useGetNotifyUserById = () => {
     fetch(ServiceGetNotify, id);
   };
   return [data || [], getUserNotify, loading];
+};
+export const useDeleteNotifyUserById = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const deleteUserNotify = async (id) => {
+    fetch(ServiceDeleteNotify, id);
+  };
+  return [data || false, deleteUserNotify, loading];
 };
 export const useVerifyMail = () => {
   const [data, fetch, loading] = useFetch();

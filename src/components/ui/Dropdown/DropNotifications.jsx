@@ -2,10 +2,16 @@ import { useState } from "react";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import AddCommentModal from "../Modals/AddCommentModal";
-import { useFetchCommentLists, usePostNotify } from "../../../hooks/useFetch";
+import {
+  useDeleteNotifyUserById,
+  useFetchCommentLists,
+  usePostNotify,
+} from "../../../hooks/useFetch";
 
 export const DropNotifications = () => {
   const { notifyRes, notifyResloading } = useModalActions();
+  const [resDeleteNotify, deleteNotifiyFetch, loadingNot] =
+    useDeleteNotifyUserById();
   const [dataModal, setDataModal] = useState({});
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
@@ -17,6 +23,7 @@ export const DropNotifications = () => {
     setDataModal(data);
     fetchComments(data.id);
     markAsRead(notifyId);
+    deleteNotifiyFetch(notifyId);
   };
 
   const markAsRead = (key) => {

@@ -1,5 +1,5 @@
 import { notfications } from "../api/notifcations.api";
-import { get, post } from "../utils/request";
+import { destroy, get, post } from "../utils/request";
 
 export const ServicePostNotify = async (params = {}) => {
   const res = await post(notfications.notifies, params);
@@ -8,5 +8,9 @@ export const ServicePostNotify = async (params = {}) => {
 
 export const ServiceGetNotify = async (id) => {
   const res = await get(notfications.notifiesByUserId.replace(":id", id));
+  return res;
+};
+export const ServiceDeleteNotify = async (id) => {
+  const res = await destroy(notfications.notifiesByUserId.replace(":id", id));
   return res;
 };
