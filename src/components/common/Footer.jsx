@@ -22,7 +22,7 @@ function Footer() {
                 Haqqımızda
               </h6>
               <Link
-                to={`${token.length !== 0 ? "/home" : "/"}`}
+                to={"/about"}
                 className="text-xs text-primaryGray dark:text-white"
               >
                 Fikiral
