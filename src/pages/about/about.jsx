@@ -3,7 +3,7 @@ function AboutPage() {
     <div className="sm:flex items-center max-w-screen-xl">
       <div className="sm:w-1/2 ">
         <h2 className="my-4 font-bold text-xl  sm:text-2xl">Haqqımızda</h2>
-        <article className="bg-white rounded-xl p-2 ">
+        <article className="bg-white rounded-xl p-2 dark:text-black">
           Insanların biznes ideyalarını paylaşdığı vebsayt haqqında Fikirala xoş
           gəlmisiniz! Mən, innovativ ideyaları inkişaf etdirmək və biznesin
           inkişafı üçün əməkdaşlıq mühitlərini inkişaf etdirməyə həvəsi olan bir
@@ -20,7 +20,7 @@ function AboutPage() {
         </div>
         <div>
           <strong className="text-xl"> Missiyamız</strong>
-          <article className="bg-white rounded-xl p-2">
+          <article className="bg-white rounded-xl p-2 dark:text-black">
             Bizim missiyamız biznes ideyalarının mübadiləsi prosesini
             cəmiyyətimizin bütün üzvləri üçün mümkün qədər rahat, effektiv və
             ruhlandırıcı etməkdir. Məqsədimiz. Biz bu saytı dünyanın müxtəlif
@@ -36,7 +36,7 @@ function AboutPage() {
       <div className="sm:w-1/2 p-5">
         <div className="text">
           <strong className="text-xl">Sizə nə təklif edirik?</strong>
-          <article className="bg-white rounded-xl p-2 ">
+          <article className="bg-white rounded-xl p-2 dark:text-black">
             Saytımızda siz fikir mübadiləsi, layihələrin müzakirəsi və
             tərəfdaşlar tapmaq üçün geniş funksiyalar tapa bilərsiniz. Biz fikir
             əlavə etmək, şərh vermək və müzakirə etmək üçün rahat interfeys,
