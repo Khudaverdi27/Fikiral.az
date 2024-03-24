@@ -4,7 +4,8 @@ import { removeStorage } from "../../../utils/helpers";
 import DropdownMenu from "../../../components/ui/Dropdown";
 import { Badge } from "antd";
 import { HiOutlineBell } from "react-icons/hi2";
-function AdminNavbar({ userLoginAuth }) {
+import { useEffect, useState } from "react";
+function AdminNavbar({ userLoginAuth, inAcceptedPosts }) {
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("userId");
@@ -13,16 +14,24 @@ function AdminNavbar({ userLoginAuth }) {
     location.reload();
     location.href = "/";
   };
+
+  const [badgeName, setBadgeName] = useState("Boşdur");
+
+  useEffect(() => {
+    if (inAcceptedPosts.length > 0) {
+      setBadgeName(`${inAcceptedPosts?.length} ədəd post istəyi daxil olub`);
+    }
+  }, [inAcceptedPosts]);
   return (
     <nav className="bg-white flex justify-between w-full py-4 pr-12">
       <FormSearch />
       <div className=" flex items-center space-x-6">
-        <Badge className="dark:text-white" size={"small"} count={0}>
+        <Badge size={"small"} count={inAcceptedPosts?.length}>
           <button>
             <DropdownMenu
               dropName={<HiOutlineBell className="size-6" />}
-              dropDownItems={[{ name: "boşdur" }]}
-              classes={"w-[359px] max-h-[424px] !top-[80px] overflow-x-hidden"}
+              dropDownItems={[{ name: badgeName }]}
+              classes={"w-[309px] max-h-[424px] !top-[75px] overflow-x-hidden"}
             />
           </button>
         </Badge>

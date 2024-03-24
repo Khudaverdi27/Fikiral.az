@@ -1,7 +1,9 @@
 import { useState } from "react";
 import {
+  ServiceAcceptThinks,
   ServiceDeleteThinks,
   ServiceGetComments,
+  ServiceInAcceptedThinksList,
   ServicePostComment,
   ServiceThinksByCategoryFetchList,
   ServiceThinksByPopularFetchList,
@@ -60,6 +62,22 @@ export const useFetchThinksList = () => {
     fetch(ServiceThinksFetchList);
   };
   return [data || [], apiFetch, loading];
+};
+export const useFetchInAcceptedThinks = () => {
+  const [data, fetch, loading] = useFetch([]);
+
+  const apiFetch = async () => {
+    fetch(ServiceInAcceptedThinksList);
+  };
+  return [data || [], apiFetch, loading];
+};
+export const useFetchAcceptThink = () => {
+  const [data, fetch, loading] = useFetch([]);
+
+  const acceptFetch = async (id) => {
+    fetch(ServiceAcceptThinks, id);
+  };
+  return [data || [], acceptFetch, loading];
 };
 export const useFetchAllCategoryList = () => {
   const [data, fetch, loading] = useFetch([]);

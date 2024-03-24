@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminNavbar from "./navbar";
 import CalendarPicker from "./calendar";
 import StatisticsCard from "./statisticCards";
@@ -7,6 +7,7 @@ import FullCategories from "./fullCategories";
 import FullUsers from "./fullUsers";
 import AllPostsPending from "./pendingPosts";
 import AllPosts from "./allPosts";
+import { useFetchInAcceptedThinks } from "../../../hooks/useFetch";
 
 function RighSide({
   userLoginAuth,
@@ -21,7 +22,8 @@ function RighSide({
   getThinkFetch,
 }) {
   const [activeMenu, setActiveMenu] = useState(false);
-
+  const [inAcceptedPosts, fetchInAccepted, loading] =
+    useFetchInAcceptedThinks();
   const dates = [
     { name: "Bu gün", key: "today" },
     { name: "Bu həftə", key: "week" },
@@ -31,10 +33,16 @@ function RighSide({
   const handleActiveMenu = (key) => {
     setActiveMenu(key);
   };
+  useEffect(() => {
+    fetchInAccepted();
+  }, []);
 
   return (
     <section className="w-full">
-      <AdminNavbar userLoginAuth={userLoginAuth} />
+      <AdminNavbar
+        userLoginAuth={userLoginAuth}
+        inAcceptedPosts={inAcceptedPosts}
+      />
       {activeMenuLeft === "main" && (
         <div className="mt-6 flex justify-between pl-7 pr-10">
           <div className="space-x-5 bg-white rounded-lg">
@@ -65,7 +73,11 @@ function RighSide({
       ) : activeMenuLeft === "users" ? (
         <FullUsers />
       ) : activeMenuLeft === "post" ? (
-        <AllPostsPending />
+        <AllPostsPending
+          inAcceptedPosts={inAcceptedPosts}
+          fetchInAccepted={fetchInAccepted}
+          loading={loading}
+        />
       ) : activeMenuLeft === "allpost" ? (
         <AllPosts
           thinks={thinks}

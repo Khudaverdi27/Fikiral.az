@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 import { useSearchActions } from "../../../context/FormSearchProvider";
 import { useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
+import { slice } from "lodash";
 
 function ThinkSection({ items, loading, title }) {
   const [showAll, setShowAll] = useState(false);
@@ -17,7 +18,7 @@ function ThinkSection({ items, loading, title }) {
       ? searchResponse
       : showAll
       ? items
-      : items?.slice(0, 6);
+      : slice(items, 0, 6);
 
   const showAllItems = () => {
     setShowAll(!showAll);
@@ -61,7 +62,7 @@ function ThinkSection({ items, loading, title }) {
           </Col>
         ))}
       </Row>
-      {newItems.length > 5 && (
+      {newItems?.length > 5 && (
         <div className="flex justify-end text-primaryGray mt-2 text-sm ">
           <button
             onClick={showAllItems}

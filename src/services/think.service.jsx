@@ -1,8 +1,12 @@
 import { thinkApi } from "../api/think.api";
-import { destroy, get, post } from "../utils/request";
+import { destroy, get, post, put } from "../utils/request";
 
 export const ServiceThinksFetchList = async () => {
   const res = await get(thinkApi.list);
+  return res;
+};
+export const ServiceInAcceptedThinksList = async () => {
+  const res = await get(thinkApi.listInAccepted);
   return res;
 };
 
@@ -27,6 +31,10 @@ export const ServiceThinksPost = async (params = {}) => {
 
 export const ServiceDeleteThinks = async (id) => {
   const res = await destroy(thinkApi.removeThink.replace(":id", id));
+  return res;
+};
+export const ServiceAcceptThinks = async (id) => {
+  const res = await put(thinkApi.acceptPost.replace(":id", id));
   return res;
 };
 

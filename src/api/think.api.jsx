@@ -1,5 +1,7 @@
 export const thinkApi = {
-  list: "/think/",
+  list: "/think/accepted/",
+  listInAccepted: "/think/in-accepted/",
+  acceptPost: "/think/accept/:id",
   bySearch: "/think/content/",
   popular: "/think/popular",
   byCategory: "/think/category/",

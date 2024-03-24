@@ -27,7 +27,7 @@ const AddModal = () => {
 
   const [postedThink, fetchPost, loading] = usePostThink();
 
-  const { setIsPosted, userByIdData } = useModalActions();
+  const { userByIdData } = useModalActions();
 
   useEffect(() => {
     const updatedContent = checkboxStates.reduce((acc, state, i) => {
@@ -54,8 +54,6 @@ const AddModal = () => {
       };
 
       fetchPost(requestData).then(() => {
-        setIsPosted(true);
-
         reset();
         setContent((content[category] = false));
         checkboxStates.fill(false);

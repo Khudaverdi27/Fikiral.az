@@ -19,6 +19,7 @@
     "dayjs": "^1.11.10",
     "emailjs": "^4.0.3",
     "firebase": "^10.8.1",
+    "lodash": "^4.17.21",
     "moment": "^2.30.1",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
