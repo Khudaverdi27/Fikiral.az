@@ -24,7 +24,7 @@ export default {
         '35': '35deg',
       },
       backgroundImage: {
-        'heroBg': "url('./public/bg.jpg')",
+        'heroBg': "url('./public/assets/bg.jpg')",
         
       },
       fontFamily: {
