@@ -47,7 +47,7 @@ function AuthWait() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (changedPassRes.satus == 200) {
+    if (changedPassRes.status == 200) {
       notify();
       setResData({});
       setTimeout(() => {
