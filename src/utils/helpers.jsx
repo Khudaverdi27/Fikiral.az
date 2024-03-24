@@ -1,15 +1,13 @@
 import moment from "moment";
 import forbidddens from "../forbiddenWords.json";
 export const saveStorage = (key, value) => {
-  sessionStorage.setItem(key, JSON.stringify(value));
+  localStorage.setItem(key, JSON.stringify(value));
 };
 export const getStorage = (key) => {
-  return sessionStorage.getItem(key)
-    ? JSON.parse(sessionStorage.getItem(key))
-    : [];
+  return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : [];
 };
 export const removeStorage = (key) => {
-  return sessionStorage.removeItem(key);
+  return localStorage.removeItem(key);
 };
 
 export const objectToQueryString = (obj) => {
