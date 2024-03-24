@@ -40,20 +40,23 @@ function AuthWait() {
   useEffect(() => {
     if (resData.newPassword) {
       newPasswordFetch(resData);
-      if (changedPassRes.satus == 200) {
-        notify();
-        setResData({});
-        setTimeout(() => {
-          setStorageData("");
-          removeStorage("gmail");
-          location.href = "/";
-        }, [2000]);
-      } else if (changedPassRes.status == 500) {
-        errorNotify();
-        setResData({});
-      }
     }
-  }, [changedPassRes, resData]);
+  }, [resData]);
+
+  useEffect(() => {
+    if (changedPassRes.satus == 200) {
+      notify();
+      setResData({});
+      setTimeout(() => {
+        setStorageData("");
+        removeStorage("gmail");
+        location.href = "/";
+      }, [2000]);
+    } else if (changedPassRes.status == 500) {
+      errorNotify();
+      setResData({});
+    }
+  }, [changedPassRes]);
 
   return (
     <>
