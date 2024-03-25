@@ -14,13 +14,13 @@ function AuthWait() {
   const [resData, setResData] = useState({});
   const [storageData, setStorageData] = useState("");
   const { handleSubmit } = useForm();
-
+  const auth = getLocaleStorage("gmail");
   useEffect(() => {
-    const auth = getLocaleStorage("gmail");
+    console.log(auth);
     if (auth?.length > 0) {
       setStorageData(auth);
     }
-  }, []);
+  }, [auth]);
 
   const notify = () =>
     toast.success("Məlumatlar yeniləndi.Yenidən giriş edin!");

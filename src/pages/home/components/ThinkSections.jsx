@@ -7,7 +7,6 @@ import { useSearchActions } from "../../../context/FormSearchProvider";
 import { useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { slice } from "lodash";
-import { ToastContainer } from "react-toastify";
 
 function ThinkSection({ items, loading, title }) {
   const [showAll, setShowAll] = useState(false);
@@ -29,7 +28,6 @@ function ThinkSection({ items, loading, title }) {
 
   return (
     <Section title={title} loading={loading}>
-      <ToastContainer />
       <Helmet>
         <title>{`Fikir al ${path ? "/" + path : ""}`}</title>
       </Helmet>

@@ -4,12 +4,10 @@ export const saveStorage = (key, value) => {
   sessionStorage.setItem(key, JSON.stringify(value));
 };
 export const saveLocaleStorage = (key, value) => {
-  localStorage.setItem(key, JSON.stringify(value));
+  localStorage.setItem(key, value);
 };
 export const getLocaleStorage = (key) => {
-  return localStorage.getItem(key)
-    ? JSON.parse(sessionStorage.getItem(key))
-    : [];
+  return localStorage.getItem(key);
 };
 export const getStorage = (key) => {
   return sessionStorage.getItem(key)
