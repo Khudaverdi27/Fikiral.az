@@ -8,7 +8,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'roboto': ['Roboto', 'system-ui',"serif"]},
+        'roboto': ['Roboto', 'system-ui',"serif"],
+        'fransisco': ['San Francisco',"sans-serif"]},
       colors:{
         primaryGray: ' #262626'
         
@@ -24,14 +25,9 @@ export default {
         '35': '35deg',
       },
       backgroundImage: {
-        'heroBg': "url('./public/assets/bg.jpg')",
+        'heroBg': "url('./src/assets/img/bg.jpg')",
         
       },
-      fontFamily: {
-        'fransisco': ['San Francisco',"sans-serif"]
-       
-      }
-    
     },
   },
   plugins: [],
