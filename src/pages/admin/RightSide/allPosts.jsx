@@ -32,7 +32,7 @@ function AllPosts({ thinks, thinksLoading, getThinkFetch }) {
       ) : (
         <section className="px-20 mt-10 ">
           <ToastContainer autoClose={2000} />
-          <Row className="p-3">
+          <Row className="p-3 text-black">
             <Col className="text-[20px] font-[500]" span={4}>
               İstifadəçi adı
             </Col>
@@ -50,7 +50,7 @@ function AllPosts({ thinks, thinksLoading, getThinkFetch }) {
             {thinks.map((think) => (
               <Row
                 key={think.id}
-                className="mt-6 bg-white flex items-center rounded-md space-y-2 p-3 border border-gray-100"
+                className="mt-6 bg-white flex items-center rounded-md space-y-2 p-3 border border-gray-100 text-black"
               >
                 <Col className="text-base " span={4}>
                   <span>{think?.user?.userName}</span>

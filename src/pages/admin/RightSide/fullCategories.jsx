@@ -69,7 +69,7 @@ function FullCategories({ categories, categoryLoad, getCategories }) {
       {categoryLoad ? (
         <LoadingSpin />
       ) : (
-        <section className="px-20 mt-10">
+        <section className="px-20 mt-10 text-black">
           <ToastContainer autoClose={2000} />
           <Row className="p-3">
             <Col className="text-[20px] font-[500]" span={8}>

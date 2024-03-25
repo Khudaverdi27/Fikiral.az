@@ -37,7 +37,7 @@ function FullUsers() {
       {allUserLoading ? (
         <LoadingSpin />
       ) : (
-        <section className="px-20 mt-10 ">
+        <section className="px-20 mt-10 text-black">
           <ToastContainer autoClose={2000} />
           <Row className="p-3">
             <Col
