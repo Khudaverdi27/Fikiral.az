@@ -10,7 +10,7 @@ function Footer() {
   return (
     <footer
       className={`text-white  ${
-        isMobile ? "px-[50px]" : "px-[150px]"
+        isMobile ? "px-[50px] overflow-x-hidden" : "px-[150px]"
       } py-5 bg-[#E7E8F1] dark:bg-[#22303c] mt-28`}
     >
       <div className="border-b border-primaryGray dark:border-white">

@@ -34,7 +34,9 @@ function Header() {
   return (
     <header
       className={`${
-        !isMobile ? "flex items-center py-[25px]" : "px-5 py-2"
+        !isMobile
+          ? "flex items-center py-[25px]"
+          : "px-5 py-2 overflow-x-hidden"
       }   w-full  dark:bg-[#22303c]  
      top-0 z-40  bg-[#FDFDFF] ${
        token.length > 0 ? "justify-center " : "justify-evenly "

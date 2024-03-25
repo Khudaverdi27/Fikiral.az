@@ -29,14 +29,14 @@ function ThinkSection({ items, loading, title }) {
   const path = useLocation().pathname.split("/").at(-1);
 
   return (
-    <Section title={title} loading={loading}>
+    <Section className={"overflow-x-hidden"} title={title} loading={loading}>
       <Helmet>
         <title>{`Fikir al ${path ? "/" + path : ""}`}</title>
       </Helmet>
       <Row
         className={`gap-y-5  ${
           isMobile ? "min-w-[300px] " : "min-w-[352px] min-h-[280px] "
-        } overflow-hidden`}
+        } `}
         gutter={{
           xs: 8,
           sm: 16,

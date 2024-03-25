@@ -65,7 +65,11 @@ function ModalProvider({ children }) {
   useEffect(() => {
     if (userLoginAuth.tokenResponse) {
       setLoginAuth(userLoginAuth);
-      navigate("/home");
+      if (userLoginAuth.userResponse.roleType) {
+        navigate("/dashboard");
+      } else {
+        navigate("/home");
+      }
       removeStorage("selectedCategories");
     } else {
       let errorMessage = "";
