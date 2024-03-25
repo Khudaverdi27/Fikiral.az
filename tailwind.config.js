@@ -25,7 +25,7 @@ export default {
         '35': '35deg',
       },
       backgroundImage: {
-        'heroBg': "url('./bg.jpg')",
+        'heroBg': "url('/bg.png')",
         
       },
     },
