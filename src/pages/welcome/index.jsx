@@ -8,6 +8,7 @@ import ErrorBoundary from "../../components/common/ErrorBoundary";
 import { useSearchActions } from "../../context/FormSearchProvider";
 import { ToastContainer } from "react-toastify";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import { Col, Row } from "antd";
 function WelcomePage() {
   const { switcRegisterModal, selectCategory } = useModalActions();
   const token = getStorage("token");
@@ -39,34 +40,40 @@ function WelcomePage() {
     <section>
       <ToastContainer autoClose={2000} />
       {filteredCategories.length <= 0 && searchResponse.length <= 0 && (
-        <div className="h-[70vh] flex flex-col items-center space-y-8 mt-20">
-          <h1
+        <Row
+          className={`text-center ${
+            isMobile ? "space-y-3 mt-3" : " space-y-14 mt-20"
+          }`}
+        >
+          <Col
             className={`${
-              isMobile ? "text-[40px] text-center" : "text-[52px]"
+              isMobile ? "text-[40px] " : "text-[52px]"
             } text-primaryGray  font-bold dark:text-white`}
+            span={24}
           >
-            Yeni biznesə fikrini
-            <span className="text-indigo-500 ml-2">doğruldaraq</span> başla!
-          </h1>
-          <div className={`w-[770px] ${isMobile && "w-[380px]"}`}>
-            <p
-              className={`text-2xl text-center leading-10 ${
-                isMobile && "text-center"
-              }`}
-            >
+            <h1>
+              Yeni biznesə fikrini
+              <span className="text-indigo-500 ml-2">doğruldaraq</span> başla!
+            </h1>
+          </Col>
+          <Col span={24}>
+            <p className={`text-2xl leading-10 `}>
               Bizim missiyamız biznes ideyalarının mübadiləsi prosesini
               cəmiyyətimizin bütün üzvləri üçün mümkün qədər rahat, effektiv və
               ruhlandırıcı etməkdir.
             </p>
-          </div>
-          <Link
-            to={token.length !== 0 && "/home"}
-            onClick={switcRegisterModal}
-            className="bg-indigo-500 text-center text-white py-[10px]  rounded-xl w-[170px]"
-          >
-            Başla
-          </Link>
-        </div>
+          </Col>
+          <Col span={24}>
+            <Link to={token.length !== 0 && "/home"}>
+              <button
+                onClick={switcRegisterModal}
+                className="bg-indigo-500  text-center text-white py-[10px]  rounded-xl w-[170px]"
+              >
+                Başla
+              </button>
+            </Link>
+          </Col>
+        </Row>
       )}
 
       <ErrorBoundary>

@@ -7,8 +7,8 @@ function AppLayout({ children }) {
     <main>
       <Header />
       <section
-        className={`py-[25px] px-[150px] mx-auto h-full max-w-[1340px] ${
-          isMobile && "px-[50px]"
+        className={`py-[25px]  mx-auto h-full max-w-[1340px] overflow-x-hidden ${
+          isMobile ? "px-2" : "px-[150px]"
         }`}
       >
         {children}
