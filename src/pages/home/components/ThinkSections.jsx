@@ -7,11 +7,13 @@ import { useSearchActions } from "../../../context/FormSearchProvider";
 import { useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { slice } from "lodash";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 function ThinkSection({ items, loading, title }) {
   const [showAll, setShowAll] = useState(false);
   const { searchResponse } = useSearchActions();
   const { userByIdData } = useModalActions();
+  const isMobile = useMediaQuery("only screen and (max-width : 480px)");
 
   let newItems =
     searchResponse.length > 0
@@ -32,7 +34,9 @@ function ThinkSection({ items, loading, title }) {
         <title>{`Fikir al ${path ? "/" + path : ""}`}</title>
       </Helmet>
       <Row
-        className="gap-y-5  min-w-[352px] min-h-[280px]  overflow-hidden"
+        className={`gap-y-5  ${
+          isMobile ? "min-w-[300px] " : "min-w-[352px] min-h-[280px] "
+        } overflow-hidden`}
         gutter={{
           xs: 8,
           sm: 16,

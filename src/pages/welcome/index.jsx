@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import ErrorBoundary from "../../components/common/ErrorBoundary";
 import { useSearchActions } from "../../context/FormSearchProvider";
 import { ToastContainer } from "react-toastify";
+import { useMediaQuery } from "@uidotdev/usehooks";
 function WelcomePage() {
   const { switcRegisterModal, selectCategory } = useModalActions();
   const token = getStorage("token");
@@ -14,6 +15,7 @@ function WelcomePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
   const [newCategories, setNewCategories] = useState([]);
   const { searchResponse } = useSearchActions();
+  const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const sortedData = data?.sort((a, b) => b.id - a.id);
 
   useEffect(() => {
@@ -38,12 +40,20 @@ function WelcomePage() {
       <ToastContainer autoClose={2000} />
       {filteredCategories.length <= 0 && searchResponse.length <= 0 && (
         <div className="h-[70vh] flex flex-col items-center space-y-8 mt-20">
-          <h1 className="text-primaryGray text-[52px] font-bold dark:text-white">
+          <h1
+            className={`${
+              isMobile ? "text-[40px] text-center" : "text-[52px]"
+            } text-primaryGray  font-bold dark:text-white`}
+          >
             Yeni biznesə fikrini
             <span className="text-indigo-500 ml-2">doğruldaraq</span> başla!
           </h1>
-          <div className="w-[770px]">
-            <p className="text-2xl text-center leading-10">
+          <div className={`w-[770px] ${isMobile && "w-[380px]"}`}>
+            <p
+              className={`text-2xl text-center leading-10 ${
+                isMobile && "text-center"
+              }`}
+            >
               Bizim missiyamız biznes ideyalarının mübadiləsi prosesini
               cəmiyyətimizin bütün üzvləri üçün mümkün qədər rahat, effektiv və
               ruhlandırıcı etməkdir.
