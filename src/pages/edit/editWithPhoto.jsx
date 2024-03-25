@@ -85,7 +85,7 @@ function EditWithPhoto({
     } else if (!editDisable && selectedIds.length < 0) {
       setEditDisable(true);
     }
-  }, [selectedIds.length]);
+  }, [selectedIds?.length]);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -205,7 +205,7 @@ function EditWithPhoto({
           <DropdownMenu
             loading={loading}
             dropName={
-              <p className="text-[#4C4B4E] !font-normal w-[300px]">
+              <p className="text-[#4C4B4E] mt-[-10px] !font-normal w-[300px]">
                 Kateqoriya
               </p>
             }

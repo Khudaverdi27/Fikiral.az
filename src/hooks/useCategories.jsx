@@ -10,7 +10,7 @@ export const useCategories = (allSelect = true, type, classes = false) => {
     apiCategoryFetch();
   }, []);
 
-  const { setSelectCategory, selectCategory } = useModalActions();
+  const { setSelectCategory, selectCategory, userById } = useModalActions();
   const [allChecked, setAllChecked] = useState(false);
   const [checkboxStates, setCheckboxStates] = useState(
     Array.from({ length: 27 }, () => false) // 26 beacuse all categories is empty at beginning

@@ -203,7 +203,6 @@ function EditProfile() {
                   setPassValue={setPassValue}
                   setCompeleteEdit={setCompeleteEdit}
                   userLoginAuthLoading={userLoginAuthLoading}
-                  errMsg={errMsg}
                 />
               ) : (
                 <EditWithPhoto

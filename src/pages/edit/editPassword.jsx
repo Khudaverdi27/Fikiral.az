@@ -5,17 +5,19 @@ import { useModalActions } from "../../context/LoginModalProvider";
 function EditPassword({
   setPassValue,
   userLoginAuthLoading,
-  errMsg,
   setCompeleteEdit,
 }) {
   const [newPass, setNewPass] = useState("");
   const [confrimPass, setConfrimPass] = useState("");
-  const { onSubModel, userByIdData } = useModalActions();
+  const { onSubModel, userByIdData, watch } = useModalActions();
   const [confrimPassValue, setConfrimPassValue] = useState("");
+  const [isEqual, setIsEqual] = useState(false);
 
   const getNewPass = (e) => {
     setConfrimPassValue(e);
   };
+  const watchNewPass = watch("newPassword");
+  const watchConfrim = watch("confirmPassword");
 
   useEffect(() => {
     setCompeleteEdit({
@@ -23,6 +25,14 @@ function EditPassword({
       newPassword: confrimPassValue,
     });
   }, [confrimPassValue]);
+
+  useEffect(() => {
+    if (watchNewPass === watchConfrim) {
+      setIsEqual(false);
+    } else {
+      setIsEqual(true);
+    }
+  }, [watchNewPass, watchConfrim]);
 
   return (
     <>
@@ -42,14 +52,14 @@ function EditPassword({
           onBlur={(e) => setPassValue(e.target.value)}
           checkLoading={userLoginAuthLoading}
         />
-        <span className="text-red-500 block">{errMsg}</span>
-        <button
+
+        {/* <button
           type="button"
           className="text-indigo-500 text-base mt-1"
           onClick={onSubModel}
         >
           Şifrəni unutmuşam
-        </button>
+        </button> */}
       </div>
       <Input
         onKeyDown={(e) => setNewPass(e.target.value)}
@@ -64,9 +74,10 @@ function EditPassword({
         }}
         registerName={"newPassword"}
         showUnShow={true}
-        validate={newPass === confrimPass ? false : true}
+        validate={isEqual}
       />
-      {!newPass && <span className="text-red-500 ">Min 8 max 20 simvol</span>}
+      {!newPass ||
+        (isEqual && <span className="text-red-500 ">Min 8 max 20 simvol</span>)}
       <Input
         label={"Yeni şifrəni təkrar daxil edin"}
         onKeyDown={(e) => setConfrimPass(e.target.value)}
@@ -80,10 +91,11 @@ function EditPassword({
         }}
         registerName={"confirmPassword"}
         showUnShow={true}
-        validate={newPass === confrimPass ? false : true}
+        validate={isEqual}
         onBlur={(e) => getNewPass(e.target.value)}
       />
-      {!newPass && <span className="text-red-500 ">Min 8 max 20 simvol</span>}
+      {!confrimPass ||
+        (isEqual && <span className="text-red-500 ">Min 8 max 20 simvol</span>)}
     </>
   );
 }
