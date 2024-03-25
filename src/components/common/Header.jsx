@@ -12,9 +12,9 @@ import {
 import { Link } from "react-router-dom";
 import IsConfirmModal from "../ui/Modals/IsConfirmModal";
 import { useModalActions } from "../../context/LoginModalProvider";
-import { ToastContainer } from "react-toastify";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import DrawerToggle from "../widget/Loading/ToggleMenu/drawer";
+import classNames from "classnames";
 function Header() {
   const { category, loading } = useCategories(true, "checkbox");
   const { userByIdData } = useModalActions();
@@ -39,12 +39,13 @@ function Header() {
        token.length > 0 ? "justify-center " : "justify-evenly "
      } sticky `}
     >
-      <ToastContainer />
       <div className="flex justify-between">
         <div
-          className={`flex items-center ${
-            isMobile ? "justify-between " : "mr-20"
-          } ${token.length > 0 ? "ml-14" : ""}`}
+          className={classNames("flex", "items-center", {
+            "justify-between": isMobile,
+            "ml-[50px]": !isMobile,
+            "!ml-24": !isMobile && token.length > 0,
+          })}
         >
           <Logo />
           {!isMobile && <FormSearch />}

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import Input from "./input";
 import { toast } from "react-toastify";
-import { saveLocaleStorage } from "../../../utils/helpers";
+import { removeLocaleStorage, saveLocaleStorage } from "../../../utils/helpers";
 import { useVerifyPassword } from "../../../hooks/useFetch";
 
 function FormResetPassword() {
@@ -22,6 +22,9 @@ function FormResetPassword() {
 
   const newPassword = () => {
     saveLocaleStorage("gmail", gmail);
+    setTimeout(() => {
+      removeLocaleStorage("gmail");
+    }, 60000);
     if (authCheckMail == true) {
       setSubModel(false);
       fetchReset(gmail);

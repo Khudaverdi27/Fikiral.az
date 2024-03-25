@@ -17,7 +17,7 @@ function AuthWait() {
 
   useEffect(() => {
     const auth = getLocaleStorage("gmail");
-    if (auth.length > 0) {
+    if (auth?.length > 0) {
       setStorageData(auth);
     }
   }, []);
