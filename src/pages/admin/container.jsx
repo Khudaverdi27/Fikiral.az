@@ -3,12 +3,10 @@ import {
   useFetchAllCategoryList,
   useFetchThinksList,
   useFetchThinkByCategory,
-  useFetchAuthLogin,
   useGetActiveUsers,
 } from "../../hooks/useFetch";
 import LeftSide from "./leftSide";
 import RighSide from "./RightSide/rightSide";
-import { useForm } from "react-hook-form";
 
 function AdminPage() {
   const [allActiveUsers, getActiveUserFetch, allActiveLoading] =
@@ -17,15 +15,6 @@ function AdminPage() {
   const [thinks, getThinkFetch, thinksLoading] = useFetchThinksList();
   const [thinkbYcategory, getThinkBy, byLoad] = useFetchThinkByCategory();
   const [activeMenuLeft, setActiveMenu] = useState("main");
-  const [userLoginAuth, loginFetch, userLoginAuthLoading] = useFetchAuthLogin();
-  const [authError, setAuthError] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = (data) => loginFetch(data);
 
   useEffect(() => {
     getActiveUserFetch();
@@ -47,7 +36,6 @@ function AdminPage() {
           setActiveMenu={setActiveMenu}
         />
         <RighSide
-          userLoginAuth={userLoginAuth}
           activeMenuLeft={activeMenuLeft}
           thinkbYcategory={thinkbYcategory}
           getCategories={getCategories}

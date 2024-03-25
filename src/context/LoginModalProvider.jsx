@@ -65,7 +65,7 @@ function ModalProvider({ children }) {
   useEffect(() => {
     if (userLoginAuth.tokenResponse) {
       setLoginAuth(userLoginAuth);
-      if (userLoginAuth.userResponse.roleType) {
+      if (userLoginAuth.userResponse.roleType === "ADMIN") {
         navigate("/dashboard");
       } else {
         navigate("/home");

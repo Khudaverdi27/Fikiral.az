@@ -1,24 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   useDeleteThink,
   useFetchAcceptThink,
   usePostNotify,
 } from "../../../hooks/useFetch";
-import { changeTime } from "../../../utils/helpers";
+import { changeTime, getStorage } from "../../../utils/helpers";
 import { Col, Row } from "antd";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
 import { toast } from "react-toastify";
-function AllPostsPending({
-  inAcceptedPosts,
-  fetchInAccepted,
-  loading,
-  userLoginAuth,
-}) {
+function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
   const [deletedRes, deleteFetch, deleteLoading] = useDeleteThink();
   const [res, acceptFetch, acceptLoading] = useFetchAcceptThink();
+  const [acceptedId, setAcceptedId] = useState(false);
   const [postNotifyFetch] = usePostNotify();
-
+  const loginId = getStorage("userId");
   const notifyError = (message) => toast.error(message);
 
   const destroyPost = (id) => {
@@ -27,10 +23,11 @@ function AllPostsPending({
 
   const accetPost = (id, userId) => {
     acceptFetch(id);
+    setAcceptedId(id);
     postNotifyFetch({
       postId: id,
       postOwnerId: userId,
-      actionOwnerId: userLoginAuth.userResponse.id,
+      actionOwnerId: loginId,
       action: "accept",
     });
   };
@@ -123,7 +120,9 @@ function AllPostsPending({
                     onClick={() => accetPost(inAccepted.id, inAccepted.user.id)}
                     className=" text-base bg-indigo-500 text-white py-[6px] px-4 rounded-xl font-sans"
                   >
-                    {acceptLoading ? "Qəbul edilir..." : " Qəbul et"}
+                    {acceptLoading && acceptedId == inAccepted.id
+                      ? "Qəbul edilir..."
+                      : " Qəbul et"}
                   </button>
                 </div>
               </div>

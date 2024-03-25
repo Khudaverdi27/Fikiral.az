@@ -1,11 +1,17 @@
 import FormSearch from "../../../components/ui/Form/FormSearch";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
-import { removeLocaleStorage, removeStorage } from "../../../utils/helpers";
+import {
+  getStorage,
+  removeLocaleStorage,
+  removeStorage,
+} from "../../../utils/helpers";
 import DropdownMenu from "../../../components/ui/Dropdown";
 import { Badge } from "antd";
 import { HiOutlineBell } from "react-icons/hi2";
 import { useEffect, useState } from "react";
-function AdminNavbar({ userLoginAuth, inAcceptedPosts }) {
+import { useGetUserById } from "../../../hooks/useFetch";
+import { Skeleton } from "antd";
+function AdminNavbar({ inAcceptedPosts }) {
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("userId");
@@ -17,6 +23,11 @@ function AdminNavbar({ userLoginAuth, inAcceptedPosts }) {
   };
 
   const [badgeName, setBadgeName] = useState("Boşdur");
+  const userId = getStorage("userId");
+  const [userById, getUserFetch, userLoading] = useGetUserById();
+  useEffect(() => {
+    getUserFetch(userId);
+  }, [userId]);
 
   useEffect(() => {
     if (inAcceptedPosts.length > 0) {
@@ -36,32 +47,35 @@ function AdminNavbar({ userLoginAuth, inAcceptedPosts }) {
             />
           </button>
         </Badge>
-        <DropdownMenu
-          classes={"w-[142px] max-h-[108px] !top-[70px] "}
-          dropName={
-            <span className="text-primaryGray dark:text-white">
-              {userLoginAuth?.userResponse?.userName}
-              <small className="block">Adminka</small>
-            </span>
-          }
-          profilImg={
-            userLoginAuth?.userResponse?.image ||
-            userLoginAuth?.userResponse?.userName?.charAt(0).toLowerCase()
-          }
-          dropDownItems={[
-            {
-              id: "logoutProfile",
-              title: (
-                <IsConfirmModal
-                  title={"Hesabdan çıxmaq istəyirsiz?"}
-                  dangerBtn={"Çıxış"}
-                  destroyBtn={"Çıxış"}
-                  destroyProfile={logoutProfile}
-                />
-              ),
-            },
-          ]}
-        />
+        {userLoading ? (
+          <Skeleton.Avatar active size={"large"} shape={"circle"} />
+        ) : (
+          <DropdownMenu
+            classes={"w-[142px] max-h-[108px] !top-[70px] "}
+            dropName={
+              <span className="text-primaryGray dark:text-white">
+                {userById?.userName}
+                <small className="block">Adminka</small>
+              </span>
+            }
+            profilImg={
+              userById?.image || userById?.userName?.charAt(0).toLowerCase()
+            }
+            dropDownItems={[
+              {
+                id: "logoutProfile",
+                title: (
+                  <IsConfirmModal
+                    title={"Hesabdan çıxmaq istəyirsiz?"}
+                    dangerBtn={"Çıxış"}
+                    destroyBtn={"Çıxış"}
+                    destroyProfile={logoutProfile}
+                  />
+                ),
+              },
+            ]}
+          />
+        )}
       </div>
     </nav>
   );

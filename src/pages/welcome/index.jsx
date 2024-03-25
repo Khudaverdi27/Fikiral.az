@@ -42,7 +42,7 @@ function WelcomePage() {
       {filteredCategories.length <= 0 && searchResponse.length <= 0 && (
         <Row
           className={`text-center ${
-            isMobile ? "space-y-3 mt-3" : " space-y-14 mt-20"
+            isMobile ? "space-y-3 mx-6" : " space-y-10 my-[100px]"
           }`}
         >
           <Col
@@ -67,7 +67,7 @@ function WelcomePage() {
             <Link to={token.length !== 0 && "/home"}>
               <button
                 onClick={switcRegisterModal}
-                className="bg-indigo-500  text-center text-white py-[10px]  rounded-xl w-[170px]"
+                className="bg-indigo-500 text-base text-center text-white py-[10px]  rounded-xl w-[170px]"
               >
                 Başla
               </button>

@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { slice } from "lodash";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import { ToastContainer } from "react-toastify";
 
 function ThinkSection({ items, loading, title }) {
   const [showAll, setShowAll] = useState(false);
@@ -33,6 +34,7 @@ function ThinkSection({ items, loading, title }) {
       <Helmet>
         <title>{`Fikir al ${path ? "/" + path : ""}`}</title>
       </Helmet>
+      <ToastContainer />
       <Row
         className={`gap-y-5  ${
           isMobile ? "min-w-[300px] " : "min-w-[352px] min-h-[280px] "
