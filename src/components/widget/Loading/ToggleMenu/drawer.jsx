@@ -15,7 +15,7 @@ const DrawerToggle = () => {
     <>
       <Space>
         <button
-          className="flex items-center"
+          className="flex items-center ml-5"
           type="primary"
           onClick={showDrawer}
         >

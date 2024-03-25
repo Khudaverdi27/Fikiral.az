@@ -15,6 +15,7 @@ import { useModalActions } from "../../context/LoginModalProvider";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import DrawerToggle from "../widget/Loading/ToggleMenu/drawer";
 import classNames from "classnames";
+import AddModal from "../ui/Modals/AddModal";
 function Header() {
   const { category, loading } = useCategories(true, "checkbox");
   const { userByIdData } = useModalActions();
@@ -51,58 +52,95 @@ function Header() {
           {!isMobile && <FormSearch />}
         </div>
         <div className="flex space-x-2 cursor-pointer items-center relative">
-          <DropdownMenu
-            loading={loading}
-            dropName={
-              <span className="text-primaryGray hover:text-indigo-500 dark:text-white">
-                Kateqoriya
-              </span>
-            }
-            dropDownItems={category}
-            classes={"w-[314px] max-h-[424px] overflow-x-hidden !top-[85px]"}
-          />
+          {!isMobile && (
+            <DropdownMenu
+              loading={loading}
+              dropName={
+                <span className="text-primaryGray hover:text-indigo-500 dark:text-white">
+                  Kateqoriya
+                </span>
+              }
+              dropDownItems={category}
+              classes={"w-[314px] max-h-[424px] overflow-x-hidden !top-[85px]"}
+            />
+          )}
+          {isMobile && token.length == 0 && (
+            <DropdownMenu
+              loading={loading}
+              dropName={
+                <span className="text-primaryGray hover:text-indigo-500 dark:text-white">
+                  Kateqoriya
+                </span>
+              }
+              dropDownItems={category}
+              classes={"w-[314px] max-h-[424px] overflow-x-hidden !top-[85px]"}
+            />
+          )}
+
           <MenuActions />
           {isMobile && <FormSearch />}
           {isMobile && <DrawerToggle />}
+          {token.length !== 0 && !isMobile && <AddModal />}
         </div>
       </div>
+      {token.length !== 0 && isMobile && (
+        <div className="flex justify-between mt-5">
+          <div>
+            <DropdownMenu
+              loading={loading}
+              dropName={
+                <span className="text-primaryGray hover:text-indigo-500 dark:text-white">
+                  Kateqoriya
+                </span>
+              }
+              dropDownItems={category}
+              classes={"w-[314px] max-h-[424px] overflow-x-hidden !top-[85px]"}
+            />
+          </div>
+          <div>
+            <AddModal />
+          </div>
+        </div>
+      )}
       {token.length !== 0 ? (
-        <DropdownMenu
-          classes={"w-[142px] max-h-[108px] !top-[85px] "}
-          dropName={
-            <span className="text-primaryGray dark:text-white ">
-              {userByIdData?.userName?.split(" ")[0].toLowerCase()}
-            </span>
-          }
-          profilImg={
-            userByIdData?.image ||
-            userByIdData?.userName?.charAt(0).toLowerCase()
-          }
-          dropDownItems={[
-            {
-              id: "editProfil",
-              title: (
-                <Link
-                  to={"/edit-my-profile"}
-                  className="flex items-center dark:text-white  text-base "
-                >
-                  Redaktə et
-                </Link>
-              ),
-            },
-            {
-              id: "logoutProfile",
-              title: (
-                <IsConfirmModal
-                  title={"Hesabdan çıxmaq istəyirsiz?"}
-                  dangerBtn={"Çıxış"}
-                  destroyBtn={"Çıxış"}
-                  destroyProfile={logoutProfile}
-                />
-              ),
-            },
-          ]}
-        />
+        !isMobile && (
+          <DropdownMenu
+            classes={"w-[142px] max-h-[108px] !top-[85px] "}
+            dropName={
+              <span className="text-primaryGray dark:text-white ">
+                {userByIdData?.userName?.split(" ")[0].toLowerCase()}
+              </span>
+            }
+            profilImg={
+              userByIdData?.image ||
+              userByIdData?.userName?.charAt(0).toLowerCase()
+            }
+            dropDownItems={[
+              {
+                id: "editProfil",
+                title: (
+                  <Link
+                    to={"/edit-my-profile"}
+                    className="flex items-center dark:text-white  text-base "
+                  >
+                    Redaktə et
+                  </Link>
+                ),
+              },
+              {
+                id: "logoutProfile",
+                title: (
+                  <IsConfirmModal
+                    title={"Hesabdan çıxmaq istəyirsiz?"}
+                    dangerBtn={"Çıxış"}
+                    destroyBtn={"Çıxış"}
+                    destroyProfile={logoutProfile}
+                  />
+                ),
+              },
+            ]}
+          />
+        )
       ) : (
         <div className={`${!isMobile && "mr-12"}`}>
           <FormRegister />

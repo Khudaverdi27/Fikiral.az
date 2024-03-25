@@ -84,7 +84,7 @@ const AddModal = () => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="mr-5 bg-indigo-500 text-white w-full whitespace-nowrap px-4 py-2 rounded-[12px]"
+        className="!mx-3 bg-indigo-500 text-white w-full whitespace-nowrap px-4 py-2 rounded-[12px]"
       >
         İdeyanı paylaş
       </button>

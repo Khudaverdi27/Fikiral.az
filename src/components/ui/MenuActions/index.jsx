@@ -31,7 +31,7 @@ function MenuActions() {
 
   return (
     <div className="flex gap-x-[25px] items-center justify-center text-primaryGray">
-      {token.length !== 0 && (
+      {token.length !== 0 && !isMobile && (
         <>
           <IconContext.Provider
             value={{
@@ -63,7 +63,7 @@ function MenuActions() {
         </>
       )}
       <button
-        className={`${isMobile ? "mr-8" : "mx-2"}`}
+        className={`${isMobile ? "mr-8" : "ml-2"}`}
         onClick={switchDarkMode}
       >
         {dark ? (
@@ -74,7 +74,6 @@ function MenuActions() {
       </button>
 
       <>{!isMobile && <DropLanguage />}</>
-      {token.length !== 0 && <AddModal />}
     </div>
   );
 }

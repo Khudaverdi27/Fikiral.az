@@ -5,7 +5,7 @@ import { useModalActions } from "../../../context/LoginModalProvider";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import Input from "./input";
 import { loginFacebook, loginGoogle } from "../../../utils/firebase";
-import { saveStorage } from "../../../utils/helpers";
+import { removeStorage, saveStorage } from "../../../utils/helpers";
 
 const FormRegister = () => {
   const {
@@ -31,6 +31,9 @@ const FormRegister = () => {
 
   const compeleteLoginSocial = async (social) => {
     saveStorage("social", social);
+    setTimeout(() => {
+      removeStorage("social");
+    }, 10000);
     const dataSocial =
       social === "fb" ? await loginFacebook() : await loginGoogle();
 

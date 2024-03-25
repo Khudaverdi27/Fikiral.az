@@ -64,10 +64,10 @@ function FormSearch() {
     <>
       <div
         className={classNames("mx-6", {
-          "left-[120px]": isOpen,
+          "left-[140px]": isOpen,
           "absolute -translate-x-3/4": isMobile,
           relative: !isMobile,
-          "right-5": isMobile && !isOpen,
+          "right-8": isMobile && !isOpen,
         })}
       >
         <Input
