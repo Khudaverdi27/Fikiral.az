@@ -3,6 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import FormResetPassword from "./FormResetPassword";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import FormRegisterConfrim from "./FormRegisterConfirim";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const FormContainer = ({ children }) => {
   const {
@@ -14,22 +15,30 @@ const FormContainer = ({ children }) => {
     isSubModel,
     onSubModel,
   } = useModalActions();
-
+  const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   return (
     <>
-      <button
-        onClick={switchLoginModal}
-        className=" whitespace-nowrap  text-indigo-500 py-2 px-4 rounded-xl 
-        hover:outline outline-indigo-500 outline-[0.2px]"
-      >
-        Daxil ol
-      </button>
-      <button
-        onClick={switcRegisterModal}
-        className=" border dark:border-[#22303c]  bg-indigo-500 text-white py-2 px-4 rounded-xl"
-      >
-        Qeydiyyat
-      </button>
+      <div className={`${isMobile && "flex justify-between mt-5"} space-x-3`}>
+        <button
+          onClick={switchLoginModal}
+          className={`${
+            isMobile
+              ? "px-10  border-indigo-500 border-[0.2px]"
+              : "px-4 py-2 hover:outline outline-indigo-500 outline-[0.2px]"
+          }  whitespace-nowrap  text-indigo-500   rounded-xl 
+         `}
+        >
+          Daxil ol
+        </button>
+        <button
+          onClick={switcRegisterModal}
+          className={`border dark:border-[#22303c]  bg-indigo-500 text-white py-2 rounded-xl ${
+            isMobile ? "px-10" : "px-4"
+          }`}
+        >
+          Qeydiyyat
+        </button>
+      </div>
 
       <Modal
         width={652}

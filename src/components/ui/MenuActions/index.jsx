@@ -10,6 +10,7 @@ import DropLanguage from "../Dropdown/DropLanguage";
 import { getStorage } from "../../../utils/helpers";
 import { useDarkMode } from "../../../context/DarkMode";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 function MenuActions() {
   const [notifications, notifyRes] = DropNotifications();
@@ -18,7 +19,7 @@ function MenuActions() {
   const theme = getStorage("theme");
   const pathname = useLocation().pathname;
   const { handleChange } = useDarkMode();
-
+  const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const switchDarkMode = () => {
     handleChange();
     theme.length > 0 ? setDark(false) : setDark(true);
@@ -61,7 +62,10 @@ function MenuActions() {
           </Badge>
         </>
       )}
-      <button onClick={switchDarkMode}>
+      <button
+        className={`${isMobile ? "mr-8" : "mx-2"}`}
+        onClick={switchDarkMode}
+      >
         {dark ? (
           <IoMoon className="size-6 shrink-0 dark:text-gray-300" />
         ) : (
@@ -69,9 +73,7 @@ function MenuActions() {
         )}
       </button>
 
-      <>
-        <DropLanguage />
-      </>
+      <>{!isMobile && <DropLanguage />}</>
       {token.length !== 0 && <AddModal />}
     </div>
   );

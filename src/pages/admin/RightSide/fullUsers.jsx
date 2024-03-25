@@ -68,7 +68,7 @@ function FullUsers() {
             {allUsers.map((user) => (
               <Row
                 key={user.id}
-                className="mt-6 bg-white flex items-center rounded-md space-y-2 p-3 border border-gray-100"
+                className="mt-6 bg-white flex items-center rounded-md space-y-2 p-3 border border-gray-100 text-black"
               >
                 <Col className="text-base " span={5}>
                   <span>{user.userName}</span>

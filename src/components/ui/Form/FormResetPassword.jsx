@@ -32,9 +32,7 @@ function FormResetPassword() {
     reset();
   };
 
-  useEffect(() => {
-    console.log(resetPassResponse);
-  }, [resetPassResponse]);
+  useEffect(() => {}, [resetPassResponse]);
 
   useEffect(() => {
     if (authCheckMail == true && wathGmail) {

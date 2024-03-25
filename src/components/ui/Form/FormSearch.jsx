@@ -1,12 +1,14 @@
-import { useClickAway } from "@uidotdev/usehooks";
+import { useClickAway, useMediaQuery } from "@uidotdev/usehooks";
 import { Input, Spin } from "antd";
 import { useState } from "react";
 import { IoMdClose, IoMdSearch } from "react-icons/io";
 import AddCommentModal from "../Modals/AddCommentModal";
 import { useSearchActions } from "../../../context/FormSearchProvider";
 import { useFetchCommentLists, usePostNotify } from "../../../hooks/useFetch";
+import classNames from "classnames";
 
 function FormSearch() {
+  const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [showFull, setShowFull] = useState(false);
   const [isCommentOpen, setIsCommentOpen] = useState(false);
@@ -15,7 +17,7 @@ function FormSearch() {
     useSearchActions();
   const [postNotifyFetch] = usePostNotify();
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
-
+  const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const searchItems = showFull ? searchResponse : searchResponse.slice(0, 5);
 
   const ref = useClickAway(() => {
@@ -31,18 +33,53 @@ function FormSearch() {
     setDataModal(data);
     fetchComments(data.id);
   };
+  const toggleSearch = () => {
+    if (isMobile) {
+      setIsOpen(!isOpen);
+    }
+  };
 
+  const inputClasses = classNames(
+    "max-h-[37px]",
+    "focus-within:shadow-none",
+    "focus-within:border",
+    "bg-[#E8E8E8]",
+    "rounded-[6px]",
+    "border-0",
+    "outline-none",
+    "transition-width",
+    "duration-300",
+
+    {
+      "w-0": isMobile && !isOpen,
+      "!w-[320px]": !isMobile && !isOpen,
+      "w-[228px]": !isMobile || isOpen,
+      "focus-within:border-white": isMobile && !isOpen,
+      "bg-transparent": isMobile && !isOpen,
+      "focus-within:border-[#e0e0e0]": !isMobile || isOpen,
+      "hover:outline-[3px] hover:outline-[#E0E0E0]": isHovered,
+    }
+  );
   return (
     <>
-      <div className="ml-8 mr-10 relative ">
+      <div
+        className={classNames("mx-6", {
+          "left-[120px]": isOpen,
+          "absolute -translate-x-3/4": isMobile,
+          relative: !isMobile,
+          "right-5": isMobile && !isOpen,
+        })}
+      >
         <Input
           onChange={(e) => onSearch(e)}
-          className={`max-h-[37px] focus-within:shadow-none focus-within:border focus-within:border-[#e0e0e0] bg-[#E8E8E8] rounded-[6px] border-0 outline-none w-[320px]
-        ${isHovered && "hover:outline-[3px] hover:outline-[#E0E0E0]"}`}
+          className={inputClasses}
           size="large"
           placeholder="Axtar"
           prefix={
-            <IoMdSearch className={`size-6 cursor-pointer text-[#999999] `} />
+            <IoMdSearch
+              onClick={toggleSearch}
+              className={`size-6 cursor-pointer text-[#999999] inline`}
+            />
           }
           suffix={loadings && <Spin />}
           onMouseEnter={() => setIsHovered(true)}
