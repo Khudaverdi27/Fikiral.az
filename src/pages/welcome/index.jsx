@@ -47,7 +47,7 @@ function WelcomePage() {
         >
           <Col
             className={`${
-              isMobile ? "text-[40px] " : "text-[52px]"
+              isMobile ? "text-[38px] " : "text-[52px]"
             } text-primaryGray  font-bold dark:text-white`}
             span={24}
           >
@@ -57,7 +57,7 @@ function WelcomePage() {
             </h1>
           </Col>
           <Col span={24}>
-            <p className={`text-2xl leading-10 `}>
+            <p className={`text-[22px] leading-10 `}>
               Bizim missiyamız biznes ideyalarının mübadiləsi prosesini
               cəmiyyətimizin bütün üzvləri üçün mümkün qədər rahat, effektiv və
               ruhlandırıcı etməkdir.
