@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import ThinkSection from "../home/components/ThinkSections";
 import { useFetchThinkByCategory } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
-import ErrorBoundary from "../../components/common/ErrorBoundary";
 
 function CategoryPage() {
   const param = useParams();
@@ -25,13 +24,11 @@ function CategoryPage() {
   const sortedData = thinksByCategory.sort((a, b) => b.id - a.id);
   return (
     <>
-      <ErrorBoundary>
-        <ThinkSection
-          title={title}
-          items={sortedData}
-          loading={thinksByCategoryLoading}
-        />
-      </ErrorBoundary>
+      <ThinkSection
+        title={title}
+        items={sortedData}
+        loading={thinksByCategoryLoading}
+      />
     </>
   );
 }

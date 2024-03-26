@@ -25,7 +25,7 @@ function FormRegisterConfrim() {
   const token = getStorage("token");
   const navigate = useNavigate();
 
-  const notify = () => toast.success("Bu istifadəçi mövcuddur!");
+  const notify = () => toast.error("Bu istifadəçi mövcuddur!");
   const skipCategory = () => {
     removeStorage("social");
     authFetch(resRegister).then(() => setVerifyConfrim(false));
@@ -92,7 +92,7 @@ function FormRegisterConfrim() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-      {!verifyConfrim && (
+      {!verifyConfrim && !social && (
         <div className="text-center text-base">
           E-mailinizdəki linkə klik edin və gözləyin zəhmət olmasa
         </div>

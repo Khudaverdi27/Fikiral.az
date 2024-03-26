@@ -8,7 +8,7 @@ function Logo() {
   return (
     <Link
       className={`shrink-0 ${
-        isMobile ? "w-[101px] mr-5" : "w-[131px]"
+        isMobile ? "w-[171px] !ml-[-20px]" : "w-[191px]"
       } h-[43px] `}
       to={`${token.length !== 0 ? "/home" : "/"}`}
     >

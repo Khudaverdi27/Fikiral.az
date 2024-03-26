@@ -13,7 +13,7 @@ function LeftSide({ activeMenuLeft, setActiveMenu }) {
   };
 
   return (
-    <aside className="min-w-[250px] min-h-screen ">
+    <aside className="min-w-[250px] min-h-screen font-roboto">
       <div className="bg-[#332862] h-[76px] flex items-center justify-center">
         <Logo />
       </div>

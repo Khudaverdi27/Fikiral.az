@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useFetchThinksList } from "../../hooks/useFetch";
 import ThinkSection from "../home/components/ThinkSections";
-import ErrorBoundary from "../../components/common/ErrorBoundary";
 import { useModalActions } from "../../context/LoginModalProvider";
 import { getStorage } from "../../utils/helpers";
 
@@ -24,17 +23,15 @@ function FavoritePage() {
 
   return (
     <>
-      <ErrorBoundary>
-        <ThinkSection
-          title={
-            findSavedPosts.length <= 0
-              ? "Yadda saxladığınz fikir tapılmadı!"
-              : "Yadda saxlanılanlar"
-          }
-          items={findSavedPosts}
-          loading={loading}
-        />
-      </ErrorBoundary>
+      <ThinkSection
+        title={
+          findSavedPosts.length <= 0
+            ? "Yadda saxladığınz fikir tapılmadı!"
+            : "Yadda saxlanılanlar"
+        }
+        items={findSavedPosts}
+        loading={loading}
+      />
     </>
   );
 }

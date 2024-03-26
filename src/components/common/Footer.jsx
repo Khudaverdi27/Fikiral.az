@@ -16,7 +16,7 @@ function Footer() {
       <div className="border-b border-primaryGray dark:border-white">
         {!isMobile && (
           <div className="flex justify-center ">
-            <div className="flex w-full 2xl:justify-around justify-between pb-2  max-w-[1040px]">
+            <div className="flex w-full 2xl:justify-around justify-between pb-2  ">
               <Logo />
               <AboutFooter />
               <ContactFooter />

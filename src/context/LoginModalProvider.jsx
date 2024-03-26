@@ -8,7 +8,6 @@ import {
   useFetchAuthLogin,
   useGetNotifyUserById,
   useGetUserById,
-  useVerifyMail,
 } from "../hooks/useFetch";
 
 const LoginModal = createContext();
@@ -66,11 +65,8 @@ function ModalProvider({ children }) {
   useEffect(() => {
     if (userLoginAuth.tokenResponse) {
       setLoginAuth(userLoginAuth);
-      if (userLoginAuth.userResponse.roleType === "ADMIN") {
-        navigate("/dashboard");
-      } else {
-        navigate("/home");
-      }
+      const isAdmin = userLoginAuth.userResponse.roleType === "ADMIN";
+      navigate(isAdmin ? "/dashboard" : "/home");
       removeStorage("selectedCategories");
     } else {
       let errorMessage = "";
@@ -78,20 +74,21 @@ function ModalProvider({ children }) {
         authCheckFetch(resRegister.gmail);
         if (userLoginAuth.status === 404) {
           errorMessage = "Google'a bağlı istifadəçi yoxdur. Hesab yaradın!";
+          setError("gmail", { type: "manual", message: errorMessage });
+        } else if (userLoginAuth.status === 500 && withGoogle) {
+          errorMessage = "Google'a bağlı şifrə yanlışdır";
+          setError("password", { type: "manual", message: errorMessage });
         }
       } else if (withFb) {
         errorMessage = "Facebook'a bağlı istifadəçi yoxdur. Hesab yarat!";
-      } else {
-        errorMessage = "Mail vəya parol yanlışdır";
-        setError("password", {
-          type: "manual",
-          message: errorMessage,
-        });
+        setError("gmail", { type: "manual", message: errorMessage });
+      } else if (userLoginAuth.status === 500) {
+        errorMessage = "Daxil etdiyiniz şifrə yanlışdır";
+        setError("password", { type: "manual", message: errorMessage });
+      } else if (userLoginAuth.status === 404) {
+        errorMessage = "Bu mail-də hesab tapılmadı";
+        setError("gmail", { type: "manual", message: errorMessage });
       }
-      setError("gmail", {
-        type: "manual",
-        message: errorMessage,
-      });
     }
   }, [userLoginAuth, authCheckMail]);
 

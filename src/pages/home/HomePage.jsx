@@ -3,7 +3,6 @@ import { useModalActions } from "../../context/LoginModalProvider";
 import { useFetchThinksList } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { getStorage, removeStorage } from "../../utils/helpers";
-import ErrorBoundary from "../../components/common/ErrorBoundary";
 import { useSearchActions } from "../../context/FormSearchProvider";
 
 function HomePage() {
@@ -54,32 +53,27 @@ function HomePage() {
 
   return (
     <>
-      <ErrorBoundary>
-        {userSelectCateg.length > 0 &&
-          searchResponse.length <= 0 &&
-          filteredCategories.length <= 0 && (
-            <ThinkSection
-              title={"Sizin üçün"}
-              items={userSelectCateg}
-              loading={loading}
-            />
-          )}
-      </ErrorBoundary>
-      <ErrorBoundary>
-        <ThinkSection
-          title={
-            <p className="text-center">{`${
-              filteredCategories.length > 0
-                ? "Seçdiyiniz kateqoriyalardan"
-                : "Bütün fikirlər"
-            }`}</p>
-          }
-          items={
-            filteredCategories.length > 0 ? filteredCategories : sortedData
-          }
-          loading={loading}
-        />
-      </ErrorBoundary>
+      {userSelectCateg.length > 0 &&
+        searchResponse.length <= 0 &&
+        filteredCategories.length <= 0 && (
+          <ThinkSection
+            title={"Sizin üçün"}
+            items={userSelectCateg}
+            loading={loading}
+          />
+        )}
+
+      <ThinkSection
+        title={
+          <p className="text-center">{`${
+            filteredCategories.length > 0
+              ? "Seçdiyiniz kateqoriyalardan"
+              : "Bütün fikirlər"
+          }`}</p>
+        }
+        items={filteredCategories.length > 0 ? filteredCategories : sortedData}
+        loading={loading}
+      />
     </>
   );
 }

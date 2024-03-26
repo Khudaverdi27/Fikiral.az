@@ -6,7 +6,7 @@ import moment from "moment";
 import { useBlockUserById, useGetAllUsers } from "../../../hooks/useFetch";
 import { useEffect } from "react";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 function FullUsers() {
   const [blockedUser, blockedUserFetch] = useBlockUserById();
   const [allUsers, getAllUserFetch, allUserLoading] = useGetAllUsers();
@@ -38,7 +38,6 @@ function FullUsers() {
         <LoadingSpin />
       ) : (
         <section className="px-20 mt-10 text-black">
-          <ToastContainer autoClose={2000} />
           <Row className="p-3">
             <Col
               className="text-base text-end font-[500] bg-white p-2 rounded-lg"

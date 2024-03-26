@@ -4,9 +4,7 @@ import { getStorage } from "../../utils/helpers";
 import ThinkSection from "../home/components/ThinkSections";
 import { useFetchThinkPopular, useFetchThinksList } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
-import ErrorBoundary from "../../components/common/ErrorBoundary";
 import { useSearchActions } from "../../context/FormSearchProvider";
-import { ToastContainer } from "react-toastify";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { Col, Row } from "antd";
 function WelcomePage() {
@@ -38,7 +36,6 @@ function WelcomePage() {
 
   return (
     <section>
-      <ToastContainer autoClose={2000} />
       {filteredCategories.length <= 0 && searchResponse.length <= 0 && (
         <Row
           className={`text-center ${
@@ -76,32 +73,27 @@ function WelcomePage() {
         </Row>
       )}
 
-      <ErrorBoundary>
-        {!filteredCategories.length > 0 && searchResponse.length <= 0 && (
-          <ThinkSection
-            title={<p className="text-center ">Popluyar fikirlər</p>}
-            items={popular?.sort((a, b) => b.likeCount - a.likeCount)}
-            loading={popularLoading}
-          />
-        )}
-      </ErrorBoundary>
-      <ErrorBoundary>
+      {!filteredCategories.length > 0 && searchResponse.length <= 0 && (
         <ThinkSection
-          title={
-            <p className="text-center">{`${
-              filteredCategories.length > 0
-                ? "Seçdiyiniz kateqoriyalardan"
-                : searchResponse.length > 0
-                ? "Axtarış nəticələri"
-                : "Bütün fikirlər"
-            }`}</p>
-          }
-          items={
-            filteredCategories.length > 0 ? filteredCategories : sortedData
-          }
-          loading={loading}
+          title={<p className="text-center ">Popluyar fikirlər</p>}
+          items={popular?.sort((a, b) => b.likeCount - a.likeCount)}
+          loading={popularLoading}
         />
-      </ErrorBoundary>
+      )}
+
+      <ThinkSection
+        title={
+          <p className="text-center">{`${
+            filteredCategories.length > 0
+              ? "Seçdiyiniz kateqoriyalardan"
+              : searchResponse.length > 0
+              ? "Axtarış nəticələri"
+              : "Bütün fikirlər"
+          }`}</p>
+        }
+        items={filteredCategories.length > 0 ? filteredCategories : sortedData}
+        loading={loading}
+      />
     </section>
   );
 }

@@ -30,7 +30,9 @@ function Input({
 
   useEffect(() => {
     if (validate) {
-      setError(true);
+      setTimeout(() => {
+        setError(true);
+      }, 3000);
     } else {
       setError(false);
     }

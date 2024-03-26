@@ -3,7 +3,7 @@ import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
 import { useDeleteThink } from "../../../hooks/useFetch";
 import { useEffect } from "react";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { FaRegTrashAlt } from "react-icons/fa";
 function AllPosts({ thinks, thinksLoading, getThinkFetch }) {
   const [deletedRes, deleteFetch] = useDeleteThink();
@@ -31,7 +31,6 @@ function AllPosts({ thinks, thinksLoading, getThinkFetch }) {
         <LoadingSpin />
       ) : (
         <section className="px-20 mt-10 ">
-          <ToastContainer autoClose={2000} />
           <Row className="p-3 text-black">
             <Col className="text-[20px] font-[500]" span={4}>
               İstifadəçi adı

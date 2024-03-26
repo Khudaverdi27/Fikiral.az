@@ -8,7 +8,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'roboto': ['Roboto', 'system-ui',"serif"],
+        'roboto': ['Roboto', ' sans-serif',"serif"],
+        'poppins': ['Poppins', ' sans-serif',"serif"],
         'fransisco': ['San Francisco',"sans-serif"]},
       colors:{
         primaryGray: ' #262626'

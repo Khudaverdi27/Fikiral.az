@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "antd";
 import { MdClose } from "react-icons/md";
 import { useForm } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 function FullCategories({ categories, categoryLoad, getCategories }) {
   const [res, fetchDelete, loadingById] = useFetchDeleteCategory();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,6 +51,8 @@ function FullCategories({ categories, categoryLoad, getCategories }) {
   useEffect(() => {
     if (addRes.status === 500) {
       notifyError("Bir şeylər tərs getdi, yenidən yoxlayın!");
+    } else if (addRes.status === 409) {
+      notifyError("Bu kateqoriya artıq mövcuddur!");
     } else if (addRes.status === 200) {
       getCategories().then(() => notifySuccess("Uğurla əlavə olundu!"));
     }
@@ -70,7 +72,6 @@ function FullCategories({ categories, categoryLoad, getCategories }) {
         <LoadingSpin />
       ) : (
         <section className="px-20 mt-10 text-black">
-          <ToastContainer autoClose={2000} />
           <Row className="p-3">
             <Col className="text-[20px] font-[500]" span={8}>
               Kateqoriya adı

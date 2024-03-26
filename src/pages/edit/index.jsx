@@ -19,7 +19,7 @@ import {
   useChangeUserPassword,
 } from "../../hooks/useFetch";
 import { LoadingSpin } from "../../components/widget/Loading/ThinkSkeleton";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function EditProfile() {
@@ -170,7 +170,6 @@ function EditProfile() {
         <LoadingSpin />
       ) : (
         <Row>
-          <ToastContainer autoClose={2000} />
           <Col span={24}>
             <h3 className="text-[32px] font-semibold mb-7">
               Profili redaktə edin

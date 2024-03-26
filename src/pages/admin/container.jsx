@@ -10,6 +10,7 @@ import RighSide from "./RightSide/rightSide";
 import { getStorage, removeStorage } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import { useModalActions } from "../../context/LoginModalProvider";
+import { ToastContainer } from "react-toastify";
 
 function AdminPage() {
   const [allActiveUsers, getActiveUserFetch, allActiveLoading] =
@@ -47,6 +48,7 @@ function AdminPage() {
   return (
     <>
       <div className="flex flex-1 overflow-hidden">
+        <ToastContainer autoClose={2000} />
         <LeftSide
           activeMenuLeft={activeMenuLeft}
           setActiveMenu={setActiveMenu}

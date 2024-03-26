@@ -49,8 +49,8 @@ function Header() {
         <div
           className={classNames("flex", "items-center", {
             "justify-between": isMobile,
+            "!ml-20": !isMobile && token.length > 0,
             "ml-[50px]": !isMobile,
-            "!ml-24": !isMobile && token.length > 0,
           })}
         >
           <Logo />
