@@ -37,7 +37,7 @@ function Header() {
       className={classNames(
         {
           "flex items-center py-[25px]": !isMobile,
-          "px-5 py-2 overflow-x-hidden": isMobile,
+          "px-5 py-2  ": isMobile,
           "w-full dark:bg-[#22303c] top-0 z-40 bg-[#FDFDFF]": true,
           "justify-center": token.length > 0,
           "justify-evenly": token.length === 0,
@@ -78,9 +78,8 @@ function Header() {
                 </span>
               }
               dropDownItems={category}
-              classes={`w-[314px] max-h-[424px] overflow-x-hidden ${
-                isMobile ? "!top-[50px]" : "!top-[85px]"
-              }`}
+              classes={`w-[314px] max-h-[424px] overflow-x-hidden ${isMobile ? "!top-[50px]" : "!top-[85px]"
+                }`}
             />
           )}
 
