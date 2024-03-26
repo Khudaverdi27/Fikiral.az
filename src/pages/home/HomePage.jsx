@@ -2,7 +2,7 @@ import ThinkSection from "./components/ThinkSections";
 import { useModalActions } from "../../context/LoginModalProvider";
 import { useFetchThinksList } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
-import { getStorage } from "../../utils/helpers";
+import { getStorage, removeStorage } from "../../utils/helpers";
 import ErrorBoundary from "../../components/common/ErrorBoundary";
 import { useSearchActions } from "../../context/FormSearchProvider";
 
@@ -14,6 +14,10 @@ function HomePage() {
     useModalActions();
 
   const { searchResponse } = useSearchActions();
+
+  setTimeout(() => {
+    removeStorage("admin");
+  }, 5000);
 
   useEffect(() => {
     if (userByIdData.id) {

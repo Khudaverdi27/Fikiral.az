@@ -7,6 +7,9 @@ import {
 } from "../../hooks/useFetch";
 import LeftSide from "./leftSide";
 import RighSide from "./RightSide/rightSide";
+import { getStorage, removeStorage } from "../../utils/helpers";
+import { useNavigate } from "react-router-dom";
+import { useModalActions } from "../../context/LoginModalProvider";
 
 function AdminPage() {
   const [allActiveUsers, getActiveUserFetch, allActiveLoading] =
@@ -15,12 +18,25 @@ function AdminPage() {
   const [thinks, getThinkFetch, thinksLoading] = useFetchThinksList();
   const [thinkbYcategory, getThinkBy, byLoad] = useFetchThinkByCategory();
   const [activeMenuLeft, setActiveMenu] = useState("main");
+  const { userById, userLoading } = useModalActions();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getActiveUserFetch();
     getCategories();
     getThinkFetch();
   }, []);
+  const admin = getStorage("admin");
+  setTimeout(() => {
+    removeStorage("admin");
+  }, 60000);
+  useEffect(() => {
+    if (admin.length == 0) {
+      removeStorage("userId");
+      removeStorage("token");
+      navigate("/");
+    }
+  }, [userById]);
 
   useEffect(() => {
     if (categories) {
@@ -36,6 +52,8 @@ function AdminPage() {
           setActiveMenu={setActiveMenu}
         />
         <RighSide
+          userById={userById}
+          userLoading={userLoading}
           activeMenuLeft={activeMenuLeft}
           thinkbYcategory={thinkbYcategory}
           getCategories={getCategories}

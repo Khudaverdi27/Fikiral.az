@@ -16,9 +16,10 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import DrawerToggle from "../widget/Loading/ToggleMenu/drawer";
 import classNames from "classnames";
 import AddModal from "../ui/Modals/AddModal";
+import { Skeleton, Space } from "antd";
 function Header() {
   const { category, loading } = useCategories(true, "checkbox");
-  const { userByIdData } = useModalActions();
+  const { userByIdData, userLoading } = useModalActions();
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const isTablet = useMediaQuery("only screen and (max-width : 768px)");
   const token = getStorage("token");
@@ -77,7 +78,9 @@ function Header() {
                 </span>
               }
               dropDownItems={category}
-              classes={"w-[314px] max-h-[424px] overflow-x-hidden !top-[85px]"}
+              classes={`w-[314px] max-h-[424px] overflow-x-hidden ${
+                isMobile ? "!top-[50px]" : "!top-[85px]"
+              }`}
             />
           )}
 
@@ -108,42 +111,51 @@ function Header() {
       )}
       {token.length !== 0 ? (
         !isMobile && (
-          <DropdownMenu
-            classes={"w-[142px] max-h-[108px] !top-[85px] "}
-            dropName={
-              <span className="text-primaryGray dark:text-white ">
-                {userByIdData?.userName?.split(" ")[0].toLowerCase()}
-              </span>
-            }
-            profilImg={
-              userByIdData?.image ||
-              userByIdData?.userName?.charAt(0).toLowerCase()
-            }
-            dropDownItems={[
-              {
-                id: "editProfil",
-                title: (
-                  <Link
-                    to={"/edit-my-profile"}
-                    className="flex items-center dark:text-white  text-base "
-                  >
-                    Redaktə et
-                  </Link>
-                ),
-              },
-              {
-                id: "logoutProfile",
-                title: (
-                  <IsConfirmModal
-                    title={"Hesabdan çıxmaq istəyirsiz?"}
-                    dangerBtn={"Çıxış"}
-                    destroyBtn={"Çıxış"}
-                    destroyProfile={logoutProfile}
-                  />
-                ),
-              },
-            ]}
-          />
+          <div>
+            {!userLoading ? (
+              <DropdownMenu
+                classes={"w-[142px] max-h-[108px] !top-[85px] "}
+                dropName={
+                  <span className="text-primaryGray dark:text-white ">
+                    {userByIdData?.userName?.split(" ")[0].toLowerCase()}
+                  </span>
+                }
+                profilImg={
+                  userByIdData?.image ||
+                  userByIdData?.userName?.charAt(0).toLowerCase()
+                }
+                dropDownItems={[
+                  {
+                    id: "editProfil",
+                    title: (
+                      <Link
+                        to={"/edit-my-profile"}
+                        className="flex items-center dark:text-white  text-base "
+                      >
+                        Redaktə et
+                      </Link>
+                    ),
+                  },
+                  {
+                    id: "logoutProfile",
+                    title: (
+                      <IsConfirmModal
+                        title={"Hesabdan çıxmaq istəyirsiz?"}
+                        dangerBtn={"Çıxış"}
+                        destroyBtn={"Çıxış"}
+                        destroyProfile={logoutProfile}
+                      />
+                    ),
+                  },
+                ]}
+              />
+            ) : (
+              <Space>
+                <Skeleton.Avatar active size={"large"} shape={"circle"} />
+                <Skeleton.Button active size={"default"} shape={"square"} />
+              </Space>
+            )}
+          </div>
         )
       ) : (
         <div className={`${!isMobile && "mr-12"}`}>

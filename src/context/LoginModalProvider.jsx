@@ -47,6 +47,7 @@ function ModalProvider({ children }) {
   } = useForm();
 
   const onSubmit = async (data) => {
+    saveStorage("admin", "admin");
     if (data.userName) {
       setConfrimRegister(false);
       data["categories"] = [];

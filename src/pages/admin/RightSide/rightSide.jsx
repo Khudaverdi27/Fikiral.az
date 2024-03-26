@@ -10,6 +10,8 @@ import AllPosts from "./allPosts";
 import { useFetchInAcceptedThinks } from "../../../hooks/useFetch";
 
 function RighSide({
+  userLoading,
+  userById,
   allActiveUsers,
   allActiveLoading,
   categories,
@@ -38,7 +40,11 @@ function RighSide({
 
   return (
     <section className="w-full">
-      <AdminNavbar inAcceptedPosts={inAcceptedPosts} />
+      <AdminNavbar
+        inAcceptedPosts={inAcceptedPosts}
+        userById={userById}
+        userLoading={userLoading}
+      />
       {activeMenuLeft === "main" && (
         <div className="mt-6 flex justify-between pl-7 pr-10">
           <div className="space-x-5 bg-white rounded-lg">

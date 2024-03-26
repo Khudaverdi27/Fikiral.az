@@ -1,17 +1,13 @@
 import FormSearch from "../../../components/ui/Form/FormSearch";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
-import {
-  getStorage,
-  removeLocaleStorage,
-  removeStorage,
-} from "../../../utils/helpers";
+import { removeLocaleStorage, removeStorage } from "../../../utils/helpers";
 import DropdownMenu from "../../../components/ui/Dropdown";
 import { Badge } from "antd";
 import { HiOutlineBell } from "react-icons/hi2";
 import { useEffect, useState } from "react";
-import { useGetUserById } from "../../../hooks/useFetch";
-import { Skeleton } from "antd";
-function AdminNavbar({ inAcceptedPosts }) {
+import { Skeleton, Space } from "antd";
+
+function AdminNavbar({ inAcceptedPosts, userById, userLoading }) {
   const logoutProfile = () => {
     removeStorage("token");
     removeStorage("userId");
@@ -23,11 +19,6 @@ function AdminNavbar({ inAcceptedPosts }) {
   };
 
   const [badgeName, setBadgeName] = useState("Boşdur");
-  const userId = getStorage("userId");
-  const [userById, getUserFetch, userLoading] = useGetUserById();
-  useEffect(() => {
-    getUserFetch(userId);
-  }, [userId]);
 
   useEffect(() => {
     if (inAcceptedPosts.length > 0) {
@@ -48,7 +39,10 @@ function AdminNavbar({ inAcceptedPosts }) {
           </button>
         </Badge>
         {userLoading ? (
-          <Skeleton.Avatar active size={"large"} shape={"circle"} />
+          <Space>
+            <Skeleton.Avatar active size={"large"} shape={"circle"} />
+            <Skeleton.Button active size={"default"} shape={"square"} />
+          </Space>
         ) : (
           <DropdownMenu
             classes={"w-[142px] max-h-[108px] !top-[70px] "}
