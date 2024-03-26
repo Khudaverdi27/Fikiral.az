@@ -7,6 +7,7 @@ import {
   useFetchCommentLists,
   usePostNotify,
 } from "../../../hooks/useFetch";
+import _ from "lodash";
 
 export const DropNotifications = () => {
   const { notifyRes, notifyResloading } = useModalActions();
@@ -40,7 +41,7 @@ export const DropNotifications = () => {
         <LoadingSpin />
       ) : (
         <>
-          {notifyRes?.map((item, index) => (
+          {_.map(notifyRes, (item, index) => (
             <div
               key={index}
               className="flex justify-between items-center pb-2  w-full "
@@ -67,10 +68,10 @@ export const DropNotifications = () => {
                   }`}
                 >
                   <span className=" whitespace-nowrap ">
-                    {item.actionOwnerName.split(" ")[0].toLowerCase() ===
+                    {_.split(item.actionOwnerName, " ", 1)[0].toLowerCase() ===
                     "yenifikir"
                       ? "admin"
-                      : item.actionOwnerName.split(" ")[0].toLowerCase()}
+                      : _.split(item.actionOwnerName, " ", 1)[0].toLowerCase()}
                   </span>
                 </div>
               </div>
