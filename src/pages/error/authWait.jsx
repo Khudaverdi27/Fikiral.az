@@ -10,7 +10,7 @@ function AuthWait() {
   const [pass, setPass] = useState("");
   const [confrimPass, setConfrimPass] = useState("");
   const [disabled, setDisabled] = useState(true);
-  const [changedPassRes, newPasswordFetch] = useChangeUserPassword();
+  const [changedPassRes, newPasswordFetch, loading] = useChangeUserPassword();
   const [resData, setResData] = useState({});
   const [storageData, setStorageData] = useState("");
   const { handleSubmit } = useForm();
@@ -113,7 +113,7 @@ function AuthWait() {
               type="submit"
               className="bg-indigo-500 disabled:opacity-50 text-white w-full py-[8px] rounded-[8px]"
             >
-              Təsdiqlə
+              {loading ? "Gözləyin..." : " Təsdiqlə"}
             </button>
           </div>
         </form>
