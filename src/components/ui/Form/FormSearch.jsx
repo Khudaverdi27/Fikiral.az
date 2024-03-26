@@ -90,8 +90,11 @@ function FormSearch() {
         {openSrch && (
           <div
             ref={ref}
-            className="w-[320px] border px-1 dark:bg-[#22303c]
-          bg-white rounded-md mt-[2px] dark:border-gray-600 absolute text-black overflow-auto max-h-[387px]"
+            className={classNames({
+              "!w-[320px]": !isMobile && !isOpen,
+              "w-[228px]": !isMobile || isOpen,
+              "border px-1 dark:bg-[#22303c] bg-white rounded-md mt-[2px] dark:border-gray-600 absolute text-black overflow-auto max-h-[387px]]": true
+            })}
           >
             <div className="flex justify-between items-center py-5 px-1 font-[500] ">
               <span className="text-[15px] dark:text-white">
@@ -109,7 +112,7 @@ function FormSearch() {
               searchItems.map((res) => (
                 <div
                   key={res.id}
-                  className="flex items-center cursor-pointer justify-between py-[10px] hover:border-black border-b "
+                  className="flex  items-center cursor-pointer justify-between py-[10px] hover:border-black border-b "
                 >
                   <button
                     onClick={() => openMessageModal(res)}
