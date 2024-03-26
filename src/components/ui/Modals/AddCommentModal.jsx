@@ -15,7 +15,7 @@ import ThinkComments from "../../widget/Thinks/ThinkComment";
 import { Link } from "react-router-dom";
 import { usePostComments } from "../../../hooks/useFetch";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
-import { useClickAway } from "@uidotdev/usehooks";
+import { useClickAway, useMediaQuery } from "@uidotdev/usehooks";
 
 const AddCommentModal = ({
   postNotifyFetch,
@@ -34,6 +34,7 @@ const AddCommentModal = ({
   const [value, setValue] = useState("");
   const { setIsCommented } = useModalActions();
   const [data, postComment, postLoading] = usePostComments();
+  const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const token = getStorage("token");
 
   const addNewComment = (e) => {
@@ -94,7 +95,12 @@ const AddCommentModal = ({
       >
         <div ref={refModal}>
           <Row className="relative" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-            <Col className="border-r border-primaryGray mr-1" span={11}>
+            <Col
+              className={`${
+                isMobile ? "border-b pb-4" : "border-r"
+              } " border-primaryGray mr-1"`}
+              span={isMobile ? 24 : 11}
+            >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex space-x-2 items-center">
@@ -114,6 +120,21 @@ const AddCommentModal = ({
                     <h6 className="text-[20px] dark:text-white font-fransisco">
                       {modalData?.user?.userName.split(" ")[0].toLowerCase()}
                     </h6>
+                    {isMobile && (
+                      <IconContext.Provider
+                        value={{
+                          color: "#636363",
+                          className: `hover:stroke-black dark:hover:stroke-gray-300 ${
+                            bookmark && "fill-primaryGray dark:fill-white"
+                          } `,
+                        }}
+                      >
+                        <HiOutlineBookmark
+                          onClick={sendToSaveds}
+                          className={`size-5 dark:!text-white cursor-pointer absolute right-7 top-[-2px] `}
+                        />
+                      </IconContext.Provider>
+                    )}
                   </div>
                 </div>
                 <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
@@ -133,23 +154,29 @@ const AddCommentModal = ({
               </div>
             </Col>
 
-            <Col span={12}>
-              <div className="overflow-auto max-h-[370px] h-[370px] mt-16 pr-4">
-                <div className="flex items-center justify-end space-x-2">
-                  <IconContext.Provider
-                    value={{
-                      color: "#636363",
-                      className: `hover:stroke-black dark:hover:stroke-gray-300 ${
-                        bookmark && "fill-primaryGray dark:fill-white"
-                      } `,
-                    }}
-                  >
-                    <HiOutlineBookmark
-                      onClick={sendToSaveds}
-                      className={`size-5 dark:!text-white cursor-pointer absolute right-3 top-0 `}
-                    />
-                  </IconContext.Provider>
-                </div>
+            <Col span={isMobile ? 24 : 11}>
+              <div
+                className={`overflow-auto max-h-[370px] h-[370px] ${
+                  isMobile ? "mt-5" : "mt-16"
+                } pr-4`}
+              >
+                {!isMobile && (
+                  <div className="flex items-center justify-end space-x-2">
+                    <IconContext.Provider
+                      value={{
+                        color: "#636363",
+                        className: `hover:stroke-black dark:hover:stroke-gray-300 ${
+                          bookmark && "fill-primaryGray dark:fill-white"
+                        } `,
+                      }}
+                    >
+                      <HiOutlineBookmark
+                        onClick={sendToSaveds}
+                        className={`size-5 dark:!text-white cursor-pointer absolute right-3 top-0 `}
+                      />
+                    </IconContext.Provider>
+                  </div>
+                )}
 
                 {commentLoading ? (
                   <LoadingSpin />

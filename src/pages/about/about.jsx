@@ -19,7 +19,7 @@ function AboutPage() {
         </div>
         <div className="text">
           <strong className="text-xl">Sizə nə təklif edirik?</strong>
-          <article className="bg-white rounded-xl p-2 dark:text-black">
+          <article className="bg-white rounded-xl p-2 dark:text-black mt-2">
             Saytımızda siz fikir mübadiləsi, layihələrin müzakirəsi və
             tərəfdaşlar tapmaq üçün geniş funksiyalar tapa bilərsiniz. Biz fikir
             əlavə etmək, şərh vermək və müzakirə etmək üçün rahat interfeys,
@@ -38,8 +38,8 @@ function AboutPage() {
       </div>
       <div className="sm:w-1/2 p-5 space-y-5">
         <div>
-          <strong className="text-xl"> Missiyamız</strong>
-          <article className="bg-white rounded-xl p-2 dark:text-black">
+          <strong className="text-xl "> Missiyamız</strong>
+          <article className="bg-white rounded-xl p-2 mt-2 dark:text-black">
             Bizim missiyamız biznes ideyalarının mübadiləsi prosesini
             cəmiyyətimizin bütün üzvləri üçün mümkün qədər rahat, effektiv və
             ruhlandırıcı etməkdir.
@@ -47,7 +47,7 @@ function AboutPage() {
         </div>
         <div>
           <strong className="text-xl"> Məqsədimiz</strong>
-          <article className="bg-white rounded-xl p-2 dark:text-black">
+          <article className="bg-white rounded-xl p-2 dark:text-black mt-2">
             Biz bu saytı dünyanın müxtəlif yerlərindən olan istər təcrübəli
             sahibkar, istərsə də yeni başlayanların öz biznes ideyalarını
             sərbəst ifadə edə bildikləri, layihələrini həyata keçirməkdə

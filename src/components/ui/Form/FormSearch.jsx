@@ -6,6 +6,7 @@ import AddCommentModal from "../Modals/AddCommentModal";
 import { useSearchActions } from "../../../context/FormSearchProvider";
 import { useFetchCommentLists, usePostNotify } from "../../../hooks/useFetch";
 import classNames from "classnames";
+import { getStorage } from "../../../utils/helpers";
 
 function FormSearch() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +20,7 @@ function FormSearch() {
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const searchItems = showFull ? searchResponse : searchResponse.slice(0, 5);
-
+  const token = getStorage("token");
   const ref = useClickAway(() => {
     setOpenSrch(false);
   });
@@ -65,6 +66,7 @@ function FormSearch() {
       <div
         className={classNames("mx-6", {
           "left-[140px]": isOpen,
+          "left-[50px]": isOpen && token.length > 0,
           "absolute -translate-x-3/4": isMobile,
           relative: !isMobile,
           "right-8": isMobile && !isOpen,

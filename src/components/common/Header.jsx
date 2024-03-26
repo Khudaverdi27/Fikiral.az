@@ -33,14 +33,16 @@ function Header() {
   };
   return (
     <header
-      className={`${
-        !isMobile
-          ? "flex items-center py-[25px]"
-          : "px-5 py-2 overflow-x-hidden"
-      }   w-full  dark:bg-[#22303c]  
-     top-0 z-40  bg-[#FDFDFF] ${
-       token.length > 0 ? "justify-center " : "justify-evenly "
-     } sticky `}
+      className={classNames(
+        {
+          "flex items-center py-[25px]": !isMobile,
+          "px-5 py-2 overflow-x-hidden": isMobile,
+          "w-full dark:bg-[#22303c] top-0 z-40 bg-[#FDFDFF]": true,
+          "justify-center": token.length > 0,
+          "justify-evenly": token.length === 0,
+        },
+        "sticky"
+      )}
     >
       <div className="flex justify-between">
         <div
@@ -87,12 +89,12 @@ function Header() {
       </div>
       {token.length !== 0 && isMobile && (
         <div className="flex justify-between mt-5">
-          <div>
+          <div className="border border-indigo-400 flex items-center px-2 py-1 rounded-xl">
             <DropdownMenu
               loading={loading}
               dropName={
-                <span className="text-primaryGray hover:text-indigo-500 dark:text-white">
-                  Kateqoriya
+                <span className="text-primaryGray mb-1 mr-1 block hover:text-indigo-500 dark:text-white">
+                  Kateqoriyalar
                 </span>
               }
               dropDownItems={category}
