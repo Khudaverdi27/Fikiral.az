@@ -17,6 +17,7 @@ import DrawerToggle from "../widget/Loading/ToggleMenu/drawer";
 import classNames from "classnames";
 import AddModal from "../ui/Modals/AddModal";
 import { Skeleton, Space } from "antd";
+import { FaChevronDown } from "react-icons/fa6";
 function Header() {
   const { category, loading } = useCategories(true, "checkbox");
   const { userByIdData, userLoading } = useModalActions();
@@ -73,13 +74,14 @@ function Header() {
             <DropdownMenu
               loading={loading}
               dropName={
-                <span className="text-primaryGray hover:text-indigo-500 dark:text-white">
+                <span className="text-primaryGray mb-2 hover:text-indigo-500 dark:text-white">
                   Kateqoriya
                 </span>
               }
               dropDownItems={category}
-              classes={`w-[314px] max-h-[424px] overflow-x-hidden ${isMobile ? "!top-[50px]" : "!top-[85px]"
-                }`}
+              classes={`w-[314px] max-h-[424px] overflow-x-hidden ${
+                isMobile ? "!top-[50px]" : "!top-[85px]"
+              }`}
             />
           )}
 
@@ -91,18 +93,19 @@ function Header() {
       </div>
       {token.length !== 0 && isMobile && (
         <div className="flex justify-between mt-5">
-          <div className="border border-indigo-400 flex items-center px-2 py-1 rounded-xl">
-            <DropdownMenu
-              loading={loading}
-              dropName={
-                <span className="text-primaryGray mb-1 mr-1 block hover:text-indigo-500 dark:text-white">
-                  Kateqoriyalar
-                </span>
-              }
-              dropDownItems={category}
-              classes={"w-[314px] max-h-[424px] overflow-x-hidden !top-[85px]"}
-            />
-          </div>
+          <DropdownMenu
+            loading={loading}
+            dropName={
+              <span className="text-primaryGray flex items-center space-x-2  hover:text-indigo-500 dark:text-white">
+                <span> Kateqoriyalar</span> <FaChevronDown />
+              </span>
+            }
+            dropDownItems={category}
+            classes={
+              "w-[314px] max-h-[424px] overflow-x-hidden !top-[112px] border border-gray-100"
+            }
+          />
+
           <div>
             <AddModal />
           </div>

@@ -32,7 +32,7 @@ const FormContainer = ({ children }) => {
         </button>
         <button
           onClick={switcRegisterModal}
-          className={`border dark:border-[#22303c]  bg-indigo-500 text-white py-2 rounded-xl ${
+          className={`border dark:border-[#22303c]  bg-indigo-500 text-white py-[9px] rounded-xl ${
             isMobile ? "px-10" : "px-4"
           }`}
         >
