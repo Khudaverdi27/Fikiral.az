@@ -5,23 +5,42 @@ import { getStorage, saveStorage } from "../utils/helpers";
 import { useModalActions } from "../context/LoginModalProvider";
 import _ from "lodash";
 
-export const useCategories = (allSelect = true, type, classes = false) => {
+export const useCategories = (
+  allSelect = true,
+  type,
+  classes = false,
+  defaultSelect = false
+) => {
   const [allCategories, apiCategoryFetch, loading] = useFetchAllCategoryList();
   useEffect(() => {
     apiCategoryFetch();
   }, []);
 
-  const { setSelectCategory, selectCategory, userById } = useModalActions();
+  const { setSelectCategory, selectCategory, userByIdData } = useModalActions();
   const [allChecked, setAllChecked] = useState(false);
   const [checkboxStates, setCheckboxStates] = useState(
-    Array.from({ length: 27 }, () => false) // 26 beacuse all categories is empty at beginning
+    Array.from({ length: 27 }, () => false) // 27 because all categories is empty at the beginning
   );
+
+  //edit page default selected
+  useEffect(() => {
+    userByIdData?.categoryIds?.forEach((categoryId) => {
+      const index = allCategories.findIndex((c) => c.id === categoryId);
+      if (index !== -1 && defaultSelect) {
+        setCheckboxStates((prevStates) => {
+          const updatedStates = [...prevStates];
+          updatedStates[index] = true;
+          return updatedStates;
+        });
+      }
+    });
+  }, [allCategories]);
 
   const selectAll = () => {
     if (type !== "radio") {
       setSelectCategory(!selectCategory);
       setAllChecked((prevState) => !prevState);
-      setCheckboxStates(checkboxStates.map(() => !allChecked));
+      setCheckboxStates(_.map(checkboxStates, () => !allChecked));
       if (!allChecked) {
         saveStorage(
           "selectedCategories",
@@ -36,13 +55,16 @@ export const useCategories = (allSelect = true, type, classes = false) => {
 
   const selectOne = (index, id) => {
     if (type == "radio") {
-      const newCheckboxStates = checkboxStates.map((state, i) => i === index);
+      const newCheckboxStates = _.map(
+        checkboxStates,
+        (state, i) => i === index
+      );
       setCheckboxStates(newCheckboxStates);
     } else {
       const storeData = getStorage("selectedCategories");
       setSelectCategory(!selectCategory);
       setCheckboxStates(
-        checkboxStates.map((state, i) => (i === index ? !state : state))
+        _.map(checkboxStates, (state, i) => (i === index ? !state : state))
       );
       setSelectedIds(() => {
         if (storeData.includes(id)) {

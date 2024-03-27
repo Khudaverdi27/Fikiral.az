@@ -6,10 +6,11 @@ function EditPassword({
   setPassValue,
   userLoginAuthLoading,
   setCompeleteEdit,
+  errMsg,
 }) {
   const [newPass, setNewPass] = useState("");
   const [confrimPass, setConfrimPass] = useState("");
-  const { onSubModel, userByIdData, watch } = useModalActions();
+  const { userByIdData, watch } = useModalActions();
   const [confrimPassValue, setConfrimPassValue] = useState("");
   const [isEqual, setIsEqual] = useState(false);
 
@@ -52,7 +53,7 @@ function EditPassword({
           onBlur={(e) => setPassValue(e.target.value)}
           checkLoading={userLoginAuthLoading}
         />
-
+        <span className="text-red-500">{errMsg}</span>
         {/* <button
           type="button"
           className="text-indigo-500 text-base mt-1"

@@ -13,7 +13,6 @@ function EditWithPhoto({
   setUserImg,
   passValue,
   setPassValue,
-  userLoginAuth,
   userLoginAuthLoading,
   errMsg,
 }) {
@@ -21,7 +20,12 @@ function EditWithPhoto({
   const [selectedImage, setSelectedImage] = useState(null);
   const [emailValue, setEmailValue] = useState("");
   const [userValue, setUserValue] = useState("");
-  const { category, loading, selectedIds } = useCategories(false, "checkbox");
+  const { category, loading, selectedIds } = useCategories(
+    false,
+    "checkbox",
+    false,
+    true
+  );
   const {
     authCheckUserNameLoading,
     authCheckLoading,
@@ -159,10 +163,9 @@ function EditWithPhoto({
         }}
         onBlur={(e) => getUserName(e.target.value)}
         checkLoading={authCheckUserNameLoading}
-        onFocus={() => setFocus(false)}
       />
       <Input
-        onFocus={() => setFocus(true)}
+        onFocus={() => setFocus(!focus)}
         value={userByIdData.gmail}
         label={"E-poçt"}
         placeholder={"e-poçt daxil edin"}

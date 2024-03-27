@@ -19,6 +19,7 @@ function FormRegisterConfrim() {
   const [verifyRes, verifyFetch, verifyLoading] = useVerifyMail();
   const [disabled, setDisabled] = useState(true);
   const [verifyConfrim, setVerifyConfrim] = useState(true);
+
   const { handleSubmit, onSubmit, setSubModel, resRegister, reset } =
     useModalActions();
   const social = getStorage("social");
@@ -27,13 +28,11 @@ function FormRegisterConfrim() {
 
   const notify = () => toast.error("Bu istifadəçi mövcuddur!");
   const skipCategory = () => {
-    removeStorage("social");
     authFetch(resRegister).then(() => setVerifyConfrim(false));
     reset();
   };
 
   const withCategory = () => {
-    removeStorage("social");
     reset();
 
     const trueIndexes = checkboxStates.reduce((acc, state, index) => {
@@ -50,7 +49,13 @@ function FormRegisterConfrim() {
     // find element id
     const categories = elementsWithCategory.map((element) => element.id);
     resRegister["categories"] = categories;
-    authFetch(resRegister).then(() => setVerifyConfrim(false));
+    authFetch(resRegister).then(() => {
+      if (social.length !== 0) {
+        setVerifyConfrim(true);
+      } else {
+        setVerifyConfrim(false);
+      }
+    });
   };
 
   useEffect(() => {
@@ -58,8 +63,14 @@ function FormRegisterConfrim() {
       setDisabled(true);
       notify();
       setSubModel(false);
-    } else {
-      setDisabled(false);
+      removeStorage("social");
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
+    } else if (registerAuth.status === 200 && social.length > 0) {
+      navigate("/home");
+      setSubModel(false);
+      removeStorage("social");
     }
   }, [registerAuth]);
 
@@ -92,7 +103,7 @@ function FormRegisterConfrim() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-      {!verifyConfrim && !social && (
+      {social.length == 0 && !verifyConfrim && (
         <div className="text-center text-base">
           E-mailinizdəki linkə klik edin və gözləyin zəhmət olmasa
         </div>

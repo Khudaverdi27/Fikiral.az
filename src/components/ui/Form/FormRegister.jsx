@@ -31,31 +31,32 @@ const FormRegister = () => {
   const watchFields = watch();
 
   const compeleteLoginSocial = async (social) => {
-    saveStorage("social", social);
-    setTimeout(() => {
+    if (accescLogin) {
+      saveStorage("social", social);
+    } else {
       removeStorage("social");
-    }, 10000);
+    }
     const dataSocial =
       social === "fb" ? await loginFacebook() : await loginGoogle();
     // dataSocial.user.displayName.split(" ")[0]
     const mail =
       dataSocial?.user?.email ||
-      `${_.split(dataSocial.user.displayName, " ", 1)[0]}@gmail.com`;
+      `${_.split(dataSocial?.user.displayName, " ", 1)[0]}@gmail.com`;
 
     const formData = {
       gmail: mail,
-      password: dataSocial.user.uid,
+      password: dataSocial?.user.uid,
       ...(accescLogin
         ? {
-            userName: dataSocial.user.displayName,
-            image: dataSocial.user.photoURL,
+            userName: dataSocial?.user.displayName,
+            image: dataSocial?.user.photoURL,
           }
         : {}),
     };
 
     if (accescLogin) {
       checkMail(mail);
-      checkUserName(dataSocial.user.displayName);
+      checkUserName(dataSocial?.user.displayName);
     }
 
     await onSubmit(formData);

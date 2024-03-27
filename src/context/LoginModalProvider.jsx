@@ -75,7 +75,7 @@ function ModalProvider({ children }) {
         if (userLoginAuth.status === 404) {
           errorMessage = "Google'a bağlı istifadəçi yoxdur. Hesab yaradın!";
           setError("gmail", { type: "manual", message: errorMessage });
-        } else if (userLoginAuth.status === 500 && withGoogle) {
+        } else if (userLoginAuth.status === 500 && withGoogle && !accescLogin) {
           errorMessage = "Google'a bağlı şifrə yanlışdır";
           setError("password", { type: "manual", message: errorMessage });
         }

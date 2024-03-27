@@ -57,14 +57,17 @@ function EditProfile() {
   }, [watchPass]);
 
   useEffect(() => {
-    if (userLoginAuthLoading || userLoginAuth.userResponse) {
+    if (userLoginAuth.userResponse) {
       setErrMsg("");
     } else if (userLoginAuth.status === 500) {
       setErrMsg("Şifrə səhvdir!");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 3000);
     } else {
       setErrMsg("Min 8 max 20 simvol");
     }
-  }, [userLoginAuthLoading, userLoginAuth]);
+  }, [userLoginAuth]);
 
   useEffect(() => {
     if (userLoginAuth.userResponse) {
@@ -202,6 +205,7 @@ function EditProfile() {
                   setPassValue={setPassValue}
                   setCompeleteEdit={setCompeleteEdit}
                   userLoginAuthLoading={userLoginAuthLoading}
+                  errMsg={errMsg}
                 />
               ) : (
                 <EditWithPhoto
