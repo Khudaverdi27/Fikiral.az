@@ -9,7 +9,7 @@ import { useModalActions } from "../../../context/LoginModalProvider";
 import { slice } from "lodash";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import ErrorBoundary from "../../../components/common/ErrorBoundary";
-
+import _ from "lodash";
 function ThinkSection({ items, loading, title }) {
   const [showAll, setShowAll] = useState(false);
   const { searchResponse } = useSearchActions();
@@ -46,7 +46,7 @@ function ThinkSection({ items, loading, title }) {
             lg: 32,
           }}
         >
-          {newItems?.map((item) => (
+          {_.map(newItems, (item) => (
             <Col
               key={item.id}
               className="my-5"

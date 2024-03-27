@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useFetchAllCategoryList } from "./useFetch";
 import { getStorage, saveStorage } from "../utils/helpers";
 import { useModalActions } from "../context/LoginModalProvider";
+import _ from "lodash";
 
 export const useCategories = (allSelect = true, type, classes = false) => {
   const [allCategories, apiCategoryFetch, loading] = useFetchAllCategoryList();
@@ -24,7 +25,7 @@ export const useCategories = (allSelect = true, type, classes = false) => {
       if (!allChecked) {
         saveStorage(
           "selectedCategories",
-          allCategories?.map((item) => item.id)
+          _.map(allCategories, (item) => item.id)
         );
       } else {
         saveStorage("selectedCategories", []);
@@ -93,7 +94,7 @@ export const useCategories = (allSelect = true, type, classes = false) => {
     {
       title: (
         <>
-          {allCategories?.map((item, index) => {
+          {_.map(allCategories, (item, index) => {
             return (
               <div
                 className={classNames(

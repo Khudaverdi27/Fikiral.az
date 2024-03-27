@@ -17,6 +17,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import IsConfirmModal from "../../ui/Modals/IsConfirmModal";
 import { sendMessage } from "../../../utils/emailJs";
 import { IoMdCheckmarkCircle } from "react-icons/io";
+import _ from "lodash";
 
 function ThinkCard({ thinks, children, items, userByIdData }) {
   const [bookmark, setBookmark] = useState(false);
@@ -156,7 +157,7 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
                 </span>
               )}
             </figure>
-            <h6>{thinks?.user?.userName.split(" ")[0].toLowerCase()}</h6>
+            <h6>{_.split(thinks.user.userName, " ", 1)[0].toLowerCase()}</h6>
           </div>
           <div className="flex items-center cursor-pointer">
             <IconContext.Provider

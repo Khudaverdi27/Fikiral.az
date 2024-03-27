@@ -9,6 +9,7 @@ import { usePostThink } from "../../../hooks/useFetch";
 import { findFuckingWords } from "../../../utils/helpers";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import { toast } from "react-toastify";
+import _ from "lodash";
 
 const AddModal = () => {
   const [open, setOpen] = useState(false);
@@ -106,7 +107,7 @@ const AddModal = () => {
               )}
             </figure>
             <span className="text-black dark:text-white">
-              {userByIdData?.userName?.split(" ")[0].toLowerCase()}
+              {_.split(userByIdData.userName, " ", 1)[0].toLowerCase()}
             </span>
           </div>
         }
@@ -160,8 +161,9 @@ const AddModal = () => {
 
             <button
               disabled={(!errors.content && !content.category) || result}
-              className={`w-full mt-3 rounded-lg text-base  text-white  px-6 py-[10px] disabled:opacity-40 disabled:cursor-not-allowed ${result ? "bg-red-500 " : "bg-indigo-500"
-                }`}
+              className={`w-full mt-3 rounded-lg text-base  text-white  px-6 py-[10px] disabled:opacity-40 disabled:cursor-not-allowed ${
+                result ? "bg-red-500 " : "bg-indigo-500"
+              }`}
               type="submit"
               key={"btn"}
             >

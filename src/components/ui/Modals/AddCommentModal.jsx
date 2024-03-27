@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { usePostComments } from "../../../hooks/useFetch";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import { useClickAway, useMediaQuery } from "@uidotdev/usehooks";
+import _ from "lodash";
 
 const AddCommentModal = ({
   postNotifyFetch,
@@ -118,7 +119,11 @@ const AddCommentModal = ({
                       )}
                     </figure>
                     <h6 className="text-[20px] dark:text-white font-fransisco">
-                      {modalData?.user?.userName.split(" ")[0].toLowerCase()}
+                      {_.split(
+                        modalData.user?.userName,
+                        " ",
+                        1
+                      )[0].toLowerCase()}
                     </h6>
                     {isMobile && (
                       <IconContext.Provider
@@ -182,7 +187,7 @@ const AddCommentModal = ({
                   <LoadingSpin />
                 ) : (
                   <div className="space-y-3 ">
-                    {allComments?.map((comment) => (
+                    {_.map(allComments, (comment) => (
                       <ThinkComments
                         postNotifyFetch={postNotifyFetch}
                         key={comment.id}

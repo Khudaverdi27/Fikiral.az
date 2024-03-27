@@ -141,6 +141,7 @@ function EditWithPhoto({
             onChange={(e) => handleFileUpload(e)}
             className=" right-1 opacity-0  rounded-xl  absolute w-full bg-slate-950"
             type="file"
+            accept=".jpg,.png"
           />
         </button>
       </div>

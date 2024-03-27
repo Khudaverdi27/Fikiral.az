@@ -6,6 +6,7 @@ import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import Input from "./input";
 import { loginFacebook, loginGoogle } from "../../../utils/firebase";
 import { removeStorage, saveStorage } from "../../../utils/helpers";
+import _ from "lodash";
 
 const FormRegister = () => {
   const {
@@ -36,10 +37,10 @@ const FormRegister = () => {
     }, 10000);
     const dataSocial =
       social === "fb" ? await loginFacebook() : await loginGoogle();
-
+    // dataSocial.user.displayName.split(" ")[0]
     const mail =
       dataSocial?.user?.email ||
-      `${dataSocial?.user?.displayName.split(" ")[0]}@gmail.com`;
+      `${_.split(dataSocial.user.displayName, " ", 1)[0]}@gmail.com`;
 
     const formData = {
       gmail: mail,

@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
 import { toast } from "react-toastify";
 import { FaRegTrashAlt } from "react-icons/fa";
+import _ from "lodash";
+
 function AllPosts({ thinks, thinksLoading, getThinkFetch }) {
   const [deletedRes, deleteFetch] = useDeleteThink();
 

@@ -9,6 +9,7 @@ import { Col, Row } from "antd";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
 import { toast } from "react-toastify";
+import _ from "lodash";
 function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
   const [deletedRes, deleteFetch, deleteLoading] = useDeleteThink();
   const [res, acceptFetch, acceptLoading] = useFetchAcceptThink();
@@ -48,7 +49,7 @@ function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
         </Col>
       ) : (
         <>
-          {inAcceptedPosts?.map((inAccepted) => (
+          {_.map(inAcceptedPosts, (inAccepted) => (
             <Col
               key={inAccepted.id}
               className="m-4 min-w-[300px] max-h-[300px]"
@@ -82,9 +83,11 @@ function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
                         )}
                       </figure>
                       <h6>
-                        {inAccepted?.user?.userName
-                          ?.split(" ")[0]
-                          .toLowerCase()}
+                        {_.split(
+                          inAccepted.user.userName,
+                          " ",
+                          1
+                        )[0].toLowerCase()}
                       </h6>
                     </div>
                   </div>

@@ -3,6 +3,7 @@ import { changeTime, getStorage } from "../../../utils/helpers";
 import { usePostLikeComments } from "../../../hooks/useFetch";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { useModalActions } from "../../../context/LoginModalProvider";
+import _ from "lodash";
 
 function ThinkComments({ comment, postNotifyFetch, postId, postOwnerId }) {
   const [like, setLike] = useState(false);
@@ -65,7 +66,7 @@ function ThinkComments({ comment, postNotifyFetch, postId, postOwnerId }) {
               </figure>
               <div className="mb-[-5px]">
                 <h6 className="font-bold dark:text-white">
-                  {comment?.user?.userName.split(" ")[0].toLowerCase()}
+                  {_.split(comment.user.userName, " ", 1)[0].toLowerCase()}
                 </h6>
                 <span className="text-xs text-[#999999]">
                   {changeTime(comment.publishedAt)}

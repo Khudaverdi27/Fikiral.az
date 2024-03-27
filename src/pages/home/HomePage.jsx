@@ -4,7 +4,7 @@ import { useFetchThinksList } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { getStorage, removeStorage } from "../../utils/helpers";
 import { useSearchActions } from "../../context/FormSearchProvider";
-
+import _ from "lodash";
 function HomePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
   const [newCategories, setNewCategories] = useState([]);
@@ -19,10 +19,16 @@ function HomePage() {
   }, 5000);
 
   useEffect(() => {
-    if (userByIdData.id) {
-      const dataForUser = data
-        .filter((d) => userByIdData?.categoryIds?.includes(d.category.id))
-        .sort((a, b) => b.likeCount - a.likeCount);
+    if (_.get(userByIdData, "id")) {
+      const dataForUser = _.chain(data)
+        .filter((d) =>
+          _.get(userByIdData, "categoryIds", []).includes(
+            _.get(d, "category.id")
+          )
+        )
+        .sortBy((d) => -_.get(d, "likeCount", 0))
+        .value();
+
       setUserSelectCateg(dataForUser);
     }
   }, [loading]);
@@ -38,13 +44,16 @@ function HomePage() {
     });
   }, [isPosted]);
 
-  const sortedData = data
-    ?.sort((a, b) => b.id - a.id)
-    ?.filter((d) => !userByIdData?.categoryIds?.includes(d?.category?.id));
+  const sortedData = _.chain(data)
+    .sortBy((d) => -_.get(d, "id", 0))
+    .reject((d) =>
+      _.get(userByIdData, "categoryIds", []).includes(_.get(d, "category.id"))
+    )
+    .value();
 
-  const filteredCategories = data?.filter((item) =>
-    newCategories?.includes(item?.category?.id)
-  );
+  const filteredCategories = _.chain(data)
+    .filter((item) => _.includes(newCategories, _.get(item, "category.id")))
+    .value();
 
   useEffect(() => {
     const userId = getStorage("userId");
