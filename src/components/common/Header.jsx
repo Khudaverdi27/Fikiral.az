@@ -92,7 +92,7 @@ function Header() {
         </div>
       </div>
       {token.length !== 0 && isMobile && (
-        <div className="flex justify-between mt-5">
+        <div className="flex justify-between mt-4">
           <DropdownMenu
             loading={loading}
             dropName={
@@ -106,9 +106,7 @@ function Header() {
             }
           />
 
-          <div>
-            <AddModal />
-          </div>
+          <AddModal />
         </div>
       )}
       {token.length !== 0 ? (

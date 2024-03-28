@@ -10,6 +10,7 @@ import { findFuckingWords } from "../../../utils/helpers";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import { toast } from "react-toastify";
 import _ from "lodash";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const AddModal = () => {
   const [open, setOpen] = useState(false);
@@ -18,6 +19,8 @@ const AddModal = () => {
     false,
     "radio"
   );
+
+  const isMobile = useMediaQuery("only screen and (max-width : 480px)");
 
   const {
     register,
@@ -85,7 +88,8 @@ const AddModal = () => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="!mx-3 bg-indigo-500 text-white whitespace-nowrap px-4 py-2 rounded-[12px]"
+        className={`bg-indigo-500 text-white 
+        whitespace-nowrap px-4 py-2 rounded-[12px] ${!isMobile && "!mx-3"}`}
       >
         İdeyanı paylaş
       </button>
