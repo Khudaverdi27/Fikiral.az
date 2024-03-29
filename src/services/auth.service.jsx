@@ -1,5 +1,4 @@
 import { authApi } from "../api/auth.api";
-import { userApi } from "../api/user.api";
 import { post } from "../utils/request";
 
 export const ServiceAuthRegistration = async (params = {}) => {

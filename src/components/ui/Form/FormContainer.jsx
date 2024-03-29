@@ -25,14 +25,14 @@ const FormContainer = ({ children }) => {
             isMobile
               ? "px-[52px]  border-indigo-500 border-[0.2px]"
               : "px-4 py-2 hover:outline outline-indigo-500 outline-[0.2px]"
-          }  whitespace-nowrap  text-indigo-500   rounded-xl 
+          }  whitespace-nowrap  text-indigo-500   rounded-xl ml-[-8px]
          `}
         >
           Daxil ol
         </button>
         <button
           onClick={switcRegisterModal}
-          className={`border dark:border-[#22303c]  bg-indigo-500 text-white py-[10px] rounded-xl ${
+          className={`border dark:border-[#22303c]  bg-indigo-500 text-white py-2 rounded-xl ${
             isMobile ? "px-[52px]" : "px-4"
           }`}
         >

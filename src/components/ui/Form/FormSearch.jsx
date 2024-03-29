@@ -21,10 +21,15 @@ function FormSearch() {
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const searchItems = showFull ? searchResponse : searchResponse.slice(0, 5);
   const token = getStorage("token");
+
   const ref = useClickAway(() => {
+    setOpenSrch(false);
     setOpenSrch(false);
   });
 
+  const srchInputRef = useClickAway(() => {
+    setIsOpen(false);
+  });
   const showAllResults = () => {
     setShowFull(!showFull);
   };
@@ -64,6 +69,7 @@ function FormSearch() {
   return (
     <>
       <div
+        ref={srchInputRef}
         className={classNames("mx-6", {
           "left-[140px]": isOpen,
           "left-[50px]": isOpen && token.length > 0,
@@ -93,7 +99,7 @@ function FormSearch() {
             className={classNames({
               "!w-[320px]": !isMobile && !isOpen,
               "w-[228px]": !isMobile || isOpen,
-              "border px-1 dark:bg-[#22303c] bg-white rounded-md mt-[2px] dark:border-gray-600 absolute text-black overflow-auto max-h-[387px]]": true
+              "border px-1 dark:bg-[#22303c] bg-white rounded-md mt-[2px] dark:border-gray-600 absolute text-black overflow-auto max-h-[387px]]": true,
             })}
           >
             <div className="flex justify-between items-center py-5 px-1 font-[500] ">
