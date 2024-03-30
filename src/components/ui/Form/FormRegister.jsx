@@ -44,7 +44,7 @@ const FormRegister = () => {
 
     const formData = {
       gmail: mail,
-      password: dataSocial?.user.uid.slice(0, 8),
+      password: dataSocial?.user.uid,
       ...(accescLogin
         ? {
             userName: dataSocial?.user.displayName,
