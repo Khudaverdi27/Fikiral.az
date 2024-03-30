@@ -69,25 +69,24 @@ function ModalProvider({ children }) {
       navigate(isAdmin ? "/dashboard" : "/home");
       removeStorage("selectedCategories");
     } else {
-      let errorMessage = "";
+      let errorResponse = "";
       if (withGoogle) {
-        authCheckFetch(resRegister.gmail);
         if (userLoginAuth.status === 404) {
-          errorMessage = "Google'a bağlı istifadəçi yoxdur. Hesab yaradın!";
-          setError("gmail", { type: "manual", message: errorMessage });
-        } else if (userLoginAuth.status === 500 && withGoogle && !accescLogin) {
-          errorMessage = "Google'a bağlı şifrə yanlışdır";
-          setError("password", { type: "manual", message: errorMessage });
+          errorResponse = "Google'a bağlı istifadəçi yoxdur. Hesab yaradın!";
+          setError("gmail", { type: "manual", message: errorResponse });
+        } else if (userLoginAuth.status === 403 && withGoogle && !accescLogin) {
+          errorResponse = userLoginAuth.message.errorMessage;
+          setError("password", { type: "manual", message: errorResponse });
         }
-      } else if (withFb) {
-        errorMessage = "Facebook'a bağlı istifadəçi yoxdur. Hesab yarat!";
-        setError("gmail", { type: "manual", message: errorMessage });
-      } else if (userLoginAuth.status === 500) {
-        errorMessage = "Daxil etdiyiniz şifrə yanlışdır";
-        setError("password", { type: "manual", message: errorMessage });
+      } else if (withFb && userLoginAuth.status === 404) {
+        errorResponse = "Facebook'a bağlı istifadəçi yoxdur. Hesab yarat!";
+        setError("gmail", { type: "manual", message: errorResponse });
+      } else if (userLoginAuth.status === 403) {
+        errorResponse = userLoginAuth.message.errorMessage;
+        setError("password", { type: "manual", message: errorResponse });
       } else if (userLoginAuth.status === 404) {
-        errorMessage = "Bu mail-də hesab tapılmadı";
-        setError("gmail", { type: "manual", message: errorMessage });
+        errorResponse = "Bu mail-də hesab tapılmadı";
+        setError("gmail", { type: "manual", message: errorResponse });
       }
     }
   }, [userLoginAuth, authCheckMail]);

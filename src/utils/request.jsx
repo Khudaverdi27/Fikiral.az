@@ -34,6 +34,9 @@ const request = async (baseURL, url, method, params = false) => {
     }
   } else if (res.status === 404) {
     return { status: 404 };
+  } else if (res.status === 403) {
+    const message = await res.json();
+    return { status: 403, message: message };
   } else if (res.status === 401) {
     removeStorage("token");
     removeStorage("userId");

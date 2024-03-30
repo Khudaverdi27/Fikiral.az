@@ -38,14 +38,13 @@ const FormRegister = () => {
     }
     const dataSocial =
       social === "fb" ? await loginFacebook() : await loginGoogle();
-    // dataSocial.user.displayName.split(" ")[0]
     const mail =
       dataSocial?.user?.email ||
       `${_.split(dataSocial?.user.displayName, " ", 1)[0]}@gmail.com`;
 
     const formData = {
       gmail: mail,
-      password: dataSocial?.user.uid,
+      password: dataSocial?.user.uid.slice(0, 8),
       ...(accescLogin
         ? {
             userName: dataSocial?.user.displayName,

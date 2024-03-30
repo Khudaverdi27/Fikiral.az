@@ -7,7 +7,7 @@ import {
   useVerifyMail,
 } from "../../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import { getStorage, removeStorage } from "../../../utils/helpers";
+import { getStorage, removeStorage, saveStorage } from "../../../utils/helpers";
 import { toast } from "react-toastify";
 function FormRegisterConfrim() {
   const { category, checkboxStates, allCategories, loading } = useCategories(
@@ -22,7 +22,6 @@ function FormRegisterConfrim() {
 
   const { handleSubmit, onSubmit, setSubModel, resRegister, reset } =
     useModalActions();
-  const social = getStorage("social");
   const token = getStorage("token");
   const navigate = useNavigate();
 
@@ -50,11 +49,7 @@ function FormRegisterConfrim() {
     const categories = elementsWithCategory.map((element) => element.id);
     resRegister["categories"] = categories;
     authFetch(resRegister).then(() => {
-      if (social.length !== 0) {
-        setVerifyConfrim(true);
-      } else {
-        setVerifyConfrim(false);
-      }
+      setVerifyConfrim(false);
     });
   };
 
@@ -63,23 +58,14 @@ function FormRegisterConfrim() {
       setDisabled(true);
       notify();
       setSubModel(false);
-      removeStorage("social");
       setTimeout(() => {
         location.reload();
       }, 2000);
-    } else if (registerAuth.status === 200 && social.length > 0) {
-      navigate("/home");
-      setSubModel(false);
-      removeStorage("social");
     }
   }, [registerAuth]);
 
   useEffect(() => {
-    if (
-      token.length == 0 &&
-      social.length == 0 &&
-      registerAuth.status !== 409
-    ) {
+    if (token.length == 0 && registerAuth.status !== 409) {
       const interval = setInterval(() => {
         verifyFetch(resRegister.gmail);
       }, [2000]);
@@ -103,7 +89,7 @@ function FormRegisterConfrim() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-      {social.length == 0 && !verifyConfrim && (
+      {!verifyConfrim && (
         <div className="text-center text-base">
           E-mailinizdəki linkə klik edin və gözləyin zəhmət olmasa
         </div>
