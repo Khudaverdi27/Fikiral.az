@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useModalActions } from "../../context/LoginModalProvider";
-import { getStorage } from "../../utils/helpers";
+import { getStorage, removeStorage } from "../../utils/helpers";
 import ThinkSection from "../home/components/ThinkSections";
 import { useFetchThinkPopular, useFetchThinksList } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
@@ -28,10 +28,9 @@ function WelcomePage() {
 
   useEffect(() => {
     fetchPopular();
-  }, []);
-
-  useEffect(() => {
     apiFetch();
+    removeStorage("token");
+    removeStorage("userId");
   }, []);
 
   return (
@@ -64,7 +63,7 @@ function WelcomePage() {
             <Link to={token.length !== 0 && "/home"}>
               <button
                 onClick={switcRegisterModal}
-                className="bg-indigo-500 text-base text-center text-white py-[10px]  rounded-xl w-[170px]"
+                className="bg-indigo-500 text-base text-center text-white py-[10px]  rounded-xl w-[170px] font-fransisco"
               >
                 Başla
               </button>

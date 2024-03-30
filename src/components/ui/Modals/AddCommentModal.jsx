@@ -159,7 +159,7 @@ const AddCommentModal = ({
               </div>
             </Col>
 
-            <Col span={isMobile ? 24 : 11}>
+            <Col span={isMobile ? 24 : 12}>
               <div
                 className={`overflow-auto max-h-[370px]  ${
                   isMobile ? "mt-5 h-[220px]" : "mt-16 h-[370px]"

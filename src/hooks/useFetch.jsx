@@ -8,6 +8,7 @@ import {
   ServiceThinksByCategoryFetchList,
   ServiceThinksByPopularFetchList,
   ServiceThinksBySearchFetchList,
+  ServiceThinksEdit,
   ServiceThinksFetchList,
   ServiceThinksPost,
 } from "../services/think.service";
@@ -184,6 +185,16 @@ export const usePostThink = () => {
 
   return [data || false, postThink, loading];
 };
+export const useEditThink = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const editThinkFetch = async (params = {}) => {
+    fetch(ServiceThinksEdit, params);
+  };
+
+  return [data || false, editThinkFetch, loading];
+};
+
 export const useDeleteThink = () => {
   const [data, fetch, loading] = useFetch();
 

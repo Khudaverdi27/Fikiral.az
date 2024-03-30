@@ -3,7 +3,6 @@ import { Badge } from "antd";
 import { IconContext } from "react-icons";
 import DropdownMenu from "../Dropdown";
 import { DropNotifications } from "../Dropdown/DropNotifications";
-import AddModal from "../Modals/AddModal";
 import { Link, useLocation } from "react-router-dom";
 import { IoMoon, IoSunnyOutline } from "react-icons/io5";
 import DropLanguage from "../Dropdown/DropLanguage";

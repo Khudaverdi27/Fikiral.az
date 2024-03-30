@@ -18,6 +18,9 @@ import IsConfirmModal from "../../ui/Modals/IsConfirmModal";
 import { sendMessage } from "../../../utils/emailJs";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 import _ from "lodash";
+import AddModal from "../../ui/Modals/AddModal";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import { CiEdit } from "react-icons/ci";
 
 function ThinkCard({ thinks, children, items, userByIdData }) {
   const [bookmark, setBookmark] = useState(false);
@@ -29,6 +32,7 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
   const [deletedThink, fetcDelete, deleteLoading] = useDeleteThink();
   const [savedResponse, saveFetch, saveLoading] = usePutSavedPosts();
   const [reportRes, setReportRes] = useState(false);
+  const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const token = getStorage("token");
 
   const sendToSaveds = () => {
@@ -126,7 +130,9 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
       <button
         disabled={token.length === 0}
         onClick={sendMessageResponse}
-        className="flex items-center space-x-1 disabled:cursor-not-allowed disabled:opacity-50 dark:text-white"
+        className={`flex items-center space-x-1 disabled:cursor-not-allowed disabled:opacity-50 dark:text-white ${
+          thinks?.user?.id !== userByIdData?.id ? "visible " : "hidden"
+        }`}
       >
         {reportRes === "Bildirildi" ? (
           <IoMdCheckmarkCircle className="size-5 text-green-600" />
@@ -136,6 +142,22 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
 
         <span className="font-semibold">{reportRes || "Bildir"}</span>
       </button>
+
+      <div
+        className={`${
+          thinks?.user?.id === userByIdData?.id ? "visible " : "hidden"
+        }`}
+      >
+        <AddModal
+          btnContent={
+            <span className="flex items-center">
+              <CiEdit className="inline size-5 mr-1" /> Düzəliş
+            </span>
+          }
+          forEdit={thinks.content}
+          thinkId={thinks.id}
+        />
+      </div>
     </div>
   );
 

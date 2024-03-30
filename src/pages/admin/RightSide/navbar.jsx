@@ -47,9 +47,9 @@ function AdminNavbar({ inAcceptedPosts, userById, userLoading }) {
           <DropdownMenu
             classes={"w-[142px] max-h-[108px] !top-[70px] "}
             dropName={
-              <span className="text-primaryGray dark:text-white">
+              <span className="text-primaryGray ">
                 {userById?.userName}
-                <small className="block">Adminka</small>
+                <small className="block text-primaryGray">Adminka</small>
               </span>
             }
             profilImg={

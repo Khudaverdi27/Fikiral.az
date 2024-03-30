@@ -28,6 +28,10 @@ export const ServiceThinksPost = async (params = {}) => {
   const res = await post(thinkApi.postThink, params);
   return res;
 };
+export const ServiceThinksEdit = async (params = {}) => {
+  const res = await put(thinkApi.postThink, params);
+  return res;
+};
 
 export const ServiceDeleteThinks = async (id) => {
   const res = await destroy(thinkApi.removeThink.replace(":id", id));

@@ -88,7 +88,9 @@ function Header() {
           <MenuActions />
           {isMobile && <FormSearch />}
           {isMobile && <DrawerToggle />}
-          {token.length !== 0 && !isMobile && <AddModal />}
+          {token.length !== 0 && !isMobile && (
+            <AddModal btnContent={"İdeyanı paylaş"} />
+          )}
         </div>
       </div>
       {token.length !== 0 && isMobile && (
@@ -106,7 +108,7 @@ function Header() {
             }
           />
 
-          <AddModal />
+          <AddModal btnContent={"İdeyanı paylaş"} />
         </div>
       )}
       {token.length !== 0 ? (

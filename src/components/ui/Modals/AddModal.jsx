@@ -5,21 +5,23 @@ import { IoMdClose } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { useCategories } from "../../../hooks/useCategories";
 import { useModalActions } from "../../../context/LoginModalProvider";
-import { usePostThink } from "../../../hooks/useFetch";
+import { useEditThink, usePostThink } from "../../../hooks/useFetch";
 import { findFuckingWords } from "../../../utils/helpers";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import { toast } from "react-toastify";
 import _ from "lodash";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import classNames from "classnames";
 
-const AddModal = () => {
+const AddModal = ({ btnContent, forEdit = false, thinkId }) => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState({});
   const { category, checkboxStates, allCategories } = useCategories(
     false,
     "radio"
   );
-
+  const [editRes, editFetch, editLoading] = useEditThink();
+  const { setIsPosted } = useModalActions();
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
 
   const {
@@ -51,7 +53,7 @@ const AddModal = () => {
   const handleFormSubmit = (data) => {
     const trimmedComment = data.content.trim();
 
-    if (trimmedComment !== "" && content.category) {
+    if (trimmedComment !== "" && content.category && !forEdit) {
       const updatedContent = { ...content, comment: trimmedComment };
 
       const requestData = {
@@ -65,6 +67,12 @@ const AddModal = () => {
         setContent((content[category] = false));
         checkboxStates.fill(false);
       });
+    } else {
+      const editContent = {};
+      editContent["content"] = data.content;
+      editContent["id"] = thinkId;
+      editFetch(editContent);
+      setIsPosted(true);
     }
   };
   const textArea = watch("content");
@@ -84,16 +92,28 @@ const AddModal = () => {
     }
   }, [loading]);
 
+  useEffect(() => {
+    if (editRes.status === 200) {
+      setOpen(false);
+    }
+  }, [editRes]);
+
   return (
     <>
       <button
         onClick={() => setOpen(true)}
-        className={`bg-indigo-500 text-white 
-        whitespace-nowrap px-4 py-2 rounded-[12px] ${!isMobile && "!mx-3"}`}
+        className={classNames(
+          { "font-fransisco": true },
+          {
+            "bg-indigo-500 text-white whitespace-nowrap px-4 py-2 rounded-[12px]":
+              !forEdit,
+          },
+          { "text-indigo-500": forEdit },
+          { "!mx-3": !isMobile && !forEdit }
+        )}
       >
-        İdeyanı paylaş
+        {btnContent}
       </button>
-
       <Modal
         title={
           <div className="flex items-center space-x-2 bg-neutral-100 dark:bg-[#22303c]">
@@ -132,27 +152,30 @@ const AddModal = () => {
           <LoadingSpin />
         ) : (
           <form onSubmit={handleSubmit(handleFormSubmit)}>
-            <DropdownMenu
-              placement={"bottomLeft"}
-              dropName={
-                <button
-                  type="button"
-                  className="rounded text-[#636363] md hover:text-white px-2 py-[5px] mb-2 bg-zinc-50 hover:bg-indigo-500"
-                >
-                  <span className="text-red-500 mr-1 font-bold">*</span>
-                  Kateqoriya seç
-                </button>
-              }
-              dropDownItems={category}
-              classes={
-                "w-[314px] max-h-[365px] overflow-x-hidden mt-[105px] ml-9 !top-[80px]"
-              }
-            />
+            {!forEdit && (
+              <DropdownMenu
+                placement={"bottomLeft"}
+                dropName={
+                  <button
+                    type="button"
+                    className="rounded text-[#636363] md hover:text-white px-2 py-[5px] mb-2 bg-zinc-50 hover:bg-indigo-500"
+                  >
+                    <span className="text-red-500 mr-1 font-bold">*</span>
+                    Kateqoriya seç
+                  </button>
+                }
+                dropDownItems={category}
+                classes={
+                  "w-[314px] max-h-[365px] overflow-x-hidden mt-[105px] ml-9 !top-[80px]"
+                }
+              />
+            )}
             <span className="text-red-500 ml-2 font-bold block">*</span>
             <textarea
               {...register("content", { required: true })}
               className="resize-none w-full text-base outline-none p-2 rounded-md dark:bg-gray-300"
               rows={9}
+              defaultValue={forEdit ? forEdit : ""}
               placeholder="Minimum 5 maximum 250 simvol"
               minLength={5}
               maxLength={250}
@@ -163,18 +186,29 @@ const AddModal = () => {
               </p>
             )}
 
-            <button
-              disabled={(!errors.content && !content.category) || result}
-              className={`w-full mt-3 rounded-lg text-base  text-white  px-6 py-[10px] disabled:opacity-40 disabled:cursor-not-allowed ${
-                result ? "bg-red-500 " : "bg-indigo-500"
-              }`}
-              type="submit"
-              key={"btn"}
-            >
-              {result
-                ? "Qadağan olunmuş sözlərdən istifadə etməyin !!!"
-                : "Paylaş"}
-            </button>
+            {!forEdit ? (
+              <button
+                disabled={(!errors.content && !content.category) || result}
+                className={`w-full mt-3 rounded-lg text-base font-roboto  text-white  px-6 py-[10px] disabled:opacity-40 disabled:cursor-not-allowed ${
+                  result ? "bg-red-500 " : "bg-indigo-500"
+                }`}
+                type="submit"
+                key={"btn"}
+              >
+                {result
+                  ? "Qadağan olunmuş sözlərdən istifadə etməyin !!!"
+                  : "Paylaş"}
+              </button>
+            ) : (
+              <button
+                className={`w-full mt-3 font-roboto rounded-lg bg-indigo-500 text-base  text-white  px-6 py-[10px] 
+            `}
+                type="submit"
+                key={"btn"}
+              >
+                {editLoading ? "Gözləyin..." : "Düzəlişi təsdiq et"}
+              </button>
+            )}
           </form>
         )}
       </Modal>
