@@ -1,6 +1,11 @@
+import { Helmet } from "react-helmet";
+
 function AboutSecurity() {
   return (
     <main>
+      <Helmet>
+        <title>Fikiral / Gizlilik Siyasəti</title>
+      </Helmet>
       <section>
         <h1 className="text-indigo-500 font-bold text-xl text-center">
           Gizlilik Siyasəti
@@ -19,33 +24,33 @@ function AboutSecurity() {
           Toplanan Məlumatlar və İstifadəsi
         </h3>
         <article className="text-sm">
-          Fikiral, veb saytını ziyarət etdiyiniz zaman müəyyən məlumatları
+          Fikiral veb saytını ziyarət etdiyiniz zaman müəyyən məlumatları
           toplaya bilər. Bu məlumatlar, ziyarət etdiyiniz səhifələrin adları, IP
-          ünvanınız, brauzer növünüz və digər istatistik məlumatlar kimi veb
-          saytı ilə etkileşiminizin növünə əsasən şəxsi məlumatları daxil edə
-          bilər. Bu məlumatlar, veb saytının təkmilləşdirilməsi, məzmunun
+          ünvanınız, brauzer növünüz və digər statistik məlumatlar kimi veb
+          saytı ilə əlaqənizin növünə əsasən şəxsi məlumatları saxlaya bilər. Bu
+          məlumatlar, veb saytının təkmilləşdirilməsi, məzmunun
           fərdiləşdirilməsi və istifadəçi təcrübəsinin yaxşılaşdırılması məqsədi
           ilə istifadə edilə bilər.
         </article>
         <h3 className="text-primaryBlack font-semibold text-sm">Cookies</h3>
         <article className="text-sm">
-          Fikiral, cookies vasitəsilə məlumatları toplaya və saxlaya bilər.
-          ziyarət etdiyiniz veb saytları tərəfindən brauzerinizə göndərilən
-          kiçik mətn fayllarıdır. Bu fayllar, sizin tərəfdaşlıq və
-          preferanslarınızı yadda saxlamaq, veb saytının performansını analiz
-          etmək və reklamları məqsədə uyğunlaşdırmaq kimi müxtəlif məqsədlər
-          üçün istifadə oluna bilər. Lakin, redd etmək və ya bağlı xəbərdarlıq
-          almağı seçməklə, bəzi veb saytı xüsusiyyətlərinin düzgün işləməyə
-          biləcəyini diqqətə alın.
+          Fikiral, cookies vasitəsilə məlumatları toplaya və saxlaya
+          bilər.Cookies ziyarət etdiyiniz veb saytlar tərəfindən brauzerinizə
+          göndərilən kiçik mətn fayllarıdır. Bu fayllar, sizin tərəfdaşlıq və
+          referanslarınızı yadda saxlamaq, veb saytı performansını analiz etmək
+          və reklamları məqsədə uyğunlaşdırmaq kimi müxtəlif məqsədlər üçün
+          istifadə oluna bilər. Lakin, rədd etmək və ya bununla bağlı
+          xəbərdarlıq almağı seçməklə, bəzi veb sayt xüsusiyyətlərinin düzgün
+          işləməyəcəyini diqqətə alın.
         </article>
         <h3 className="text-primaryBlack font-semibold text-sm">
           Digər Veb Sayt Linkləri
         </h3>
         <article className="text-sm">
-          Fikiral veb saytında başqa veb saytlarına linklər oluna bilər. Bu
-          xarici veb saytlarının məzmunu və gizlilik siyasətləri ilə əlaqəli heç
+          Fikiral veb saytında başqa veb saytlarına keçid linkləri ola bilər. Bu
+          xarici veb saytların məzmunu və gizlilik siyasətləri ilə əlaqəli heç
           bir nəzarətimiz yoxdur və bu veb saytlarının siyasətləri Fikiral'in
-          nəzarəti altında deyil. Sizə tövsiyə edirik ki, bu linkləri tətbiq
+          nəzarəti altında deyil. Sizə tövsiyə edirik ki, bu linklərə keçid
           etmədən əvvəl bu veb saytlarının gizlilik siyasətini oxuyun.
         </article>
         <h3 className="text-primaryBlack font-semibold text-sm">
@@ -54,8 +59,8 @@ function AboutSecurity() {
         <article className="text-sm">
           Fikiral gizlilik siyasətini tələb olunduqda yeniləmə hüququnu qoruyur.
           Bu səhifədə hər hansı bir dəyişiklik dərc edildiyində, biz bu səhifəni
-          dəyişdiririk və yenilənmiş bir versiyası təqdim edirik. Beləliklə, bu
-          səhifəni müvəqqəti olaraq nəzərdən keçirmənizi tövsiyə edirik.
+          dəyişdiririk və yenilənmiş bir versiyasını təqdim edirik. Beləliklə,
+          bu səhifəni daimi olaraq nəzərdən keçirmənizi tövsiyə edirik.
         </article>
       </section>
     </main>
