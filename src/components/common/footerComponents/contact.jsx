@@ -65,7 +65,11 @@ function ContactFooter() {
         footer={false}
         centered={true}
       >
-        <Collapse className="font-fransisco" accordion items={items} />
+        <Collapse
+          className="font-fransisco dark:border-gray-500"
+          accordion
+          items={items}
+        />
       </Modal>
     </>
   );

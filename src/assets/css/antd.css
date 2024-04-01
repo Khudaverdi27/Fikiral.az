@@ -54,6 +54,9 @@
   .ant-collapse-expand-icon{
     @apply dark:text-white
   }
+  .ant-collapse-item{
+    @apply !border-gray-500
+  }
   .ant-collapse-content-box{
     @apply dark:bg-[#22303c] dark:text-white font-normal
   }
