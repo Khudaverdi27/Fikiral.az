@@ -51,7 +51,7 @@ function IsConfirmModal({
         closable={false}
         footer={false}
         centered
-        className="bg-white rounded-[20px]"
+        className="bg-zinc-50 rounded-[20px]"
         title={<div className="dark:bg-[#22303c] dark:text-white">{title}</div>}
         open={isOpenModal}
       >

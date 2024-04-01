@@ -32,7 +32,7 @@
     @apply dark:bg-[#22303c]
   }
   .ant-modal-title{
-    @apply dark:bg-[#22303c] dark:text-white
+    @apply dark:bg-[#22303c] dark:text-white bg-zinc-50
   }
   .ant-spin-dot-item {
     @apply !bg-indigo-500;

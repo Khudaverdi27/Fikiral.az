@@ -21,17 +21,31 @@ function ContactFooter() {
   const items = [
     {
       key: "1",
-      label: "This is panel header 1",
+      label:
+        " Mən öz biznes ideyamı bu platformada paylaşarkən onu necə qoruya bilərəm?",
       children: <p>{text}</p>,
     },
     {
       key: "2",
-      label: "This is panel header 2",
+      label: "Bu saytda biznes ideyamı paylaşmağın mənə nə faydası var?",
       children: <p>{text}</p>,
     },
     {
       key: "3",
-      label: "This is panel header 3",
+      label:
+        " Biznes ideyamı bu vebsaytda paylaşarkən onun kopyalanmasından və ya oğurlanmasından necə qoruya bilərəm? ",
+      children: <p>{text}</p>,
+    },
+    {
+      key: "4",
+      label:
+        "  Mənim biznes ideyamın bu platformada qanunsuz surətdə təkrarlandığından və ya istifadə edildiyindən şübhələnirəmsə, mənim hansı müraciətim ola bilər?  ",
+      children: <p>{text}</p>,
+    },
+    {
+      key: "5",
+      label:
+        " Mən bu veb saytdan biznes ideyamı yeniləyə və ya silə bilərəmmi və bunun üçün hansı prosedurlar var? ",
       children: <p>{text}</p>,
     },
   ];
@@ -56,7 +70,7 @@ function ContactFooter() {
       <Modal
         width={800}
         className="bg-zinc-50 rounded-[8px] dark:text-white"
-        title={<span className="text-xl">Tez-tez verilən suallar</span>}
+        title={<span className="text-xl ">Tez-tez verilən suallar</span>}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}

@@ -33,7 +33,9 @@ function ThinkSection({ items, loading, title }) {
     <ErrorBoundary>
       <Section className={"overflow-x-hidden"} title={title} loading={loading}>
         <Helmet>
-          <title>{`Fikir al ${path ? "/" + path : ""}`}</title>
+          <title>{`Fikir al ${
+            path ? "/" + path : "/ Fikir mübadiləsi apara biləcəyiniz platforma"
+          }`}</title>
         </Helmet>
         <Row
           className={`gap-y-5  ${
