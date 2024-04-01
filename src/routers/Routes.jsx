@@ -2,6 +2,7 @@ import AdminLayout from "../layouts/AdminLayout";
 import AppLayout from "../layouts/AppLayout";
 import PendingLayout from "../layouts/PendingLayout";
 import AboutPage from "../pages/about/about";
+import AboutSecurity from "../pages/about/About-security";
 import AdminPage from "../pages/admin/container";
 import CategoryPage from "../pages/categories/CategoryPage";
 import ThinkFromClipboard from "../pages/clipboardResult/ThinkFromClipBoard";
@@ -17,6 +18,11 @@ export const routes = [
   { path: "/home", element: <HomePage />, layout: "AppLayout" },
   { path: "/favorites", element: <FavoritePage />, layout: "AppLayout" },
   { path: "/about", element: <AboutPage />, layout: "AppLayout" },
+  {
+    path: "/privacy_policy",
+    element: <AboutSecurity />,
+    layout: "AppLayout",
+  },
   {
     path: "/categories/:slug",
     element: <CategoryPage />,

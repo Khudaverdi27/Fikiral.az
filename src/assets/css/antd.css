@@ -46,19 +46,22 @@
     @apply !z-10 
   }
   .ant-popover-inner{
-    @apply dark:bg-[#22303c]
+    @apply dark:bg-[#22303c] 
+  }
+  .ant-collapse{
+    @apply !bg-zinc-50 dark:!bg-[#22303c]
   }
   .ant-collapse-header-text{
-    @apply dark:text-white text-base
+    @apply dark:text-white text-base 
   }
   .ant-collapse-expand-icon{
     @apply dark:text-white
   }
   .ant-collapse-item{
-    @apply !border-gray-500
+    @apply dark:!border-gray-500 !border-gray-300
   }
   .ant-collapse-content-box{
-    @apply dark:bg-[#22303c] dark:text-white font-normal
+    @apply dark:bg-[#22303c] dark:text-white font-normal 
   }
 
 

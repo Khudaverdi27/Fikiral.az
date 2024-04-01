@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Modal, Collapse } from "antd";
 import { IoMdClose } from "react-icons/io";
+import { Link } from "react-router-dom";
 function ContactFooter() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const text = `
@@ -63,9 +64,12 @@ function ContactFooter() {
         >
           Tez-tez verilən suallar
         </button>
-        <p className="text-xs text-primaryGray dark:text-white">
+        <Link
+          to={"/privacy_policy"}
+          className="text-xs text-primaryGray block dark:text-white"
+        >
           Məxfilik qaydaları
-        </p>
+        </Link>
       </div>
       <Modal
         width={800}
