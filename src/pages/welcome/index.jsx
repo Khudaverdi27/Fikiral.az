@@ -53,7 +53,7 @@ function WelcomePage() {
             </h1>
           </Col>
           <Col span={24}>
-            <p className={`text-[22px] leading-10 `}>
+            <p className={`text-[22px] leading-10 font-fransisco`}>
               Bizim missiyamız biznes ideyalarının mübadiləsi prosesini
               cəmiyyətimizin bütün üzvləri üçün mümkün qədər rahat, effektiv və
               ruhlandırıcı etməkdir.

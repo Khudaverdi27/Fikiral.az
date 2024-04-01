@@ -31,7 +31,9 @@
   .ant-modal{
     @apply dark:bg-[#22303c]
   }
-
+  .ant-modal-title{
+    @apply dark:bg-[#22303c] dark:text-white
+  }
   .ant-spin-dot-item {
     @apply !bg-indigo-500;
   }
@@ -46,8 +48,15 @@
   .ant-popover-inner{
     @apply dark:bg-[#22303c]
   }
-  
-  
+  .ant-collapse-header-text{
+    @apply dark:text-white text-base
+  }
+  .ant-collapse-expand-icon{
+    @apply dark:text-white
+  }
+  .ant-collapse-content-box{
+    @apply dark:bg-[#22303c] dark:text-white font-normal
+  }
 
 
   
