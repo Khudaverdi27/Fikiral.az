@@ -13,10 +13,9 @@ function AboutSecurity() {
         <article className="text-sm pt-5">
           Fikiral veb saytı istifadəsi zamanı toplanan şəxsi məlumatların
           gizliliyinə əhəmiyyət verir. Bu gizlilik siyasəti, Fikiral veb
-          saytının istifadəsi zamanı topladığımız şəxsi məlumatları izah edir.
-          Zəhmət olmasa, bu gizlilik siyasəsini diqqətlə oxuyun ki, şəxsi
-          məlumatlarınızın necə istifadə edildiyini, qorunduğunu və ifşa
-          edildiyini anlayasınız.
+          saytının istifadəsi zamanı topladığımız şəxsi məlumatları əhatə edir.
+          Zəhmət olmasa, bu gizlilik siyasətini diqqətlə oxuyun ki, şəxsi
+          məlumatlarınızın necə istifadə edildiyini və qorunduğunu anlayasınız.
         </article>
       </section>
       <section className="pl-5 pt-5 space-y-2">
@@ -24,11 +23,11 @@ function AboutSecurity() {
           Toplanan Məlumatlar və İstifadəsi
         </h3>
         <article className="text-sm">
-          Fikiral veb saytını ziyarət etdiyiniz zaman müəyyən məlumatları
-          toplaya bilər. Bu məlumatlar, ziyarət etdiyiniz səhifələrin adları, IP
-          ünvanınız, brauzer növünüz və digər statistik məlumatlar kimi veb
-          saytı ilə əlaqənizin növünə əsasən şəxsi məlumatları saxlaya bilər. Bu
-          məlumatlar, veb saytının təkmilləşdirilməsi, məzmunun
+          Fikiral, veb saytı ziyarət etdiyiniz zaman müəyyən məlumatları toplaya
+          bilər. Bu məlumatlar, ziyarət etdiyiniz səhifələrin adları, IP
+          ünvanınız, brauzer növünüz və digər statistik məlumatlar uyğun olaraq
+          veb sayt ilə əlaqənizin növünə əsasən şəxsi məlumatlarınız ola bilər.
+          Bu məlumatlar, veb saytının təkmilləşdirilməsi, məzmunun
           fərdiləşdirilməsi və istifadəçi təcrübəsinin yaxşılaşdırılması məqsədi
           ilə istifadə edilə bilər.
         </article>

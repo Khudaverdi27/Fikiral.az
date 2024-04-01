@@ -52,7 +52,7 @@
     @apply !bg-zinc-50 dark:!bg-[#22303c]
   }
   .ant-collapse-header-text{
-    @apply dark:text-white text-base 
+    @apply dark:text-white text-base font-medium
   }
   .ant-collapse-expand-icon{
     @apply dark:text-white
