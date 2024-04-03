@@ -43,8 +43,8 @@ const DrawerToggle = ({ loading, category }) => {
         className="dark:bg-[#22303c] "
         title={
           <div
-            className={`flex w-full items-center px-1 ${
-              token.length !== 0 ? "justify-between" : "justify-center"
+            className={`flex w-full items-center  ${
+              token.length !== 0 ? "justify-around" : "justify-center"
             }`}
           >
             <button onClick={onClose}>
