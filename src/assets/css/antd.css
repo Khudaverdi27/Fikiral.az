@@ -75,8 +75,8 @@
   }
  
   .closeDrawerIcon{
-    @apply absolute size-8 font-bold p-1 top-1/2 left-0 border text-indigo-700  border-indigo-500 rounded-full;
-    border-radius: 0px 200px 200px 0px;
+    @apply absolute size-9 font-bold p-2 top-20 left-0 border bg-indigo-500  text-white rounded-full;
+    border-radius: 10px 10px 200px 10px;
   }
   
   

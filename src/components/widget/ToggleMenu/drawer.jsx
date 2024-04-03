@@ -9,9 +9,11 @@ import Logo from "../../common/Logo";
 import SaveBookmark from "../../ui/MenuActions/saveBookmark";
 import DropProfile from "../../ui/Dropdown/DropProfile";
 import { LoadingSpin } from "../Loading/ThinkSkeleton";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const DrawerToggle = ({ loading, category }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
+  const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const showDrawer = () => {
     setOpenDrawer(true);
   };
@@ -19,6 +21,11 @@ const DrawerToggle = ({ loading, category }) => {
     setOpenDrawer(false);
   };
   const token = getStorage("token");
+
+  // hide scrolling when drawer is opened
+  document
+    .querySelector("body")
+    .classList.toggle("overflow-y-hidden", openDrawer && isMobile);
 
   return (
     <>
@@ -33,7 +40,7 @@ const DrawerToggle = ({ loading, category }) => {
       </Space>
       <Drawer
         size="large"
-        className="dark:bg-[#22303c] h-full"
+        className="dark:bg-[#22303c] "
         title={
           <div
             className={`flex w-full items-center px-1 ${
@@ -61,9 +68,11 @@ const DrawerToggle = ({ loading, category }) => {
         footer={
           <div className="flex justify-between">
             <MenuActions />
-            <button onClick={onClose}>
-              <SaveBookmark />
-            </button>
+            {token.length !== 0 && (
+              <button onClick={onClose}>
+                <SaveBookmark />
+              </button>
+            )}
             <DropLanguage />
           </div>
         }
@@ -73,7 +82,9 @@ const DrawerToggle = ({ loading, category }) => {
         ) : (
           <div>
             <h4 className="font-semibold text-lg text-center">Kateqoriyalar</h4>
-            <div>{category?.map((item) => item.title)}</div>
+            {category?.map((item, index) => (
+              <div key={index}>{item.title}</div>
+            ))}
           </div>
         )}
       </Drawer>
