@@ -4,7 +4,7 @@ import { useModalActions } from "../../../context/LoginModalProvider";
 import { removeLocaleStorage, removeStorage } from "../../../utils/helpers";
 import DropdownMenu from ".";
 import IsConfirmModal from "../Modals/IsConfirmModal";
-function DropProfile({ top, onClick }) {
+function DropProfile({ top, onClick, openDrawer }) {
   const { userByIdData, userLoading } = useModalActions();
   const logoutProfile = () => {
     removeStorage("token");
@@ -25,6 +25,7 @@ function DropProfile({ top, onClick }) {
     <div>
       {!userLoading ? (
         <DropdownMenu
+          openDrawer={openDrawer}
           classes={`w-[142px] max-h-[108px] ${top || "!top-[85px]"}`}
           dropName={
             <span className="text-primaryGray dark:text-white text-base">

@@ -142,8 +142,23 @@ function EditProfile() {
     const editIcons = {
       main: <RxReset />,
       password: <RiLockPasswordLine />,
-      logout: <RiLogoutCircleLine />,
-      deleteAccount: <RiDeleteBin6Line className="text-red-500" />,
+      logout: (
+        <IsConfirmModal
+          title={"Hesabdan çıxmaq istəyirsiz?"}
+          dangerBtn={<RiLogoutCircleLine />}
+          destroyBtn={"Çıxış"}
+          destroyProfile={logoutProfile}
+          dangerBtnClass={true}
+        />
+      ),
+      deleteAccount: (
+        <IsConfirmModal
+          title={"Hesabı silmək istədiyinizə əminsiz?"}
+          dangerBtn={<RiDeleteBin6Line className="text-red-500" />}
+          destroyBtn={"Silin"}
+          destroyProfile={deleteProfile}
+        />
+      ),
     };
     return editIcons[key];
   };
@@ -307,9 +322,7 @@ function EditProfile() {
                     icon={editIcons(btn.key)}
                     onClick={() => handleActiveBtn(btn.key)}
                     key={btn.key}
-                  >
-                    {btn.name}
-                  </FloatButton>
+                  />
                 ))}
               </FloatButton.Group>
             </>

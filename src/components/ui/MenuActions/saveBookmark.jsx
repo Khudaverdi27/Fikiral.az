@@ -1,7 +1,7 @@
 import { IconContext } from "react-icons";
 import { HiOutlineBookmark } from "react-icons/hi2";
 import { Link, useLocation } from "react-router-dom";
-function SaveBookmark({ title }) {
+function SaveBookmark() {
   const pathname = useLocation().pathname;
   return (
     <IconContext.Provider
@@ -13,7 +13,7 @@ function SaveBookmark({ title }) {
       }}
     >
       <Link className="flex items-center space-x-3" to={"/favorites"}>
-        {title} <HiOutlineBookmark className="size-6 dark:!text-white" />
+        <HiOutlineBookmark className="size-6 dark:!text-white" />
       </Link>
     </IconContext.Provider>
   );

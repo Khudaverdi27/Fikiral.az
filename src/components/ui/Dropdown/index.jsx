@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dropdown, Space } from "antd";
 import { GrClose } from "react-icons/gr";
 import { LineLoading } from "../../widget/Loading/ThinkSkeleton";
 
 const DropdownMenu = ({
+  openDrawer,
   dropName,
   loading,
   profilImg = false,
@@ -21,6 +22,10 @@ const DropdownMenu = ({
   window.addEventListener("scroll", () => {
     setOpen(false);
   });
+
+  useEffect(() => {
+    setOpen(false);
+  }, [openDrawer]);
 
   const items = dropDownItems.map((item, index) => ({
     key: index,

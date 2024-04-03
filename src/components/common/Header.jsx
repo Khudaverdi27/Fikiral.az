@@ -80,6 +80,7 @@ function Header() {
           <FormRegister />
         </div>
       )}
+      {token.length === 0 && isMobile && <FormRegister />}
     </header>
   );
 }
