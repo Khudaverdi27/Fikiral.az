@@ -4,35 +4,19 @@ import MenuActions from "../ui/MenuActions";
 import Logo from "./Logo";
 import { useCategories } from "../../hooks/useCategories";
 import FormRegister from "../ui/Form/FormRegister";
-import {
-  getStorage,
-  removeLocaleStorage,
-  removeStorage,
-} from "../../utils/helpers";
-import { Link } from "react-router-dom";
-import IsConfirmModal from "../ui/Modals/IsConfirmModal";
-import { useModalActions } from "../../context/LoginModalProvider";
+import { getStorage } from "../../utils/helpers";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import classNames from "classnames";
 import AddModal from "../ui/Modals/AddModal";
-import { Skeleton, Space } from "antd";
-import { FaChevronDown } from "react-icons/fa6";
 import DrawerToggle from "../widget/ToggleMenu/drawer";
+import Notifies from "../ui/MenuActions/Notifes";
+import DropProfile from "../ui/Dropdown/DropProfile";
 function Header() {
   const { category, loading } = useCategories(true, "checkbox");
-  const { userByIdData, userLoading } = useModalActions();
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const isTablet = useMediaQuery("only screen and (max-width : 768px)");
   const token = getStorage("token");
-  const logoutProfile = () => {
-    removeStorage("token");
-    removeStorage("userId");
-    removeStorage("selectedCategories");
-    removeStorage("social");
-    removeLocaleStorage("gmail");
-    location.reload();
-    location.href = "/";
-  };
+
   return (
     <header
       className={classNames(
@@ -46,7 +30,7 @@ function Header() {
         "sticky"
       )}
     >
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <div
           className={classNames("flex", "items-center", {
             "justify-between": isMobile,
@@ -70,97 +54,29 @@ function Header() {
               classes={"w-[314px] max-h-[424px] overflow-x-hidden !top-[85px]"}
             />
           )}
-          {isMobile && token.length == 0 && (
-            <DropdownMenu
-              loading={loading}
-              dropName={
-                <span className="text-primaryGray mb-2 hover:text-indigo-500 dark:text-white">
-                  Kateqoriya
-                </span>
-              }
-              dropDownItems={category}
-              classes={`w-[314px] max-h-[424px] overflow-x-hidden ${
-                isMobile ? "!top-[50px]" : "!top-[85px]"
-              }`}
-            />
-          )}
 
-          <MenuActions />
+          {!isMobile && <MenuActions />}
+          {isMobile && token.length > 0 && (
+            <div className="mr-4 mb-1">
+              <Notifies />
+            </div>
+          )}
           {isMobile && <FormSearch />}
-          {isMobile && <DrawerToggle />}
+          {isMobile && <DrawerToggle loading={loading} category={category} />}
           {token.length !== 0 && !isMobile && (
             <AddModal btnContent={"İdeyanı paylaş"} />
           )}
         </div>
       </div>
       {token.length !== 0 && isMobile && (
-        <div className="flex justify-between mt-4">
-          <DropdownMenu
-            loading={loading}
-            dropName={
-              <span className="text-primaryGray flex items-center space-x-2  hover:text-indigo-500 dark:text-white">
-                <span> Kateqoriyalar</span> <FaChevronDown />
-              </span>
-            }
-            dropDownItems={category}
-            classes={
-              "w-[314px] max-h-[424px] overflow-x-hidden !top-[112px] border border-gray-100"
-            }
-          />
-
+        <div className="flex justify-end mt-4">
           <AddModal btnContent={"İdeyanı paylaş"} />
         </div>
       )}
       {token.length !== 0 ? (
-        !isMobile && (
-          <div>
-            {!userLoading ? (
-              <DropdownMenu
-                classes={"w-[142px] max-h-[108px] !top-[85px] "}
-                dropName={
-                  <span className="text-primaryGray dark:text-white ">
-                    {userByIdData?.userName?.split(" ")[0].toLowerCase()}
-                  </span>
-                }
-                profilImg={
-                  userByIdData?.image ||
-                  userByIdData?.userName?.charAt(0).toLowerCase()
-                }
-                dropDownItems={[
-                  {
-                    id: "editProfil",
-                    title: (
-                      <Link
-                        to={"/edit-my-profile"}
-                        className="flex items-center dark:text-white  text-base "
-                      >
-                        Redaktə et
-                      </Link>
-                    ),
-                  },
-                  {
-                    id: "logoutProfile",
-                    title: (
-                      <IsConfirmModal
-                        title={"Hesabdan çıxmaq istəyirsiz?"}
-                        dangerBtn={"Çıxış"}
-                        destroyBtn={"Çıxış"}
-                        destroyProfile={logoutProfile}
-                      />
-                    ),
-                  },
-                ]}
-              />
-            ) : (
-              <Space>
-                <Skeleton.Avatar active size={"large"} shape={"circle"} />
-                <Skeleton.Button active size={"default"} shape={"square"} />
-              </Space>
-            )}
-          </div>
-        )
+        !isMobile && <DropProfile />
       ) : (
-        <div className={`${!isMobile && "mr-12"}`}>
+        <div className={`${!isMobile ? "mr-12" : "hidden"}`}>
           <FormRegister />
         </div>
       )}

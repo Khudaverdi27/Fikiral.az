@@ -51,9 +51,6 @@ body {
 .dotForTime{
   @apply text-[#808080] relative  before:content-[''] before:absolute before:left-[-15px] before:top-[7px] before:size-1 before:rounded-full before:bg-[#999999]
 }
-.editProfile{
-  @apply space-y-3 flex flex-col text-[16px] text-[#999999] font-[500] w-1/4 ml-5 items-start
-}
 
  .editImage-overlay {
   @apply bg-black/30 rounded-full size-24 flex justify-center items-center absolute top-2 opacity-0 transition ease-in-out delay-150 text-red-500 font-[500] text-2xl

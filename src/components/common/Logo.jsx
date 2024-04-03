@@ -7,7 +7,7 @@ function Logo() {
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   return (
     <Link
-      className={`shrink-0 ${
+      className={`shrink-0 inline-block ${
         isMobile ? "w-[171px] !ml-[-28px]" : "w-[191px]"
       } h-[43px] `}
       to={`${token.length !== 0 ? "/home" : "/"}`}

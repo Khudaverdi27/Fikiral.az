@@ -21,6 +21,16 @@ import {
 import { LoadingSpin } from "../../components/widget/Loading/ThinkSkeleton";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import { FloatButton } from "antd";
+import { RxReset } from "react-icons/rx";
+import {
+  RiCloseLine,
+  RiDeleteBin6Line,
+  RiLockPasswordLine,
+  RiLogoutCircleLine,
+} from "react-icons/ri";
+import { FiEdit } from "react-icons/fi";
 
 function EditProfile() {
   const [activeBtn, setActiveBtn] = useState("main");
@@ -35,6 +45,7 @@ function EditProfile() {
   const [passValue, setPassValue] = useState(false);
   const [errMsg, setErrMsg] = useState(false);
   const [changedPassRes, newPasswordFetch] = useChangeUserPassword();
+  const isMobile = useMediaQuery("only screen and (max-width : 480px)");
 
   const logoutProfile = () => {
     removeStorage("token");
@@ -127,6 +138,16 @@ function EditProfile() {
     }
   };
 
+  const editIcons = (key) => {
+    const editIcons = {
+      main: <RxReset />,
+      password: <RiLockPasswordLine />,
+      logout: <RiLogoutCircleLine />,
+      deleteAccount: <RiDeleteBin6Line className="text-red-500" />,
+    };
+    return editIcons[key];
+  };
+
   const handleWithoutPassword = () => {
     if (userImg && compeleteEdit) {
       postImage(userImg, userByIdData.id).then(() =>
@@ -174,31 +195,61 @@ function EditProfile() {
       ) : (
         <Row>
           <Col span={24}>
-            <h3 className="text-[32px] font-semibold mb-7">
+            <h3
+              className={`font-semibold mb-7 ${
+                isMobile ? "text-2xl text-center" : "text-[32px] "
+              }`}
+            >
               Profili redaktə edin
             </h3>
           </Col>
-          <Col span={10}>
-            <div className=" editProfile">
-              {editBtns.map((btn) => (
-                <span
-                  className={classNames(
-                    {
-                      "cursor-pointer": true,
-                      "text-black dark:text-white":
-                        activeBtn === btn.key && activeBtn !== "deleteAccount",
-                    },
-                    btn.key === "deleteAccount" && ["text-[#FF0000]"]
-                  )}
-                  onClick={() => handleActiveBtn(btn.key)}
-                  key={btn.key}
-                >
-                  {btn.name}
-                </span>
-              ))}
-            </div>
-          </Col>
-          <Col span={10}>
+          {!isMobile && (
+            <Col
+              lg={{
+                span: 10,
+              }}
+              xl={{
+                span: 10,
+              }}
+              md={{
+                span: 24,
+              }}
+            >
+              <div
+                className={`space-y-3 flex flex-col text-[16px] text-[#999999] font-[500] w-1/4 ml-5 items-start`}
+              >
+                {editBtns.map((btn) => (
+                  <span
+                    className={classNames(
+                      {
+                        "cursor-pointer": true,
+                        "text-black dark:text-white":
+                          activeBtn === btn.key &&
+                          activeBtn !== "deleteAccount",
+                      },
+                      btn.key === "deleteAccount" && ["text-[#FF0000]"]
+                    )}
+                    onClick={() => handleActiveBtn(btn.key)}
+                    key={btn.key}
+                  >
+                    {btn.name}
+                  </span>
+                ))}
+              </div>
+            </Col>
+          )}
+          <Col
+            lg={{
+              span: 10,
+            }}
+            xl={{
+              span: 10,
+            }}
+            md={{
+              span: 24,
+            }}
+            xs={{ span: 24 }}
+          >
             <form className="space-y-5" onSubmit={(e) => handleSaveEdit(e)}>
               {showEditPassword ? (
                 <EditPassword
@@ -240,6 +291,29 @@ function EditProfile() {
               </div>
             </form>
           </Col>
+          {isMobile && (
+            <>
+              <FloatButton.Group
+                trigger="click"
+                type="primary"
+                style={{
+                  right: 24,
+                  bottom: 100,
+                }}
+                icon={<FiEdit />}
+              >
+                {editBtns.map((btn) => (
+                  <FloatButton
+                    icon={editIcons(btn.key)}
+                    onClick={() => handleActiveBtn(btn.key)}
+                    key={btn.key}
+                  >
+                    {btn.name}
+                  </FloatButton>
+                ))}
+              </FloatButton.Group>
+            </>
+          )}
         </Row>
       )}
     </>

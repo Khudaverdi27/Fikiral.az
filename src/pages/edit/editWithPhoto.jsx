@@ -5,6 +5,7 @@ import { useCategories } from "../../hooks/useCategories";
 import { useModalActions } from "../../context/LoginModalProvider";
 import { useEffect, useRef, useState } from "react";
 import { saveStorage } from "../../utils/helpers";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 function EditWithPhoto({
   setCompeleteEdit,
@@ -26,6 +27,7 @@ function EditWithPhoto({
     false,
     true
   );
+  const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const {
     authCheckUserNameLoading,
     authCheckLoading,
@@ -107,8 +109,16 @@ function EditWithPhoto({
 
   return (
     <>
-      <div className="flex relative space-x-7 mb-10 items-center ">
-        <figure className="size-24 mt-2 rounded-full editImage">
+      <div
+        className={`flex relative ${
+          isMobile ? "justify-center" : ""
+        } space-x-7 mb-10 items-center`}
+      >
+        <figure
+          className={` mt-2 rounded-full editImage ${
+            isMobile ? " size-16" : "size-24"
+          } `}
+        >
           {selectedImage || userByIdData?.image ? (
             <img
               src={
@@ -137,7 +147,9 @@ function EditWithPhoto({
 
         <button
           type="button"
-          className="relative  border font-[500] text-base border-indigo-500 text-indigo-500 py-2 px-4 rounded-xl"
+          className={`relative  border font-[500] text-base border-indigo-500 text-indigo-500  rounded-xl ${
+            isMobile ? "py-1 px-2 mt-2" : "py-2 px-4"
+          }`}
         >
           Şəkil yüklə
           <input
@@ -214,9 +226,11 @@ function EditWithPhoto({
               </p>
             }
             dropDownItems={category}
-            classes={
-              "w-[434px] !left-[590px] !top-[157px] max-h-[424px] overflow-x-hidden "
-            }
+            classes={`w-[434px] !left-[590px] ${
+              isMobile
+                ? "!top-[183px] w-screen !left-1"
+                : "!top-[157px] w-[434px] !left-[590px]"
+            } max-h-[424px] overflow-x-hidden `}
           />
           <FaAngleDown className="text-[#4C4B4E]" />
         </div>

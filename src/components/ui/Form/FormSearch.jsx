@@ -71,11 +71,11 @@ function FormSearch() {
       <div
         ref={srchInputRef}
         className={classNames("mx-6", {
-          "left-[140px]": isOpen,
+          "left-[50px]": isOpen,
           "left-[50px]": isOpen && token.length > 0,
           "absolute -translate-x-3/4": isMobile,
           relative: !isMobile,
-          "right-8": isMobile && !isOpen,
+          "right-7": isMobile && !isOpen,
         })}
       >
         <Input
