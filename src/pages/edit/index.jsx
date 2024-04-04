@@ -45,7 +45,7 @@ function EditProfile() {
   const [passValue, setPassValue] = useState(false);
   const [errMsg, setErrMsg] = useState(false);
   const [changedPassRes, newPasswordFetch] = useChangeUserPassword();
-  const isMobile = useMediaQuery("only screen and (max-width : 480px)");
+  const isMobile = useMediaQuery("only screen and (max-width : 578px)");
 
   const logoutProfile = () => {
     removeStorage("token");
@@ -227,8 +227,10 @@ function EditProfile() {
                 span: 10,
               }}
               md={{
-                span: 24,
+                span: 12,
               }}
+              sm={{ span: 12 }}
+              xs={{ span: 24 }}
             >
               <div
                 className={`space-y-3 flex flex-col text-[16px] text-[#999999] font-[500] w-1/4 ml-5 items-start`}
@@ -261,8 +263,9 @@ function EditProfile() {
               span: 10,
             }}
             md={{
-              span: 24,
+              span: 12,
             }}
+            sm={{ span: 12 }}
             xs={{ span: 24 }}
           >
             <form className="space-y-5" onSubmit={(e) => handleSaveEdit(e)}>

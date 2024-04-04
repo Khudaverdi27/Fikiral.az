@@ -20,8 +20,8 @@ function FormSearch() {
   const [allComments, fetchComments, commentLoading] = useFetchCommentLists();
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const searchItems = showFull ? searchResponse : searchResponse.slice(0, 5);
+  const isTablet = useMediaQuery("only screen and (max-width : 768px)");
   const token = getStorage("token");
-
   const ref = useClickAway(() => {
     setOpenSrch(false);
     setOpenSrch(false);
@@ -58,8 +58,9 @@ function FormSearch() {
 
     {
       "w-0": isMobile && !isOpen,
-      "!w-[320px]": !isMobile && !isOpen,
-      "w-[228px]": !isMobile || isOpen,
+      "!w-[320px]": !isMobile && !isTablet && !isOpen,
+      "w-full": isTablet && !isMobile,
+      "w-[228px]": (!isMobile && !isTablet) || isOpen,
       "focus-within:border-white": isMobile && !isOpen,
       "bg-transparent": isMobile && !isOpen,
       "focus-within:border-[#e0e0e0]": !isMobile || isOpen,
@@ -70,11 +71,15 @@ function FormSearch() {
     <>
       <div
         ref={srchInputRef}
-        className={classNames("mx-6", {
-          "left-[-20px]": isOpen,
+        className={classNames({
+          "mx-6": !isMobile && !isTablet,
+          "ml-2": isTablet,
+          "left-[-128px]": isOpen && token.length === 0,
+          "left-[-30px]": isOpen && token.length !== 0,
+          "w-full": isTablet,
           "absolute -translate-x-3/4": isMobile,
           relative: !isMobile,
-          "right-7": isMobile && !isOpen,
+          "right-[-20px]": isMobile && !isOpen,
         })}
       >
         <Input
@@ -96,8 +101,9 @@ function FormSearch() {
           <div
             ref={ref}
             className={classNames({
-              "!w-[320px]": !isMobile && !isOpen,
-              "w-[228px]": !isMobile || isOpen,
+              "!w-[320px]": !isMobile && !isTablet && !isOpen,
+              "w-[228px]": (!isMobile && !isTablet) || isOpen,
+              "w-full": isTablet && !isMobile,
               "border px-1 dark:bg-[#22303c] bg-white rounded-md mt-[2px] dark:border-gray-600 absolute text-black overflow-auto max-h-[387px]]": true,
             })}
           >
@@ -116,20 +122,16 @@ function FormSearch() {
             {searchResponse.length > 0 &&
               searchItems.map((res) => (
                 <div
+                  onClick={() => openMessageModal(res)}
                   key={res.id}
                   className="flex  items-center cursor-pointer justify-between py-[10px] hover:border-black border-b "
                 >
-                  <button
-                    onClick={() => openMessageModal(res)}
-                    className="flex items-center"
-                  >
-                    <span>
-                      <IoMdSearch className="size-6 text-[#999999]" />
-                    </span>
-                    <p className="text-sm text-left px-[14px] line-clamp-1 dark:text-white">
-                      {res.content}
-                    </p>
-                  </button>
+                  <span>
+                    <IoMdSearch className="size-6 text-[#999999]" />
+                  </span>
+                  <p className="text-sm text-left px-[14px] line-clamp-1 dark:text-white">
+                    {res.content}
+                  </p>
 
                   <div className="flex items-center space-x-2">
                     <figure className="size-9">

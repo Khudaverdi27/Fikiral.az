@@ -18,7 +18,11 @@ const FormContainer = ({ children }) => {
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   return (
     <>
-      <div className={`${isMobile && "flex justify-between mt-5"} space-x-3`}>
+      <div
+        className={`${
+          isMobile && "flex justify-between mt-5"
+        } space-x-3 shrink-0`}
+      >
         <button
           onClick={switchLoginModal}
           className={`${

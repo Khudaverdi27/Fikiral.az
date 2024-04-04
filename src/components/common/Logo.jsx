@@ -5,10 +5,11 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 function Logo() {
   const token = getStorage("token");
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
+  const isTablet = useMediaQuery("only screen and (max-width : 768px)");
   return (
     <Link
       className={`shrink-0 inline-block ${
-        isMobile ? "w-[171px] !ml-[-28px]" : "w-[191px]"
+        isMobile ? "w-[171px] !ml-[-60px]" : "w-[191px]  !ml-[-28px]"
       } h-[43px] `}
       to={`${token.length !== 0 ? "/home" : "/"}`}
     >

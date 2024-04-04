@@ -21,8 +21,8 @@ function Header() {
     <header
       className={classNames(
         {
-          "flex items-center py-[25px]": !isMobile,
-          "px-5 py-2  ": isMobile,
+          "flex items-center py-[25px]": !isMobile && !isTablet,
+          "px-5 py-1  ": isMobile,
           "w-full dark:bg-[#22303c] top-0 z-40 bg-[#FDFDFF]": true,
           "justify-center": token.length > 0,
           "justify-evenly": token.length === 0,
@@ -30,16 +30,19 @@ function Header() {
         "sticky"
       )}
     >
-      <div className="flex justify-between items-center">
+      <div
+        className={`flex justify-between items-center ${isTablet && "px-5"}`}
+      >
         <div
           className={classNames("flex", "items-center", {
             "justify-between": isMobile,
-            "!ml-20": !isMobile && token.length > 0,
-            "ml-[50px]": !isMobile,
+            "mt-2 ": isTablet,
+            "!ml-20": !isMobile && !isTablet && token.length > 0,
+            "ml-[50px]": !isMobile && !isTablet,
           })}
         >
           <Logo />
-          {!isMobile && <FormSearch />}
+          {!isMobile && !isTablet && <FormSearch />}
         </div>
         <div className="flex space-x-2 cursor-pointer items-center relative">
           {!isMobile && (
@@ -51,7 +54,9 @@ function Header() {
                 </span>
               }
               dropDownItems={category}
-              classes={"w-[314px] max-h-[424px] overflow-x-hidden !top-[85px]"}
+              classes={`w-[314px] max-h-[424px] overflow-x-hidden ${
+                isTablet ? "!top-[46px]" : "!top-[85px]"
+              }`}
             />
           )}
 
@@ -63,7 +68,7 @@ function Header() {
           )}
           {isMobile && <FormSearch />}
           {isMobile && <DrawerToggle loading={loading} category={category} />}
-          {token.length !== 0 && !isMobile && (
+          {token.length !== 0 && !isMobile && !isTablet && (
             <AddModal btnContent={"İdeyanı paylaş"} />
           )}
         </div>
@@ -74,13 +79,27 @@ function Header() {
         </div>
       )}
       {token.length !== 0 ? (
-        !isMobile && <DropProfile />
+        !isMobile && !isTablet && <DropProfile />
       ) : (
-        <div className={`${!isMobile ? "mr-12" : "hidden"}`}>
+        <div className={`${!isMobile && !isTablet ? "mr-12" : "hidden"}`}>
           <FormRegister />
         </div>
       )}
+
       {token.length === 0 && isMobile && <FormRegister />}
+      {isTablet && !isMobile && (
+        <div className="flex w-full items-center justify-between mt-5">
+          <FormSearch />{" "}
+          {token.length === 0 ? (
+            <FormRegister />
+          ) : (
+            <div className="flex items-center space-x-3">
+              <AddModal btnContent={"İdeyanı paylaş"} />
+              <DropProfile top={"!top-[115px]"} />
+            </div>
+          )}
+        </div>
+      )}
     </header>
   );
 }

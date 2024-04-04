@@ -22,7 +22,7 @@ function DropProfile({ top, onClick, openDrawer }) {
     }
   };
   return (
-    <div>
+    <div className="!mr-2">
       {!userLoading ? (
         <DropdownMenu
           openDrawer={openDrawer}
