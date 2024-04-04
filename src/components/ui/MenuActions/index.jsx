@@ -14,6 +14,7 @@ function MenuActions() {
   const theme = getStorage("theme");
   const { handleChange } = useDarkMode();
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
+  const isLaptop = useMediaQuery("only screen and (max-width : 1024px)");
   const switchDarkMode = () => {
     handleChange();
     theme.length > 0 ? setDark(false) : setDark(true);
@@ -24,7 +25,11 @@ function MenuActions() {
   }, [theme]);
 
   return (
-    <div className="flex gap-x-[25px] items-center justify-center text-primaryGray">
+    <div
+      className={`flex ${
+        isLaptop ? "gap-x-[10px]" : "gap-x-[25px]"
+      } items-center justify-center text-primaryGray`}
+    >
       {token.length !== 0 && !isMobile && (
         <>
           <SaveBookmark />

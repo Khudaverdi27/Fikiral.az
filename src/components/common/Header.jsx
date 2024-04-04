@@ -15,15 +15,17 @@ function Header() {
   const { category, loading } = useCategories(true, "checkbox");
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const isTablet = useMediaQuery("only screen and (max-width : 768px)");
+  const isLaptop = useMediaQuery("only screen and (max-width : 1024px)");
   const token = getStorage("token");
 
   return (
     <header
       className={classNames(
         {
-          "flex items-center py-[25px]": !isMobile && !isTablet,
+          "flex items-center py-[25px]": !isMobile && !isTablet && !isLaptop,
           "px-5 py-1  ": isMobile,
-          "w-full dark:bg-[#22303c] top-0 z-40 bg-[#FDFDFF]": true,
+          "px-3 pt-2": isLaptop,
+          "w-full dark:bg-[#22303c] top-0 z-40 bg-[#FDFDFF] ": true,
           "justify-center": token.length > 0,
           "justify-evenly": token.length === 0,
         },
@@ -37,8 +39,8 @@ function Header() {
           className={classNames("flex", "items-center", {
             "justify-between": isMobile,
             "mt-2 ": isTablet,
-            "!ml-20": !isMobile && !isTablet && token.length > 0,
-            "ml-[50px]": !isMobile && !isTablet,
+            "!ml-20": !isMobile && !isTablet && !isLaptop && token.length > 0,
+            "ml-[50px]": !isMobile && !isTablet && !isLaptop,
           })}
         >
           <Logo />
@@ -55,7 +57,7 @@ function Header() {
               }
               dropDownItems={category}
               classes={`w-[314px] max-h-[424px] overflow-x-hidden ${
-                isTablet ? "!top-[46px]" : "!top-[85px]"
+                isTablet || isLaptop ? "!top-[46px]" : "!top-[85px]"
               }`}
             />
           )}
@@ -68,7 +70,7 @@ function Header() {
           )}
           {isMobile && <FormSearch />}
           {isMobile && <DrawerToggle loading={loading} category={category} />}
-          {token.length !== 0 && !isMobile && !isTablet && (
+          {token.length !== 0 && !isMobile && !isTablet && !isLaptop && (
             <AddModal btnContent={"İdeyanı paylaş"} />
           )}
         </div>
@@ -79,9 +81,21 @@ function Header() {
         </div>
       )}
       {token.length !== 0 ? (
-        !isMobile && !isTablet && <DropProfile />
+        !isMobile &&
+        !isTablet && (
+          <div className="flex  items-center justify-between mt-3">
+            <DropProfile top={isLaptop && "!top-[110px]"} />
+            {isLaptop && <AddModal btnContent={"İdeyanı paylaş"} />}
+          </div>
+        )
       ) : (
-        <div className={`${!isMobile && !isTablet ? "mr-12" : "hidden"}`}>
+        <div
+          className={`${
+            !isMobile && !isTablet
+              ? `flex justify-end ${isLaptop ? " mt-2" : "mr-12"}`
+              : "hidden"
+          }`}
+        >
           <FormRegister />
         </div>
       )}
