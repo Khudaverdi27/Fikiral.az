@@ -74,6 +74,7 @@ function ModalProvider({ children }) {
         if (userLoginAuth.status === 404) {
           errorResponse = "Google'a bağlı istifadəçi yoxdur. Hesab yarat!";
           setError("gmail", { type: "manual", message: errorResponse });
+          removeStorage("social");
         } else if (userLoginAuth.status === 403 && withGoogle && !accescLogin) {
           errorResponse = userLoginAuth.message.errorMessage;
           setError("password", { type: "manual", message: errorResponse });
@@ -81,6 +82,7 @@ function ModalProvider({ children }) {
       } else if (withFb && userLoginAuth.status === 404) {
         errorResponse = "Facebook'a bağlı istifadəçi yoxdur. Hesab yarat!";
         setError("gmail", { type: "manual", message: errorResponse });
+        removeStorage("social");
       } else if (userLoginAuth.status === 403) {
         errorResponse = userLoginAuth.message.errorMessage;
         setError("password", { type: "manual", message: errorResponse });
