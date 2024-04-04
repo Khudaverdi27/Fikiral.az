@@ -81,15 +81,15 @@ export const DropNotifications = () => {
                   read.includes(item.id) ? "text-gray-500" : "text-black"
                 }`}
               >
-                {item.action === "like"
+                {item.action === "LIKE"
                   ? "postunuzu bəyəndi bax..."
-                  : item.action === "dislike"
+                  : item.action === "DISLIKE"
                   ? "postunuzu bəyənmədi bax..."
-                  : item.action === "comment"
+                  : item.action === "COMMENT"
                   ? "postunuza fikir bildirdi bax..."
-                  : item.action === "commentlike"
+                  : item.action === "COMMENTLIKE"
                   ? "rəyinizi bəyəndi bax..."
-                  : item.action === "accept"
+                  : item.action === "ACCEPT"
                   ? "postunuzu təsdiqlədi bax..."
                   : ""}
               </button>

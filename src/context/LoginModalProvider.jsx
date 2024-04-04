@@ -72,7 +72,7 @@ function ModalProvider({ children }) {
       let errorResponse = "";
       if (withGoogle) {
         if (userLoginAuth.status === 404) {
-          errorResponse = "Google'a bağlı istifadəçi yoxdur. Hesab yaradın!";
+          errorResponse = "Google'a bağlı istifadəçi yoxdur. Hesab yarat!";
           setError("gmail", { type: "manual", message: errorResponse });
         } else if (userLoginAuth.status === 403 && withGoogle && !accescLogin) {
           errorResponse = userLoginAuth.message.errorMessage;
