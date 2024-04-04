@@ -8,7 +8,7 @@ function Footer() {
   const date = new Date().getFullYear();
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const isTablet = useMediaQuery("only screen and (max-width : 768px)");
-  const isLaptop = useMediaQuery("only screen and (max-width : 1024px)");
+  const isLaptop = useMediaQuery("only screen and (max-width : 1115px)");
   return (
     <footer
       className={`text-white  ${

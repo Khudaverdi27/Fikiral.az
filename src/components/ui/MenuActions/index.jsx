@@ -14,7 +14,7 @@ function MenuActions() {
   const theme = getStorage("theme");
   const { handleChange } = useDarkMode();
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
-  const isLaptop = useMediaQuery("only screen and (max-width : 1024px)");
+  const isLaptop = useMediaQuery("only screen and (max-width : 1115px)");
   const switchDarkMode = () => {
     handleChange();
     theme.length > 0 ? setDark(false) : setDark(true);

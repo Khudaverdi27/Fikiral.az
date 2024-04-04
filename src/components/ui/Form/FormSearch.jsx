@@ -21,7 +21,7 @@ function FormSearch() {
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const searchItems = showFull ? searchResponse : searchResponse.slice(0, 5);
   const isTablet = useMediaQuery("only screen and (max-width : 768px)");
-  const isLaptop = useMediaQuery("only screen and (max-width : 1024px)");
+  const isLaptop = useMediaQuery("only screen and (max-width : 1115px)");
   const token = getStorage("token");
   const ref = useClickAway(() => {
     setOpenSrch(false);

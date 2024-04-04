@@ -15,7 +15,7 @@ function Header() {
   const { category, loading } = useCategories(true, "checkbox");
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   const isTablet = useMediaQuery("only screen and (max-width : 768px)");
-  const isLaptop = useMediaQuery("only screen and (max-width : 1024px)");
+  const isLaptop = useMediaQuery("only screen and (max-width : 1115px)");
   const token = getStorage("token");
 
   return (
