@@ -47,7 +47,7 @@ function FormSearch() {
   };
 
   const inputClasses = classNames(
-    "max-h-[37px]",
+    "max-h-[37px] ",
     "focus-within:shadow-none",
     "focus-within:border",
     "bg-[#E8E8E8]",
@@ -58,12 +58,12 @@ function FormSearch() {
     "duration-300",
 
     {
-      "w-0": isMobile && !isOpen,
+      "w-0 ": isMobile && !isOpen,
       "!w-[320px]": !isMobile && !isTablet && !isOpen,
       "w-full": isTablet && !isMobile,
       "w-[228px]": (!isMobile && !isTablet) || isOpen,
       "focus-within:border-white": isMobile && !isOpen,
-      "bg-transparent": isMobile && !isOpen,
+      "bg-transparent ": isMobile && !isOpen,
       "focus-within:border-[#e0e0e0]": !isMobile || isOpen,
       "hover:outline-[3px] hover:outline-[#E0E0E0]": isHovered,
     }
@@ -75,12 +75,12 @@ function FormSearch() {
         className={classNames({
           "mx-6": !isMobile && !isTablet && !isLaptop,
           "ml-2": isTablet,
-          "left-[-128px]": isOpen && token.length === 0,
-          "left-[-30px]": isOpen && token.length !== 0,
-          "w-full": isTablet,
+          "left-[-10px]": isOpen && token.length === 0,
+          "left-[35px]": isOpen && token.length !== 0,
+          "w-full": isTablet && !isMobile,
           "absolute -translate-x-3/4": isMobile,
           relative: !isMobile,
-          "right-[-20px]": isMobile && !isOpen,
+          "right-6 ": isMobile && !isOpen,
         })}
       >
         <Input

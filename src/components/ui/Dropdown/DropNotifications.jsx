@@ -77,7 +77,7 @@ export const DropNotifications = () => {
               </div>
               <button
                 onClick={() => openMessageModal(item?.post, item.id)}
-                className={`line-clamp-1 shrink-0 text-left w-7/12  ${
+                className={`line-clamp-1 shrink-0 text-right w-7/12  ${
                   read.includes(item.id) ? "text-gray-500" : "text-black"
                 }`}
               >

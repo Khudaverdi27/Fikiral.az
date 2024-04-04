@@ -8,15 +8,13 @@ function Notifies() {
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   return (
     <Badge className="dark:text-white" size={"small"} count={notifyRes.length}>
-      <button>
-        <DropdownMenu
-          dropName={<HiOutlineBell className="size-6" />}
-          dropDownItems={notifications}
-          classes={`w-[359px] max-h-[424px] ${
-            isMobile ? "!top-[60px]" : "!top-[80px]"
-          } overflow-x-hidden`}
-        />
-      </button>
+      <DropdownMenu
+        dropName={<HiOutlineBell className="size-6" />}
+        dropDownItems={notifications}
+        classes={`w-[359px] max-h-[424px] ${
+          isMobile ? "!top-[60px]" : "!top-[80px]"
+        } overflow-x-hidden`}
+      />
     </Badge>
   );
 }

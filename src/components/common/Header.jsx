@@ -23,7 +23,7 @@ function Header() {
       className={classNames(
         {
           "flex items-center py-[25px]": !isMobile && !isTablet && !isLaptop,
-          "px-5 py-1  ": isMobile,
+          " py-1  ": isMobile,
           "px-3 pt-2": isLaptop,
           "w-full dark:bg-[#22303c] top-0 z-40 bg-[#FDFDFF] ": true,
           "justify-center": token.length > 0,
@@ -33,12 +33,13 @@ function Header() {
       )}
     >
       <div
-        className={`flex justify-between items-center ${isTablet && "px-5"}`}
+        className={`flex justify-between items-center ${
+          isTablet && !isMobile && "px-3"
+        }`}
       >
         <div
           className={classNames("flex", "items-center", {
             "justify-between": isMobile,
-            "mt-2 ": isTablet,
             "!ml-20": !isMobile && !isTablet && !isLaptop && token.length > 0,
             "ml-[50px]": !isMobile && !isTablet && !isLaptop,
           })}
@@ -63,7 +64,7 @@ function Header() {
           )}
 
           {!isMobile && <MenuActions />}
-          {isMobile && token.length > 0 && (
+          {isMobile && token.length !== 0 && (
             <div className="mr-4 mb-1">
               <Notifies />
             </div>
@@ -103,7 +104,7 @@ function Header() {
       {token.length === 0 && isMobile && <FormRegister />}
       {isTablet && !isMobile && (
         <div className="flex w-full items-center justify-between mt-5">
-          <FormSearch />{" "}
+          <FormSearch />
           {token.length === 0 ? (
             <FormRegister />
           ) : (

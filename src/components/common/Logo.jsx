@@ -9,7 +9,7 @@ function Logo() {
   return (
     <Link
       className={`shrink-0 inline-block ${
-        isMobile ? "w-[171px] !ml-[-60px]" : "w-[191px]  !ml-[-28px]"
+        isMobile ? "w-[171px] !ml-[-30px]" : "w-[191px]  !ml-[-28px]"
       } h-[43px] `}
       to={`${token.length !== 0 ? "/home" : "/"}`}
     >
