@@ -68,20 +68,26 @@ const FormRegister = () => {
       </h3>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
         {accescLogin && (
-          <Input
-            label={"İstifadəçi adı"}
-            required={true}
-            placeholder={"İstifadəçi adı"}
-            type={"text"}
-            maxLength={15}
-            registerName={"userName"}
-            patterns={{
-              value: /\s*/,
-              message: "Zəhmət olmasa boşluqlardan istifadə etməyin",
-            }}
-            onBlur={(e) => checkUserName(e.target.value)}
-            checkLoading={authCheckUserNameLoading}
-          />
+          <>
+            {userLoading || userLoginAuthLoading ? (
+              <LoadingSpin />
+            ) : (
+              <Input
+                label={"İstifadəçi adı"}
+                required={true}
+                placeholder={"İstifadəçi adı"}
+                type={"text"}
+                maxLength={15}
+                registerName={"userName"}
+                patterns={{
+                  value: /\s*/,
+                  message: "Zəhmət olmasa boşluqlardan istifadə etməyin",
+                }}
+                onBlur={(e) => checkUserName(e.target.value)}
+                checkLoading={authCheckUserNameLoading}
+              />
+            )}
+          </>
         )}
         <>
           {userLoading || userLoginAuthLoading ? (
