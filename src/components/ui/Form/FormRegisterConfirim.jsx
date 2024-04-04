@@ -7,7 +7,7 @@ import {
   useVerifyMail,
 } from "../../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import { getStorage, removeStorage, saveStorage } from "../../../utils/helpers";
+import { getStorage } from "../../../utils/helpers";
 import { toast } from "react-toastify";
 function FormRegisterConfrim() {
   const { category, checkboxStates, allCategories, loading } = useCategories(

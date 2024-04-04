@@ -133,7 +133,9 @@ export const useCategories = (
                   className="cursor-pointer dark:text-white font-fransisco"
                   htmlFor={`check-${item.id}`}
                 >
-                  {item.name}
+                  {_.split(item?.name, " ").length > 4
+                    ? _.slice(_.split(item?.name, " "), 0, 5).join(" ") + "..."
+                    : item?.name}
                 </label>
                 <span className={`${classes ? "" : "container"} `}>
                   <input

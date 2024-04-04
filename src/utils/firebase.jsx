@@ -4,6 +4,7 @@ import {
   getAuth,
   signInWithPopup,
   FacebookAuthProvider,
+  signInWithRedirect,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -23,7 +24,7 @@ const auth = getAuth(app);
 export const loginGoogle = async () => {
   try {
     const provider = new GoogleAuthProvider();
-    const data = await signInWithPopup(auth, provider);
+    const data = await signInWithRedirect(auth, provider);
     const user = data.user;
     if (user) {
       return { user };
@@ -39,7 +40,7 @@ export const loginGoogle = async () => {
 export const loginFacebook = async () => {
   try {
     const providerFB = new FacebookAuthProvider();
-    const data = await signInWithPopup(auth, providerFB);
+    const data = await signInWithRedirect(auth, providerFB);
     if (data) {
       return data;
     }
