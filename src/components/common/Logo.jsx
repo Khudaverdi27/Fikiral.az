@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/img/Logo.svg";
+import logo from "../../../public/Logo.svg";
 import { getStorage } from "../../utils/helpers";
 import { useMediaQuery } from "@uidotdev/usehooks";
 function Logo() {
   const token = getStorage("token");
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
-  const isTablet = useMediaQuery("only screen and (max-width : 768px)");
+
   return (
     <Link
       className={`shrink-0 inline-block ${

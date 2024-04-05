@@ -20,7 +20,7 @@ const FormContainer = ({ children }) => {
     <>
       <div
         className={`${
-          isMobile && "flex justify-between mt-5"
+          isMobile && "flex justify-between mt-5 ml-1"
         } space-x-3 shrink-0`}
       >
         <button
