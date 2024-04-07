@@ -72,21 +72,18 @@ function Header() {
           {isMobile && <FormSearch />}
           {isMobile && <DrawerToggle loading={loading} category={category} />}
           {token.length !== 0 && !isMobile && !isTablet && !isLaptop && (
-            <AddModal btnContent={"İdeyanı paylaş"} />
+            <AddModal />
           )}
         </div>
       </div>
-      {token.length !== 0 && isMobile && (
-        <div className="flex justify-end mt-4">
-          <AddModal btnContent={"İdeyanı paylaş"} />
-        </div>
-      )}
+      {token.length !== 0 && (isMobile || isTablet) && <AddModal />}
+
       {token.length !== 0 ? (
         !isMobile &&
         !isTablet && (
           <div className="flex  items-center justify-between mt-3">
             <DropProfile top={isLaptop && "!top-[110px]"} />
-            {isLaptop && <AddModal btnContent={"İdeyanı paylaş"} />}
+            {isLaptop && <AddModal />}
           </div>
         )
       ) : (
@@ -108,10 +105,7 @@ function Header() {
           {token.length === 0 ? (
             <FormRegister />
           ) : (
-            <div className="flex items-center space-x-3">
-              <AddModal btnContent={"İdeyanı paylaş"} />
-              <DropProfile top={"!top-[115px]"} />
-            </div>
+            <DropProfile top={"!top-[115px]"} />
           )}
         </div>
       )}

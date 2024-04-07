@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Modal } from "antd";
+import { Modal, FloatButton } from "antd";
 import DropdownMenu from "../Dropdown";
 import { IoMdClose } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { useCategories } from "../../../hooks/useCategories";
 import { useModalActions } from "../../../context/LoginModalProvider";
 import { useEditThink, usePostThink } from "../../../hooks/useFetch";
-import { findFuckingWords } from "../../../utils/helpers";
+import { findFuckingWords, getStorage } from "../../../utils/helpers";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import { toast } from "react-toastify";
 import _ from "lodash";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import classNames from "classnames";
+import { FiPlus } from "react-icons/fi";
 
-const AddModal = ({ btnContent, forEdit = false, thinkId }) => {
+const AddModal = ({
+  btnContent = "İdeyanı paylaş",
+  forEdit = false,
+  thinkId,
+}) => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState({});
   const { category, checkboxStates, allCategories } = useCategories(
@@ -23,7 +28,8 @@ const AddModal = ({ btnContent, forEdit = false, thinkId }) => {
   const [editRes, editFetch, editLoading] = useEditThink();
   const { setIsPosted } = useModalActions();
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
-
+  const isTablet = useMediaQuery("only screen and (max-width : 768px)");
+  const token = getStorage("token");
   const {
     register,
     handleSubmit,
@@ -97,23 +103,35 @@ const AddModal = ({ btnContent, forEdit = false, thinkId }) => {
       setOpen(false);
     }
   }, [editRes]);
-
+  // {}
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className={classNames(
-          { "font-fransisco": true },
-          {
-            "bg-indigo-500 text-white whitespace-nowrap px-4 py-2 rounded-[12px]":
-              !forEdit,
-          },
-          { "text-indigo-500": forEdit },
-          { "!mx-3": !isMobile && !forEdit }
-        )}
-      >
-        {btnContent}
-      </button>
+      {token.length !== 0 && !forEdit && (isMobile || isTablet) ? (
+        <FloatButton
+          type="primary"
+          style={{
+            right: 24,
+            bottom: 100,
+          }}
+          icon={<FiPlus />}
+          onClick={() => setOpen(true)}
+        />
+      ) : (
+        <button
+          onClick={() => setOpen(true)}
+          className={classNames(
+            { "font-fransisco": true },
+            {
+              "bg-indigo-500 text-white whitespace-nowrap px-4 py-2 rounded-[12px] !mx-3":
+                !forEdit,
+            },
+            { "text-indigo-500": forEdit }
+          )}
+        >
+          {btnContent}
+        </button>
+      )}
+
       <Modal
         title={
           <div className="flex items-center space-x-2 bg-neutral-100 dark:bg-[#22303c]">
