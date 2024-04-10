@@ -74,7 +74,7 @@ function FormSearch() {
         ref={srchInputRef}
         className={classNames({
           "mx-6": !isMobile && !isTablet && !isLaptop,
-          "ml-2": isTablet,
+          "mx-2": isTablet,
           "left-[-10px]": isOpen && token.length === 0,
           "left-[35px]": isOpen && token.length !== 0,
           "w-full": isTablet && !isMobile,
@@ -94,7 +94,7 @@ function FormSearch() {
               className={`size-6 cursor-pointer text-[#999999] inline`}
             />
           }
-          suffix={loadings && <Spin />}
+          suffix={loadings && openSrch && <Spin />}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         />
