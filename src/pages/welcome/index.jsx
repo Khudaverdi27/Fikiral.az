@@ -54,12 +54,11 @@ function WelcomePage() {
           </Col>
           <Col span={24}>
             <p className={`text-[22px] leading-10 font-fransisco`}>
-              Bizim missiyamız biznes ideyalarının mübadiləsi prosesini
-              cəmiyyətimizin bütün üzvləri üçün mümkün qədər rahat, effektiv və
-              ruhlandırıcı etməkdir.
+              Yaradıcı biznes fikirlərinizi bölüşün və bizimlə sahibkarlıq
+              ruhunu kəşv edin!
             </p>
           </Col>
-          <Col span={24}>
+          <Col className="!mb-10" span={24}>
             <Link to={token.length !== 0 && "/home"}>
               <button
                 onClick={switcRegisterModal}
