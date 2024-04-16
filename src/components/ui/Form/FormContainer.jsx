@@ -14,7 +14,6 @@ const FormContainer = ({ children }) => {
     setMainModel,
     isSubModel,
     onSubModel,
-    reset,
   } = useModalActions();
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
   return (
@@ -54,10 +53,7 @@ const FormContainer = ({ children }) => {
         className="bg-[#FBFBFB] rounded-[20px]"
         open={isMainModel}
         onOk={() => setMainModel(false)}
-        onCancel={() => {
-          setMainModel(false);
-          reset();
-        }}
+        onCancel={() => setMainModel(false)}
       >
         <div className="flex justify-center items-center pt-7">
           <div className="w-[300px] space-y-3">{children}</div>
@@ -73,7 +69,7 @@ const FormContainer = ({ children }) => {
         onOk={(e) => onSubModel(e, false)}
         onCancel={(e) => {
           onSubModel(e, false);
-          reset();
+          location.reload();
         }}
       >
         <div className="flex justify-center items-center pt-10">

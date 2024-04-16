@@ -55,7 +55,7 @@ function WelcomePage() {
           <Col span={24}>
             <p className={`text-[22px] leading-10 font-fransisco`}>
               Yaradıcı biznes fikirlərinizi bölüşün və bizimlə sahibkarlıq
-              ruhunu kəşv edin!
+              ruhunu kəşf edin!
             </p>
           </Col>
           <Col className="!mb-10" span={24}>
