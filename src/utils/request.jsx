@@ -2,7 +2,7 @@ import { userApi } from "../api/user.api";
 import { getStorage, objectToQueryString, removeStorage } from "./helpers";
 
 const base_URL = "https://fikiral-1rz3.onrender.com/fikiral/v1";
-
+const ai_URL = "http://165.232.123.144:8080/";
 const request = async (baseURL, url, method, params = false) => {
   const token = getStorage("token");
 
@@ -88,3 +88,11 @@ export const putForEdit = (url, params) =>
 
 export const post = (url, params) => request(base_URL, url, "POST", params);
 export const destroy = (url) => request(base_URL, url, "DELETE");
+
+// ai posts
+export const aiPost = (url, params = false) =>
+  request(ai_URL, url, "GET", params);
+
+export const patch = (url, params) => request(ai_URL, url, "PATCH", params);
+
+export const destroyAiPost = (url) => request(ai_URL, url, "DELETE");

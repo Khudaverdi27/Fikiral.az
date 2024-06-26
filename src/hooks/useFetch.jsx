@@ -1,9 +1,12 @@
 import { useState } from "react";
 import {
   ServiceAcceptThinks,
+  ServiceDeleteAiPosts,
   ServiceDeleteThinks,
+  ServiceGetAiPosts,
   ServiceGetComments,
   ServiceInAcceptedThinksList,
+  ServicePatchAiPosts,
   ServicePostComment,
   ServiceThinksByCategoryFetchList,
   ServiceThinksByPopularFetchList,
@@ -349,4 +352,30 @@ export const useVerifyPassword = () => {
     fetch(ServiceVerifyPassword, params);
   };
   return [data || false, getUserPassVerify, loading];
+};
+export const useAiPosts = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const getUserPassVerify = async () => {
+    fetch(ServiceGetAiPosts);
+  };
+  return [data || false, getUserPassVerify, loading];
+};
+
+export const useAcceptAiPostById = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const acceptAiPostById = async (id, params = {}) => {
+    fetch(ServicePatchAiPosts, id, params);
+  };
+  return [data || [], acceptAiPostById, loading];
+};
+
+export const useDeleteAiPostById = () => {
+  const [data, fetch, loading] = useFetch();
+
+  const deleteAiPostFetch = async (id) => {
+    fetch(ServiceDeleteAiPosts, id);
+  };
+  return [data || [], deleteAiPostFetch, loading];
 };

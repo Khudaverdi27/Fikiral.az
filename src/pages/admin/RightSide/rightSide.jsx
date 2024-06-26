@@ -7,7 +7,7 @@ import FullCategories from "./fullCategories";
 import FullUsers from "./fullUsers";
 import AllPostsPending from "./pendingPosts";
 import AllPosts from "./allPosts";
-import { useFetchInAcceptedThinks } from "../../../hooks/useFetch";
+import { useAiPosts, useFetchInAcceptedThinks } from "../../../hooks/useFetch";
 
 function RighSide({
   userLoading,
@@ -25,23 +25,34 @@ function RighSide({
   const [activeMenu, setActiveMenu] = useState(false);
   const [inAcceptedPosts, fetchInAccepted, loading] =
     useFetchInAcceptedThinks();
+  const [aiPosts, getAiPosts, aiLoading] = useAiPosts();
+  const [allInAccepted, setAllInAccepted] = useState();
   const dates = [
     { name: "Bu gün", key: "today" },
     { name: "Bu həftə", key: "week" },
     { name: "Bu ay", key: "month" },
     { name: "Bu il", key: "year" },
   ];
+  const inApprovals =
+    aiPosts && aiPosts?.filter((post) => post.isApproval === false);
+
   const handleActiveMenu = (key) => {
     setActiveMenu(key);
   };
   useEffect(() => {
     fetchInAccepted();
+    getAiPosts();
   }, []);
+  useEffect(() => {
+    if (aiPosts) {
+      setAllInAccepted(inAcceptedPosts.concat(inApprovals));
+    }
+  }, [aiPosts, inAcceptedPosts]);
 
   return (
     <section className="w-full">
       <AdminNavbar
-        inAcceptedPosts={inAcceptedPosts}
+        inAcceptedPosts={allInAccepted}
         userById={userById}
         userLoading={userLoading}
       />
@@ -79,6 +90,12 @@ function RighSide({
           inAcceptedPosts={inAcceptedPosts}
           fetchInAccepted={fetchInAccepted}
           loading={loading}
+        />
+      ) : activeMenuLeft === "AIpost" ? (
+        <AllPostsPending
+          inAcceptedPosts={inApprovals}
+          fetchInAccepted={getAiPosts}
+          loading={aiLoading}
         />
       ) : activeMenuLeft === "allpost" ? (
         <AllPosts

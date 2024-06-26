@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import {
+  useAcceptAiPostById,
+  useDeleteAiPostById,
   useDeleteThink,
   useFetchAcceptThink,
   usePostNotify,
@@ -8,30 +10,67 @@ import { changeTime, getStorage } from "../../../utils/helpers";
 import { Col, Row } from "antd";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
+import botImg from "../../../assets/img/bot.jpg";
 import { toast } from "react-toastify";
 import _ from "lodash";
 function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
   const [deletedRes, deleteFetch, deleteLoading] = useDeleteThink();
+  const [deletedAiRes, deleteAiFetch, deleteAiLoading] = useDeleteAiPostById();
+  const [acceptAiRes, acceptAiFetch, acceptAiLoading] = useAcceptAiPostById();
   const [res, acceptFetch, acceptLoading] = useFetchAcceptThink();
   const [acceptedId, setAcceptedId] = useState(false);
   const [postNotifyFetch] = usePostNotify();
   const loginId = getStorage("userId");
   const notifyError = (message) => toast.error(message);
-
+  const notifySucces = (message) => toast.success(message);
   const destroyPost = (id) => {
     deleteFetch(id);
   };
 
+  const destroyAiPost = (id) => {
+    deleteAiFetch(id);
+  };
+
+  useEffect(() => {
+    if (deletedAiRes.message) {
+      notifySucces(deletedAiRes.message);
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
+    } else if (deletedAiRes.status === 404) {
+      notifyError("Bir şeylər tərs getdi, yenidən yoxlayın!");
+    }
+  }, [deletedAiRes]);
+
   const accetPost = (id, userId) => {
-    acceptFetch(id);
-    setAcceptedId(id);
-    postNotifyFetch({
-      postId: id,
-      postOwnerId: userId,
-      actionOwnerId: loginId,
-      action: "accept",
+    if (userId) {
+      acceptFetch(id);
+      setAcceptedId(id);
+      postNotifyFetch({
+        postId: id,
+        postOwnerId: userId,
+        actionOwnerId: loginId,
+        action: "accept",
+      });
+    }
+  };
+
+  const acceptAiPost = (id) => {
+    acceptAiFetch(id, {
+      isApproval: true,
     });
   };
+
+  useEffect(() => {
+    if (acceptAiRes.message) {
+      notifySucces(acceptAiRes.message);
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
+    } else if (acceptAiRes.status === 404) {
+      notifyError("Bir şeylər tərs getdi, yenidən yoxlayın!");
+    }
+  }, [acceptAiRes]);
 
   useEffect(() => {
     if (deletedRes.status === 200 || res.status === 200) {
@@ -78,28 +117,34 @@ function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
                           <span className="size-full text-2xl bg-gray-300  rounded-full border text-indigo-500 flex items-center justify-center">
                             {inAccepted?.user?.userName
                               ?.charAt(0)
-                              .toLowerCase()}
+                              .toLowerCase() || (
+                              <img
+                                className="img-cover rounded-full"
+                                src={botImg}
+                                alt="user"
+                              />
+                            )}
                           </span>
                         )}
                       </figure>
                       <h6>
                         {_.split(
-                          inAccepted.user.userName,
+                          inAccepted?.user?.userName,
                           " ",
                           1
-                        )[0].toLowerCase()}
+                        )[0].toLowerCase() || "Fikiral Bot"}
                       </h6>
                     </div>
                   </div>
 
                   <div className="text-xs border-b-[1px] dark:border-gray-500 pb-2 space-x-4 border-[#DBDBDB] flex items-center">
-                    <span className="hover:bg-indigo-500 hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px]">
+                    <span className="hover:bg-indigo-500 hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px] line-clamp-1">
                       {inAccepted?.category?.name
                         ?.split(" ")
                         .slice(0, 3)
                         .join(" ")}
                     </span>
-                    <span className="dotForTime">
+                    <span className="dotForTime whitespace-nowrap">
                       {changeTime(inAccepted?.publishedAt)}
                     </span>
                   </div>
@@ -115,17 +160,26 @@ function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
                         {deleteLoading ? "Silinir..." : " Sil"}
                       </span>
                     }
-                    destroyProfile={() => destroyPost(inAccepted.id)}
+                    destroyProfile={() =>
+                      inAccepted?.user?.id
+                        ? destroyPost(inAccepted.id)
+                        : destroyAiPost(inAccepted.id)
+                    }
                     destroyBtn={"Sil"}
                   />
-
                   <button
-                    onClick={() => accetPost(inAccepted.id, inAccepted.user.id)}
-                    className=" text-base bg-indigo-500 text-white py-[6px] px-4 rounded-xl font-sans"
+                    onClick={() => {
+                      if (inAccepted.user && inAccepted.user.id) {
+                        accetPost(inAccepted.id, inAccepted.user.id);
+                      } else {
+                        acceptAiPost(inAccepted.id);
+                      }
+                    }}
+                    className="text-base bg-indigo-500 text-white py-[6px] px-4 rounded-xl font-sans"
                   >
-                    {acceptLoading && acceptedId == inAccepted.id
+                    {acceptLoading && acceptedId === inAccepted.id
                       ? "Qəbul edilir..."
-                      : " Qəbul et"}
+                      : "Qəbul et"}
                   </button>
                 </div>
               </div>

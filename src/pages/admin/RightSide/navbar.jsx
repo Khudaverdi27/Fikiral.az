@@ -21,7 +21,7 @@ function AdminNavbar({ inAcceptedPosts, userById, userLoading }) {
   const [badgeName, setBadgeName] = useState("Boşdur");
 
   useEffect(() => {
-    if (inAcceptedPosts.length > 0) {
+    if (inAcceptedPosts?.length > 0) {
       setBadgeName(`${inAcceptedPosts?.length} ədəd post istəyi daxil olub`);
     }
   }, [inAcceptedPosts]);

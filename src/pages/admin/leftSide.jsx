@@ -6,7 +6,8 @@ function LeftSide({ activeMenuLeft, setActiveMenu }) {
     { name: "Kateqoriya", key: "category" },
     { name: "Bütün istifadəçilər", key: "users" },
     { name: "Bütün postlar", key: "allpost" },
-    { name: "Post istəkləri", key: "post" },
+    { name: "User post istəkləri", key: "post" },
+    { name: "AI post istəkləri", key: "AIpost" },
   ];
   const handleActiveMenu = (key) => {
     setActiveMenu(key);
