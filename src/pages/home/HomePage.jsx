@@ -96,7 +96,7 @@ function HomePage() {
           }`}</p>
         }
         items={filteredCategories.length > 0 ? filteredCategories : sortedData}
-        loading={loading}
+        loading={aiLoading}
       />
     </>
   );

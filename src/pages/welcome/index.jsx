@@ -105,7 +105,7 @@ function WelcomePage() {
           }`}</p>
         }
         items={filteredCategories.length > 0 ? filteredCategories : allAccepted}
-        loading={loading}
+        loading={aiLoading}
       />
     </section>
   );
