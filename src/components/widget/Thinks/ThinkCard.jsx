@@ -21,6 +21,7 @@ import _ from "lodash";
 import AddModal from "../../ui/Modals/AddModal";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { CiEdit } from "react-icons/ci";
+import botImg from "../../../assets/img/bot.jpg";
 
 function ThinkCard({ thinks, children, items, userByIdData }) {
   const [bookmark, setBookmark] = useState(false);
@@ -84,8 +85,8 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
     from_name: userByIdData?.userName,
     from_email: userByIdData?.gmail,
     to_name: "Fikiral komandası",
-    userMail: thinks?.user.gmail,
-    userName: thinks?.user.userName,
+    userMail: thinks?.user ? thinks?.user.gmail : "fikiralBot@gmail.com",
+    userName: thinks?.user ? thinks?.user.userName : "fikiralBot",
     content: thinks?.content,
   };
 
@@ -109,8 +110,8 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
     <div>
       <div
         className={`${
-          thinks?.user?.id === userByIdData?.id
-            ? "visible text-red-500 "
+          thinks.user && thinks.user.id === userByIdData?.id
+            ? "visible text-red-500"
             : "hidden"
         }`}
       >
@@ -130,8 +131,10 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
       <button
         disabled={token.length === 0}
         onClick={sendMessageResponse}
-        className={`flex items-center space-x-1 disabled:cursor-not-allowed disabled:opacity-50 dark:text-white ${
-          thinks?.user?.id !== userByIdData?.id ? "visible " : "hidden"
+        className={`flex items-center space-x-1 disabled:cursor-not-allowed disabled:opacity-50 dark:text-white visible${
+          thinks.user && thinks?.user?.id !== userByIdData?.id
+            ? "visible "
+            : "hidden"
         }`}
       >
         {reportRes === "Bildirildi" ? (
@@ -145,7 +148,9 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
 
       <div
         className={`${
-          thinks?.user?.id === userByIdData?.id ? "visible " : "hidden"
+          thinks.user && thinks?.user?.id === userByIdData?.id
+            ? "visible "
+            : "hidden"
         }`}
       >
         <AddModal
@@ -154,8 +159,8 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
               <CiEdit className="inline size-5 mr-1" /> Düzəliş
             </span>
           }
-          forEdit={thinks.content}
-          thinkId={thinks.id}
+          forEdit={thinks.user && thinks.content}
+          thinkId={thinks.user && thinks.id}
         />
       </div>
     </div>
@@ -174,12 +179,22 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
                   alt="user"
                 />
               ) : (
-                <span className="size-full text-2xl bg-gray-300  rounded-full border text-indigo-500 flex  justify-center">
-                  {thinks?.user?.userName?.charAt(0).toLowerCase()}
+                <span className="size-full text-2xl bg-gray-300  rounded-full border text-indigo-500 flex items-center justify-center">
+                  {thinks?.user?.userName?.charAt(0).toLowerCase() || (
+                    <img
+                      className="img-cover rounded-full"
+                      src={botImg}
+                      alt="user"
+                    />
+                  )}
                 </span>
               )}
             </figure>
-            <h6>{_.split(thinks.user.userName, " ", 1)[0].toLowerCase()}</h6>
+            <h6>
+              {thinks.user
+                ? _.split(thinks.user.userName, " ", 1)[0].toLowerCase()
+                : "Fikiral Bot"}
+            </h6>
           </div>
           <div className="flex items-center cursor-pointer">
             <IconContext.Provider
@@ -203,7 +218,7 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
         <div className="text-xs border-b-[1px] dark:border-gray-500 pb-2 space-x-4 border-[#DBDBDB] flex items-center">
           <Link
             onClick={() => setIsCommentOpen(false)}
-            to={`/categories/${thinks.category.slug}`}
+            to={thinks.user ? `/categories/${thinks.category.slug} ` : "#"}
             className="hover:bg-indigo-500 hover:text-white text-[#808080] py-[2px] px-1 rounded-[4px]"
           >
             {thinks.category.name.split(" ").slice(0, 3).join(" ")}
@@ -226,7 +241,7 @@ function ThinkCard({ thinks, children, items, userByIdData }) {
         allComments={allComments}
         likeCount={thinks.likeCount}
         postId={thinks.id}
-        thkinksUserId={thinks.user.id}
+        thkinksUserId={thinks.user && thinks.user.id}
         disabled={true}
         isCommentOpen={isCommentOpen}
         setIsCommentOpen={setIsCommentOpen}

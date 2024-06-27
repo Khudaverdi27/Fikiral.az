@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import { useModalActions } from "../../context/LoginModalProvider";
 import { getStorage, removeStorage } from "../../utils/helpers";
 import ThinkSection from "../home/components/ThinkSections";
-import { useFetchThinkPopular, useFetchThinksList } from "../../hooks/useFetch";
+import {
+  useAiPosts,
+  useFetchThinkPopular,
+  useFetchThinksList,
+} from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { useSearchActions } from "../../context/FormSearchProvider";
 import { useMediaQuery } from "@uidotdev/usehooks";
@@ -13,22 +17,33 @@ function WelcomePage() {
   const [popular, fetchPopular, popularLoading] = useFetchThinkPopular();
   const [data, apiFetch, loading] = useFetchThinksList();
   const [newCategories, setNewCategories] = useState([]);
+  const [aiPosts, getAiPosts, aiLoading] = useAiPosts();
+  const [allAccepted, setAllaccepted] = useState([]);
   const { searchResponse } = useSearchActions();
   const isMobile = useMediaQuery("only screen and (max-width : 480px)");
-  const sortedData = data?.sort((a, b) => b.id - a.id);
+  const sortedData = allAccepted?.sort((a, b) => b.id - a.id);
 
   useEffect(() => {
     const categoryFromStorage = getStorage("selectedCategories");
     setNewCategories(categoryFromStorage);
   }, [selectCategory]);
 
-  const filteredCategories = sortedData.filter((item) =>
+  const filteredCategories = sortedData?.filter((item) =>
     newCategories?.includes(item.category.id)
   );
 
   useEffect(() => {
+    const approvals =
+      aiPosts && aiPosts?.filter((post) => post.isApproval === true);
+    if (aiPosts) {
+      setAllaccepted(data.concat(approvals));
+    }
+  }, [aiPosts, data]);
+
+  useEffect(() => {
     fetchPopular();
     apiFetch();
+    getAiPosts();
     removeStorage("token");
     removeStorage("userId");
   }, []);
@@ -89,7 +104,7 @@ function WelcomePage() {
               : "Bütün fikirlər"
           }`}</p>
         }
-        items={filteredCategories.length > 0 ? filteredCategories : sortedData}
+        items={filteredCategories.length > 0 ? filteredCategories : allAccepted}
         loading={loading}
       />
     </section>

@@ -1,6 +1,6 @@
 import ThinkSection from "./components/ThinkSections";
 import { useModalActions } from "../../context/LoginModalProvider";
-import { useFetchThinksList } from "../../hooks/useFetch";
+import { useAiPosts, useFetchThinksList } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { getStorage, removeStorage } from "../../utils/helpers";
 import { useSearchActions } from "../../context/FormSearchProvider";
@@ -9,10 +9,25 @@ function HomePage() {
   const [data, apiFetch, loading] = useFetchThinksList();
   const [newCategories, setNewCategories] = useState([]);
   const [userSelectCateg, setUserSelectCateg] = useState([]);
+  const [aiPosts, getAiPosts, aiLoading] = useAiPosts();
+  const [allAccepted, setAllaccepted] = useState();
+
   const { isPosted, setIsPosted, selectCategory, userByIdData, getUserFetch } =
     useModalActions();
 
   const { searchResponse } = useSearchActions();
+
+  useEffect(() => {
+    getAiPosts();
+  }, []);
+
+  useEffect(() => {
+    const approvals =
+      aiPosts && aiPosts?.filter((post) => post.isApproval === true);
+    if (aiPosts) {
+      setAllaccepted(data.concat(approvals));
+    }
+  }, [aiPosts, data]);
 
   setTimeout(() => {
     removeStorage("admin");
@@ -20,7 +35,7 @@ function HomePage() {
 
   useEffect(() => {
     if (_.get(userByIdData, "id")) {
-      const dataForUser = _.chain(data)
+      const dataForUser = _.chain(allAccepted)
         .filter((d) =>
           _.get(userByIdData, "categoryIds", []).includes(
             _.get(d, "category.id")
@@ -44,14 +59,14 @@ function HomePage() {
     });
   }, [isPosted]);
 
-  const sortedData = _.chain(data)
+  const sortedData = _.chain(allAccepted)
     .sortBy((d) => -_.get(d, "id", 0))
     .reject((d) =>
       _.get(userByIdData, "categoryIds", []).includes(_.get(d, "category.id"))
     )
     .value();
 
-  const filteredCategories = _.chain(data)
+  const filteredCategories = _.chain(allAccepted)
     .filter((item) => _.includes(newCategories, _.get(item, "category.id")))
     .value();
 

@@ -169,13 +169,15 @@ function ThinkCardActions({
             />
           </>
         )}
-        <button onClick={() => handleCopy(thinksContent)}>
-          {copied ? (
-            <MdOutlineLibraryAddCheck className="size-[22px] text-green-500 " />
-          ) : (
-            <VscLink className="size-[22px] text-[#636363] hover:text-black" />
-          )}
-        </button>
+        {thkinksUserId && (
+          <button onClick={() => handleCopy(thinksContent)}>
+            {copied ? (
+              <MdOutlineLibraryAddCheck className="size-[22px] text-green-500 " />
+            ) : (
+              <VscLink className="size-[22px] text-[#636363] hover:text-black" />
+            )}
+          </button>
+        )}
       </div>
     </div>
   );

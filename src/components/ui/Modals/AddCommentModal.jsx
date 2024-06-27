@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { usePostComments } from "../../../hooks/useFetch";
 import { LoadingSpin } from "../../widget/Loading/ThinkSkeleton";
 import { useClickAway, useMediaQuery } from "@uidotdev/usehooks";
+import botImg from "../../../assets/img/bot.jpg";
 import _ from "lodash";
 
 const AddCommentModal = ({
@@ -114,16 +115,26 @@ const AddCommentModal = ({
                         />
                       ) : (
                         <span className="size-full text-4xl bg-gray-300  rounded-full border text-indigo-500 flex justify-center">
-                          {modalData?.user?.userName?.charAt(0).toLowerCase()}
+                          {modalData?.user?.userName
+                            ?.charAt(0)
+                            .toLowerCase() || (
+                            <img
+                              className="img-cover rounded-full"
+                              src={botImg}
+                              alt="user"
+                            />
+                          )}
                         </span>
                       )}
                     </figure>
                     <h6 className="text-[20px] dark:text-white font-fransisco">
-                      {_.split(
-                        modalData.user?.userName,
-                        " ",
-                        1
-                      )[0].toLowerCase()}
+                      {modalData.user?.userName
+                        ? _.split(
+                            modalData.user?.userName,
+                            " ",
+                            1
+                          )[0].toLowerCase()
+                        : "Fikiral Bot"}
                     </h6>
                     {isMobile && (
                       <IconContext.Provider
@@ -144,7 +155,11 @@ const AddCommentModal = ({
                 </div>
                 <div className="text-xs border-b-[1px] pb-2 space-x-4 border-[#DBDBDB] flex items-center">
                   <Link
-                    to={`/categories/${modalData?.category?.slug}`}
+                    to={
+                      modalData.user
+                        ? `/categories/${modalData?.category?.slug}`
+                        : "#"
+                    }
                     className="hover:bg-[#6C58BB] hover:text-white py-[2px] px-2 rounded-[4px] cursor-pointer text-[#808080] font-fransisco"
                   >
                     {modalData?.category?.name}
