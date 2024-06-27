@@ -2,7 +2,7 @@ import { userApi } from "../api/user.api";
 import { getStorage, objectToQueryString, removeStorage } from "./helpers";
 
 const base_URL = "https://fikiral-1rz3.onrender.com/fikiral/v1";
-const ai_URL = "http://165.232.123.144:8080/";
+const ai_URL = "https://data-generation-v1-0-0-2.onrender.com/";
 const request = async (baseURL, url, method, params = false) => {
   const token = getStorage("token");
 
