@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
-import { useDeleteThink } from "../../../hooks/useFetch";
+import { useDeleteAiPostById, useDeleteThink } from "../../../hooks/useFetch";
 import { useEffect } from "react";
 import { LoadingSpin } from "../../../components/widget/Loading/ThinkSkeleton";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import _ from "lodash";
 
 function AllPosts({ thinks, thinksLoading, getThinkFetch }) {
   const [deletedRes, deleteFetch] = useDeleteThink();
+  const [deletedAiRes, deleteAiFetch] = useDeleteAiPostById();
 
   const destroyCategory = (id) => {
     deleteFetch(id);
@@ -54,10 +55,10 @@ function AllPosts({ thinks, thinksLoading, getThinkFetch }) {
                 className="mt-6 bg-white flex items-center rounded-md space-y-2 p-3 border border-gray-100 text-black"
               >
                 <Col className="text-base " span={4}>
-                  <span>{think?.user?.userName}</span>
+                  <span>{think?.user?.userName || "Fikiral Bot"}</span>
                 </Col>
                 <Col className="text-center text-base " span={5}>
-                  <span>{think?.user?.gmail}</span>
+                  <span>{think?.user?.gmail || "info@fikiral.com"}</span>
                 </Col>
                 <Col className="text-base text-center" span={13}>
                   <p>
@@ -68,7 +69,11 @@ function AllPosts({ thinks, thinksLoading, getThinkFetch }) {
                   <IsConfirmModal
                     title={"Bu postu silmək istəyirsinizmi?"}
                     dangerBtn={<FaRegTrashAlt className="size-5" />}
-                    destroyProfile={() => destroyCategory(think.id)}
+                    destroyProfile={() =>
+                      think?.user
+                        ? destroyCategory(think.id)
+                        : deleteAiFetch(think.id)
+                    }
                     destroyBtn={"Sil"}
                   />
                 </Col>

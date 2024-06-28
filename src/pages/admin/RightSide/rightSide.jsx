@@ -27,6 +27,8 @@ function RighSide({
     useFetchInAcceptedThinks();
   const [aiPosts, getAiPosts, aiLoading] = useAiPosts();
   const [allInAccepted, setAllInAccepted] = useState();
+  const [allPosts, setAllPosts] = useState([]);
+  const [refreshState, setRefreshState] = useState(false);
   const dates = [
     { name: "Bu gün", key: "today" },
     { name: "Bu həftə", key: "week" },
@@ -41,13 +43,19 @@ function RighSide({
   };
   useEffect(() => {
     fetchInAccepted();
-    getAiPosts();
   }, []);
+
+  useEffect(() => {
+    getAiPosts();
+  }, [refreshState]);
+
   useEffect(() => {
     if (aiPosts) {
+      const approvals = aiPosts.filter((post) => post.isApproval === true);
       setAllInAccepted(inAcceptedPosts.concat(inApprovals));
+      setAllPosts(thinks.concat(approvals));
     }
-  }, [aiPosts, inAcceptedPosts]);
+  }, [aiPosts, inAcceptedPosts, thinks]);
 
   return (
     <section className="w-full">
@@ -96,11 +104,13 @@ function RighSide({
           inAcceptedPosts={inApprovals}
           fetchInAccepted={getAiPosts}
           loading={aiLoading}
+          setRefreshState={setRefreshState}
+          refreshState={refreshState}
         />
       ) : activeMenuLeft === "allpost" ? (
         <AllPosts
-          thinks={thinks}
-          thinksLoading={thinksLoading}
+          thinks={allPosts}
+          thinksLoading={loading}
           getThinkFetch={getThinkFetch}
         />
       ) : (
@@ -120,7 +130,7 @@ function RighSide({
             />
             <StatisticsCard
               name={"Postlar"}
-              count={thinks.length}
+              count={allPosts.length}
               loading={thinksLoading}
               increase={"5"}
             />

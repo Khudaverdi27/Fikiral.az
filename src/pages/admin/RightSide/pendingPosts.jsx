@@ -13,12 +13,19 @@ import IsConfirmModal from "../../../components/ui/Modals/IsConfirmModal";
 import botImg from "../../../assets/img/bot.jpg";
 import { toast } from "react-toastify";
 import _ from "lodash";
-function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
+function AllPostsPending({
+  inAcceptedPosts,
+  fetchInAccepted,
+  loading,
+  setRefreshState,
+  refreshState,
+}) {
   const [deletedRes, deleteFetch, deleteLoading] = useDeleteThink();
   const [deletedAiRes, deleteAiFetch, deleteAiLoading] = useDeleteAiPostById();
   const [acceptAiRes, acceptAiFetch, acceptAiLoading] = useAcceptAiPostById();
   const [res, acceptFetch, acceptLoading] = useFetchAcceptThink();
   const [acceptedId, setAcceptedId] = useState(false);
+
   const [postNotifyFetch] = usePostNotify();
   const loginId = getStorage("userId");
   const notifyError = (message) => toast.error(message);
@@ -34,9 +41,7 @@ function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
   useEffect(() => {
     if (deletedAiRes.message) {
       notifySucces(deletedAiRes.message);
-      setTimeout(() => {
-        location.reload();
-      }, 1500);
+      setRefreshState(!refreshState);
     } else if (deletedAiRes.status === 404) {
       notifyError("Bir şeylər tərs getdi, yenidən yoxlayın!");
     }
@@ -64,9 +69,7 @@ function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
   useEffect(() => {
     if (acceptAiRes.message) {
       notifySucces(acceptAiRes.message);
-      setTimeout(() => {
-        location.reload();
-      }, 1500);
+      setRefreshState(!refreshState);
     } else if (acceptAiRes.status === 404) {
       notifyError("Bir şeylər tərs getdi, yenidən yoxlayın!");
     }
@@ -82,7 +85,7 @@ function AllPostsPending({ inAcceptedPosts, fetchInAccepted, loading }) {
 
   return (
     <Row className="gap-y-5 mt-5 mx-10 bg-white rounded-lg h-screen overflow-auto">
-      {loading ? (
+      {loading || deleteAiLoading || acceptAiLoading ? (
         <Col span={24}>
           <LoadingSpin />
         </Col>
