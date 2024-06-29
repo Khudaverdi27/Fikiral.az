@@ -1,16 +1,16 @@
+import { useMediaQuery } from "@uidotdev/usehooks";
+import { Col, Row } from "antd";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSearchActions } from "../../context/FormSearchProvider";
 import { useModalActions } from "../../context/LoginModalProvider";
-import { getStorage, removeStorage } from "../../utils/helpers";
-import ThinkSection from "../home/components/ThinkSections";
 import {
   useAiPosts,
   useFetchThinkPopular,
-  useFetchThinksList,
+  useFetchThinksList
 } from "../../hooks/useFetch";
-import { useEffect, useState } from "react";
-import { useSearchActions } from "../../context/FormSearchProvider";
-import { useMediaQuery } from "@uidotdev/usehooks";
-import { Col, Row } from "antd";
+import { getStorage, removeStorage } from "../../utils/helpers";
+import ThinkSection from "../home/components/ThinkSections";
 function WelcomePage() {
   const { switcRegisterModal, selectCategory } = useModalActions();
   const token = getStorage("token");
@@ -69,8 +69,9 @@ function WelcomePage() {
           </Col>
           <Col span={24}>
             <p className={`text-[22px] leading-10 font-fransisco`}>
-              Yaradıcı biznes fikirlərinizi bölüşün və bizimlə sahibkarlıq
-              ruhunu kəşf edin!
+              Platformamız sahibkarlara biznes ideyalarını paylaşmaq və
+              investorlarla əlaqə qurmaq imkanı verir, eyni zamanda süni
+              intellektin köməyi ilə innovativ ideyalar kəşf edə bilərsiniz.
             </p>
           </Col>
           <Col className="!mb-10" span={24}>

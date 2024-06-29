@@ -4,15 +4,10 @@ function AboutPage() {
       <div className="sm:w-1/2 ">
         <h2 className="my-4 font-bold text-xl  sm:text-2xl px-3">Haqqımızda</h2>
         <article className="bg-white rounded-xl p-3 dark:text-black">
-          Fikirala xoş gəlmisiniz! Mən, innovativ ideyaları inkişaf etdirmək və
-          biznesin inkişafı üçün əməkdaşlıq mühitlərini inkişaf etdirməyə həvəsi
-          olan bir sahibkaram. Təcrübəmizə əsasən kreativ düşüncənin gücünün və
-          ideya mübadiləsinin transformasiya potensialının şahidi oldum.
-          Sahibkarlıqdakı səyahətim boyunca mən inkişaf edənlərlə əlaqə qurmaq,
-          fikir mübadiləsi aparmaq və maneələri aşan yeni təşəbbüslər yaratmaq
-          missiyasında olmuşam. Biz kollektiv intellektin gücünə inanırıq və
-          inanırıq ki, fikir mübadiləsi innovasiya və biznesin inkişafına təkan
-          verir.
+          Platforma sahibkarlara biznes ideyalarını paylaşmaq və investorlarla
+          əlaqə qurmaq imkanı verir, eyni zamanda süni intellektin köməyi ilə
+          innovativ fikirlər kəşf etmək və gələcəyin biznesini yaratmaq,
+          vizyonunuzu reallaşdırmaq üçün istifadəçilərin xidmətindədir.
         </article>
         <div className="image object-center text-center">
           <img src="https://i.imgur.com/WbQnbas.png" />
